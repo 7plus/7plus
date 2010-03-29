@@ -1,0 +1,497 @@
+<styles>
+	<comments>
+		Copyright (c) 1998-present Russ Freeman. All Rights Reserved.
+		Web site: http://www.gipsysoft.com/
+		This source file may not be used outside of Winspector. It may not be modified or
+		distributed outside of the Winspector package.
+
+		For other notes and more details see: window_styles_notes.txt
+	</comments>
+
+	<windowstyles>
+		<genericstyles>
+			<genericstyle name="WS_DLGFRAME" value="0x00400000" exclude="0x00C00000" />
+			<genericstyle name="WS_OVERLAPPED" value="0x00000000" exclude="0x40000000"/>
+			<genericstyle name="WS_POPUP" value="0x80000000" exclude="0x40000000" />
+			<genericstyle name="WS_CHILD" value="0x40000000" exclude="0x80000000" />
+			<genericstyle name="WS_MINIMIZE" value="0x20000000" exclude="0x01000000" />
+			<genericstyle name="WS_VISIBLE" value="0x10000000" />
+			<genericstyle name="WS_DISABLED" value="0x08000000" />
+			<genericstyle name="WS_CLIPSIBLINGS" value="0x04000000" />
+			<genericstyle name="WS_CLIPCHILDREN" value="0x02000000" />
+			<genericstyle name="WS_MAXIMIZE" value="0x01000000" exclude="0x20000000" />
+			<genericstyle name="WS_CAPTION" value="0x00C00000" exclude="0x00400000" />
+			<genericstyle name="WS_BORDER" value="0x00800000" />
+			<genericstyle name="WS_VSCROLL" value="0x00200000" />
+			<genericstyle name="WS_HSCROLL" value="0x00100000" />
+			<genericstyle name="WS_SYSMENU" value="0x00080000" needs="0x00C00000" />
+			<genericstyle name="WS_THICKFRAME" value="0x00040000" />
+			<genericstyle name="WS_GROUP" value="0x00020000" needs="0x40000000" />
+			<genericstyle name="WS_TABSTOP" value="0x00010000" needs="0x40000000" />
+			<genericstyle name="WS_MINIMIZEBOX" value="0x00020000" needs="0x00080000" exclude="0x40000000"/>
+			<genericstyle name="WS_MAXIMIZEBOX" value="0x00010000" needs="0x00080000" exclude="0x40000000" />
+		</genericstyles>
+
+		<classes>
+			<class name="#32770" >
+				<styles>
+					<style name="DS_ABSALIGN" value="0x01" />
+					<style name="DS_SYSMODAL" value="0x02" />
+					<style name="DS_LOCALEDIT" value="0x20" />
+					<style name="DS_SETFONT" value="0x40" />
+					<style name="DS_MODALFRAME" value="0x80" />
+					<style name="DS_NOIDLEMSG" value="0x100" />
+					<style name="DS_SETFOREGROUND" value="0x200" />
+					<style name="DS_3DLOOK" value="0x0004" />
+					<style name="DS_FIXEDSYS" value="0x0008" />
+					<style name="DS_NOFAILCREATE" value="0x0010" />
+					<style name="DS_CONTROL" value="0x0400" />
+					<style name="DS_CENTER" value="0x0800" />
+					<style name="DS_CENTERMOUSE" value="0x1000" />
+					<style name="DS_CONTEXTHELP" value="0x2000" />
+				</styles>
+			</class>
+
+			<class name="SysTabControl32" >
+				<styles>
+					<style name="TCS_SCROLLOPPOSITE" value="0x0001" />
+					<style name="TCS_BOTTOM" value="0x0002" />
+					<style name="TCS_MULTISELECT" value="0x0004" />
+					<style name="TCS_FLATBUTTONS" value="0x0008" />
+					<style name="TCS_FORCEICONLEFT" value="0x0010" />
+					<style name="TCS_FORCELABELLEFT" value="0x0020" />
+					<style name="TCS_HOTTRACK" value="0x0040" />
+					<style name="TCS_VERTICAL" value="0x0080" />
+					<style name="TCS_TABS" value="0x0000" exclude="0x0100"/>
+					<style name="TCS_BUTTONS" value="0x0100" />
+					<style name="TCS_SINGLELINE" value="0x0000" exclude="0x0200"/>
+					<style name="TCS_MULTILINE" value="0x0200" />
+					<style name="TCS_RIGHTJUSTIFY" value="0x0000" needs="0x0200"/>
+					<style name="TCS_FIXEDWIDTH" value="0x0400" />
+					<style name="TCS_RAGGEDRIGHT" value="0x0800" />
+					<style name="TCS_FOCUSONBUTTONDOWN" value="0x1000" />
+					<style name="TCS_OWNERDRAWFIXED" value="0x2000" />
+					<style name="TCS_TOOLTIPS" value="0x4000" />
+					<style name="TCS_FOCUSNEVER" value="0x8000" />
+				</styles>
+			</class>
+
+			<class name="SysListView32" >
+				<styles>
+					<style name="LVS_ICON" value="0x0000" mask="0x3" />
+					<style name="LVS_REPORT" value="0x0001" mask="0x3" />
+					<style name="LVS_SMALLICON" value="0x0002" mask="0x3" />
+					<style name="LVS_LIST" value="0x0003" mask="0x3" />
+					<style name="LVS_SINGLESEL" value="0x0004" />
+					<style name="LVS_SHOWSELALWAYS" value="0x0008" />
+					<style name="LVS_SORTASCENDING" value="0x0010" />
+					<style name="LVS_SORTDESCENDING" value="0x0020" />
+					<style name="LVS_SHAREIMAGELISTS" value="0x0040" />
+					<style name="LVS_NOLABELWRAP" value="0x0080" />
+					<style name="LVS_AUTOARRANGE" value="0x0100" />
+					<style name="LVS_EDITLABELS" value="0x0200" />
+					<style name="LVS_OWNERDATA" value="0x1000" />
+					<style name="LVS_NOSCROLL" value="0x2000" />
+					<style name="LVS_ALIGNTOP" value="0x0000" mask="0x0c00"/>
+					<style name="LVS_ALIGNLEFT" value="0x0800" mask="0x0c00" />
+					<style name="LVS_OWNERDRAWFIXED" value="0x0400" />
+					<style name="LVS_NOCOLUMNHEADER" value="0x4000" />
+					<style name="LVS_NOSORTHEADER" value="0x8000" />
+				</styles>
+			</class>
+
+			<class name="edit" >
+				<styles>
+					<style name="ES_LEFT" value="0x0000" mask="0x2" />
+					<style name="ES_CENTER" value="0x0001" mask="0x2" />
+					<style name="ES_RIGHT" value="0x0002" mask="0x2" />
+					<style name="ES_MULTILINE" value="0x0004" />
+					<style name="ES_UPPERCASE" value="0x0008" />
+					<style name="ES_LOWERCASE" value="0x0010" />
+					<style name="ES_PASSWORD" value="0x0020" />
+					<style name="ES_AUTOVSCROLL" value="0x0040" />
+					<style name="ES_AUTOHSCROLL" value="0x0080" />
+					<style name="ES_NOHIDESEL" value="0x0100" />
+					<style name="ES_OEMCONVERT" value="0x0400" />
+					<style name="ES_READONLY" value="0x0800" />
+					<style name="ES_WANTRETURN" value="0x1000" />
+					<style name="ES_NUMBER" value="0x2000" />
+				</styles>
+			</class>
+
+			<class name="Static" >
+				<styles>
+					<style name="SS_LEFT" value="0x00000000" mask="0x1f" />
+					<style name="SS_CENTER" value="0x00000001" mask="0x1f" />
+					<style name="SS_RIGHT" value="0x00000002" mask="0x1f" />
+					<style name="SS_ICON" value="0x00000003" mask="0x1f" />
+					<style name="SS_BLACKRECT" value="0x00000004" mask="0x1f" />
+					<style name="SS_GRAYRECT" value="0x00000005" mask="0x1f" />
+					<style name="SS_WHITERECT" value="0x00000006" mask="0x1f" />
+					<style name="SS_BLACKFRAME" value="0x00000007" mask="0x1f" />
+					<style name="SS_GRAYFRAME" value="0x00000008" mask="0x1f" />
+					<style name="SS_WHITEFRAME" value="0x00000009" mask="0x1f" />
+					<style name="SS_USERITEM" value="0x0000000A" mask="0x1f" />
+					<style name="SS_SIMPLE" value="0x0000000B" mask="0x1f" />
+					<style name="SS_LEFTNOWORDWRAP" value="0x0000000C" mask="0x1f" />
+					<style name="SS_OWNERDRAW" value="0x0000000D" mask="0x1f" />
+					<style name="SS_BITMAP" value="0x0000000E" mask="0x1f" />
+					<style name="SS_ENHMETAFILE" value="0x0000000F" mask="0x1f" />
+					<style name="SS_ETCHEDHORZ" value="0x00000010" mask="0x1f" />
+					<style name="SS_ETCHEDVERT" value="0x00000011" mask="0x1f" />
+					<style name="SS_ETCHEDFRAME" value="0x00000012" mask="0x1f" />
+					<style name="SS_NOPREFIX" value="0x00000080" />
+					<style name="SS_NOTIFY" value="0x00000100" />
+					<style name="SS_CENTERIMAGE" value="0x00000200" />
+					<style name="SS_RIGHTJUST" value="0x00000400" />
+					<style name="SS_REALSIZEIMAGE" value="0x00000800" />
+					<style name="SS_SUNKEN" value="0x00001000" />
+					<style name="SS_ENDELLIPSIS" value="0x00004000" mask="0xc000" />
+					<style name="SS_PATHELLIPSIS" value="0x00008000" mask="0xc000" />
+					<style name="SS_WORDELLIPSIS" value="0x0000C000" mask="0xc000" />
+				</styles>
+			</class>
+
+			<class name="msctls_updown32" >
+				<styles>
+					<style name="UDS_WRAP" value="0x0001" />
+					<style name="UDS_SETBUDDYINT" value="0x0002" />
+					<style name="UDS_ALIGNRIGHT" value="0x0004" />
+					<style name="UDS_ALIGNLEFT" value="0x0008" />
+					<style name="UDS_AUTOBUDDY" value="0x0010" />
+					<style name="UDS_ARROWKEYS" value="0x0020" />
+					<style name="UDS_HORZ" value="0x0040" />
+					<style name="UDS_NOTHOUSANDS" value="0x0080" />
+					<style name="UDS_HOTTRACK" value="0x0100" />
+				</styles>
+			</class>
+
+			<class name="button" >
+				<styles>
+					<style name="BS_PUSHBUTTON" value="0x00000000" mask="0xf" />
+					<style name="BS_DEFPUSHBUTTON" value="0x00000001" mask="0xf" />
+					<style name="BS_CHECKBOX" value="0x00000002" mask="0xf" />
+					<style name="BS_AUTOCHECKBOX" value="0x00000003" mask="0xf" />
+					<style name="BS_RADIOBUTTON" value="0x00000004" mask="0xf" />
+					<style name="BS_3STATE" value="0x00000005" mask="0xf" />
+					<style name="BS_AUTO3STATE" value="0x00000006" mask="0xf" />
+					<style name="BS_GROUPBOX" value="0x00000007" mask="0xf" />
+					<style name="BS_USERBUTTON" value="0x00000008" mask="0xf" />
+					<style name="BS_AUTORADIOBUTTON" value="0x00000009" mask="0xf" />
+					<style name="BS_OWNERDRAW" value="0x0000000B" mask="0xf" />
+					<style name="BS_LEFTTEXT" value="0x00000020" />
+					<style name="BS_TEXT" value="0x00000000" />
+					<style name="BS_ICON" value="0x00000040" />
+					<style name="BS_BITMAP" value="0x00000080" />
+					<style name="BS_LEFT" value="0x00000100" />
+					<style name="BS_RIGHT" value="0x00000200" />
+					<style name="BS_CENTER" value="0x00000300" />
+					<style name="BS_TOP" value="0x00000400" />
+					<style name="BS_BOTTOM" value="0x00000800" />
+					<style name="BS_VCENTER" value="0x00000C00" />
+					<style name="BS_PUSHLIKE" value="0x00001000" />
+					<style name="BS_MULTILINE" value="0x00002000" />
+					<style name="BS_NOTIFY" value="0x00004000" />
+					<style name="BS_FLAT" value="0x00008000" />
+				</styles>
+			</class>
+
+			<class name="msctls_trackbar32">
+				<styles>
+					<style name="TBS_AUTOTICKS" value="0x0001" />
+					<style name="TBS_VERT" value="0x0002" />
+					<style name="TBS_HORZ" value="0x0000" />
+					<style name="TBS_TOP" value="0x0004" />
+					<style name="TBS_BOTTOM" value="0x0000" />
+					<style name="TBS_LEFT" value="0x0004"  />
+					<style name="TBS_RIGHT" value="0x0000" needs="0x0002"/>
+					<style name="TBS_BOTH" value="0x0008" />
+					<style name="TBS_NOTICKS" value="0x0010" />
+					<style name="TBS_ENABLESELRANGE" value="0x0020" />
+					<style name="TBS_FIXEDLENGTH" value="0x0040" />
+					<style name="TBS_NOTHUMB" value="0x0080" />
+					<style name="TBS_TOOLTIPS" value="0x0100" />
+					<style name="TBS_REVERSED" value="0x0200" />
+				</styles>
+			</class>
+
+			<class name="ComboBox">
+				<styles>
+					<style name="CBS_SIMPLE" value="0x0001" mask="0xf" />
+					<style name="CBS_DROPDOWN" value="0x0002" mask="0xf" />
+					<style name="CBS_DROPDOWNLIST" value="0x0003" mask="0xf" />
+					<style name="CBS_OWNERDRAWFIXED" value="0x0010" />
+					<style name="CBS_OWNERDRAWVARIABLE" value="0x0020" />
+					<style name="CBS_AUTOHSCROLL" value="0x0040" />
+					<style name="CBS_OEMCONVERT" value="0x0080" />
+					<style name="CBS_SORT" value="0x0100" />
+					<style name="CBS_HASSTRINGS" value="0x0200" />
+					<style name="CBS_NOINTEGRALHEIGHT" value="0x0400" />
+					<style name="CBS_DISABLENOSCROLL" value="0x0800" />
+					<style name="CBS_UPPERCASE" value="0x2000" />
+					<style name="CBS_LOWERCASE" value="0x4000" />
+				</styles>
+			</class>
+
+			<class name="ComboBoxEx">
+				<styles>
+					<style name="CBS_SIMPLE" value="0x0001" mask="0xf" />
+					<style name="CBS_DROPDOWN" value="0x0002" mask="0xf" />
+					<style name="CBS_DROPDOWNLIST" value="0x0003" mask="0xf" />
+				</styles>
+			</class>
+
+			<class name="RICHEDIT_CLASS" >
+				<styles>
+					<style name="ES_LEFT" value="0x0000" mask="0x2" />
+					<style name="ES_CENTER" value="0x0001" mask="0x2" />
+					<style name="ES_RIGHT" value="0x0002" mask="0x2" />
+					<style name="ES_MULTILINE" value="0x0004" />
+					<style name="ES_UPPERCASE" value="0x0008" />
+					<style name="ES_LOWERCASE" value="0x0010" />
+					<style name="ES_PASSWORD" value="0x0020" />
+					<style name="ES_AUTOVSCROLL" value="0x0040" />
+					<style name="ES_AUTOHSCROLL" value="0x0080" />
+					<style name="ES_NOHIDESEL" value="0x0100" />
+					<style name="ES_OEMCONVERT" value="0x0400" />
+					<style name="ES_READONLY" value="0x0800" />
+					<style name="ES_WANTRETURN" value="0x1000" />
+					<style name="ES_NUMBER" value="0x2000" />
+					<style name="ES_SAVESEL" value="0x00008000" />
+					<style name="ES_SUNKEN" value="0x00004000" />
+					<style name="ES_DISABLENOSCROLL" value="0x00002000" />
+					<style name="ES_SELECTIONBAR" value="0x01000000" />
+					<style name="ES_NOOLEDRAGDROP" value="0x00000008" />
+				</styles>
+			</class>
+
+			<class name="SysDateTimePick32">
+				<styles>
+					<style name="DTS_UPDOWN" value="0x0001" />
+					<style name="DTS_SHOWNONE" value="0x0002" />
+					<style name="DTS_SHORTDATEFORMAT" value="0x0000" />
+					<style name="DTS_LONGDATEFORMAT" value="0x0004" mask="0xf" />
+					<style name="DTS_SHORTDATECENTURYFORMAT" value="0x000C" mask="0xf" />
+					<style name="DTS_TIMEFORMAT" value="0x0009" mask="0xf" />
+					<style name="DTS_APPCANPARSE" value="0x0010" />
+					<style name="DTS_RIGHTALIGN" value="0x0020" />
+				</styles>
+			</class>
+
+			<class name="SysHeader32">
+				<styles>
+					<style name="HDS_HORZ" value="0x0000" />
+					<style name="HDS_BUTTONS" value="0x0002" />
+					<style name="HDS_HOTTRACK" value="0x0004" />
+					<style name="HDS_HIDDEN" value="0x0008" />
+					<style name="HDS_DRAGDROP" value="0x0040" />
+					<style name="HDS_FULLDRAG" value="0x0080" />
+					<style name="HDS_FILTERBAR" value="0x0100" />
+					<style name="HDS_FLAT" value="0x0200" />
+				</styles>
+			</class>
+
+			<class name="SysMonthCal32">
+				<styles>
+					<style name="MCS_DAYSTATE" value="0x0001" />
+					<style name="MCS_MULTISELECT" value="0x0002" />
+					<style name="MCS_WEEKNUMBERS" value="0x0004" />
+					<style name="MCS_NOTODAYCIRCLE" value="0x0008" />
+					<style name="MCS_NOTODAY" value="0x0010" />
+				</styles>
+			</class>
+
+			<class name="SysLink">
+				<styles>
+					<style name="LWS_TRANSPARENT" value="0x0001" />
+					<style name="LWS_IGNORERETURN" value="0x0002" />
+				</styles>
+			</class>
+
+			<class name="SysPager">
+				<styles>
+					<style name="PGS_VERT" value="0x00000000" exclude="0x00000001" />
+					<style name="PGS_HORZ" value="0x00000001" exclude="0x00000000" />
+					<style name="PGS_AUTOSCROLL" value="0x00000002" />
+					<style name="PGS_DRAGNDROP" value="0x00000004" />
+				</styles>
+			</class>
+
+			<class name="NativeFontCtl">
+				<styles>
+					<style name="NFS_EDIT" value="0x0001" />
+					<style name="NFS_STATIC" value="0x0002" />
+					<style name="NFS_LISTCOMBO" value="0x0004" />
+					<style name="NFS_BUTTON" value="0x0008" />
+					<style name="NFS_ALL" value="0x0010" />
+					<style name="NFS_USEFONTASSOC" value="0x0020" />
+				</styles>
+			</class>
+
+			<class name="ReBarWindow32">
+				<styles>
+					<style name="RBS_TOOLTIPS" value="0x0100" />
+					<style name="RBS_VARHEIGHT" value="0x0200" />
+					<style name="RBS_BANDBORDERS" value="0x0400" />
+					<style name="RBS_FIXEDORDER" value="0x0800" />
+					<style name="RBS_REGISTERDROP" value="0x1000" />
+					<style name="RBS_AUTOSIZE" value="0x2000" />
+					<style name="RBS_VERTICALGRIPPER" value="0x4000" />
+					<style name="RBS_DBLCLKTOGGLE" value="0x8000" />
+
+					<style name="CCS_TOP" value="0x00000001" mask="0x3"/>
+					<style name="CCS_NOMOVEY" value="0x00000002" mask="0x3"/>
+					<style name="CCS_BOTTOM" value="0x00000003" mask="0x3"/>
+					<style name="CCS_NORESIZE" value="0x00000004" />
+					<style name="CCS_NOPARENTALIGN" value="0x00000008" />
+					<style name="CCS_ADJUSTABLE" value="0x00000020" />
+					<style name="CCS_NODIVIDER" value="0x00000040" />
+					<style name="CCS_VERT" value="0x00000080" />
+				</styles>
+			</class>
+
+			<class name="msctls_statusbar32">
+				<styles>
+					<style name="SBARS_SIZEGRIP" value="0x0100" />
+					<style name="SBARS_TOOLTIPS" value="0x0800" />
+
+					<style name="CCS_TOP" value="0x00000001" mask="0x3"/>
+					<style name="CCS_NOMOVEY" value="0x00000002" mask="0x3"/>
+					<style name="CCS_BOTTOM" value="0x00000003" mask="0x3"/>
+					<style name="CCS_NORESIZE" value="0x00000004" />
+					<style name="CCS_NOPARENTALIGN" value="0x00000008" />
+					<style name="CCS_ADJUSTABLE" value="0x00000020" />
+					<style name="CCS_NODIVIDER" value="0x00000040" />
+					<style name="CCS_VERT" value="0x00000080" />
+				</styles>
+			</class>
+
+			<class name="msctls_progress32">
+				<styles>
+					<style name="PBS_SMOOTH" value="0x01" />
+					<style name="PBS_VERTICAL" value="0x04" />
+				</styles>
+			</class>
+
+			<class name="SysAnimate32">
+				<styles>
+					<style name="ACS_CENTER" value="0x0001" />
+					<style name="ACS_TRANSPARENT" value="0x0002" />
+					<style name="ACS_AUTOPLAY" value="0x0004" />
+					<style name="ACS_TIMER" value="0x0008" />
+				</styles>
+			</class>
+
+			<class name="ToolbarWindow32">
+				<styles>
+					<style name="TBSTYLE_ALTDRAG" value="0x0400" />
+					<style name="TBSTYLE_CUSTOMERASE" value="0x2000" />
+					<style name="TBSTYLE_FLAT" value="0x0800" />
+					<style name="TBSTYLE_REGISTERDROP" value="0x4000" />
+					<style name="TBSTYLE_TOOLTIPS" value="0x0100" />
+					<style name="TBSTYLE_LIST" value="0x1000" />
+					<style name="TBSTYLE_TRANSPARENT" value="0x8000" />
+					<style name="TBSTYLE_WRAPABLE" value="0x0200" />
+
+					<style name="CCS_TOP" value="0x00000001" mask="0x3"/>
+					<style name="CCS_NOMOVEY" value="0x00000002" mask="0x3"/>
+					<style name="CCS_BOTTOM" value="0x00000003" mask="0x3"/>
+					<style name="CCS_NORESIZE" value="0x00000004" />
+					<style name="CCS_NOPARENTALIGN" value="0x00000008" />
+					<style name="CCS_ADJUSTABLE" value="0x00000020" />
+					<style name="CCS_NODIVIDER" value="0x00000040" />
+					<style name="CCS_VERT" value="0x00000080" />
+				</styles>
+			</class>
+
+			<class name="Listbox">
+				<styles>
+					<style name="LBS_NOTIFY" value="0x0001L" />
+					<style name="LBS_SORT" value="0x0002" />
+					<style name="LBS_NOREDRAW" value="0x0004" />
+					<style name="LBS_MULTIPLESEL" value="0x0008L" />
+					<style name="LBS_OWNERDRAWFIXED" value="0x0010" />
+					<style name="LBS_OWNERDRAWVARIABLE" value="" />
+					<style name="LBS_HASSTRINGS" value="0x0040" />
+					<style name="LBS_USETABSTOPS" value="0x0080" />
+					<style name="LBS_NOINTEGRALHEIGHT" value="0x0100" />
+					<style name="LBS_MULTICOLUMN" value="0x0200" />
+					<style name="LBS_WANTKEYBOARDINPUT" value="" />
+					<style name="LBS_EXTENDEDSEL" value="0x0800" />
+					<style name="LBS_DISABLENOSCROLL" value="0x1000" />
+					<style name="LBS_NODATA" value="0x2000" />
+					<style name="LBS_NOSEL" value="0x4000" />
+				</styles>
+			</class>
+
+			<class name="SCROLLBAR">
+				<styles>
+					<style name="SBS_HORZ" value="0x0000" mask="0x0001"/>
+					<style name="SBS_VERT" value="0x0001"  mask="0x0001"/>
+					<style name="SBS_TOPALIGN" value="0x0002"  mask="0x0002"/>
+					<style name="SBS_LEFTALIGN" value="0x0002" mask="0x0002"/>
+					<style name="SBS_BOTTOMALIGN" value="0x0004" mask="0x0004"/>
+					<style name="SBS_RIGHTALIGN" value="0x0004" mask="0x0004"/>
+					<style name="SBS_SIZEBOXTOPLEFTALIGN" value="0x0002" needs="0x0008"/>
+					<style name="SBS_SIZEBOXBOTTOMRIGHTALIGN" value="0x0004L" needs="0x0008" />
+					<style name="SBS_SIZEBOX" value="0x0008" />
+					<style name="SBS_SIZEGRIP" value="0x0010" />
+				</styles>
+			</class>
+
+			<class name="SysTreeView32" >
+				<styles>
+					<style name="TVS_HASBUTTONS" value="0x0001" />
+					<style name="TVS_HASLINES" value="0x0002" />
+					<style name="TVS_LINESATROOT" value="0x0004" needs="0x0002" />
+					<style name="TVS_EDITLABELS" value="0x0008" />
+					<style name="TVS_DISABLEDRAGDROP" value="0x0010" />
+					<style name="TVS_SHOWSELALWAYS" value="0x0020" />
+					<style name="TVS_RTLREADING" value="0x0040" />
+					<style name="TVS_NOTOOLTIPS" value="0x0080" />
+					<style name="TVS_CHECKBOXES" value="0x0100" />
+					<style name="TVS_TRACKSELECT" value="0x0200" />
+					<style name="TVS_SINGLEEXPAND" value="0x0400" />
+					<style name="TVS_INFOTIP" value="0x0800" />
+					<style name="TVS_FULLROWSELECT" value="0x1000" exclude="0x0002" />
+					<style name="TVS_NOSCROLL" value="0x2000" />
+					<style name="TVS_NONEVENHEIGHT" value="0x4000" />
+					<style name="TVS_NOHSCROLL" value="0x8000" />
+				</styles>
+			</class>
+		</classes>
+
+	</windowstyles>
+
+	<windowstylesex>
+
+		<genericstyles>
+			<genericstyle name="WS_EX_DLGMODALFRAME" value="0x00000001" />
+			<genericstyle name="WS_EX_NOPARENTNOTIFY" value="0x00000004" />
+			<genericstyle name="WS_EX_TOPMOST" value="0x00000008" />
+			<genericstyle name="WS_EX_ACCEPTFILES" value="0x00000010" />
+			<genericstyle name="WS_EX_TRANSPARENT" value="0x00000020" />
+			<genericstyle name="WS_EX_MDICHILD" value="0x00000040" />
+			<genericstyle name="WS_EX_TOOLWINDOW" value="0x00000080" />
+			<genericstyle name="WS_EX_WINDOWEDGE" value="0x00000100" />
+			<genericstyle name="WS_EX_CLIENTEDGE" value="0x00000200" />
+			<genericstyle name="WS_EX_CONTEXTHELP" value="0x00000400" />
+			<genericstyle name="WS_EX_RIGHT" value="0x00001000" />
+			<genericstyle name="WS_EX_LEFT" value="0x00000000" />
+			<genericstyle name="WS_EX_RTLREADING" value="0x00002000" />
+			<genericstyle name="WS_EX_LTRREADING" value="0x00000000" />
+			<genericstyle name="WS_EX_LEFTSCROLLBAR" value="0x00004000" />
+			<genericstyle name="WS_EX_RIGHTSCROLLBAR" value="0x00000000" />
+			<genericstyle name="WS_EX_CONTROLPARENT" value="0x00010000" />
+			<genericstyle name="WS_EX_STATICEDGE" value="0x00020000" />
+			<genericstyle name="WS_EX_APPWINDOW" value="0x00040000" />
+			<genericstyle name="WS_EX_LAYERED" value="0x00080000" />			
+			<genericstyle name="WS_EX_SMCAPTION" value="0x00000080" />
+			<genericstyle name="WS_EX_NOINHERITLAYOUT" value="0x00100000" />
+			<genericstyle name="WS_EX_LAYOUTRTL" value="0x00400000" />
+			<genericstyle name="WS_EX_COMPOSITED" value="0x02000000" />
+			<genericstyle name="WS_EX_NOACTIVATE" value="0x08000000" />
+		</genericstyles>
+	</windowstylesex>
+
+</styles>

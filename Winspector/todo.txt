@@ -1,0 +1,121 @@
+Copyright (c)  Gipsysoft. All Rights Reserved.
+Please see the file "licence.txt" for licencing details.
+File:	todo.txt
+Owner:	russf@gipsysoft.com
+Purpose: My list of stuff to do.
+
+This is my list of things I want to do. 
+
+The job of decoding messages is ongoing. It's a big job and will just take time.
+
+Features and suggestions
+------------------------
+Nothing here is a commitment, instead it's merely a dumping ground for suggestions, ideas and thoughts
+on ways in which Winspector could be improved.
+
+* Add-ins
+The ability to extend the messages with your own application and window class defined messages (this can be done with an XML file right now).
+This would be great when debugging your own applications.
+
+* View "password" ***
+Nuff said
+
+* Window class list filters...
+I planned to implement filters and this could be added to this. You'd select a filter from a drop down list
+above the window list and this would filter out junk of no interest.
+
+* Find message in message window...
+In the message window it would be nice to be able to search for a message.
+If we also recorded a list of unique messages sent to the window then we could supply this list as well as having this list as
+an auto-complete drown down on the "find" dialog.
+
+* Edit message filter
+Need to add the ability to add/remove message groups. ATM the only way you can do this is to hack the XML file - which is an incredibly
+ugly hack if there ever was one.
+
+1) To select a range (classical with Ctrl, Shift, Ctrl+Shift) and move the selected messages to the other window.
+2) To sort the messages by name or by number or by group.
+
+
+* Edit all message filters
+Now that we have message filtering and editing it would be nice if there was somewhere to edit all of the message filters in one place.
+We could also define a global message filter like Spy++ has.
+
+* Properties auto-refresh
+An option to have the properties window auto-refresh would be good.
+
+* Message timestamp
+Optionally display the milliseconds for each message.
+
+* Track focused window messages
+This might be handy. Track messages from all windows that get the focus. This might tell us why a window gets the focus and when.
+Could use SetWinEventHook EVENT_OBJECT_FOCUS. This would need a new display method as we would also need to report the window
+handle (and maybe the window type).
+
+* Saving
+Add the ability to save the window log, the window list and the process list.
+
+
+* Print
+Add ability to print the window log, properties and messages.
+
+* Remote message watching
+Zack Erhart suggested adding the ability to watch messages remotely. I can see that this would be truly useful for debugging an application
+during windows shutdown - the only other ways is to use a serious system level debugger.
+
+* Highlight the message window.
+Just prior to creating a message window also highlight the window in question in the usual manner. This will be optional.
+
+* Find by Title
+A "Find by Title" where you could enter a part of the Window Title would be nice.
+
+* Add alternative class names
+Where windows classes are used add alternatives...possibly using regular expressions. This would
+then work for .NET window classes where they 'appear' as normal standard classes but the class name has other muck.
+
+* Show me all messages.
+A popup that list all the unique messages sent to a window. We can then show all 'instances' of that message and provide a means
+to jump straight to them. This would be faster than a "find" type operation. Little popup should be modeless.
+
+From pete: http://www.gipsysoft.com/forum/topic.asp?id=48
+1. Copy HWND to clipboard from the right click menu
+2. "Find window by HWND" from the main menu underneath "Find windows by class..."
+3. Ability to view the window text. The text should be in a resizable dialog with a multi-line edit control and if you push the ok button instead of the cancel button and if the string doesn't match the original string, it will send WM_SETTEXT with the new text of the window.
+
+
+Process Properties
+------------------
+* Handles, files, semaphores, etc.
+* Memory inspection
+* Process stats
+* Modules loaded
+
+This will basically bring together many smaller tools into one tool that does them all and more.
+
+Dev stuff
+---------
+
+* For reparenting
+Must take a look at EVENT_OBJECT_REORDER in SetWinEventHook...
+
+
+COM interface for all - discussion
+----------------------------------
+
+Getting lots of feature requests for things that are not really related to Winspector but could be
+achieved using scripting. So, the answer is a COM interface...
+
+So, the plan is to build an out-of-process EXE server that will actually take care of all of the window
+handle management, message trapping and notifications.
+
+You can subscribe to window create/destroy and of course message events.
+
+You can get a list of visible windows, get a list of child windows for that visible window, get/set properties for windows
+and do all manner of magic with the new interfaces. In fact; Because Winspector itself will use these new interfaces you'll
+be able to perform the same magic that winspector does.
+
+Interfaces:
+* Subscribe to window messages
+* Subscribe to window create/destroy events
+
+Also, we could use COM categories to load decoders - decoders could then be written in VBScript - woohoo!

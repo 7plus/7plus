@@ -1,0 +1,321 @@
+Copyright (c) 1998-present Russ Freeman. All Rights Reserved.
+Web site: http://www.windows-spy.com/
+File:	History.txt
+Owner:	russf@gipsysoft.com
+Purpose:	History of this project...
+
+
+For information relating to this utility, the reason for it's existence, an overview of
+some of it's features as well as planned features see http://www.windows-spy.com/
+
+
+New stuff added at the top.
+
+HISTORY
+-------
+*********** Build number 37 ***************
+12-11-2006	Fixed bug where the window titles in the tree did not update to reflect changes in the window captions.
+12-11-2006	Added pretty much every tooltip control message.
+12-11-2006	Added a bunch of decoders for (rich)edit controls.
+12-11-2006	Fixed bug where the config file could get corrupted when using the unicode version.
+30-04-2005	Added "info" button to the message display to look up a message on the web.
+
+*********** Build number 36 ***************
+25-03-2005	Added a big bunch of decoders for the tab control.
+25-03-2005	Fixed a bug where the tracktip.html, in the unicode version, was producing garbage at the end.
+25-03-2005	Added a big bunch of detailed message decoders for list-view window classes.
+25-03-2005	Added context menu command to copy the message name to the clipboard
+25-03-2005	Small tidying up of the Quick Window Info panel
+25-03-2005	Fixed bug where the Quick Window Info panel didn't show the colour for layered windows.
+25-03-2005	Fixed bug where the icons in the tree were drawn a little ugly
+23-03-2005	Added more class specific information for many controls.
+23-03-2005	Added "class specific info" to the tracking tip so you can get some useful information without having to look any deeper
+22-03-2005	Fixed a bug in the tracking tooltip where it could display in a bad place. Also tidied up the tracking tip to make it look nicer.
+20-03-2005	Added shadow on the tracking tip when selecting a window and when used on an OS that supports it.
+
+*********** Build number 35 ***************
+11-03-2005	Added header and listview total counts to the properties for windows of that type.
+11-03-2005	Added window list refresh when dragging around for a window handle.
+11-03-2005	Added Rebar decoders
+11-03-2005	Fixed bug with SB_SETTEXTA/SB_SETTEXTW where the text wasn't correctly displayed.
+11-03-2005	Pretty much added all of the most important and used SysTreeView32 decoders.
+11-03-2005	Added tree view "total count" and "visible count" to the window properties for SysTreeView32.
+11-03-2005	Added whether a message was posted or sent, and the time of the message, to both the XML and text message save options.
+11-03-2005	Fixed fairly serious bug that would cause other applications to crash in response to a WM_NULL message being sent to them during their window creation process.
+
+*********** Build number 34 ***************
+13-02-2005	Added ability to know whether a message was posted or sent to the window. It's an option on the Options dialog.
+13-02-2005	Fixed bug where Winspector would hang, and subsequently not start, if one or more windows were not responding
+
+*********** Build number 33 ***************
+09-10-2005	Fixed bug where options "parameters on one line" combined with "auto-expand" meant each messages was drawn badly.
+09-10-2005	Added a whole bunch of very detailed message support including controls such as list view, datetimepicker, hotkey and many more.
+08-10-2005	Added detailed message listings for WM_SETFONT and a range of other font related messages
+08-10-2005	Added option (CTRL+O) to display message times (HH:MM:SS.ms)
+07-10-2005	Many small optimisations making Winspector feel a little snappier throughout.
+06-10-2005	Added detailed support for many generic windows messages
+
+*********** Build number 32 ***************
+15-05-2004	Added some more ListView and listbox decoders
+15-05-2004	Fixed some issues with WISPTIS.EXE (nasty thing, it has nasty friends) wich caused IE to crash.
+
+*********** Build number 31 ***************
+08-04-2004	Added decoders for a bunch of header, listbox, statusbar messages
+08-04-2004	Added more message timeouts to allow for hung windows.
+16-12-2003	Fixed bug when running Winspector and Lotus Notes: http://www.gipsysoft.com/forum/topic.asp?id=4
+
+*********** Build number 30 ***************
+29-11-2003	Minor change to the layout of the XML struture that messages are saved in.
+29-11-2003	Added a bunch of decoders for the little up/down control.
+29-11-2003	Added a bunch of decoders for list box messages.
+28-11-2003	Fixed bug where a class watch for a LISTBOX would result in Winspector getting very confused.
+
+*********** Build number 29 ***************
+28-11-2003	Fixed bug where Winspector was causing problems for some third party applications that captured OutputDebugString type events
+28-11-2003	Added some decoders for header control
+28-11-2003	Added full decoders progress bar.
+28-11-2003	Added full decoders for combo box.
+
+*********** Build number 28 ***************
+16-11-2003	Fixed bug where a locked up window (not responding) would mean Winspector would not start.
+            This may affect other areas of Winspector so I'll need to build a test for this. The immediate
+            problem is fixed though.
+16-11-2003	Fixed all of the URLs so they go to the windows-spy.com domain.
+
+*********** Build number 27 ***************
+09-11-2003	Added decoders for all IP address control messages.
+09-11-2003	Added decoders for WM_COMMAND notify messegs such as BN_CLICKED etc.
+08-11-2003	Added ability to highlight a window from the window log.
+29-10-2003	Added a bunch of Edit, listview and scrollbar specific decoders.
+
+*********** Build number 26 ***************
+27-08-2003	Added a bunch of WM_NOTIFY codes.
+27-08-2003	Fixed bug where Winspector would not run on NT machines prior to Windows 2000.
+25-07-2003	Fixed a couple of resource errors and typos.
+
+*********** Build number 25 ***************
+23-07-2003	Fixed bug where some of the message details we're chopped off in the unicode version.
+23-07-2003	Added ability to right-click and select messages to be auto-expanded. This is saved with the class filter.
+23-07-2003	Added option (options dialog) to auto-expand all messages in the message list.
+23-07-2003	Added saving and loading of message highlights to the filter for each window class ( xml-files/<classname>.xml )
+22-07-2003	Added CTRL+O shortcut to display the options dialog.
+22-07-2003	Added option to change the colours used for message highlighting and bookmarks.
+21-07-2003	Added ability to highlight messages. Just right click on a message and select "Highlight..."
+21-07-2003	Added a (optional) warning when clearing the messages in the message view.
+
+*********** Build number 24 ***************
+20-07-2003	Added little docking info window that shows information about window under the cursor.
+            To change the content create a file called "WindowInfo.HTML" and use the same tags as
+						the window properties and drag tip.
+						http://www.gipsysoft.com/articles/winspector/tags.shtml
+						(I'll update the docs when I get chance).
+
+*********** Build number 23 ***************
+19-07-2003	Added ability to enable and disable window watches.
+19-07-2003	Added bookmarks to the message window. CTRL+F2 to toggle a bookmark and F2 to jump to the next bookmark, SHIFT+F2. Also added a toolbar button for toggling the bookmarks.
+18-07-2003	Added CTRL+L shortcut to highlight the window currently selected in the window list.
+
+*********** Build number 22 ***************
+29-06-2003	Fixed bug; If you have message parameters on a single line then you can still "open" the item. This reveals a big chunk of blank space.
+
+*********** Build number 21 ***************
+23-06-2003	Added decoders for all animation control messages. Also, WM_SIZING, WM_MOVING
+23-06-2003	Fixed a couple of problems that may have caused Winspector or other applications to rash on exit.
+22-06-2003	Changed the window list. It now has a "process" tab that lists processes with windows. It should now be trivial to find your application windows in amongst the junk.
+14-06-2003	Changed the Window Log so it's now much faster.
+
+*********** Build number 21 ***************
+11-05-2003	Fixed super annoying problem where only one message window could be displayed.
+
+*********** Build number 20	***************
+27-10-2002	Added Todd C. Wilson's agressive optimizations: http://www.codeproject.com/tips/aggressiveoptimize.asp
+16-10-2002	Changed wording on "Show all messages" to be "Clear message filter" to make it more obvious what it does.
+
+*********** Build number 19	***************
+13-10-2002	Added decoders for WM_NCHITTEST, WM_SHOWINDOW, WM_WM_SETCURSOR, WM_QUERYENDSESSION, WM_DEVMODECHANGE, WM_WININICHANGE, WM_MOUSEACTIVATE
+13-10-2002	Added "bring window to front" context menu item for the Window List. Just right-click...
+13-10-2002	Added ability to edit window styles. From the window list right-click and select "Edit window styles" etc.
+13-10-2002	Added window navigation buttons to the Window Properties toolbar.
+12-10-2002	Added support for your own class specific messages. I have supplied a demonstration file for QHTM messages. It's called "QHTM.messages" and it's in the xml-files sub-folder.
+            Simply copy the format (should be obvious) and called it <whatever>.messages. Winspector enumerates the *.messages files when it starts up.
+			Messages added this way behave in the same way as normal messages and can be filtered in the same way using either righ-click or Edit Message Filter.
+12-10-2002	Fixed bug where text copied to the clipboard for unicode builds was being copied as CF_TEXT instead of CF_UNICODETEXT.
+
+*********** Build number 18	***************
+02-10-2002	Added window class specific properties. Right now I've added the min, max, page and pos for scrollbars and the state of buttons (checked, unchecked, etc.), the values for up/down controls and the count and selected item for combo and list boxes.
+02-10-2002	Added ability to specify files for the tracking tip and the window properties. For details see: http://www.gipsysoft.com/articles/winspector/tags.shtml
+02-10-2002	Added ability to use HTML in the tracking tip used for the window selector. For more info see: http://www.gipsysoft.com/articles/winspector/tags.shtml
+02-10-2002	Added "window properties" (Get/SetProp) to the Window Properties window ;-)
+28-09-2002	Paul Noble changed and updated some of the styles in styles.xml.
+28-09-2002	Fixed problem where not all WM_DESTROY messages were showing in the Window Log.
+
+*********** Build number 17	***************
+28-09-2002	Added tree view styles to styles.xml
+28-09-2002	Fixed it so a single window can only have one message window, you can still clone the message window though.
+28-09-2002	Fixed z-order for "Find window by class" dialog.
+28-09-2002	Fixed obscure CRASH bug when closing an application (which appeared somewhat random).
+28-09-2002	Added window ID to the properties
+24-09-2002	Fixed niggle that the Help|Welcome didn't bring the welcome page to the front. Thanks to Neville Franks it does now!
+24-09-2002	Changed the names of the setup files from winspector to winspector_setup.
+24-09-2002	Fixed bug in properties display where the module name was garbage. Worked a treat in ansi build but unicode was using the wrong
+            signature function.
+24-09-2002	Fixed bug where Winspector would leave little files called "C", "D", "E" etc. on your machine. This was due to a unicode problem
+            where the LOG.DLL was expecting an ANSI filename but Winspector was passing a unicode filename.
+			The letter of the filename will be the letter of the drive - if you search you might find a few and if you look inside them
+			you'll see some log file output. It's safe to delete them.
+
+*********** Build number 16***************
+22-09-2002	Added full path to the EXE that owns a window in the Properties display.
+22-09-2002	Added message name to the Hide this message context menu item just so you can more clearly see which message you are hiding.
+22-09-2002	Added window co-ordinates when dragging the window selection from the window list.
+22-09-2002	Added options to show all message parameters on the same line as the message (similar to Spy++) and also added ability to
+            display message numbers.
+22-09-2002	Added Edit|Options dialog.
+22-09-2002	Changed the message window from using a tree control to using an owner drawn list control. This has made the message window
+            *much* faster for both adding tons of items and removing tons of items. It has also allowed me to alter the way drawing
+			is done for the message window.
+
+*********** Build number 15 ***************
+18-09-2002	Changed the window class watcher list dialog to be resizeable.
+18-09-2002	Added class history dropdown to the window class watcher.
+17-09-2002	Created Unicode version of Winspector. Remember, Unicode only works on NT based OS's...Why Unicode? Would you believe it's a little faster!
+
+*********** Build number 14 ***************
+14-09-2002	Fixed bug where the window selector and all "locate in window list" functions were not expanding the tree nodes of the windows parent.
+14-09-2002	Fixed annoying bug where the position of the context menu for messages was off by the toolbar height. Boy-oh-boy was this annoying.
+14-09-2002	Fixed bizarre problem where refreshing the Window List whilst having a Message Window open would cause a crash.
+
+*********** Build number 13 ***************
+13-09-2002	Added "find window by class" toolbar and menu items.
+13-09-2002	Added ability to save window properties as a HTML file.
+13-09-2002	Added decoders for WM_ACTIVATEAPP, WM_NOTIFY, WM_NCACTIVATE, WM_NCPAINT, WM_WINDOWPOSCHANGED
+13-09-2002	Added properties window toolbar.
+12-09-2002	Added message window toolbar button to show the properties of the window.
+12-09-2002	Added message window toolbar button to locate the window in the window list.
+12-09-2002	Added message window toolbar.
+12-09-2002	Fixed message window icons so they have a transparent background.
+12-09-2002	Fixed bug that would cause the class message filter to be saved as ".xml".
+12-09-2002	Fixed window list icon for unknown windows so they have a transparent background.
+12-09-2002	Added the ability to save messages to either a plain text file or an XML file.
+11-09-2002	Changed the drag panel at the top of the window list in the hope that people can see it now, also added a copy of the cursor as a further clue.
+11-09-2002	Added more control styles to styles.xml.
+
+*********** Build number 12 ***************
+10-09-2002	Altered the window log output so now created and destroyed windows have the same options and content.
+10-09-2002	Fixed nasty buffer overflow error where Winspector would barf if the window contents were very long. This *does* happen in
+            real life though. Fixed now.
+10-09-2002	Changed the installed default for the window list auto-refresh to "on".
+10-09-2002	Added ability for Winspector to be transparent. Toggle the toolbar button and then use CTRL+mouse wheel to increase and decrease the transparency.
+            This only works on Windows 2000 and XP but Winspector will continue to work on other platforms.
+
+10-09-2002	Added "always on top" toolbar button and menu items.
+10-09-2002	Fixed annoyance where the log would report NULL windows being destroyed. 
+08-09-2002	Added full decoder for WM_NOTIFYFORMAT, WM_QUERYUISTATE, WM_PARENTNOTIFY, WM_DRAWITEM
+08-09-2002	Added context menu to the Window Log. These include the ability to clear the log output. Also, I have changed
+            the layout of the output and added some more commands. Click (left or right) the link or dead space to see the new
+			options.
+
+*********** Build number 11 ***************
+08-09-2002	Added more log file output to the startup in an effort to track a very odd crash when winspector starts.
+08-09-2002	Added UI for editing the current filter. I've yet to add the ability to edit groups of messages (e.g. non-client) but
+            what's there is incredibly useful already.
+05-09-2002	Added shortcut key to toggle the window log.
+05-09-2002	Added filter on message 'classes' so now you can filter all "button" or "toolbar" class of messages.
+05-09-2002	Added filter on message 'types' so now you can filter all "non-client" or "mouse" type messages.
+05-09-2002	Added ability to show/hide the return values for messages. Right-click to enable/disable.
+05-09-2002	Added styles for the animiation control.
+05-09-2002	Added partial decoder for progress bar, rebar, animation control, tree view, list view, up/down, month/day calendar, 
+            pager, statusbar, combo box ex, tab control, date/time picker, IP address and hotkey. I think that's all of them.
+            1037 windows messages are now partially processed by Winspector. phew!
+
+			Now all I need to do is add full decoders for these messages.
+
+05-09-2002	The window list is now much better. Windows now appear and disappear a more reliably. I still need to
+            figure out when a window has been reparented though so if anyone has any suggestions I'd be very greatful.
+05-09-2002	Added full decoders for some more messages: WM_GETMINMAXINFO, WM_WINDOWPOSCHANGING, WM_NCCREATE, WM_NCCALCSIZE
+04-09-2002	Again I have changed the way messages are delivered - this now means the very *first* message sent to a window can
+            be seen...even before WM_NCCREATE!
+02-09-2002	Vastly increased the performance of the message window and at the same time drastically reduced the memory consumed
+            when a lot of messages are present.
+
+
+*********** Build number 10 ***************
+30-08-2002  Missed extended style WS_EX_LAYERED from styles.xml.
+30-08-2002  I have fixed a number of bugs in the HTML display component and these have therefore fixed the same issues in Winspector:
+            * Slight redraw bug where tables with tables used to create borders with colours would be OBO.
+            * Edit control was too small for the text so the Edit was drawing on it's top border.
+            * When left-clicking on the window log the log would scroll to the top.
+30-08-2002  Added partial decoder for SysHeader32 
+30-08-2002  Added log writing ability so I can better investigate any future problems with Winspector.
+
+
+*********** Build number 9 ***************
+29-08-2002  Added ability to toggle the message filter on/off - this allows you to keep a message filter whilst at the same time easily
+            switch between filtered and non-filtered message lists.
+29-08-2002  Added saving of the window class based message filters. They are saved as XML files, the filename is based on the window class
+            name and they live in the xml-files folder.
+29-08-2002  Added Saving and restoring of the main window size and position.
+29-08-2002  For some reason I neglected to add the "Edit" menu when no properties or messages windows were open
+29-08-2002  I have bitten the bullet and after many hours of torture I have created a Winspector icon. If anyone wants to send me a better set of icons then please do.
+29-08-2002  Implemented the styles as an XML file. The file is called "styles.xml" and it lives in the "xml-files" folder below the main Winspector folder.
+            Please feel free to submit updates to this file so I can share it with the rest of the community.
+29-08-2002  Added Find Window - there is a white panel at the top of the window list. Just click and drag it around to find teh window you want.
+            Additionally, if you hold CTRL whilst dragging then a Window Messages window will be opened and if you hold down SHIFT then a Window Properties window will be opened.
+29-08-2002  Fixed bug where refreshing the window list (F5) would give incorrect results.
+29-08-2002  Added code from PJ Naughter (http://www.codeproject.com/cpp/csingleinst.asp) to limit Winspector to a single instance.
+29-08-2002  Improved the way, and time, that new windows were added to the window list.
+29-08-2002  Added handling of message return results where available - this does mean I have a lot more decoders to write ;-)
+29-08-2002  Changed message routing behaviour so you can now see windows messages right from, and including, the WM_NCREATE message.
+29-08-2002  Fixed deadlock situation where watching messages for a window could result in Winspector hanging.
+28-08-2002  Added more styles for the window properties. These include styles for dialog boxes, edit, static, msctls_updown32, button, ComboBox, ReBarWindow32 and msctls_statusbar32
+28-08-2002  Added default hotkey to installations. Press CTRL+SHIFT+W to launch Winspector. Change it in the shortcut properties on your start menu.
+
+*********** Build number 8 ***************
+24-08-2002  Added a "refresh" link to the properties display.
+24-08-2002  Moved properties.html into the resources.
+24-08-2002  Added generic window styles and extended styles to the window properties.
+24-08-2002  Added a nice speedup to the message display. You'll only notice it when you are watching a couple of dozen windows or causing a massive amount of messages to be created.
+24-08-2002  Added partial decoders for listbox, combobox, edit and richedit (and the variations of it).
+
+*********** Build number 7 ***************
+23-08-2002  Added a welcome page. I *will* make it optional once Winspector becomes more stable but for now I'd really like some more feedback.
+23-08-2002  Made the window list sizeable and dockable thanks to code from Cristi Posea found at http://www.codeproject.com/docking/sizecbar.asp
+23-08-2002  Added window log. If it's too slow for you then switch it off and it won't be updated. It's great for catching the window classes of
+            transient windows as well as getting a look at the course of events in the system.
+
+*********** Build number 6 ***************
+21-08-2002  Added partial (just the message name) decoders for Trackbar, button and toolbar - these were mainly added to
+            test that my architecture for message decoding was okay.
+21-08-2002  Fixed bug that would cause outlook to crash when watching outlook windows. This was a threading issue where a map could
+            be accessed by multiple threads.
+
+*********** Build number 5 ***************
+21-08-2002  Added a vastly superior "Highlight" when used on the window list. It will now highlight where the window is, even when
+            the window is obscured by other windows.
+21-08-2002  Added window class icons and the ability for you to supply your own. Just create a 16x16 icon and drop it in the
+            "class-icons" folder below the Winspector folder. Name the icon the same as the window class you want it
+            associated with.
+            Also, added code to get the icon associated with an application - thanks to Simon Capewell for pointing me in the
+            right direction.
+
+*********** Build number 4 ***************
+21-08-2002  Added some more decoders. This time I added WM_CREATE, WM_SIZE and WM_ACTIVATE...it's going to be a long job ;-)
+21-08-2002  Fixed some bugs with the window list. It was showing *way* too many windows
+21-08-2002  Added ability to add "watch" window classes. I got tired of starting Spy++, starting
+            my app, refresh, find window, *yawn*. Now you can add window classes to watch and Winspector
+            will begin listing the messages or show the window properties as soon as it can. Gosh I love this features.
+            You can edit these either by right clicking on the window in the window list or by using the "edit" menu
+            option.
+            These are saved in the XML file.
+21-08-2002  Added right-click menu option to lookup a message on google.com. I couldn't figure out how the search on
+            MSDN worked so I used google instead. I will make this aspect configurable so you'll be able to use whatever
+            site you like. If anyone knows how to do teh same with a local copy of MSDN (like MSDEV) then let me know.
+
+*********** Build number 3 ***************
+18-08-2002  Added saving of some settings. Winspector.xml contains your settings. Don't edit it though!
+18-08-2002  Added context menu to expand the window list for an individual window, and to expand all windows.
+18-08-2002  Adding auto-updating of windows. Windows that are created are automatically added to the window list
+            and are automatically destroyed when removed.
+
+*********** Build number 1 ***************
+17-08-2002  Started! Woohoo...a better spy utility at last.

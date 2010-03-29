@@ -1,0 +1,12 @@
+Winspector - Watching the messages go flying by…
+Copyright © 1998-2002 Gipsysoft. All Rights Reserved.
+
+Winspector Licence Agreement
+
+1) This software is provided 'as-is', without any express or implied warranty. In no event will the author be held liable for any damages arising from the use of this software.
+2) You are free to use Winspector. I hope you find it as valuable as I have.
+3) You are free to distribute Winspector as long as the entire package, including this notice, remains intact. You must not sell Winspector. You don't own it, you merely have a licence to use it.
+4) If you do distribute Winspector then you cannot charge money for doing so and you must let me know of any packages that will include Winspector.
+5) I reserve my rights to modify this agreement in the future.
+
+

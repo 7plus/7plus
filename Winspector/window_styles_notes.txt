@@ -1,0 +1,85 @@
+I'll maintain this file but do feel encouraged to email me modifications and a note to say what you've
+changed and why.
+
+The styles are simple enough to edit but are quite easy to get wrong (I've got it wrong a few times).
+
+It's a plain text file in XML format, in the xml-files folder called "styles.xml". Nothing fancy, nice and simple.
+
+I'm sure that after a quick browse you'll be shocked at just how simple it is.
+
+Thanks to anyone that has a hack!
+
+--- russ.
+
+
+window class            done ?    [.] = done (russf) ; [x] = done/checked (Paul Noble)
+------------            ------
+
+#32770                   [x]
+edit                     [.]
+static                   [.]
+button                   [.]
+combobox                 [.]
+listbox                  [.]
+scrollbar                [.]
+ComboBoxEx32             [x]
+ReBarWindow32            [.]
+SysTabControl32          [.]
+SysTreeView32            [x]
+SysListView32            [.]
+SysAnimate32             [.]
+SysIPAddress32           [x]    no specific styles exist (MSDN)
+SysDateTimePick32        [x]
+SysHeader32              [x]
+SysMonthCal32            [x]
+SysLink                  [x]
+ToolbarWindow32          [.]
+SysPager                 [x]
+NativeFontCtl            [x]
+RICHEDIT_CLASS           [x]    <= version 2.0
+msctls_statusbar32       [.]
+msctls_trackbar32        [.]
+msctls_updown32          [.]
+msctls_progress32        [x]
+
+msctls_hotkey32          N/A    (not a visible control)
+tooltips_class32         N/A    (not a visible control)
+SysImageList32           N/A    (not a visible control)
+
+
+Notes/history
+-------------
+paul noble - added TVS_NOHSCROLL to SysTreeView32
+paul noble - added TVS_LINESATROOT needs TVS_HASLINES  to SysTreeView32
+paul noble - added TVS_FULLROWSELECT excludes TVS_HASLINES  to SysTreeView32
+
+paul noble - ComboBoxEx control added
+    Control also supports these extended styles (not added to xml) -
+	CBES_EX_NOEDITIMAGE         = 0x00000001
+	CBES_EX_NOEDITIMAGEINDENT   = 0x00000002
+    CBES_EX_PATHWORDBREAKPROC   = 0x00000004
+    CBES_EX_NOSIZELIMIT         = 0x00000008
+    CBES_EX_CASESENSITIVE       = 0x00000010
+
+paul noble - SysDateTimePick32 added
+    I've put a mask of 0xf on the 3 DTS_XXXFORMAT styles, which cannot be combined ;
+    please check that this is the correct representation
+    
+paul noble - SysHeader32 added
+
+paul noble - SysMonthCal32 added
+
+paul noble - SysLink added
+
+paul noble - SysPager added
+
+paul noble - NativeFontCtl added
+    NB: Unable to check needs/excludes for styles here, I don't have up-to-date documentation
+    
+paul noble - RICHEDIT_CLASS added
+
+    NB: 5 new styles added, in addition to regular edit styles ; I notice that one of them,
+    ES_DISABLENOSCROLL (0x00002000) has the same numerical value as one of the preceding
+    edit styles - ES_NUMBER (0x2000). Not sure if this is a problem for you.
+
+paul noble - msctls_progress32 added

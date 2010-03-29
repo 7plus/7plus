@@ -1,0 +1,24 @@
+<classes>
+	<class name="QHTM_Window_Class_001" display-name="QHTM">
+		<messages>
+			<message name="QHTM_LOAD_FROM_RESOURCE" value="0x0401" />
+			<message name="QHTM_LOAD_FROM_FILE" value="0x0402" />
+			<message name="QHTM_SET_OPTION" value="0x0403" />
+			<message name="QHTM_GET_OPTION" value="0x0404" />
+			<message name="QHTM_GOTO_LINK" value="0x0405" />
+			<message name="QHTM_GET_SCROLL_POS" value="0x0406" />
+			<message name="QHTM_SET_SCROLL_POS" value="0x0407" />
+			<message name="QHTM_GET_HTML_TITLE_LENGTH" value="0x0408" />
+			<message name="QHTM_GET_HTML_TITLE" value="0x0409" />
+			<message name="QHTM_GET_DRAWN_SIZE" value="0x040a" />
+			<message name="QHTM_ADD_HTMLA" value="0x040b" />
+			<message name="QHTM_GET_LINK_FROM_POINT" value="0x040c" />
+			<message name="QHTM_SUBMIT_FORM" value="0x040d" />
+			<message name="QHTM_GET_LINK_REGION" value="0x040e" />
+			<message name="QHTM_SET_LPARAM" value="0x040f" />
+			<message name="QHTM_RESET_FORM" value="0x0410" />
+			<message name="QHTM_SET_DEFAULT_RESOURCE_HANDLE" value="0x0411" />
+			<message name="QHTM_ADD_HTMLW" value="0x0412" />
+		</messages>
+	</class>
+</classes>
