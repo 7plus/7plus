@@ -17,7 +17,6 @@
 		SlideWindowArray.Add(WinExist("A"),dir)
 	return
 #+Right::
-	outputdebug #^right
 	dir:=3
 	if(SlideWindow:=SlideWindowArray.ContainsHWND(WinExist("A")))
 		SlideWindow.SlideOutOrRelease(dir)
@@ -32,7 +31,6 @@
 		SlideWindowArray.Add(WinExist("A"),dir)
 	return
 #if
-#n::SlideWindowArray.Print()
 
 SlideWindows_Startup()
 {	

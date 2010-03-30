@@ -198,10 +198,12 @@ ExplorerPathChanged(from, to)
 	if(HKSelectFirstFile)
 	{
 		x:=GetSelectedFiles()
-		if(!x && InFileList() && (!vista7||SubStr(to, 1 ,40)!="::{26EE0668-A00A-44D7-9371-BEB064C98683}"))
+		if(!x && (!vista7||SubStr(to, 1 ,40)!="::{26EE0668-A00A-44D7-9371-BEB064C98683}"))
 		{
-			outputdebug select first file
-			Send {Home} ;^{Space}
+			if(A_OSVersion="Win_7")
+				Send {Home}{Space}
+			else
+				Send {Home} ;^{Space}
 		}
 	}
 }
