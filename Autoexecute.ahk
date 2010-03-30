@@ -205,10 +205,23 @@ if (Firstrun=1)
 ;Show tray icon when loading is complete
 Menu, tray, add  ; Creates a separator line.
 Menu, tray, add, Settings, SettingsHandler  ; Creates a new menu item.
+
+result:=DllCall("uxtheme.dll\IsThemeActive") ; On non-themed environments, standard icon is used
+outputdebug os: %A_OSVersion%
 if(A_IsCompiled)
-	Menu, tray, Icon, %A_ScriptFullPath%, 2,1
+{
+	if(result)
+		Menu, tray, Icon, %A_ScriptFullPath%, 2,1
+	else
+		Menu, tray, Icon, %A_ScriptFullPath%, 1,1
+}	
 else
-	Menu, tray, Icon, %A_ScriptDir%\7+-w2.ico,,1
+{
+	if(result)
+		Menu, tray, Icon, %A_ScriptDir%\7+-w2.ico,,1
+	else
+		Menu, tray, Icon, %A_ScriptDir%\7+-w.ico,,1
+}
 menu, tray, Icon
 Return
 
