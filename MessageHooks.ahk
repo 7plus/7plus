@@ -1,200 +1,270 @@
+; see http://msdn.microsoft.com/en-us/library/dd318066(VS.85).aspxs
 HookProc(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime ){ 
-	global HKShowSpaceAndSize,HKAutoCheck
-	;outputdebug event %event% hwnd %hwnd%
-	;Events 10 and 11 aren't fired for trillian windows apparently, so let's use a polling method instead
-	
-	;timer while explorer is moved for info gui update
-	if(HKShowSpaceAndSize && WinActive("ahk_group ExplorerGroup"))
-	{
-		if(event = 10) 
-			settimer,MoveExplorer,10    
-	  else if (event=11)
-			settimer,MoveExplorer, off		 
-	} 	   
-	
+	global ResizeWindow, SlideWindows, WindowList
+	ListLines, Off
+	hwnd += 0
 	;On dialog popup, check if its an explorer confirmation dialog
-	if(event=0x00008002) ;EVENT_OBJECT_SHOW
-	{	
-		if(HKAutoCheck)
+	if(event = 0x00008002) ;EVENT_OBJECT_SHOW
+	{
+		if(IsObject(Settings) && Settings.Explorer.AutoCheckApplyToAllFiles && WinVer >= WIN_Vista)
 			FixExplorerConfirmationDialogs()
+		return
 	}
+	if idObject or idChild ;Doesn't each much time, skip for profiling
+		return
+	WinGet, style, Style, ahk_id %hwnd%
+	if (style & 0x40000000)	;return if hwnd is child window, for some reason idChild may be 0 for some children ?!?! ( I hate ms )
+		return
+	if(event = 0x0016) ;EVENT_SYSTEM_MINIMIZEEND
+	{
+		Trigger := new CWindowStateChangeTrigger()
+		Trigger.Window := hwnd
+		Trigger.Event := "Window minimized"
+		EventSystem.OnTrigger(Trigger)
+	}
+	else if(event = 0x8001 && IsObject(Settings) && Settings.Explorer.Tabs.UseTabs) ;EVENT_OBJECT_DESTROY
+	{
+		; DecToHex(hwnd)
+		; if(TabContainerList.ContainsHWND(hwnd))
+	}
+	else if(event = 0x800B) ;EVENT_OBJECT_LOCATIONCHANGE
+	{
+		WinGet, state, minmax, ahk_id %hwnd%
+		if(state = 1)
+		{
+			Trigger := new CWindowStateChangeTrigger()
+			Trigger.Window := hwnd
+			Trigger.Event := "Window maximized"
+			EventSystem.OnTrigger(Trigger)
+		}
+		if(InStr("CabinetWClass,ExploreWClass", WinGetClass("ahk_id " hwnd)))
+			ExplorerMoved(hwnd)
+		if(IsObject(SlideWindows))
+			SlideWindows.CheckResizeReleaseCondition(hwnd)
+		if(state != -1)
+		{
+			WindowList.MovedWindow := hwnd
+			SetTimer, UpdateWindowPosition, -1000
+		}
+	}	
+	else if(event = 0x000A && Settings.Windows.ShowResizeTooltip)
+	{
+		ResizeWindow := hwnd
+		SetTimer, ResizeWindowTooltip, 50
+		SlideWindows.CheckResizeReleaseCondition(hwnd)
+	}
+	else if(event = 0x000B)
+	{
+		ShowTip({Min : 4, Max : 7}, 0.1)
+		if(Settings.Windows.ShowResizeTooltip)
+		{
+			ResizeWindow := ""
+			SetTimer, ResizeWindowTooltip, Off
+			ResizeWindowTooltip(true)
+			Tooltip
+		}
+	}
+	ListLines, On
+}
+ResizeWindowTooltip:
+ResizeWindowTooltip()
+return
+ResizeWindowTooltip(reset = false)
+{	
+	global ResizeWindow
+	static w,h
+	if(reset)
+	{
+		w:=0
+		h:=0
+		return
+	}
+	WinGetPos, , , wn, hn, ahk_id %ResizeWindow%
+	if(w && h && (w != wn || h != hn))
+		Tooltip %w%/%h%
+	w := wn
+	h := hn
 }
 
-ShellMessage( wParam,lParam ) 
+;See http://msdn.microsoft.com/en-us/library/ms644991(VS.85).aspx
+ShellMessage( wParam, lParam, Msg)
 {
-	global Vista7, ExplorerPath,hwnd1,HKShowSpaceAndSize,BlinkingWindows
-	;CalendarShellHook(wParam, lParam)
-	;outputdebug Shellmessage, wParam=%wparam% lparam=%lparam%
-	; Execute a command based on wParam and lParam 
-	if(false && wParam=5)
-	{		
-		outputdebug getminrect %lParam%
-		hwnd := NumGet(lParam+0, 0, "UInt")
-		;Disable Minimize/Restore animation
-		RegRead, Animate, HKCU, Control Panel\Desktop\WindowMetrics , MinAnimate
-		outputdebug animate is currently set to %animate%
-		VarSetCapacity(struct, 8, 0)	
-	  NumPut(8, struct, 0, "UInt")
-	  NumPut(0, struct, 4, "Int")
-		DllCall("SystemParametersInfo", "UINT", 0x0049,"UINT", 8,"STR", struct,"UINT", 0x0003) ;SPI_SETANIMATION            0x0049 SPIF_SENDWININICHANGE 0x0002
-		WinActivate ahk_id %hwnd%
-		;Possibly activate it again
-		if(Animate=1)
+	WasCritical := A_IsCritical
+	Critical
+	ListLines, Off
+	global BlinkingWindows, WindowList, Accessor, RecentCreateCloseEvents, ToolWindows, ExplorerWindows, LastWindow, LastWindowClass, SlideWindows, CurrentWindow, PreviousWindow, ExplorerHistory
+	Trigger := new COnMessageTrigger()
+	Trigger.Message := wParam
+	Trigger.lParam := lParam
+	Trigger.Msg := Msg
+	EventSystem.OnTrigger(Trigger)
+	if(wParam = 1 || wParam = 2) ;Window Created/Closed
+	{
+		lParam += 0
+		;Keep a list of recently received create/close messages, because they can be sent multiple times and we only want one.
+		if(!IsObject(RecentCreateCloseEvents))
+			RecentCreateCloseEvents := Array()
+		SetTimer, ClearRecentCreateCloseEvents, -300
+		if(!RecentCreateCloseEvents.HasKey(lParam))
 		{
-	  	NumPut(1, struct, 4, "UInt")
-	  	DllCall("SystemParametersInfo", "UINT", 0x0049,"UINT", 8,"STR", struct,"UINT", 0x0003) ;SPI_SETANIMATION            0x0049 SPIF_SENDWININICHANGE 0x0002
-	  }
-		outputdebug %hwnd%
-		
-	}
+			RecentCreateCloseEvents[lParam] := 1
+			Trigger := wParam = 1 ? new CWindowCreatedTrigger() : new CWindowClosedTrigger()
+			class:= wParam = 1 ? WinGetClass("ahk_Id " lParam) : (IsObject(WindowList) && IsObject(WindowList[lParam]) ? WindowList[lParam].class : "INVALID WINDOW CLASS")
+			Trigger.Window := lParam
+			EventSystem.OnTrigger(Trigger)
+			;Keep a list of windows and their required info stored. This allows to identify windows which were closed recently.
+			WinGet, hwnds, list,,, Program Manager
+			Loop, %hwnds%
+			{
+				hwnd := hwnds%A_Index%+0
+				WinGetTitle, title, ahk_id %hwnd%
+				if(IsObject(WindowList[hwnd]))
+					WindowList[hwnd].title := title
+				else
+				{
+					WinGetClass, class, ahk_id %hwnd%
+					WinGet, exe, ProcessName, ahk_id %hwnd%
+					WinGet, Path, ProcessPath, ahk_id %hwnd%
+					WindowList[hwnd] := Object("class", class, "title", title, "Executable", exe, "Path", Path)
+				}
+			}
+		}
+		if(wParam = 2)
+		{
+			if(IsObject(WindowList[lParam]) && InStr("CabinetWClass,ExploreWClass", WindowList[lParam].class))
+				GoSub WaitForClose
+			else ;Code below is also executed in WaitForClose for separate Explorer handling (why can't explorer send close messages properly like a normal window??)
+			{
+				if(IsObject(ToolWindows))
+				{
+					Loop % ToolWindows.MaxIndex()
+					{
+						if(ToolWindows[A_Index].hParent = lParam && ToolWindows[A_Index].AutoClose)
+						{
+							WinClose % "ahk_id " ToolWindows[A_Index].hGui
+							ToolWindows.Remove(A_Index)
+							break
+						}
+					}
+				}
+				SlideWindows.WindowClosed(lParam)
+			}
+		}
+		if(wParam = 1)
+		{
+			if(IsObject(SlideWindows))
+				SlideWindows.WindowCreated(lParam)
+			AutoCloseWindowsUpdate(lParam)
+			;~ SlideWindows.CreatedWindow := lParam
+			;~ SetTimer, SlideWindows_WindowCreated, -100
+		} ;	SlideWindows.WindowCreated(lParam)
+	}	
 	;Blinking windows detection, add new blinking windows
-	if(wParam=32774)
+	else if(wParam = 32774)
 	{
-		class:=WinGetClass("ahk_id " lParam)
-		outputdebug blinking window %class%
-		if(BlinkingWindows.indexOf(lParam)=0)
-		{			
-			BlinkingWindows.Append(lParam)
-			ct:=BlinkingWindows.len()
-			outputdebug add window, count is now %ct%
-		}
-	}
-	
-	;Window Activation
-	if(wParam=4||wParam=32772) ;HSHELL_WINDOWACTIVATED||HSHELL_RUDEAPPACTIVATED
-	{
-		TaskbarShellMessage()		
-		;Explorer info stuff
-		if(Vista7 && HKShowSpaceAndSize)
+		lParam += 0
+		if(!BlinkingWindows.indexOf(lParam))
 		{
-			SetTimer, UpdateInfos, 100
+			BlinkingWindows.Insert(lParam)
+			ShowTip(12)
 		}
+	}	
+	;Window Activation
+	else if(wParam = 4 || wParam = 32772) ;HSHELL_WINDOWACTIVATED||HSHELL_RUDEAPPACTIVATED
+	{
+		ShowTip(13, 0.05)
+		if(IsAltTabWindow(lParam))
+		{
+			PreviousWindow := CurrentWindow
+			CurrentWindow := lParam
+		}
+		lParam += 0
+		Trigger := new CWindowActivatedTrigger()
+		EventSystem.OnTrigger(Trigger)
 		;Blinking windows detection, remove activated windows
-		if(x:=BlinkingWindows.indexOf(lParam))
+		if(x := BlinkingWindows.indexOf(lParam))
 			BlinkingWindows.Delete(x)
-		outputdebug activate
+
+		if(IsObject(CAccessor.Instance.GUI) && CAccessor.Instance.Settings.CloseWhenDeactivated && WinExist("A") != CAccessor.Instance.GUI.hwnd)
+			CAccessor.Instance.Close()
+
 		;If we change from another program to explorer/desktop/dialog
-		if(WinActive("ahk_group ExplorerGroup")||WinActive("ahk_group DesktopGroup")||IsDialog())
-    {
-    	;Backup current clipboard contents and write "simple" text/image data in clipboard while explorer is active
-			ExplorerPath:=GetCurrentFolder()
+		if((IsExplorer := WinActive("ahk_group ExplorerGroup"))||WinActive("ahk_group DesktopGroup")||IsDialog())
+		{
+			if(!WinActive("ahk_group DesktopGroup")) ;By doing this, recall explorer path works also when double clicking desktop to launch explorer
+				Settings.Explorer.CurrentPath := Navigation.GetPath()
 			;Paste text/image as file file creation
-			CreateFile()
+			CreateFileFromClipboard()
+			if((IsExplorer && ExplorerWindows.GetItemWithValue("hwnd", IsExplorer).Path != Settings.Explorer.CurrentPath) || !IsExplorer)
+			{
+				Entry := RichObject()
+				Name := Entry.Path := Settings.Explorer.CurrentPath
+				SplitPath, Name, Name
+				Entry.Name := IsExplorer ? Navigation.GetDisplayName(lParam) : Name
+				Entry.Usage := 0
+				Entry := ExplorerHistory.Push(Entry) ;This can return a different entry that already exists in the list!
+				Entry.Usage++
+			}
 		}
+		if(LastWindowClass && InStr("CabinetWClass,ExploreWClass", LastWindowClass) && !ExplorerWindows.TabContainerList.TabCreationInProgress && !ExplorerWindows.TabContainerList.TabActivationInProgress)
+			ExplorerDeactivated(LastWindow)
+		
+		LastWindow := lParam
+		LastWindowClass := WinGetClass("ahk_id " lParam)
+		
+		if(InStr("CabinetWClass,ExploreWClass", LastWindowClass) && LastWindowClass && !ExplorerWindows.TabContainerList.TabCreationInProgress && !ExplorerWindows.TabContainerList.TabActivationInProgress)
+			ExplorerActivated(LastWindow)
+		
+		if(IsObject(SlideWindows))
+			SlideWindows.WindowActivated()
 	}
 	;Redraw is fired on Explorer path change
-	else if(wParam=6)
+	else if(wParam = 6)
 	{
+		lParam += 0
 		;Detect changed path
-    if(WinActive("ahk_group ExplorerGroup")||IsDialog())
-    {
-    	newpath:=GetCurrentFolder()
-    	if(newpath && newpath!=ExplorerPath)
-    	{
-    		outputdebug Explorer path changed from %ExplorerPath% to %newpath%
-    		ExplorerPathChanged(ExplorerPath, newpath)
-    		ExplorerPath:=newpath
-    	}
-    }
-  }
-}
-
-WM_LBUTTONUP(wParam,lParam,msg,hWnd){
-	SetTimer, TooltipClose, -20
-} 
-
-WM_NOTIFY(wParam, lParam, msg, hWnd){ 
-	Critical
-  ToolTip("",lParam,"") 
-} 
-ToolTip: 
-link:=ErrorLevel 
-SetTimer, TooltipClose, off
-ToolTip()
-If(TooltipShowSettings && Link) { 
-	ShowSettings()
-	TooltipShowSettings:=false
-}
-Return 
-
-ToolTipClose: 
-Tooltip()
-return
-
-
-API_SetWinEventHook(eventMin, eventMax, hmodWinEventProc, lpfnWinEventProc, idProcess, idThread, dwFlags) { 
-   DllCall("CoInitialize", "uint", 0) 
-   return DllCall("SetWinEventHook", "uint", eventMin, "uint", eventMax, "uint", hmodWinEventProc, "uint", lpfnWinEventProc, "uint", idProcess, "uint", idThread, "uint", dwFlags) 
-}
-
-;NOT USED
-;Hook for trapping minimization				NOTE: For some reason these hooks can't be packed into one single function?
-CBTHook(wParam, lParam, msg, hwnd)
-{ 
-	static SuppressHook
-	Global SlideWindowArray
-	if(!SuppressHook)
-	{
-		DllCall("ReplyMessage", "UInt", 1)
-		outputdebug don't SuppressHook
-	}
-	else
-	{
-		DllCall("ReplyMessage", "UInt", 2)
-		outputdebug SuppressHook
-		return 2
-	}
-	showtype:=lParam & 0x000FFFF	
-	if(lParam=6 && y:=SlideWindowArray.ContainsHWND(wParam)) ;minimize
-	{
-		;Disable minimize, then disable animation, and minimize again
-		if(y.SlideState=1)
-			y.SlideOut()
-		else
+		if(InStr("CabinetWClass,ExploreWClass", WinGetClass("ahk_id " lParam)))
 		{
-			;Disable Minimize/Restore animation
-			RegRead, Animate, HKCU, Control Panel\Desktop\WindowMetrics , MinAnimate
-			VarSetCapacity(struct, 8, 0)	
-		  NumPut(8, struct, 0, "UInt")
-		  NumPut(0, struct, 4, "Int")
-			DllCall("SystemParametersInfo", "UINT", 0x0049,"UINT", 8,"STR", struct,"UINT", 0x0003) ;SPI_SETANIMATION            0x0049 SPIF_SENDWININICHANGE 0x0002
-			SuppressHook:=true
-			WinMinimize ahk_id %wParam%
-		  SuppressHook:=false
-			;Possibly activate it again
-			if(Animate=1)
-			{
-		  	NumPut(1, struct, 4, "UInt")
-		  	DllCall("SystemParametersInfo", "UINT", 0x0049,"UINT", 8,"STR", struct,"UINT", 0x0003) ;SPI_SETANIMATION            0x0049 SPIF_SENDWININICHANGE 0x0002
-		  }
-	  }
+			ExplorerPathChanged(ExplorerWindows.GetItemWithValue("hwnd", lParam))
+			; newpath := Navigation.GetPath()
+			; if(newpath && newpath != Settings.Explorer.CurrentPath)
+			; {
+				; outputdebug Explorer path changed from %ExplorerPath% to %newpath%
+				; ExplorerPathChanged(Settings.Explorer.CurrentPath, newpath)
+				; Settings.Explorer.PreviousPath := Settings.Explorer.CurrentPath
+				; Settings.Explorer.CurrentPath := newpath
+				; Trigger := new CExplorerPathChangedTrigger()
+				; EventSystem.OnTrigger(Trigger)
+				; if(Settings.Explorer.Tabs.UseTabs && !SuppressTabEvents && hwnd:=WinActive("ahk_group ExplorerGroup"))
+					; UpdateTabs()
+			; }
+		}
 	}
-	else
-	{
-		SuppressHook:=true
-		DllCall("ShowWindow","UInt", wParam, "UINT", showtype)
-		SuppressHook:=false
-	}
-	return 1
+	ListLines, On
+	if(!WasCritical)
+		Critical, Off
 }
-/*
-;Main timer for stuff that needs polling somewhat frequently
-PollingTimer:
-Process, Exist, %CalendarPID%
-if(ReplaceCalendar&&ErrorLevel=0)
-	RunCalendar()
-return
-*/
-SetWindowsHookEx(idHook, pfn) 
-{ 
-   Return DllCall("SetWindowsHookEx", "int", idHook, "Uint", pfn, "Uint", DllCall("GetModuleHandle", "Uint", 0), "Uint", 0) 
-} 
 
-UnhookWindowsHookEx(hHook) 
-{ 
-   Return DllCall("UnhookWindowsHookEx", "Uint", hHook) 
+;Timer for clearing the list of recently received create/close events
+ClearRecentCreateCloseEvents:
+RecentCreateCloseEvents := Array()
+return
+UpdateWindowPosition:
+UpdateWindowPosition()
+return
+UpdateWindowPosition()
+{
+	global WindowList
+	WinGetPos, x, y, w, h, % "ahk_id " WindowList.MovedWindow
+	if(!IsObject(WindowList[WindowList.MovedWindow]))
+		return
+	WindowList[WindowList.MovedWindow].x := x
+	WindowList[WindowList.MovedWindow].y := y
+	WindowList[WindowList.MovedWindow].w := w
+	WindowList[WindowList.MovedWindow].h := h
 }
-CallNextHookEx(nCode, wParam, lParam, hHook = 0) 
-{ 
-   Return DllCall("CallNextHookEx", "UInt", hHook, "Int", nCode, "Uint", wParam, "Uint", lParam) 
+WM_POWERBROADCAST(wParam, lParam, msg)
+{
+	if (wParam = 18)
+		AutoCloseWindowsUpdate(WinExist("Windows Update ahk_class #32770"))
 }

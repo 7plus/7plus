@@ -1,11 +1,13 @@
-/*
+﻿/*
 	Title: Command Functions
 		A wrapper set of functions for commands which have an output variable.
 
-	License:
-		- Version 1.5-r2 <http://www.autohotkey.net/~Titan/#functions>
-		- New BSD License <http://www.autohotkey.net/~Titan/license.txt>
+
+
+
+	License: http://www.autohotkey.net/~Titan/license.txt
 */
+
 Functions() {
 	Return, true
 }
@@ -117,10 +119,16 @@ IniRead(Filename, Section, Key, Default = "") {
 	IniRead, v, %Filename%, %Section%, %Key%, %Default%
 	Return, v
 }
+IniWrite(Value, Filename, Section, Key)
+{
+	IniWrite, %Value%, %Filename%, %Section%, %Key%
+}
+/*
 Input(Options = "", EndKeys = "", MatchList = "") {
 	Input, v, %Options%, %EndKeys%, %MatchList%
 	Return, v
 }
+*/
 InputBox(Title = "", Prompt = "", HIDE = "", Width = "", Height = "", X = "", Y = "", Font = "", Timeout = "", Default = "") {
 	InputBox, v, %Title%, %Prompt%, %HIDE%, %Width%, %Height%, %X%, %Y%, , %Timeout%, %Default%
 	Return, v
@@ -143,9 +151,9 @@ RegRead(RootKey, SubKey, ValueName = "") {
 	RegRead, v, %RootKey%, %SubKey%, %ValueName%
 	Return, v
 }
-Run(Target, WorkingDir = "", Mode = "") {
-	Run, %Target%, %WorkingDir%, %Mode%, %v%
-	Return, v	
+RunWait(Target, WorkingDir = "", Mode = "") {
+	RunWait, %Target%, %WorkingDir%, %Mode%, v
+	Return v
 }
 SoundGet(ComponentType = "", ControlType = "", DeviceNumber = "") {
 	SoundGet, v, %ComponentType%, %ControlType%, %DeviceNumber%
@@ -163,43 +171,43 @@ SplitPath(ByRef InputVar, ByRef OutFileName = "", ByRef OutDir = "", ByRef OutEx
 	SplitPath, InputVar, OutFileName, OutDir, OutExtension, OutNameNoExt, OutDrive
 }
 StringGetPos(ByRef InputVar, SearchText, Mode = "", Offset = "") {
-	StringGetPos, v, %InputVar%, %SearchText%, %Mode%, %Offset%
+	StringGetPos, v, InputVar, %SearchText%, %Mode%, %Offset%
 	Return, v
 }
 StringLeft(ByRef InputVar, Count) {
-	StringLeft, v, %InputVar%, %Count%
+	StringLeft, v, InputVar, %Count%
 	Return, v
 }
 StringLen(ByRef InputVar) {
-	StringLen, v, %InputVar%
+	StringLen, v, InputVar
 	Return, v
 }
 StringLower(ByRef InputVar, T = "") {
-	StringLower, v, %InputVar%, %T%
+	StringLower, v, InputVar, %T%
 	Return, v
 }
 StringMid(ByRef InputVar, StartChar, Count , L = "") {
-	StringMid, v, %InputVar%, %StartChar%, %Count%, %L%
+	StringMid, v, InputVar, %StartChar%, %Count%, %L%
 	Return, v
 }
-StringReplace(ByRef InputVar, SearchText, ReplaceText = "", All = "") {
-	StringReplace, v, %InputVar%, %SearchText%, %ReplaceText%, %All%
+StringReplace(InputVar, SearchText, ReplaceText = "", All = "") {
+	StringReplace, v, InputVar, %SearchText%, %ReplaceText%, %All%
 	Return, v
 }
 StringRight(ByRef InputVar, Count) {
-	StringRight, v, %InputVar%, %Count%
+	StringRight, v, InputVar, %Count%
 	Return, v
 }
 StringTrimLeft(ByRef InputVar, Count) {
-	StringTrimLeft, v, %InputVar%, %Count%
+	StringTrimLeft, v, InputVar, %Count%
 	Return, v
 }
 StringTrimRight(ByRef InputVar, Count) {
-	StringTrimRight, v, %InputVar%, %Count%
+	StringTrimRight, v, InputVar, %Count%
 	Return, v
 }
 StringUpper(ByRef InputVar, T = "") {
-	StringUpper, v, %InputVar%, %T%
+	StringUpper, v, InputVar, %T%
 	Return, v
 }
 SysGet(Subcommand, Param3 = "") {
@@ -229,4 +237,26 @@ WinGetText(WinTitle = "", WinText = "", ExcludeTitle = "", ExcludeText = "") {
 WinGetTitle(WinTitle = "", WinText = "", ExcludeTitle = "", ExcludeText = "") {
 	WinGetTitle, v, %WinTitle%, %WinText%, %ExcludeTitle%, %ExcludeText%
 	Return, v
+}
+WinMaximize(WinTitle = "", WinText = "", ExcludeTitle = "", ExcludeText = "") {
+	WinGet, style, style, %WinTitle%, %WinText%, %ExcludeTitle%, %ExcludeText%
+	if(style & 0x10000)
+		WinMaximize, %WinTitle%, %WinText%, %ExcludeTitle%, %ExcludeText%
+}
+WinMinimize(WinTitle = "", WinText = "", ExcludeTitle = "", ExcludeText = "") {
+	WinGet, style, style, %WinTitle%, %WinText%, %ExcludeTitle%, %ExcludeText%
+	outputdebug % "style " style " minimize " style & 0x20000
+	if(style & 0x20000)
+		WinMinimize, %WinTitle%, %WinText%, %ExcludeTitle%, %ExcludeText%
+}
+;System modal messagebox (Options can't be considered due to msgbox parsing
+MsgBox2(Title, Text, Timeout="")
+{	
+	if(title = "")
+		title := "7plus"
+	Msgbox, 0x1000, %Title%, %Text%, %Timeout%
+}
+MsgBox(Text)
+{
+	MsgBox, %Text%
 }

@@ -18,20 +18,20 @@ RemoteBuf_Open(ByRef H, hwnd, size) {
 	static MEM_COMMIT=0x1000, PAGE_READWRITE=4
 
 	WinGet, pid, PID, ahk_id %hwnd%
-	hProc   := DllCall( "OpenProcess", "uint", 0x38, "int", 0, "uint", pid) ;0x38 = PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE
+	hProc   := DllCall( "OpenProcess", "uint", 0x38, "int", 0, "uint", pid, "Ptr") ;0x38 = PROCESS_VM_OPERATION | PROCESS_VM_READ | PROCESS_VM_WRITE
 	IfEqual, hProc,0, return A_ThisFunc ">   Unable to open process (" A_LastError ")"
       
-	bufAdr  := DllCall( "VirtualAllocEx", "uint", hProc, "uint", 0, "uint", size, "uint", MEM_COMMIT, "uint", PAGE_READWRITE)
+	bufAdr  := DllCall( "VirtualAllocEx", "Ptr", hProc, "uint", 0, "uint", size, "uint", MEM_COMMIT, "uint", PAGE_READWRITE)
 	IfEqual, bufAdr,0, return A_ThisFunc ">   Unable to allocate memory (" A_LastError ")"
 
 	; Buffer handle structure:
 	 ;	@0: hProc
 	 ;	@4: size
 	 ;	@8: bufAdr
-	VarSetCapacity(H, 12, 0 )
+	VarSetCapacity(H, 8 + A_PtrSize, 0 )
 	NumPut( hProc,	H, 0) 
-	NumPut( size,	H, 4)
-	NumPut( bufAdr, H, 8)
+	NumPut( size,	H, A_PtrSize)
+	NumPut( bufAdr, H, A_PtrSize + 4)
 }
 
 /*----------------------------------------------------
@@ -46,11 +46,11 @@ RemoteBuf_Close(ByRef H) {
 	
 	handle := NumGet(H, 0)
 	IfEqual, handle, 0, return A_ThisFunc ">   Invalid remote buffer handle"
-	adr    := NumGet(H, 8)
+	adr    := NumGet(H, A_PtrSize + 4)
 
-	r := DllCall( "VirtualFreeEx", "uint", handle, "uint", adr, "uint", 0, "uint", MEM_RELEASE)
+	r := DllCall( "VirtualFreeEx", "Ptr", handle, "PTR", adr, "uint", 0, "uint", MEM_RELEASE)
 	ifEqual, r, 0, return A_ThisFunc ">   Unable to free memory (" A_LastError ")"
-	DllCall( "CloseHandle", "uint", handle )
+	DllCall( "CloseHandle", "Ptr", handle )
 	VarSetCapacity(H, 0 )
 }
 
@@ -68,12 +68,12 @@ Returns:
          TRUE on success or FALSE on failure. ErrorMessage on bad remote buffer handle
  */
 RemoteBuf_Read(ByRef H, ByRef pLocal, pSize, pOffset = 0){
-	handle := NumGet( H, 0),   size:= NumGet( H, 4),   adr := NumGet( H, 8)
+	handle := NumGet( H, 0),   size:= NumGet( H, A_PtrSize),   adr := NumGet( H, A_PtrSize + 4)
 	IfEqual, handle, 0, return A_ThisFunc ">   Invalid remote buffer handle"	
 	IfGreaterOrEqual, offset, %size%, return A_ThisFunc ">   Offset is bigger then size"
 
 	VarSetCapacity( pLocal, pSize )
-	return DllCall( "ReadProcessMemory", "uint", handle, "uint", adr + pOffset, "uint", &pLocal, "uint", size, "uint", 0 ), VarSetCapacity(pLocal, -1)
+	return DllCall( "ReadProcessMemory", "Ptr", handle, "uint", adr + pOffset, "PTR", &pLocal, "uint", size, "uint", 0 ), VarSetCapacity(pLocal, -1)
 }
 
 /*----------------------------------------------------
@@ -91,11 +91,11 @@ RemoteBuf_Read(ByRef H, ByRef pLocal, pSize, pOffset = 0){
  */
 
 RemoteBuf_Write(Byref H, byref pLocal, pSize, pOffset=0) {
-	handle:= NumGet( H, 0),   size := NumGet( H, 4),   adr := NumGet( H, 8)
+	handle:= NumGet( H, 0),   size := NumGet( H, A_PtrSize),   adr := NumGet( H, A_PtrSize + 4)
 	IfEqual, handle, 0, return A_ThisFunc ">   Invalid remote buffer handle"	
 	IfGreaterOrEqual, offset, %size%, return A_ThisFunc ">   Offset is bigger then size"
 
-	return DllCall( "WriteProcessMemory", "uint", handle,"uint", adr + pOffset,"uint", &pLocal,"uint", pSize, "uint", 0 )
+	return DllCall( "WriteProcessMemory", "Ptr", handle,"PTR", adr + pOffset,"PTR", &pLocal,"uint", pSize, "uint", 0 )
 }
 
 /*----------------------------------------------------
@@ -110,7 +110,7 @@ RemoteBuf_Write(Byref H, byref pLocal, pSize, pOffset=0) {
          Address or size of the remote buffer
  */
 RemoteBuf_Get(ByRef H, pQ="adr") {
-	return pQ = "adr" ? NumGet(H, 8) : pQ = "size" ? NumGet(H, 4) : NumGet(H)
+	return pQ = "adr" ? NumGet(H, A_PtrSize + 4) : pQ = "size" ? NumGet(H, A_PtrSize) : NumGet(H)
 }
 
 /*---------------------------------------------------------------------------------------

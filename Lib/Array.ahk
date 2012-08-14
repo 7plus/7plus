@@ -1,129 +1,183 @@
 ; Array Lib - temp01 - http://www.autohotkey.com/forum/viewtopic.php?t=49736 
-Array(p1="Ņ", p2="Ņ", p3="Ņ", p4="Ņ", p5="Ņ", p6="Ņ"){ 
-   static ArrBase 
-   If !ArrBase 
-      ArrBase := Object("len", "Array_Length", "indexOf", "Array_indexOf", "join", "Array_Join" 
-      , "append", "Array_Append", "insert", "Array_Insert", "delete", "Array_Delete" 
-      , "sort", "Array_sort", "reverse", "Array_Reverse", "unique", "Array_Unique" 
-      , "extend", "Array_Extend", "copy", "Array_Copy", "pop", "Array_Pop", "swap", "Array_Swap", "Move", "Array_Move") 
-
-   arr := Object("base", ArrBase) 
-   While (_:=p%A_Index%)!="Ņ" && A_Index<=6 
-      arr[A_Index] := _ 
-   Return arr 
-} 
-
-Array_indexOf(arr, val, opts="", startpos=1){ 
-   P := !!InStr(opts, "P"), C := !!InStr(opts, "C") 
-   If A := !!InStr(opts, "A") 
-      matches := Array() 
-   Loop % arr.len() 
-      If(A_Index>=startpos) 
-         If(match := InStr(arr[A_Index], val, C)) and (P or StrLen(arr[A_Index])=StrLen(val)) 
-            If A 
-               matches.append(A_Index) 
-            Else 
-               Return A_Index 
-   If A 
-      Return matches 
-   Else 
-      Return 0 
-} 
-Array_Join(arr, sep="`n"){ 
-   Loop, % arr.len() 
-      str .= arr[A_Index] sep 
-   StringTrimRight, str, str, % StrLen(sep) 
-   return str 
-} 
-Array_Copy(arr){ 
-   Return Array().extend(arr) 
-} 
-
-Array_Append(arr, p1="Ņ", p2="Ņ", p3="Ņ", p4="Ņ", p5="Ņ", p6="Ņ"){ 
-   Return arr.insert(arr.len()+1, p1, p2, p3, p4, p5, p6) 
-} 
-Array_Insert(arr, index, p1="Ņ", p2="Ņ", p3="Ņ", p4="Ņ", p5="Ņ", p6="Ņ"){ 
-   While (_:=p%A_Index%)!="Ņ" && A_Index<=6 
-      arr._Insert(index + (A_Index-1), _) 
-   Return arr 
-} 
-Array_Reverse(arr){ 
-   arr2 := Array() 
-   Loop, % len:=arr.len() 
-      arr2[len-(A_Index-1)] := arr[A_Index] 
-   Return arr2 
-} 
-Array_Sort(arr, func="Array_CompareFunc"){ 
-   n := arr.len(), swapped := true 
-   while swapped { 
-      swapped := false 
-      Loop, % n-1 { 
-         i := A_Index 
-         if %func%(arr[i], arr[i+1], 1) > 0 ; standard ahk syntax for sort callout functions 
-            arr.insert(i, arr[i+1]).delete(i+2), swapped := true 
-      } 
-      n-- 
-   } 
-   Return arr 
-} 
-Array_Unique(arr, func="Array_CompareFunc"){   ; by infogulch 
-   i := 0 
-   while ++i < arr.len(), j := i + 1 
-      while j <= arr.len() 
-         if !%func%(arr[i], arr[j], i-j) 
-            arr.delete(j) ; j comes after 
-         else 
-            j++ ; only increment to next element if not removing the current one 
-   Return arr 
-} 
+; Modified by Fragman
+; Array is 1-based!!!
+#include <CEnumerator>
+Array(Params*){ 
+	return new CArray(Params*)
+}
+IsArray(obj)
+{
+	return IsObject(obj) && obj.Is(CArray)
+}
 Array_CompareFunc(a, b, c){ 
    return a > b ? 1 : a = b ? 0 : -1 
 } 
 
-Array_Extend(arr, p1="Ņ", p2="Ņ", p3="Ņ", p4="Ņ", p5="Ņ", p6="Ņ"){ 
-   While (_:=p%A_Index%)!="Ņ" && A_Index<=6 
-      If IsObject(_) 
-         Loop, % _.len() 
-            arr.append(_[A_Index]) 
-      Else 
-         Loop, % %_%0 
-            arr.append(%_%%A_Index%) 
-   Return arr 
-} 
-Array_Pop(arr){ 
-   Return arr.delete(arr.len()) 
-} 
-Array_Delete(arr, p1="Ņ", p2="Ņ", p3="Ņ", p4="Ņ", p5="Ņ", p6="Ņ"){ 
-   While (_:=p%A_Index%)!="Ņ" && A_Index<=6 
-      arr._Remove(_) 
-   Return arr 
-} 
-
-Array_Length(arr){ 
-   len := arr._MaxIndex() 
-   Return len="" ? 0 : len 
-}
-
-Array_Swap(arr,i,j){
-	if(arr.len()<i||arr.len()<j)
-		return 0
-	x:=arr[i]
-	arr[i]:=arr[j]
-	arr[j]:=x
-	return 1
-}
-
-Array_Move(arr,i,j)
+Class CArray extends CRichObject
 {
-	if(arr.len()<i||arr.len()<j)
-		return 0
-	if(i=j)
+	__New(Params*)
+	{
+		for index, Param in Params
+			this.Insert(Param)
+	}
+	_NewEnum()
+	{
+		return new CEnumerator(this)
+	}
+	InsertUnique(Params*)
+	{
+		if(Params.MaxIndex() && !this.IndexOf(Params[1]))
+			this.Insert(Params*)
+	}
+	IndexOf(val, opts = "", startpos = 1)
+	{
+		if(IsObject(val))
+		{
+			for k, v in this
+			  if(k >= startpos && v = val)
+				 return k
+			return 0
+		}
+		P := !!InStr(opts, "P"), C := !!InStr(opts, "C")
+		If A := !!InStr(opts, "A")
+			matches := Array()
+		Loop % this.MaxIndex()
+			If(A_Index>=startpos)
+				If(match := InStr(this[A_Index], val, C)) and (P or StrLen(this[A_Index])=StrLen(val))
+				{
+					If A
+						matches.Insert(A_Index)
+					Else
+						return A_Index
+				}
+		If A
+		  return matches
+		Else
+		  return 0
+	}
+	IndexOfEqual(val, startpos = 0, key = "")
+	{
+		if(IsObject(val))
+			Loop % this.MaxIndex()
+				if(A_Index >= startpos && ((key && this[A_Index][key] = val[key]) || this[A_Index].Equals(val)))
+					return A_Index
+		else
+			Loop % this.MaxIndex()
+				if(A_Index >= startpos && this[A_Index] = val)
+					return A_Index
+	}
+	ToString(Separator = "`n")
+	{
+		string := ""
+		Loop % this.MaxIndex()
+			string .= (A_Index = 1 ? "" : Separator) this[A_Index]
+		return string
+	}
+	Contains(val)
+	{
+		Loop % this.MaxIndex()
+			if(this[A_Index] = val)
+				return true
+		return false
+	}
+	Join(sep="`n"){ 
+	   Loop, % this.MaxIndex() 
+		  str .= this[A_Index] sep 
+	   StringTrimRight, str, str, % StrLen(sep) 
+	   return str 
+	} 
+	Copy(){ 
+	   Return Array().extend(this) 
+	} 
+
+	;~ Insert(index, Params*)
+	;~ {
+		;~ if(!Params.MaxIndex())
+			;~ this._Insert(index)
+		;~ else
+			;~ for offset, param in Params
+				;~ this._Insert(index + (offset-1), param) 
+		;~ Return this 
+	;~ }
+	Reverse(){ 
+	   arr2 := Array() 
+	   Loop, % len:=this.MaxIndex() 
+		  arr2[len-(A_Index-1)] := this[A_Index] 
+	   Return arr2 
+	} 
+	Sort(func="Array_CompareFunc"){ 
+	   n := this.MaxIndex(), swapped := true 
+	   while swapped { 
+		  swapped := false 
+		  Loop, % n-1 { 
+			 i := A_Index 
+			 if %func%(this[i], this[i+1], 1) > 0 ; standard ahk syntax for sort callout functions 
+				this.insert(i, this[i+1]).delete(i+2), swapped := true 
+		  } 
+		  n-- 
+	   } 
+	   Return this 
+	} 
+	Unique(func="Array_CompareFunc"){   ; by infogulch 
+	   i := 0 
+	   while ++i < this.MaxIndex(), j := i + 1 
+		  while j <= this.MaxIndex() 
+			 if !%func%(this[i], this[j], i-j) 
+				this.delete(j) ; j comes after 
+			 else 
+				j++ ; only increment to next element if not removing the current one 
+	   Return this 
+	} 
+
+	Extend(Params*){ 
+		for index, Param in Params
+		  If IsObject(Param) 
+			 for index2, value in Param
+				this.Insert(value)
+	   Return this 
+	} 
+	Pop(){ 
+	   Return this.delete(this.MaxIndex()) 
+	} 
+	Delete(Params*){ 
+		for index, Param in Params
+		{
+			if(IsObject(Param)) ;Arrays have no object keys
+				this._Remove(this.IndexOf(Param))
+			else
+				this._Remove(Param)
+		}
+	   Return this 
+	}
+
+	MaxIndex(){ 
+	   len := this._MaxIndex() 
+	   Return len="" ? 0 : len 
+	}
+
+	Swap(i,j){
+		if(this.MaxIndex()<i||this.MaxIndex()<j||i<1||j<1)
+			return 0
+		x:=this[i]
+		this[i]:=this[j]
+		this[j]:=x
 		return 1
-	x:=arr[i]
-	arr.Delete(i)
-	if(i<j)
-		arr.Insert(j,x)
-	else
-		arr.Insert(j-1,x)
-	return 1
+	}
+
+	Move(i,j)
+	{
+		if(i > this.MaxIndex() || j > this.MaxIndex())
+			return 0
+		if(i = j)
+			return 1
+		x := this[i]
+		this.Remove(i)
+		; I believe the following if is wrong, possibly revert if there are any array problems with the move function
+		; if(i<j)
+			this.Insert(j,x)
+		; else
+			; this.Insert(j-1,x)
+		; }
+		return 1
+	}
 }
