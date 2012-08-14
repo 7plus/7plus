@@ -2,6 +2,7 @@ Class CExplorerButtonTrigger Extends CTrigger
 {
 	static Type := RegisterType(CExplorerButtonTrigger, "Explorer bar button")
 	static Category := RegisterCategory(CExplorerButtonTrigger, "Explorer")
+	static __WikiLink := "ExplorerButton"
 	static Name := "ExplorerButton"
 	static Tooltip := "ExplorerButton"
 	static ShowSelected := true

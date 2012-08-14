@@ -2,6 +2,7 @@ Class CShortenURLAction Extends CAction
 {
 	static Type := RegisterType(CShortenURLAction, "Shorten a URL")
 	static Category := RegisterCategory(CShortenURLAction, "Internet")
+	static __WikiLink := "ShortenURL"
 	static URL := "${Clip}"
 	static Method := "Goo.gl"
 	static WriteToClipboard := true

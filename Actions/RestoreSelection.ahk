@@ -2,6 +2,7 @@ Class CRestoreSelectionAction Extends CAction
 {
 	static Type := RegisterType(CRestoreSelectionAction, "Restore file selection")
 	static Category := RegisterCategory(CRestoreSelectionAction, "Explorer")
+	static __WikiLink := "RestoreSelection"
 	
 	Execute(Event)
 	{

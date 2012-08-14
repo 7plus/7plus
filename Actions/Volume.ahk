@@ -2,6 +2,7 @@ Class CVolumeAction Extends CAction
 {
 	static Type := RegisterType(CVolumeAction, "Change sound volume")
 	static Category := RegisterCategory(CVolumeAction, "System")	
+	static __WikiLink := "Volume"
 	static Action := "Set Volume"
 	static Volume := 100
 	static ShowVolume := true

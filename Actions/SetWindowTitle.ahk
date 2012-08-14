@@ -2,6 +2,7 @@ Class CSetWindowTitleAction Extends CAction
 {
 	static Type := RegisterType(CSetWindowTitleAction, "Set window title")
 	static Category := RegisterCategory(CSetWindowTitleAction, "Window")
+	static __WikiLink := "SetWindowTitle"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CSetWindowTitleAction)
 	static Title := "7plus rocks!"
 	

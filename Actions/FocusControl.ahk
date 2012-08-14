@@ -2,6 +2,7 @@ Class CFocusControlAction Extends CAction
 {
 	static Type := RegisterType(CFocusControlAction, "Focus a control")
 	static Category := RegisterCategory(CFocusControlAction, "Window")
+	static __WikiLink := "FocusControl"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CFocusControlAction)
 	static TargetControl := "Edit1"
 	Execute(Event)

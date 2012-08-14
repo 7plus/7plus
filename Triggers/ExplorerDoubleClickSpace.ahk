@@ -2,6 +2,7 @@ Class CExplorerDoubleClickSpaceTrigger Extends CTrigger
 {
 	static Type := RegisterType(CExplorerDoubleClickSpaceTrigger, "Double click on empty space")
 	static Category := RegisterCategory(CExplorerDoubleClickSpaceTrigger, "Explorer")
+	static __WikiLink := "ExplorerDoubleClickSpace"
 	Matches(Filter)
 	{
 		return true ;type is checked elsewhere

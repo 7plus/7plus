@@ -2,6 +2,7 @@ Class CContextMenuTrigger Extends CTrigger
 {
 	static Type := RegisterType(CContextMenuTrigger, "Context menu")	
 	static Category := RegisterCategory(CContextMenuTrigger, "Explorer")
+	static __WikiLink := "ContextMenu"
 	static Name := "Context menu entry"
 	static Description := "Context menu entry description"
 	static SubMenu := ""

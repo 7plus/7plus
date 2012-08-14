@@ -2,6 +2,7 @@ Class CFileDeleteAction Extends CAction
 {
 	static Type := RegisterType(CFileDeleteAction, "Delete file")
 	static Category := RegisterCategory(CFileDeleteAction, "File")
+	static __WikiLink := "Delete"
 	static _ImplementsFileOperation := ImplementFileOperationInterface(CFileDeleteAction)
 
 	Execute(Event)

@@ -2,6 +2,7 @@ Class CWindowStateChangeTrigger Extends CTrigger
 {
 	static Type := RegisterType(CWindowStateChangeTrigger, "Window state changed")
 	static Category := RegisterCategory(CWindowStateChangeTrigger, "Window")
+	static __WikiLink := "WindowStateChange"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowStateChangeTrigger)
 	static Event := "Window minimized"
 	

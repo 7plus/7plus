@@ -2,6 +2,7 @@ Class CDoubleClickTaskbarTrigger Extends CTrigger
 {
 	static Type := RegisterType(CDoubleClickTaskbarTrigger, "Double click on taskbar")
 	static Category := RegisterCategory(CDoubleClickTaskbarTrigger, "Hotkeys")
+	static __WikiLink := "DoubleClickTaskbar"
 	Matches(Filter)
 	{
 		return true ;type is checked elsewhere

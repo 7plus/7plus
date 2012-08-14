@@ -2,6 +2,7 @@ Class CControlEventAction Extends CAction
 {
 	static Type := RegisterType(CControlEventAction, "Control event")
 	static Category := RegisterCategory(CControlEventAction, "7plus")
+	static __WikiLink := "ControlEvent"
 	static _ImplementsIf := ImplementIfInterface(CControlEventAction)
 	static Action := "Enable Event"
 	static Compare := ""

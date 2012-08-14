@@ -2,6 +2,7 @@ Class CHotkeyTrigger Extends CTrigger
 {
 	static Type := RegisterType(CHotkeyTrigger, "Hotkey")
 	static Category := RegisterCategory(CHotkeyTrigger, "Hotkeys")
+	static __WikiLink := "Hotkey"
 	static Key := ""
 
 	Enable()

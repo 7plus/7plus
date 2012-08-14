@@ -2,6 +2,7 @@ Class CMouseOverCondition Extends CCondition
 {
 	static Type := RegisterType(CMouseOverCondition, "Mouse over")
 	static Category := RegisterCategory(CMouseOverCondition, "Mouse")
+	static __WikiLink := "MouseOver"
 	static MouseOverType := "Window"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CMouseOverCondition)
 	Evaluate()

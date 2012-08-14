@@ -2,6 +2,7 @@ Class CWindowActivateAction Extends CAction
 {
 	static Type := RegisterType(CWindowActivateAction, "Activate a window")
 	static Category := RegisterCategory(CWindowActivateAction, "Window")
+	static __WikiLink := "WindowActivate"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowActivateAction)
 
 	Execute()

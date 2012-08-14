@@ -2,7 +2,7 @@ Class CIfThisThenThatAction Extends CAction
 {
 	static Type := RegisterType(CIfThisThenThatAction, "Trigger an ""If this then that"" recipe")
 	static Category := RegisterCategory(CIfThisThenThatAction, "Internet")
-	
+	static __WikiLink := "IfThisThenThat"
 	static Tag  := "Message Subject"
 	static Body     := "Message Body"
 	static Attach   := "Path_Of_Attachment" ; can add multiple attachments, the delimiter is |

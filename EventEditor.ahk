@@ -282,22 +282,7 @@ Class CEventEditor extends CGUI
 	}
 	btnTriggerHelp_Click()
 	{
-		static OldTypes :=  { "On 7plus start" : "7plusStart"
-							, "Context menu" : "ContextMenu"
-							, "Double click on desktop" : "DoubleClickDesktop"
-							, "Double click on taskbar" : "DoubleClickTaskbar"
-							, "Explorer bar button" : "ExplorerButton"
-							, "Double click on empty space" : "ExplorerDoubleClickSpace"
-							, "Explorer path changed" : "ExplorerPathChanged"
-							, "Menu item clicked" : "MenuItem"
-							, "On window message" : "OnMessage"
-							, "Screen corner" : "ScreenCorner"
-							, "Triggered by an action" : "None"
-							, "Window activated" : "WindowActivated"
-							, "Window closed" : "WindowClosed"
-							, "Window created" : "WindowCreated"
-							, "Window state changed" : "WindowStateChange" }
-		OpenWikiPage("docsTriggers" (OldTypes.HasKey(this.Event.Trigger.Type) ? OldTypes[this.Event.Trigger.Type] : this.Event.Trigger.Type))
+		OpenWikiPage("docsTriggers" (this.Event.Trigger.__WikiLink ? this.Event.Trigger.__WikiLink : this.Event.Trigger.Type))
 	}
 
 
@@ -479,20 +464,7 @@ Class CEventEditor extends CGUI
 	}
 	btnConditionHelp_Click()
 	{
-		static OldTypes :=  { "Context menu active" : "IsContextMenuActive"
-							, "Window is file dialog" : "IsDialog"
-							, "Window is dragable" : "IsDragable"
-							, "Fullscreen window active" : "IsFullScreen"
-							, "Explorer is renaming" : "IsRenaming"
-							, "Key is down" : "KeyIsDown"
-							, "Mouse over" : "MouseOver"
-							, "Mouse over file list" : "MouseOverFileList"
-							, "Mouse over tab button" : "MouseOverTabButton"
-							, "Mouse over taskbar list" : "MouseOverTaskList"
-							, "Window active" : "WindowActive"
-							, "Window exists" : "WindowExists"
-							, "Can Window be Navigated" : "NavigatableWindow" }
-		OpenWikiPage("docsConditions" (OldTypes.HasKey(this.Condition.Type) ? OldTypes[this.Condition.Type] : this.Condition.Type))
+		OpenWikiPage("docsConditions" (this.Condition.__WikiLink ? this.Condition.__WikiLink : this.Condition.Type))
 	}
 	
 
@@ -650,74 +622,7 @@ Class CEventEditor extends CGUI
 	}
 	btnActionHelp_Click()
 	{
-		static OldTypes :=  { "Show Accessor" : "Accessor"
-							, "Show Aero Flip" : "ShowAeroFlip"
-							, "Check for updates" : "AutoUpdate"
-							, "Write to clipboard" : "Clipboard"
-							, "Clipboard Manager menu" : "ClipMenu"
-							, "Paste clipboard entry" : "ClipPaste"
-							, "Control event" : "ControlEvent"
-							, "Control timer" : "ControlTimer"
-							, "Exit 7plus" : "Exit7plus"
-							, "Explorer replace dialog" : "ExplorerReplaceDialog"
-							, "Clear Fast Folder" : "FastFoldersClear"
-							, "Fast Folders menu" : "FastFoldersMenu"
-							, "Open Fast Folder" : "FastFoldersRecall"
-							, "Save Fast Folder" : "FastFoldersStore"
-							, "Copy file" : "Copy"
-							, "Delete file" : "Delete"
-							, "Move file" : "Move"
-							, "Write to file" : "Write"
-							, "Filter list" : "FilterList"
-							, "Flashing windows" : "FlashingWindows"
-							, "Show Explorer flat view" : "FlatView"
-							, "Focus a control" : "FocusControl"
-							, "Upload to FTP" : "Upload"
-							, "Upload image to image hoster" : "ImageUpload"
-							, "Show Image Converter" : "ImageConverter"
-							, "Ask for user input" : "Input"
-							, "Invert file selection" : "InvertSelection"
-							, "Show Explorer checksum dialog" : "MD5"
-							, "Merge Explorer windows" : "MergeTabs"
-							, "Mouse click" : "MouseClick"
-							, "Close tab under mouse" : "MouseCloseTab"
-							, "Drag window with mouse" : "MouseWindowDrag"
-							, "Resize window with mouse" : "MouseWindowResize"
-							, "Create new file" : "NewFile"
-							, "Create new folder" : "NewFolder"
-							, "Open folder in new window / tab" : "OpenInNewFolder"
-							, "Play a sound" : "PlaySound"
-							, "Restart 7plus" : "Restart7plus"
-							, "Restore file selection" : "RestoreSelection"
-							, "Run a program" : "Run"
-							, "Run a program or activate it" : "RunOrActivate"
-							, "Take a screenshot" : "Screenshot"
-							, "Select files" : "SelectFiles"
-							, "Send keyboard input" : "SendKeys"
-							, "Send a window message" : "SendMessage"
-							, "Set current directory" : "SetDirectory"
-							, "Set window title" : "SetWindowTitle"
-							, "Shorten a URL" : "ShortenURL"
-							, "Show menu" : "ShowMenu"
-							, "Show settings" : "ShowSettings"
-							, "Shutdown computer" : "Shutdown"
-							, "Move Slide Window out of screen" : "SlideWindowOut"
-							, "Close taskbar button under mouse" : "TaskButtonClose"
-							, "Change desktop wallpaper" : "ToggleWallpaper"
-							, "Send an email" : "SendMail"
-							, "Show a tooltip" : "ToolTip"
-							, "Change explorer view mode" : "ViewMode"
-							, "Change sound volume" : "Volume"
-							, "Activate a window" : "WindowActivate"
-							, "Close a window" : "WindowClose"
-							, "Hide a window" : "WindowHide"
-							, "Move a window" : "WindowMove"
-							, "Resize a window" : "WindowResize"
-							, "Put window in background" : "WindowSendToBottom"
-							, "Show a window" : "WindowShow"
-							, "Show Tip" : "ShowTip"
-							, "Change window state" : "WindowState" }
-		OpenWikiPage("docsActions" (OldTypes.HasKey(this.Action.Type) ? OldTypes[this.Action.Type] : this.Action.Type))
+		OpenWikiPage("docsActions" (this.Action.__WikiLink ? this.Action.__WikiLink : this.Action.Type))
 	}
 }
 

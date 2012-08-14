@@ -2,6 +2,7 @@ Class CChecksumDialogAction Extends CAction
 {
 	static Type := RegisterType(CChecksumDialogAction, "Show Explorer checksum dialog")
 	static Category := RegisterCategory(CChecksumDialogAction, "Explorer")	
+	static __WikiLink := "MD5"
 	static Files := "${SelNM}"
 	
 	Execute(Event)

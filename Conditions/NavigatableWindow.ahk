@@ -2,6 +2,7 @@ Class CNavigatableWindowCondition Extends CCondition
 {
 	static Type := RegisterType(CNavigatableWindowCondition, "Can Window be Navigated")
 	static Category := RegisterCategory(CNavigatableWindowCondition, "Window")
+	static __WikiLink := "NavigatableWindow"
 	static FeatureType := "SetPath"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CNavigatableWindowCondition)
 

@@ -2,6 +2,7 @@ Class CMenuItemTrigger Extends CTrigger
 {
 	static Type := RegisterType(CMenuItemTrigger, "Menu item clicked")
 	static Category := RegisterCategory(CMenuItemTrigger, "System")
+	static __WikiLink := "MenuItem"
 	static Menu := "MenuName"
 	static Name := "Menu entry"
 	static Submenu := ""

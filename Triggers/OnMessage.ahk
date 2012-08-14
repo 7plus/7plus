@@ -2,6 +2,7 @@ Class COnMessageTrigger Extends CTrigger
 {
 	static Type := RegisterType(COnMessageTrigger, "On window message")
 	static Category := RegisterCategory(COnMessageTrigger, "System")
+	static __WikiLink := "OnMessage"
 	static Message := ""
 	Enable()
 	{

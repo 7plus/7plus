@@ -2,6 +2,7 @@ Class CFileWriteAction Extends CAction
 {
 	static Type := RegisterType(CFileWriteAction, "Write to file")
 	static Category := RegisterCategory(CFileWriteAction, "File")
+	static __WikiLink := "Write"
 	static Append := false
 	static Content := ""
 	static Target := ""

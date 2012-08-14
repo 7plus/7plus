@@ -2,6 +2,7 @@ Class CSelectFilesAction Extends CAction
 {
 	static Type := RegisterType(CSelectFilesAction, "Select files")
 	static Category := RegisterCategory(CSelectFilesAction, "Explorer")
+	static __WikiLink := "SelectFiles"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CSelectFilesAction)
 	static Filter := "*.exe;*.jpg"
 	static Wildcard := true

@@ -2,6 +2,7 @@ Class CFastFoldersStoreAction Extends CAction
 {
 	static Type := RegisterType(CFastFoldersStoreAction, "Save Fast Folder")
 	static Category := RegisterCategory(CFastFoldersStoreAction, "Fast Folders")
+	static __WikiLink := "FastFoldersStore"
 	static Slot := 0
 	
 	Execute(Event)

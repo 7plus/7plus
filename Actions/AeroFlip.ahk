@@ -2,6 +2,7 @@ Class CAeroFlipAction Extends CAction
 {
 	static Type := RegisterType(CAeroFlipAction, "Show Aero Flip")
 	static Category := RegisterCategory(CAeroFlipAction, "System")
+	static __WikiLink := "ShowAeroFlip"
 	Execute(Event)
 	{
 		if(!WinActive("ahk_class Flip3D") && !WinActive("ahk_class TaskSwitcherWnd"))

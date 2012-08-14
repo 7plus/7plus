@@ -2,6 +2,7 @@ Class CSetDirectoryAction Extends CAction
 {
 	static Type := RegisterType(CSetDirectoryAction, "Set current directory")
 	static Category := RegisterCategory(CSetDirectoryAction, "Explorer")
+	static __WikiLink := "SetDirectory"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CSetDirectoryAction)
 	static WindowMatchType := "Active"
 	static Path := ""

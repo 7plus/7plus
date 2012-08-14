@@ -2,6 +2,7 @@ Class CWindowStateAction Extends CAction
 {
 	static Type := RegisterType(CWindowStateAction, "Change window state")
 	static Category := RegisterCategory(CWindowStateAction, "Window")
+	static __WikiLink := "WindowState"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowStateAction)
 	static Action := "Maximize"
 	static Value := 100

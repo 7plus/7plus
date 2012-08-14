@@ -1,7 +1,8 @@
-﻿Class CWindowClosedTrigger Extends CTrigger
+Class CWindowClosedTrigger Extends CTrigger
 {
 	static Type := RegisterType(CWindowClosedTrigger, "Window closed")
 	static Category := RegisterCategory(CWindowClosedTrigger, "Window")
+	static __WikiLink := "WindowClosed"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowClosedTrigger)
 	
 	Matches(Filter)

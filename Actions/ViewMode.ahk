@@ -2,6 +2,7 @@ Class CViewModeAction Extends CAction
 {
 	static Type := RegisterType(CViewModeAction, "Change explorer view mode")
 	static Category := RegisterCategory(CViewModeAction, "Explorer")
+	static __WikiLink := "ViewMode"
 	static Action := "Toggle show hidden files"
 	Execute(Event)
 	{

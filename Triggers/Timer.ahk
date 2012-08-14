@@ -2,6 +2,7 @@ Class CTimerTrigger Extends CTrigger
 {
 	static Type := RegisterType(CTimerTrigger, "Timer")
 	static Category := RegisterCategory(CTimerTrigger, "System")
+	static __WikiLink := "Timer"
 	static Time := ""
 	static Text := ""
 	static ShowProgress := 0

@@ -2,6 +2,7 @@ Class CIsDragableCondition Extends CCondition
 {
 	static Type := RegisterType(CIsDragableCondition, "Window is dragable")
 	static Category := RegisterCategory(CIsDragableCondition, "Window")
+	static __WikiLink := "IsDragable"
 	Evaluate()
 	{
 		MouseGetPos,,,win

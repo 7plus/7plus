@@ -2,6 +2,7 @@ Class CDoubleClickDesktopTrigger Extends CTrigger
 {
 	static Type := RegisterType(CDoubleClickDesktopTrigger, "Double click on desktop")
 	static Category := RegisterCategory(CDoubleClickDesktopTrigger, "Hotkeys")
+	static __WikiLink := "DoubleClickDesktop"
 	
 	Matches(Filter)
 	{

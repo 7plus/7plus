@@ -2,6 +2,7 @@ Class CFileCopyAction Extends CAction
 {
 	static Type := RegisterType(CFileCopyAction, "Copy file")
 	static Category := RegisterCategory(CFileCopyAction, "File")
+	static __WikiLink := "Copy"
 	static _ImplementsFileOperation := ImplementFileOperationInterface(CFileCopyAction)
 
 	Execute(Event)

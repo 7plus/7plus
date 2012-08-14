@@ -2,6 +2,7 @@ Class CIsFullScreenCondition Extends CCondition
 {
 	static Type := RegisterType(CIsFullScreenCondition, "Fullscreen window active")
 	static Category := RegisterCategory(CIsFullScreenCondition, "Window")
+	static __WikiLink := "WindowActive"
 	static UseIncludeList := 1
 	static UseExcludeList := 1
 	Evaluate()

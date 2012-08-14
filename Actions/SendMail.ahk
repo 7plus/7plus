@@ -2,6 +2,7 @@ Class CSendMailAction Extends CAction
 {
 	static Type := RegisterType(CSendMailAction, "Send an email")
 	static Category := RegisterCategory(CSendMailAction, "Internet")
+	static __WikiLink := "SendMail"
 	
 	static From     := "...@gmail.com"
 	static To       := "anybody@somewhere.com"

@@ -2,6 +2,7 @@ Class CKeyIsDownCondition Extends CCondition
 {
 	static Type := RegisterType(CKeyIsDownCondition, "Key is down")
 	static Category := RegisterCategory(CKeyIsDownCondition, "Other")
+	static __WikiLink := "KeyIsDown"
 	static Physical := 1
 	static Toggle := 0
 	static Key := ""

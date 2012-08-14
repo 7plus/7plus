@@ -2,6 +2,7 @@ Class CShutdownAction Extends CAction
 {
 	static Type := RegisterType(CShutdownAction, "Shutdown computer")
 	static Category := RegisterCategory(CShutdownAction, "System")	
+	static __WikiLink := "Shutdown"
 	static ShutDownSelection := "Shutdown"
 	static ForceClose := false
 	

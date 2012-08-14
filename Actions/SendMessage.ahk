@@ -2,6 +2,7 @@ Class CSendMessageAction Extends CAction
 {
 	static Type := RegisterType(CSendMessageAction, "Send a window message")
 	static Category := RegisterCategory(CSendMessageAction, "System")
+	static __WikiLink := "SendMessage"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CSendMessageAction)
 	
 	static TargetControl := "Edit1"

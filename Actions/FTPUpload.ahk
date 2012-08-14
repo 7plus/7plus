@@ -3,6 +3,7 @@ Class CFTPUploadAction Extends CAction
 {
 	static Type := RegisterType(CFTPUploadAction, "Upload to FTP")
 	static Category := RegisterCategory(CFTPUploadAction, "Internet")
+	static __WikiLink := "Upload"
 	static SourceFiles := "${SelNM}" ;All upload actions need to have SourceFiles property (used in ImageConverter)
 	static TargetFolder := ""
 	static TargetFile := ""

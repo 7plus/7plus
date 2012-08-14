@@ -2,6 +2,7 @@ Class CWindowHideAction Extends CAction
 {
 	static Type := RegisterType(CWindowHideAction, "Hide a window")
 	static Category := RegisterCategory(CWindowHideAction, "Window")
+	static __WikiLink := "WindowHide"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowCloseAction)
 
 	Execute()

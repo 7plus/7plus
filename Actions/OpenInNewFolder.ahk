@@ -2,6 +2,7 @@ Class COpenInNewFolderAction Extends CAction
 {
 	static Type := RegisterType(COpenInNewFolderAction, "Open folder in new window / tab")
 	static Category := RegisterCategory(COpenInNewFolderAction, "Explorer")
+	static __WikiLink := "OpenInNewFolder"
 	static Action := "Tab in Background"
 	
 	Execute(Event)

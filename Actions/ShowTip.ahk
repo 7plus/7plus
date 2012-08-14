@@ -2,6 +2,7 @@ Class CShowTipAction Extends CAction
 {
 	static Type := RegisterType(CShowTipAction, "Show Tip")
 	static Category := RegisterCategory(CShowTipAction, "7plus")
+	static __WikiLink := "ShowTip"
 	static TipIndex := 1
 	static Min := 0
 	static Max := 0

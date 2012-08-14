@@ -2,6 +2,7 @@ Class CFlatViewAction Extends CAction
 {
 	static Type := RegisterType(CFlatViewAction, "Show Explorer flat view")
 	static Category := RegisterCategory(CFlatViewAction, "Explorer")
+	static __WikiLink := "FlatView"
 	static Paths := "${SelN}"
 	Execute(Event)
 	{

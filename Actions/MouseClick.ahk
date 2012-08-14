@@ -2,6 +2,7 @@ Class CMouseClickAction Extends CAction
 {
 	static Type := RegisterType(CMouseClickAction, "Mouse click")
 	static Category := RegisterCategory(CMouseClickAction, "Input/Output")
+	static __WikiLink := "MouseClick"
 	static RestorePosition := true
 	static Relative := true
 	static Button := "Left"

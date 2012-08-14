@@ -2,6 +2,7 @@ Class CSlideWindowOutAction Extends CAction
 {
 	static Type := RegisterType(CSlideWindowOutAction, "Move Slide Window out of screen")
 	static Category := RegisterCategory(CSlideWindowOutAction, "Window")
+	static __WikiLink := "SlideWindowOut"
 	static Direction := 1 ;Left
 	
 	Execute()

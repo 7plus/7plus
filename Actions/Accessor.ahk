@@ -2,6 +2,7 @@ Class CAccessorAction Extends CAction
 {
 	static Type := RegisterType(CAccessorAction, "Show Accessor")
 	static Category := RegisterCategory(CAccessorAction, "Window")
+	static __WikiLink := "Accessor"
 	static InitialQuery := ""
 	__New()
 	{

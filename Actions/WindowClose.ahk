@@ -2,6 +2,7 @@ Class CWindowCloseAction Extends CAction
 {
 	static Type := RegisterType(CWindowCloseAction, "Close a window")
 	static Category := RegisterCategory(CWindowCloseAction, "Window")
+	static __WikiLink := "WindowClose"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowCloseAction)
 	static ForceClose := 0
 	

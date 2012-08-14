@@ -2,6 +2,7 @@ Class CDirectoryChangeTrigger Extends CTrigger
 {
 	static Type := RegisterType(CDirectoryChangeTrigger, "Trigger on file change")
 	static Category := RegisterCategory(CDirectoryChangeTrigger, "System")
+	static __WikiLink := "DirectoryChange"
 	static Path := ""
 	static Files := ""
 	static ChangeType := "All"

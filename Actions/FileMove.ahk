@@ -2,6 +2,7 @@ Class CFileMoveAction Extends CAction
 {
 	static Type := RegisterType(CFileMoveAction, "Move file")
 	static Category := RegisterCategory(CFileMoveAction, "File")
+	static __WikiLink := "Move"
 	static _ImplementsFileOperation := ImplementFileOperationInterface(CFileMoveAction)
 
 	Execute(Event)

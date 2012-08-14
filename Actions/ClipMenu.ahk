@@ -2,6 +2,7 @@
 {
 	static Type := RegisterType(CClipMenuAction, "Clipboard Manager menu")
 	static Category := RegisterCategory(CClipMenuAction, "System")
+	static __WikiLink := "ClipMenu"
 	
 	Execute(Event)
 	{

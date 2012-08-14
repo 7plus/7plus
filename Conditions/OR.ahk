@@ -1,7 +1,8 @@
 Class CORCondition Extends CCondition
 {
 	static Type := RegisterType(CORCondition, "OR")
-	static Category := RegisterCategory(CORCondition, "7plus")
+	static Category := RegisterCategory(CORCondition, "Othe")
+	static __WikiLink := "OR"
 	Evaluate()
 	{
 		outputdebug % "Evaluate() should not get called on CORCondition!"

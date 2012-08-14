@@ -2,6 +2,7 @@ Class CWindowCreatedTrigger Extends CTrigger
 {
 	static Type := RegisterType(CWindowCreatedTrigger, "Window created")
 	static Category := RegisterCategory(CWindowCreatedTrigger, "Window")
+	static __WikiLink := "WindowCreated"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowCreatedTrigger)
 	
 	Matches(Filter)

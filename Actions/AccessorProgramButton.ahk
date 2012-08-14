@@ -2,6 +2,7 @@ Class CAccessorProgramButtonAction Extends CAction
 {
 	static Type := RegisterType(CAccessorProgramButtonAction, "AccessorProgramButton")
 	static Category := RegisterCategory(CAccessorProgramButtonAction, "7plus")
+	static __WikiLink := "AccessorProgramButton"
 	static Slot := 1
 	
 	DisplayString()

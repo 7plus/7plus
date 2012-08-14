@@ -2,6 +2,7 @@ Class CMouseWindowDragAction Extends CAction
 {
 	static Type := RegisterType(CMouseWindowDragAction, "Drag window with mouse")
 	static Category := RegisterCategory(CMouseWindowDragAction, "Window")
+	static __WikiLink := "MouseWindowDrag"
 	
 	Execute(Event)
 	{

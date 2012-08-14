@@ -2,6 +2,7 @@ Class CVoiceAction Extends CAction
 {
 	static Type := RegisterType(CVoiceAction, "Speak text")
 	static Category := RegisterCategory(CVoiceAction, "Input/Output")
+	static __WikiLink := "Voice"
 	static Text := ""
 	Execute(Event)
 	{

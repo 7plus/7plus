@@ -2,6 +2,7 @@ Class CFlashingWindowsAction Extends CAction
 {
 	static Type := RegisterType(CFlashingWindowsAction, "Flashing windows")
 	static Category := RegisterCategory(CFlashingWindowsAction, "Window")
+	static __WikiLink := "FlashingWindows"
 	static FlashingWindows := 1 ;Activate flashing windows from taskbar
 	static ToggleWindows := 1 ;Toggle between current and last window
 	static Notifications := 1 ;Activate notification windows

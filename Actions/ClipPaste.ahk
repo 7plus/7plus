@@ -2,6 +2,7 @@ Class CClipPasteAction Extends CAction
 {
 	static Type := RegisterType(CClipPasteAction, "Paste clipboard entry")
 	static Category := RegisterCategory(CClipPasteAction, "System")
+	static __WikiLink := "ClipPaste"
 	static Index := 0
 	
 	Execute(Event)

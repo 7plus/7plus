@@ -2,6 +2,7 @@ Class CScreenshotAction Extends CAction
 {
 	static Type := RegisterType(CScreenshotAction, "Take a screenshot")
 	static Category := RegisterCategory(CScreenshotAction, "System")
+	static __WikiLink := "Screenshot"
 	static Area := "Screen"
 	static Quality := 95
 	static TargetFolder := ""

@@ -2,6 +2,7 @@ Class CShowMenuAction Extends CAction
 {
 	static Type := RegisterType(CShowMenuAction, "Show menu")
 	static Category := RegisterCategory(CShowMenuAction, "System")
+	static __WikiLink := "ShowMenu"
 	static Menu := ""
 	static X := ""
 	static Y := ""

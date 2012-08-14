@@ -2,6 +2,7 @@ Class CRunOrActivateAction Extends CAction
 {
 	static Type := RegisterType(CRunOrActivateAction, "Run a program or activate it")
 	static Category := RegisterCategory(CRunOrActivateAction, "System")
+	static __WikiLink := "RunOrActivate"
 	static _ImplementsRun := ImplementRunInterface(CRunOrActivateAction)
 	
 	Execute(Event)

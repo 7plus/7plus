@@ -2,6 +2,7 @@ Class CWindowMoveAction Extends CAction
 {
 	static Type := RegisterType(CWindowMoveAction, "Move a window")
 	static Category := RegisterCategory(CWindowMoveAction, "Window")
+	static __WikiLink := "WindowMove"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowMoveAction)
 	static CenterX := 0
 	static CenterY := 0

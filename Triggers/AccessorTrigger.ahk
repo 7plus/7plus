@@ -2,6 +2,7 @@ Class CAccessorTrigger Extends CTrigger
 {
 	static Type := RegisterType(CAccessorTrigger, "Accessor Trigger")
 	static Category := RegisterCategory(CAccessorTrigger, "7plus")
+	static __WikiLink := "AccessorTrigger"
 	static Title := "Accessor Trigger"
 	static Path := ""
 	static Detail1 := ""

@@ -2,6 +2,7 @@ Class CWindowShowAction Extends CAction
 {
 	static Type := RegisterType(CWindowShowAction, "Show a window")
 	static Category := RegisterCategory(CWindowShowAction, "Window")
+	static __WikiLink := "WindowShow"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowShowAction)
 	
 	Execute()

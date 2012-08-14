@@ -2,6 +2,7 @@ Class CControlTimerAction Extends CAction
 {
 	static Type := RegisterType(CControlTimerAction, "Control timer")
 	static Category := RegisterCategory(CControlTimerAction, "7plus")
+	static __WikiLink := "ControlTimer"
 	static Action := "Start timer"
 	static TimerID := ""
 	static Time := ""

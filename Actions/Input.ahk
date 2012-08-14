@@ -2,6 +2,7 @@ Class CInputAction Extends CAction
 {
 	static Type := RegisterType(CInputAction, "Ask for user input")
 	static Category := RegisterCategory(CInputAction, "Input/Output")
+	static __WikiLink := "Input"
 	
 	static Cancel := false
 	static Placeholder := "Input"

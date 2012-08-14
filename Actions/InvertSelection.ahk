@@ -2,6 +2,7 @@ Class CInvertSelectionAction Extends CAction
 {
 	static Type := RegisterType(CInvertSelectionAction, "Invert file selection")
 	static Category := RegisterCategory(CInvertSelectionAction, "Explorer")
+	static __WikiLink := "InvertSelection"
 	
 	Execute(Event)
 	{

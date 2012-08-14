@@ -2,6 +2,7 @@ Class CToggleWallpaperAction Extends CAction
 {
 	static Type := RegisterType(CToggleWallpaperAction, "Change desktop wallpaper")
 	static Category := RegisterCategory(CToggleWallpaperAction, "System")
+	static __WikiLink := "ToggleWallpaper"
 	
 	Execute(Event)
 	{

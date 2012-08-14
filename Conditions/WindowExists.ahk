@@ -2,6 +2,7 @@ Class CWindowExistsCondition Extends CCondition
 {
 	static Type := RegisterType(CWindowExistsCondition, "Window exists")
 	static Category := RegisterCategory(CWindowExistsCondition, "WIndow")
+	static __WikiLink := "WindowExists"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowExistsCondition)
 	
 	Evaluate()

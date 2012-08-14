@@ -2,6 +2,7 @@ Class CWaitAction Extends CAction
 {
 	static Type := RegisterType(CWaitAction, "Wait")
 	static Category := RegisterCategory(CWaitAction, "7plus")
+	static __WikiLink := "Wait"
 	static Time := 1000
 	
 	Execute(Event)

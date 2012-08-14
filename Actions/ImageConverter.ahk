@@ -2,6 +2,7 @@ Class CImageConverterAction Extends CAction
 {
 	static Type := RegisterType(CImageConverterAction, "Show Image Converter")
 	static Category := RegisterCategory(CImageConverterAction, "7plus")
+	static __WikiLink := "ImageConverter"
 	static Files := "${SelNM}"
 	static Hoster := "ImgUr"
 	static FTPTargetDir := ""

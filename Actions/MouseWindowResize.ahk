@@ -2,6 +2,7 @@ Class CMouseWindowResizeAction Extends CAction
 {
 	static Type := RegisterType(CMouseWindowResizeAction, "Resize window with mouse")
 	static Category := RegisterCategory(CMouseWindowResizeAction, "Window")
+	static __WikiLink := "MouseWindowResize"
 	
 	Execute(Event)
 	{

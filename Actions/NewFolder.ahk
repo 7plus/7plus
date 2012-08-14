@@ -2,6 +2,7 @@ Class CNewFolderAction Extends CAction
 {
 	static Type := RegisterType(CNewFolderAction, "Create new folder")
 	static Category := RegisterCategory(CNewFolderAction, "Explorer")
+	static __WikiLink := "NewFolder"
 	static Rename := true
 	static FolderName := TranslateMUI("shell32.dll",30320) ;"New Folder"
 	

@@ -2,6 +2,7 @@ Class CMergeTabsAction Extends CAction
 {
 	static Type := RegisterType(CMergeTabsAction, "Merge Explorer windows")
 	static Category := RegisterCategory(CMergeTabsAction, "Explorer")
+	static __WikiLink := "MergeTabs"
 	
 	DisplayString()
 	{

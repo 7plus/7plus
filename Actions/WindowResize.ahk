@@ -2,6 +2,7 @@ Class CWindowResizeAction Extends CAction
 {
 	static Type := RegisterType(CWindowResizeAction, "Resize a window")
 	static Category := RegisterCategory(CWindowResizeAction, "Window")
+	static __WikiLink := "WindowResize"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowResizeAction)
 	static CenterX := 0
 	static CenterY := 0

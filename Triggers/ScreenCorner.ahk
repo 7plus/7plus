@@ -2,6 +2,7 @@ Class CScreenCornerTrigger Extends CTrigger
 {
 	static Type := RegisterType(CScreenCornerTrigger, "Screen corner")
 	static Category := RegisterCategory(CScreenCornerTrigger, "System")
+	static __WikiLink := "ScreenCorner"
 	static Corner := 1
 	static Time := 1000
 	Matches(Filter)

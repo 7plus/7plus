@@ -2,6 +2,7 @@ Class CFastFoldersRecallAction Extends CAction
 {
 	static Type := RegisterType(CFastFoldersRecallAction, "Open Fast Folder")
 	static Category := RegisterCategory(CFastFoldersRecallAction, "Fast Folders")
+	static __WikiLink := "FastFoldersRecall"
 	static Slot := 0
 	
 	Execute(Event)

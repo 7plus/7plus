@@ -2,6 +2,7 @@ Class CExplorerReplaceDialogAction Extends CAction
 {
 	static Type := RegisterType(CExplorerReplaceDialogAction, "Explorer replace dialog")
 	static Category := RegisterCategory(CExplorerReplaceDialogAction, "Explorer")
+	static __WikiLink := "ExplorerReplaceDialog"
 	static View := "Filenames"
 	static SelectedFiles := false
 	Execute(Event)

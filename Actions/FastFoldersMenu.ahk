@@ -2,6 +2,7 @@ Class CFastFoldersMenuAction Extends CAction
 {
 	static Type := RegisterType(CFastFoldersMenuAction, "Fast Folders menu")
 	static Category := RegisterCategory(CFastFoldersMenuAction, "Fast Folders")
+	static __WikiLink := "FastFoldersMenu"
 	
 	Execute(Event)
 	{

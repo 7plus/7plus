@@ -2,6 +2,7 @@ Class CShowSettingsAction Extends CAction
 {
 	static Type := RegisterType(CShowSettingsAction, "Show settings")
 	static Category := RegisterCategory(CShowSettingsAction, "7plus")
+	static __WikiLink := "ShowSettings"
 	Execute(Event)
 	{
 		DetectHiddenWindows, Off

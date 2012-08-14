@@ -2,6 +2,7 @@ Class CFilterListAction Extends CAction
 {
 	static Type := RegisterType(CFilterListAction, "Filter list")
 	static Category := RegisterCategory(CFilterListAction, "7plus")
+	static __WikiLink := "FilterList"
 	static Operator := "that end with"
 	static List := "${SelNQ}"
 	static Filter := ".exe"

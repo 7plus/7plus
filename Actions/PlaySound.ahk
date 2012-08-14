@@ -2,6 +2,7 @@ Class CPlaySoundAction Extends CAction
 {
 	static Type := RegisterType(CPlaySoundAction, "Play a sound")
 	static Category := RegisterCategory(CPlaySoundAction, "Input/Output")
+	static __WikiLink := "PlaySound"
 	static File := "*-1"
 	
 	DisplayString()

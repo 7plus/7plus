@@ -2,6 +2,7 @@ Class CFastFoldersClearAction Extends CAction
 {
 	static Type := RegisterType(CFastFoldersClearAction, "Clear Fast Folder")
 	static Category := RegisterCategory(CFastFoldersClearAction, "Fast Folders")
+	static __WikiLink := "FastFoldersClear"
 	static Slot := 0
 	
 	Execute(Event)

@@ -2,6 +2,7 @@ Class CClipboardAction Extends CAction
 {
 	static Type := RegisterType(CClipboardAction, "Write to clipboard")
 	static Category := RegisterCategory(CClipboardAction, "System")
+	static __WikiLink := "Clipboard"
 	static InsertType := "Text"
 	static Content := ""
 	static Clear := 1

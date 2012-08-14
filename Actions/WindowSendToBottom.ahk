@@ -2,6 +2,7 @@ Class CWindowSendToBottomAction Extends CAction
 {
 	static Type := RegisterType(CWindowSendToBottomAction, "Put window in background")
 	static Category := RegisterCategory(CWindowSendToBottomAction, "Window")
+	static __WikiLink := "WindowSendToBottom"
 	static _ImplementsWindowFilter := ImplementWindowFilterInterface(CWindowSendToBottomAction)
 	
 	Execute()

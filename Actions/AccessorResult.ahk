@@ -3,6 +3,7 @@ Class CAccessorResultAction Extends CAction
 {
 	static Type := RegisterType(CAccessorAction, "Execute Accessor Result")
 	static Category := RegisterCategory(CAccessorAction, "7plus")
+	static __WikiLink := "AccessorResult"
 	
 	Execute(Event)
 	{
