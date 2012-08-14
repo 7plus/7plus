@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{5d7dba31-c9f3-4c25-835b-8827323eb713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generierte Dateien">
+      <UniqueIdentifier>{e69f0c99-cd7a-4bea-b6fa-12827208995b}</UniqueIdentifier>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShellExtensionps.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ShellExtension_i.c">
+      <Filter>Generierte Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellExtension_p.c">
+      <Filter>Generierte Dateien</Filter>
+    </ClCompile>
+    <ClCompile Include="dlldata.c">
+      <Filter>Generierte Dateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

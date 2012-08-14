@@ -1,0 +1,52 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Type>Show settings</Type>
+</Action></Actions>
+<Category>7plus</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>0</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the 7plus settings window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>0</ID>
+<Name>Show settings window</Name>
+<OfficialEvent>1</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Restart 7plus</Type>
+</Action></Actions>
+<Category>7plus</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restarts 7plus.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1</ID>
+<Name>Restart 7plus</Name>
+<OfficialEvent>2</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#Q</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

@@ -1,0 +1,61 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${SelNNEM}</SourceFiles>
+<TargetFile>${Input}</TargetFile>
+<TargetFolder></TargetFolder>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Explorer Buttons</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Upload the selected files to the FTP server defined in FTP profile 1 by clicking on the "Upload" button in explorer. Make sure to &lt;A HREF="Settings:FTP Profiles"&gt;enter&lt;/A&gt; FTP login data for FTP profile 1. If you notice problems with these kind of buttons you can remove them on the &lt;A HREF="Settings:Fast Folders"&gt;Fast Folders&lt;/A&gt; page. They will be readded when you press OK or Apply though.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>978</ID>
+<Name>Upload selected files</Name>
+<OfficialEvent>979</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Name>Upload</Name>
+<ShowNoSelected>0</ShowNoSelected>
+<ShowSelected>1</ShowSelected>
+<Tooltip>Upload a file</Tooltip>
+<Type>Explorer bar button</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<BaseFile></BaseFile>
+<Rename>1</Rename>
+<Type>Create new file</Type>
+</Action></Actions>
+<Category>Explorer Buttons</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new text file by clicking on the "New text file" button in explorer.If you notice problems with these kind of buttons you can remove them on the &lt;A HREF="Settings:Fast Folders"&gt;Fast Folders&lt;/A&gt; page. They will be readded when you press OK or Apply though.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>979</ID>
+<Name>New text file</Name>
+<OfficialEvent>980</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Name>New text file</Name>
+<ShowNoSelected>1</ShowNoSelected>
+<ShowSelected>1</ShowSelected>
+<Tooltip>Creates a new text file</Tooltip>
+<Type>Explorer bar button</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

@@ -1,0 +1,125 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>(</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends an opening bracket character when NumpadEnd is pressed (Numpad1 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1646</ID>
+<Name>NumpadEnd -&gt; '('</Name>
+<OfficialEvent>46</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadEnd</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>)</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a closing bracket character when NumpadPgDn is pressed (Numpad3 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1647</ID>
+<Name>NumpadPgDn -&gt; ')'</Name>
+<OfficialEvent>47</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadPgDn</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{^ 2}{Backspace}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a '^' character when NumpadHome is pressed (Numpad7 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1648</ID>
+<Name>NumpadHome -&gt; '^'</Name>
+<OfficialEvent>48</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadHome</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>sqrt(</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a sqrt( string when NumpadPgUp is pressed Numpad9 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1649</ID>
+<Name>NumpadPgUp -&gt; "sqrt("</Name>
+<OfficialEvent>49</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadPgUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>=</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a '=' character when NumpadIns is pressed (Numpad0 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1650</ID>
+<Name>NumpadIns -&gt; '='</Name>
+<OfficialEvent>50</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadIns</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

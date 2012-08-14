@@ -1,0 +1,177 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D c:\</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Compare>${TitlePath}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>1</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in C:\ when no useful directory can be extracted from the current context.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>384</ID>
+<Name>Run CMD</Name>
+<OfficialEvent>385</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "${TitlePath}\"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Compare>${TitlePath}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>1</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD with the path extracted from the title of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>385</ID>
+<Name>Run CMD with path from window title</Name>
+<OfficialEvent>386</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>ConsoleWindowClass</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make it possible to close CMD with ALT+F4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>387</ID>
+<Name>Close CMD with ALT + F4</Name>
+<OfficialEvent>388</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!F4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Button>Right</Button>
+<Double>0</Double>
+<Relative>1</Relative>
+<RestorePosition>1</RestorePosition>
+<Type>Mouse click</Type>
+<X>40</X>
+<Y>40</Y>
+</Action><Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{Down 3}{Enter}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>ConsoleWindowClass</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make it possible to paste text in CMD by pressing CTRL+V.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>388</ID>
+<Name>CMD: CTRL+V to paste from clipboard</Name>
+<OfficialEvent>389</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^V</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "%Desktop%"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in desktop directory when desktop window is active.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1583</ID>
+<Name>Run CMD in desktop directory</Name>
+<OfficialEvent>987</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

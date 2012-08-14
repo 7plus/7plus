@@ -1,0 +1,32 @@
+// ShellExtension.idl : IDL-Quelle für ShellExtension
+//
+
+// Diese Datei wird mit dem MIDL-Tool bearbeitet,
+// um den Quellcode für die Typbibliothek (ShellExtension.tlb) und die Abruffunktionen zu erstellen.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(02AFF9B9-D4ED-4E2E-B927-BEF75F18E5B0),
+	pointer_default(unique)
+]
+interface IShellExt : IUnknown{
+};
+[
+	uuid(D67B039A-C160-4FF9-8166-1F3428269DCB),
+	version(1.0),
+]
+library ShellExtensionLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(F547E0EF-E87C-4639-B831-2DE08AD102E9)		
+	]
+	coclass ShellExt
+	{
+		[default] interface IShellExt;
+	};
+};
+

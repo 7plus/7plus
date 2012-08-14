@@ -1,0 +1,64 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {F547E0EF-E87C-4639-B831-2DE08AD102E9} = s 'ShellExt Class'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			Version = s '1.0'
+		}
+	}
+	NoRemove *
+	{
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove ShellExt = s '{F547E0EF-E87C-4639-B831-2DE08AD102E9}'
+			}
+		}
+	}
+	NoRemove DesktopBackground
+	{
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove ShellExt = s '{F547E0EF-E87C-4639-B831-2DE08AD102E9}'
+			}
+		}
+	}
+	NoRemove Directory
+	{
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove 7plus = s '{F547E0EF-E87C-4639-B831-2DE08AD102E9}'
+			}
+		}
+		NoRemove Background
+		{
+			NoRemove shellex
+			{
+				NoRemove ContextMenuHandlers
+				{
+					ForceRemove 7plus = s '{F547E0EF-E87C-4639-B831-2DE08AD102E9}'
+				}
+			}
+		}
+	}
+	NoRemove Drive
+	{
+		NoRemove shellex
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove 7plus = s '{F547E0EF-E87C-4639-B831-2DE08AD102E9}'
+			}
+		}
+	}
+}

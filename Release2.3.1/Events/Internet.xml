@@ -1,0 +1,106 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${SelNQ}</SourceFiles>
+<TargetFile></TargetFile>
+<TargetFolder></TargetFolder>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Uploads the file(s) selected in the currently active explorer window/file dialog to the FTP server defined in FTP profile 1. Make sure to &lt;A HREF="Settings:FTP Profiles"&gt;enter&lt;/A&gt; FTP login data for FTP profile 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>381</ID>
+<Name>Upload selected files</Name>
+<OfficialEvent>382</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^U</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Method>Goo.gl</Method>
+<Type>Shorten a URL</Type>
+<URL>${Clip}</URL>
+<WriteToClipboard>1</WriteToClipboard>
+<WriteToPlaceholder>ShortURL</WriteToPlaceholder>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will shorten an URL in the clipboard by using the &lt;A HREF="www.goo.gl"&gt;goo.gl&lt;/A&gt; service. The URL in clipboard will be replaced with the shortened version.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1627</ID>
+<Name>URL shortener</Name>
+<OfficialEvent>27</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#S</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>http://www.google.com/search?q=${SelText}</Command>
+<RunAsAdmin>-1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory></WorkingDirectory>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event runs a Google search for the selected text.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1652</ID>
+<Name>Search selected text with Google</Name>
+<OfficialEvent>52</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#G</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

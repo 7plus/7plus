@@ -1,0 +1,469 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<InitialQuery></InitialQuery>
+<Type>Show Accessor</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Show the Accessor window, which can be used to access many things by keyboard. Be sure to check out the &lt;A HREF="Settings:Accessor"&gt;Accessor options&lt;/A&gt;!</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>317</ID>
+<Name>Show Accessor</Name>
+<OfficialEvent>318</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Space</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Menu>ClipboardMenu</Menu>
+<Type>Show menu</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Show the clipboard manager menu, which is used to paste the most recent 10 clipboard text entries. You can also use the Numpad keys to select an entry.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>383</ID>
+<Name>Clipboard Manager</Name>
+<OfficialEvent>384</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#V</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^.</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>Photo_Lightweight_Viewer</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${WindowsVersion}</Compare>
+<Negate>0</Negate>
+<Operator>is greater than</Operator>
+<Type>If</Type>
+<With>${WINXP64}</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>ShImgVw:</With>
+</Condition><Condition>
+<Compare>${WindowsVersion}</Compare>
+<Negate>0</Negate>
+<Operator>is lower than</Operator>
+<Type>If</Type>
+<With>${WINVISTA}</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with R in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>961</ID>
+<Name>Picture viewer: Rotate image right with R</Name>
+<OfficialEvent>962</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>R</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^,</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>Photo_Lightweight_Viewer</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${WindowsVersion}</Compare>
+<Negate>0</Negate>
+<Operator>is greater than</Operator>
+<Type>If</Type>
+<With>${WINXP64}</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>ShImgVw:</With>
+</Condition><Condition>
+<Compare>${WindowsVersion}</Compare>
+<Negate>0</Negate>
+<Operator>is lower than</Operator>
+<Type>If</Type>
+<With>${WINVISTA}</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with L in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>962</ID>
+<Name>Picture viewer: Rotate image left with L</Name>
+<OfficialEvent>963</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>L</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle mute/unmute</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>100</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume notification window when the Mute button is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1589</ID>
+<Name>Show volume notification window</Name>
+<OfficialEvent>993</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Mute</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>-2</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume notification window when Volume Down is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1590</ID>
+<Name>Show volume notification window</Name>
+<OfficialEvent>994</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Down</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>+2</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume notification window when Volume Up is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1591</ID>
+<Name>Show volume notification window</Name>
+<OfficialEvent>995</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Up</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>`r`n</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>1</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will write a newline sequence to the focused control and thus start a new line. This is useful in text fields where pressing Enter would press a button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1610</ID>
+<Name>Write newline characters</Name>
+<OfficialEvent>16</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^#Enter</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Change desktop wallpaper</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Toggles the wallpaper using the list of wallpapers defined in Windows (7 or later). Same as the desktop context menu option.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1621</ID>
+<Name>Toggle Wallpaper (Mouse over desktop)</Name>
+<OfficialEvent>24</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>Screen</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1637</ID>
+<Name>Take screenshot: Use Image Converter</Name>
+<OfficialEvent>37</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>User selection</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot of an area that can be selected by the user and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1638</ID>
+<Name>Take screenshot of custom area: Use Image Converter</Name>
+<OfficialEvent>38</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>Window</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot of the active window and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1639</ID>
+<Name>Take screenshot of window: Use Image Converter</Name>
+<OfficialEvent>39</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>Script</Placeholder>
+<Rows>30</Rows>
+<Selection></Selection>
+<Text>Enter script here</Text>
+<Title>Enter Script</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>600</Width>
+</Action><Action>
+<Append>0</Append>
+<Content>${script}</Content>
+<ImageExtension>png</ImageExtension>
+<Quality>95</Quality>
+<Target>%Temp%\7plus\script.ahk</Target>
+<Type>Write to file</Type>
+</Action><Action>
+<Command>%Temp%\7plus\script.ahk</Command>
+<RunAsAdmin>1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>%Temp%\7plus</WorkingDirectory>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to paste an AutoHotkey script in a dialog  and runs it afterwards. This event requires that you have installed an &lt;A HREF="www.autohotkey.com"&gt;AutoHotkey&lt;/A&gt; interpreter and assigned it to the .ahk file extension. The script file is deleted when 7plus exits. This event can be used as a template for other scripting languages.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1645</ID>
+<Name>Run temporary AHK script</Name>
+<OfficialEvent>45</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#T</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

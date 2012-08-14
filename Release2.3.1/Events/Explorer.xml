@@ -1,0 +1,1046 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing current files on clipboard. This event will copy ALL the files on the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>2</ID>
+<Name>Append file(s) to clipboard</Name>
+<OfficialEvent>3</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>1</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing current files on clipboard. This event will cut ALL the files on the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>3</ID>
+<Name>Append file(s) to clipboard: Cut</Name>
+<OfficialEvent>4</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+X</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Path>Upward</Path>
+<Type>Set current directory</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND3</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make backspace go upwards in file dialogs, like in the good ol' XP.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>6</ID>
+<Name>Make backspace go upwards</Name>
+<OfficialEvent>7</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Backspace</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "${P}\"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in the directory of the active explorer/file dialog window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>9</ID>
+<Name>Run CMD  in current directory</Name>
+<OfficialEvent>10</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>227</ID>
+<Name>Copy filenames to clipboard</Name>
+<OfficialEvent>228</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>228</ID>
+<Name>Copy full filepaths to clipboard</Name>
+<OfficialEvent>229</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>229</ID>
+<Name>Append filenames to clipboard</Name>
+<OfficialEvent>230</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>230</ID>
+<Name>Append full filepaths to clipboard</Name>
+<OfficialEvent>231</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new file</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new text file in the directory of the currently active explorer/desktop/file dialog.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>231</ID>
+<Name>Create new textfile</Name>
+<OfficialEvent>232</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new folder</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new folder in the directory of the currently active explorer/desktop/file dialog.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>232</ID>
+<Name>Create new folder</Name>
+<OfficialEvent>233</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>"%WinDir%\explorer.exe" /n,/e,${P}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Run explorer on double click on empty desktop space in the most recent directory.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>235</ID>
+<Name>Run explorer</Name>
+<OfficialEvent>236</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on desktop</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Path>Upward</Path>
+<Type>Set current directory</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make explorer go upwards on double click in empty filelist area.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>237</ID>
+<Name>Double click go upwards</Name>
+<OfficialEvent>238</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on empty space</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Keep list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Separator>`n</Separator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%ImageEditor%" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected image files in an image editor (Paint.NET by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>300</ID>
+<Name>Open image files in image editor</Name>
+<OfficialEvent>301</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Remove list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Separator>`n</Separator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%TextEditor%" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>OR</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected non-image files in a text editor (Notepad++ by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>301</ID>
+<Name>Open non-image files in text editor</Name>
+<OfficialEvent>302</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>Input</Placeholder>
+<Rows>1</Rows>
+<Text>Filter Text</Text>
+<Title>Select Files</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Filter>${Input}</Filter>
+<Type>Select files</Type>
+<Wildcard>1</Wildcard>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Select files in the active explorer window by entering a part of the filename.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>304</ID>
+<Name>Select files</Name>
+<OfficialEvent>305</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^S</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Activate a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action><Action>
+<Button>Right</Button>
+<Double>0</Double>
+<Relative>1</Relative>
+<RestorePosition>1</RestorePosition>
+<Type>Mouse click</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${MNN}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND3</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Window active</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(ExploreWClass|CabinetWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event makes it possible to right click on files in inactive explorer windows.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>318</ID>
+<Name>Allow right-click on files in inactive window</Name>
+<OfficialEvent>319</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Restore file selection</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restores the previous file selection. This is very useful if you need to select many files and accidently click somewhere wrong. This event only works if the last option on the &lt;A HREF="Settings:Misc"&gt;Misc&lt;/A&gt; page is disabled.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1581</ID>
+<Name>Restore selection</Name>
+<OfficialEvent>985</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^+Z</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle show hidden files</Action>
+<Type>Change explorer view mode</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Toggles the "Show hidden files" explorer setting.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>980</ID>
+<Name>Toggle hidden files</Name>
+<OfficialEvent>981</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^!H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Paths>${SelNM}</Paths>
+<Type>Show Explorer flat view</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the contents of all selected folders in a flat view.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1616</ID>
+<Name>Show flat view of selected files</Name>
+<OfficialEvent>19</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+Enter</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Tab in Background</Action>
+<Type>Open folder in new window / tab</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over file list</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Opens the explorer folder under the mouse in a new window or tab.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1619</ID>
+<Name>Open folder in new window/tab</Name>
+<OfficialEvent>22</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close tab under mouse</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over tab button</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Closes the explorer tab under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1622</ID>
+<Name>Close explorer tab under mouse</Name>
+<OfficialEvent>25</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>0</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Filenames</View>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the Explorer Rename/Replace dialog which is used to replace text in filenames and files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1623</ID>
+<Name>Show Explorer Rename/Replace dialog</Name>
+<OfficialEvent>20</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Merge Explorer windows</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate></Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will merge all explorer windows into a single explorer window with tabs.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1628</ID>
+<Name>Merge all explorer windows</Name>
+<OfficialEvent>28</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^M</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Invert file selection</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(ExploreWClass|CabinetWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event inverts the explorer file selection.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1633</ID>
+<Name>Invert selection</Name>
+<OfficialEvent>33</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^I UP</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>0</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Files</View>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the explorer batch rename/replace dialog with "Replace in Files" preselected.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1634</ID>
+<Name>Explorer Replace in Files Dialog</Name>
+<OfficialEvent>34</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^+H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<InitialQuery>\</InitialQuery>
+<Type>Show Accessor</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event makes it possible to quickly use Accessor in explorer or file dialog windows to select a file from the current directory and run it.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1660</ID>
+<Name>Open Accessor to execute files from the current directory</Name>
+<OfficialEvent>59</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^.</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<InitialQuery>ow </InitialQuery>
+<Type>Show Accessor</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This hotkey opens Accessor in a mode that can be used to open the selected file with a program other than the default file association. It's like Open With dialog, just faster!</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1661</ID>
+<Name>Use Accessor to open the selected file with a program</Name>
+<OfficialEvent>60</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^O</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

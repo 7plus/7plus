@@ -1,0 +1,282 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>Input</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
+<Text>Enter parameters. Paths might need`n to be enclosed in double quotes.</Text>
+<Title>Enter Parameters</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Command>${Context} ${Input}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>${P}</WorkingDirectory>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu option for executable files and asks for parameters and runs the selected file with them. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1584</ID>
+<Name>Run with parameters</Name>
+<OfficialEvent>988</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Runs an executable file with parameters</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>exe,bat,cmd</FileTypes>
+<Name>Run with parameters...</Name>
+<SingleFileOnly>1</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Files>${Context}</Files>
+<FTPTargetDir></FTPTargetDir>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>0</ReuseWindow>
+<TemporaryFiles>0</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a menu option in the context menu of image files that opens a dialog for batch image conversion. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1585</ID>
+<Name>Batch image converter</Name>
+<OfficialEvent>989</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens a dialog for batch image conversion.</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>BMP,DIB,RLE,JPG,JPEG,JPE,JFIF,GIF,TIF,TIFF,PNG</FileTypes>
+<Name>Convert Images</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Files>${Context}</Files>
+<Type>Show Explorer checksum dialog</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu option for files that opens a dialog that displays MD5 checksums of the selected files. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1586</ID>
+<Name>MD5 Checksums</Name>
+<OfficialEvent>990</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens a dialog that displays MD5 checksums of the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>MD5 Checksum(s)</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${Context}</SourceFiles>
+<TargetFile></TargetFile>
+<TargetFolder></TargetFolder>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu option for files and folders that uploads the selected files/folders to an FTP server. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1587</ID>
+<Name>Context Menu Upload</Name>
+<OfficialEvent>991</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Uploads the selected files to an FTP server</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>Upload</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle show hidden files</Action>
+<Type>Change explorer view mode</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu option that appears in the background menu of directories. It toggles the visibility of hidden files. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1588</ID>
+<Name>Toggle Hidden Files</Name>
+<OfficialEvent>992</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Toggles the visibility of hidden files</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>1</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>Toggle hidden files</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Paths>${Context}</Paths>
+<Type>Show Explorer flat view</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu for directories that shows them in a flat view. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1624</ID>
+<Name>Flat View in directory menus</Name>
+<OfficialEvent>21</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Shows the contents of the selected folders in a flat view.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>Flat View</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>1</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Filenames</View>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu entry for batch-replacing parts of the filenames of the selected files. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1635</ID>
+<Name>Replace in filenames</Name>
+<OfficialEvent>35</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens the batch rename/replace dialog to replace parts of the filenames of the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>Replace in filenames</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>1</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Files</View>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu entry for replacing text in the selected files. It requires that the context menu shell extension is properly installed, which is normally the case. If this option does not show up, edit this event and click on "Register context menu shell extension".</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1636</ID>
+<Name>Replace in files</Name>
+<OfficialEvent>36</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens the batch rename/replace dialog to batch-replace text in the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>Replace in file contents</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<SubMenu>7plus</SubMenu>
+<Type>Context menu</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

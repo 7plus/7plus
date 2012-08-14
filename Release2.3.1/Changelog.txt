@@ -1,0 +1,36 @@
+= 7plus Version 2.5.0 Changelog =
+
+New Functions:
+ * Added key mappings for scientific calculators. Characters such as brackets can now be written with Numpad keys when NumLock is off.
+ * Added a function that allows running temporary AutoHotkey scripts (WIN + T). It requires that an AutoHotkey interpreter is installed and the .ahk extension is assigned to it.
+ * Added a button on the FTP profiles page to test the connection.
+ * Added a SendMail action for sending mails using SMTP.
+ * WIN + G: Run a Google search for the selected text.
+ * Added ${SelText} placeholder for the currently selected text.
+ * Run action can now use the same level of elevation as 7plus. This can be useful to execute more special commands, for example verbs like *Edit.
+ * Added "Enable/Disable Events" buttons on events settings page.
+ * Added a setting to FTP profiles to account for different file system mounting points in HTTP/FTP servers (->omit directories from target folder in URL)
+ * F2 while renaming: Toggle between filename, extension and full name (thanks JSLover for reference implementation and Muramura Suru for suggesting it for 7plus!)
+ * Added "Export shortcut" button to create shortcut files that trigger events in 7plus.
+
+Bugfixes:
+ * Fixed a bug that occured on x64 and caused problems in ListViews (Settings window, Image Converter)
+ * Fixed a bug that prevented portable mode (command line: -portable) from working.
+ * Fixed a bug that prevented pasting an event properly after another event was deleted.
+ * Fixed invalid event files (the main event file was not affected).
+ * Fixed file selection buttons in event configurations.
+ * Fixed an issue when the settings window was opened directly after start.
+ * Fixed some focusing issues on various ListView controls.
+ * Fixed sound mute icon in XP.
+ * Fixed CTRL+W tab closing.
+ * Fixed wrong contents of Explorer Tabs settings dropdown controls.
+ * Fixed SendMessage action.
+ * Fixed Notes Accessor plugin delete hotkey.
+ * Fixed Screen corner trigger.
+ * Fixed FlatView action.
+ * Fixed Accessor double clicking.
+
+Changes:
+ * Removed some screenshot related events and reordered some events.
+
+If you like this program and want to support its development, please consider donating!

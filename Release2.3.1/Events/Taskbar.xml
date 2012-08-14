@@ -1,0 +1,429 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Command>C:\Windows\System32\taskmgr.exe</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>C:\Windows\System32</WorkingDirectory>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open Task Manager when an empty part of the taskbar is double-clicked.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>897</ID>
+<Name>Run task manager</Name>
+<OfficialEvent>898</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on taskbar</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>+5</Volume>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Window</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowFilterClass>Shell_TrayWnd</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Increase the sound volume with the mouse wheel over the taskbar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>959</ID>
+<Name>Over taskbar: Increase volume</Name>
+<OfficialEvent>960</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>WheelUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>-5</Volume>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Window</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowFilterClass>Shell_TrayWnd</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Decrease the sound volume with the mouse wheel over the taskbar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>960</ID>
+<Name>Over taskbar: Decrease volume</Name>
+<OfficialEvent>961</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>WheelDown</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>1599</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts a dynamic timer when the "Start timer" menu entry from the 7plus tray menu is selected.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1597</ID>
+<Name>Dynamic Timer: tray menu item</Name>
+<OfficialEvent>5</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Icon>%SystemRoot%\system32\SHELL32.dll,266</Icon>
+<Menu>Tray</Menu>
+<Name>Start timer</Name>
+<Type>Menu item clicked</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Selection</DataType>
+<Placeholder>TimerType</Placeholder>
+<Selection>Message timer|Shutdown timer|Run program timer</Selection>
+<Text>What type of timer would you like to start?</Text>
+<Title>Dynamic timer</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Time</DataType>
+<Placeholder>TimerTime</Placeholder>
+<Text>Enter time [HH:MM:SS]:</Text>
+<Title>Dynamic timer - Enter time</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1602</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Message Timer</With>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1603</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Run program timer</With>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1606</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Shutdown timer</With>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for the type of timer that shall be started and its time and then starts the appropriate event that configures and starts the matching timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1599</ID>
+<Name>Dynamic timer: Main</Name>
+<OfficialEvent>6</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Text>${TimerMessage}</Text>
+<Title>Timer</Title>
+<Type>Message</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer is triggered with a dynamic time set by an input action.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1600</ID>
+<Name>Dynamic Timer: Message timer</Name>
+<OfficialEvent>8</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>${TimerMessage}</Text>
+<Time>10000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>TimerMessage</Placeholder>
+<Text>Enter message text:</Text>
+<Title>Message text</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1600</EventID>
+<Operator>equals</Operator>
+<Placeholder>MessageTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${MessageTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${MessageTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for a message and starts the message timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1602</ID>
+<Name>Dynamic Timer: Ask for message and start message timer</Name>
+<OfficialEvent>9</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>File</DataType>
+<Placeholder>TimerProgram</Placeholder>
+<Text>Enter program to launch</Text>
+<Title>Select program</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1604</EventID>
+<Operator>equals</Operator>
+<Placeholder>RunTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${RunTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${RunTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for the program to be launched and starts the Run program timer</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1603</ID>
+<Name>Dynamic Timer: Ask for program and start Run program timer</Name>
+<OfficialEvent>11</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>${TimerProgram}</Command>
+<RunAsAdmin>-1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer runs the program selected by the user.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1604</ID>
+<Name>Dynamic Timer: Run program timer</Name>
+<OfficialEvent>12</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>Run ${TimerProgram}</Text>
+<Time>10000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<ForceClose>0</ForceClose>
+<ShutDownSelection>Shutdown</ShutDownSelection>
+<Type>Shutdown computer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer shuts down the computer after the specified time.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1605</ID>
+<Name>Dynamic Timer: Shutdown timer</Name>
+<OfficialEvent>13</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>Shutdown</Text>
+<Time>600000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1605</EventID>
+<Operator>equals</Operator>
+<Placeholder>ShutdownTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${ShutdownTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${ShutdownTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts the Shutdown timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1606</ID>
+<Name>Dynamic Timer: Start shutdown timer</Name>
+<OfficialEvent>14</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>1599</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Clock</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts a dynamic timer when the taskbar clock is clicked with the middle mouse button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1609</ID>
+<Name>Dynamic Timer: Middle mouse click over clock</Name>
+<OfficialEvent>17</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close taskbar button under mouse</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over taskbar list</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Closes the window belonging to the taskbar button under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1620</ID>
+<Name>Close window of task button under mouse</Name>
+<OfficialEvent>23</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>

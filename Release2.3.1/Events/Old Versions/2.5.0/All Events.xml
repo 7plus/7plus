@@ -1,0 +1,5497 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Type>Show settings</Type>
+</Action></Actions>
+<Category>7plus</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>0</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the 7plus settings window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>0</ID>
+<Name>Show settings window</Name>
+<OfficialEvent>1</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Restart 7plus</Type>
+</Action></Actions>
+<Category>7plus</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restarts 7plus.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1</ID>
+<Name>Restart 7plus</Name>
+<OfficialEvent>2</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#Q</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing current files on clipboard. This event will copy ALL the files on the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>2</ID>
+<Name>Append file(s) to clipboard</Name>
+<OfficialEvent>3</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>1</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing current files on clipboard. This event will cut ALL the files on the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>3</ID>
+<Name>Append file(s) to clipboard: Cut</Name>
+<OfficialEvent>4</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+X</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Path>Upward</Path>
+<Type>Set current directory</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND3</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make backspace go upwards in file dialogs, like in the good ol' XP.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>6</ID>
+<Name>Make backspace go upwards</Name>
+<OfficialEvent>7</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Backspace</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "${P}\"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in the directory of the active explorer window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>9</ID>
+<Name>Run CMD  in current directory</Name>
+<OfficialEvent>10</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>227</ID>
+<Name>Copy filenames to clipboard</Name>
+<OfficialEvent>228</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>228</ID>
+<Name>Copy full filepaths to clipboard</Name>
+<OfficialEvent>229</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>229</ID>
+<Name>Append filenames to clipboard</Name>
+<OfficialEvent>230</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>230</ID>
+<Name>Append full filepaths to clipboard</Name>
+<OfficialEvent>231</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new file</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new text file in the directory of the currently active explorer/desktop.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>231</ID>
+<Name>Create new textfile</Name>
+<OfficialEvent>232</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new folder</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new folder in the directory of the currently active explorer/desktop.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>232</ID>
+<Name>Create new folder</Name>
+<OfficialEvent>233</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>"%WinDir%\explorer.exe" /n,/e,${P}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Run explorer on double click on empty desktop space in the most recent directory.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>235</ID>
+<Name>Run explorer</Name>
+<OfficialEvent>236</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on desktop</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Path>Upward</Path>
+<Type>Set current directory</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make explorer go upwards on double click in empty filelist area.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>237</ID>
+<Name>Double click go upwards</Name>
+<OfficialEvent>238</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on empty space</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Keep list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%ProgramFiles%\Paint.NET\PaintDotNet.exe" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected image files in an image editor (Paint.NET by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>300</ID>
+<Name>Open image files in image editor</Name>
+<OfficialEvent>301</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Remove list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Separator>`n</Separator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%ProgramFiles%\Notepad++\notepad++.exe" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected non-image files in a text editor (Notepad++ by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>301</ID>
+<Name>Open non-image files in text editor</Name>
+<OfficialEvent>302</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Text>Filter Text</Text>
+<Title>Select Files</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Clear>1</Clear>
+<Deselect>0</Deselect>
+<Filter>${Input}</Filter>
+<Type>Select files</Type>
+<Wildcard>1</Wildcard>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Select files in the active explorer window by entering a part of the filename.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>304</ID>
+<Name>Select files</Name>
+<OfficialEvent>305</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^S</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Titlebar</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>OperaWindowClass|MozillaWindowClass</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Close a window by middle clicking it's title bar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>305</ID>
+<Name>Middle click on title: Close window under mouse</Name>
+<OfficialEvent>306</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<FlashingWindows>1</FlashingWindows>
+<Notifications>1</Notifications>
+<ToggleWindows>1</ToggleWindows>
+<Type>Flashing windows</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Activate notification windows, flashing windows in the taskbar, or toggle between the current and the previously active window. Very useful for quickly responding to chats and switching back.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>307</ID>
+<Name>Activate notification/flashing/previous window</Name>
+<OfficialEvent>308</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>CapsLock</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle always on top</Action>
+<ShowState>1</ShowState>
+<Type>Change window state</Type>
+<Value>100</Value>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>311</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Enable Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Enable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Titlebar</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Right click on the titlebar of a window to toggle its "Always on top" property. This is useful for keeping a window visible so that you can easily copy data from and to it.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>308</ID>
+<Name>Right click on titlebar: Toggle always on top</Name>
+<OfficialEvent>309</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{Esc}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>311</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Context menu active</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>1</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>309</ID>
+<Name>Toggle always on top -&gt; Context menu active</Name>
+<OfficialEvent>310</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Context menu active</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>310</ID>
+<Name>Toggle always on top -&gt; No context menu active</Name>
+<OfficialEvent>311</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Disable Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>311</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>311</ID>
+<Name>Toggle always on top -&gt; context menu timeout</Name>
+<OfficialEvent>312</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>0</ShowProgress>
+<Time>2000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Disable always on top</Action>
+<Type>Change window state</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Removes "Always on top" window property when the window gets maximized. This is done so that you can still switch to other windows by activating them, instead of having to minimize the window which is always on top.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>316</ID>
+<Name>Remove always on top when window gets maximized</Name>
+<OfficialEvent>317</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Event>Window maximized</Event>
+<Type>Window state changed</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<ForceClose>1</ForceClose>
+<Type>Close a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>CloseButton</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Right click on the close button of a window to kill its process.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>312</ID>
+<Name>Right click on close button: Force-close window</Name>
+<OfficialEvent>313</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Kill the process of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>313</ID>
+<Name>Force-close active program</Name>
+<OfficialEvent>314</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!F5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Minimize-&gt;Normal-&gt;Maximize</Action>
+<Type>Change window state</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Maximize the window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>314</ID>
+<Name>Maximize window under mouse</Name>
+<OfficialEvent>315</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!WheelUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Maximize-&gt;Normal-&gt;Minimize</Action>
+<Type>Change window state</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restore or minimize the window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>315</ID>
+<Name>Restore / Minimize window under mouse</Name>
+<OfficialEvent>316</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>!WheelDown</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<FlashingWindows>1</FlashingWindows>
+<Type>Show Accessor</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Show accessor window, which can be used to access many things by keyboard. Be sure to check out the Accessor options in Settings dialog!</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>317</ID>
+<Name>Show Accessor</Name>
+<OfficialEvent>318</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Space</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Activate a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action><Action>
+<Button>Right</Button>
+<Double>0</Double>
+<Relative>1</Relative>
+<RestorePosition>1</RestorePosition>
+<Type>Mouse click</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${MNN}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND3</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Window active</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(ExploreWClass|CabinetWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event makes it possible to right click on files in inactive explorer windows.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>318</ID>
+<Name>Allow right-click on files in inactive window</Name>
+<OfficialEvent>319</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>319</ID>
+<Name>Open Fast Folders Slot 0</Name>
+<OfficialEvent>320</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>320</ID>
+<Name>Open Fast Folders Slot 0</Name>
+<OfficialEvent>321</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>321</ID>
+<Name>Open Fast Folders Slot 1</Name>
+<OfficialEvent>322</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>322</ID>
+<Name>Open Fast Folders Slot 1</Name>
+<OfficialEvent>323</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 2.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>323</ID>
+<Name>Open Fast Folders Slot 2</Name>
+<OfficialEvent>324</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>324</ID>
+<Name>Open Fast Folders Slot 2</Name>
+<OfficialEvent>325</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>325</ID>
+<Name>Open Fast Folders Slot 3</Name>
+<OfficialEvent>326</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>326</ID>
+<Name>Open Fast Folders Slot 3</Name>
+<OfficialEvent>327</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>327</ID>
+<Name>Open Fast Folders Slot 4</Name>
+<OfficialEvent>328</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>328</ID>
+<Name>Open Fast Folders Slot 4</Name>
+<OfficialEvent>329</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>329</ID>
+<Name>Open Fast Folders Slot 5</Name>
+<OfficialEvent>330</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>330</ID>
+<Name>Open Fast Folders Slot 5</Name>
+<OfficialEvent>331</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>331</ID>
+<Name>Open Fast Folders Slot 6</Name>
+<OfficialEvent>332</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>332</ID>
+<Name>Open Fast Folders Slot 6</Name>
+<OfficialEvent>333</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>333</ID>
+<Name>Open Fast Folders Slot 7</Name>
+<OfficialEvent>334</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>334</ID>
+<Name>Open Fast Folders Slot 7</Name>
+<OfficialEvent>335</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>335</ID>
+<Name>Open Fast Folders Slot 8</Name>
+<OfficialEvent>336</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>336</ID>
+<Name>Open Fast Folders Slot 8</Name>
+<OfficialEvent>337</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>Edit1</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active explorer window to the FastFolder path saved in Slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>337</ID>
+<Name>Open Fast Folders Slot 9</Name>
+<OfficialEvent>338</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Open Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Set the path of the currently active file dialog window to the FastFolder path saved in Slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>338</ID>
+<Name>Open Fast Folders Slot 9</Name>
+<OfficialEvent>339</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>339</ID>
+<Name>Save Fast Folders Slot 0</Name>
+<OfficialEvent>340</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>340</ID>
+<Name>Save Fast Folders Slot 0</Name>
+<OfficialEvent>341</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>341</ID>
+<Name>Save Fast Folders Slot 1</Name>
+<OfficialEvent>342</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>342</ID>
+<Name>Save Fast Folders Slot 1</Name>
+<OfficialEvent>343</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 2.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>343</ID>
+<Name>Save Fast Folders Slot 2</Name>
+<OfficialEvent>344</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 2.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>344</ID>
+<Name>Save Fast Folders Slot 2</Name>
+<OfficialEvent>345</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>345</ID>
+<Name>Save Fast Folders Slot 3</Name>
+<OfficialEvent>346</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>346</ID>
+<Name>Save Fast Folders Slot 3</Name>
+<OfficialEvent>347</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>347</ID>
+<Name>Save Fast Folders Slot 4</Name>
+<OfficialEvent>348</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>348</ID>
+<Name>Save Fast Folders Slot 4</Name>
+<OfficialEvent>349</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>349</ID>
+<Name>Save Fast Folders Slot 5</Name>
+<OfficialEvent>350</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>350</ID>
+<Name>Save Fast Folders Slot 5</Name>
+<OfficialEvent>351</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>351</ID>
+<Name>Save Fast Folders Slot 6</Name>
+<OfficialEvent>352</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>352</ID>
+<Name>Save Fast Folders Slot 6</Name>
+<OfficialEvent>353</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>353</ID>
+<Name>Save Fast Folders Slot 7</Name>
+<OfficialEvent>354</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>354</ID>
+<Name>Save Fast Folders Slot 7</Name>
+<OfficialEvent>355</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>355</ID>
+<Name>Save Fast Folders Slot 8</Name>
+<OfficialEvent>356</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>356</ID>
+<Name>Save Fast Folders Slot 8</Name>
+<OfficialEvent>357</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active explorer window in FastFolders Slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>357</ID>
+<Name>Save Fast Folders Slot 9</Name>
+<OfficialEvent>358</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Save Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Save the path of the currently active file dialog window in FastFolders Slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>358</ID>
+<Name>Save Fast Folders Slot 9</Name>
+<OfficialEvent>359</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>359</ID>
+<Name>Clear Fast Folders Slot 0</Name>
+<OfficialEvent>360</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>0</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 0.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>360</ID>
+<Name>Clear Fast Folders Slot 0</Name>
+<OfficialEvent>361</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad0</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>361</ID>
+<Name>Clear Fast Folders Slot 1</Name>
+<OfficialEvent>362</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>1</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>362</ID>
+<Name>Clear Fast Folders Slot 1</Name>
+<OfficialEvent>363</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad1</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 2.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>363</ID>
+<Name>Clear Fast Folders Slot 2</Name>
+<OfficialEvent>364</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>2</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 2.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>364</ID>
+<Name>Clear Fast Folders Slot 2</Name>
+<OfficialEvent>365</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad2</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>365</ID>
+<Name>Clear Fast Folders Slot 3</Name>
+<OfficialEvent>366</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>3</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 3.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>366</ID>
+<Name>Clear Fast Folders Slot 3</Name>
+<OfficialEvent>367</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>367</ID>
+<Name>Clear Fast Folders Slot 4</Name>
+<OfficialEvent>368</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>4</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>368</ID>
+<Name>Clear Fast Folders Slot 4</Name>
+<OfficialEvent>369</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>369</ID>
+<Name>Clear Fast Folders Slot 5</Name>
+<OfficialEvent>370</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>5</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 5.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>370</ID>
+<Name>Clear Fast Folders Slot 5</Name>
+<OfficialEvent>371</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>371</ID>
+<Name>Clear Fast Folders Slot 6</Name>
+<OfficialEvent>372</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>6</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 6.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>372</ID>
+<Name>Clear Fast Folders Slot 6</Name>
+<OfficialEvent>373</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad6</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>373</ID>
+<Name>Clear Fast Folders Slot 7</Name>
+<OfficialEvent>374</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>7</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 7.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>374</ID>
+<Name>Clear Fast Folders Slot 7</Name>
+<OfficialEvent>375</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>375</ID>
+<Name>Clear Fast Folders Slot 8</Name>
+<OfficialEvent>376</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>8</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 8.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>376</ID>
+<Name>Clear Fast Folders Slot 8</Name>
+<OfficialEvent>377</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>377</ID>
+<Name>Clear Fast Folders Slot 9</Name>
+<OfficialEvent>378</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Slot>9</Slot>
+<Type>Clear Fast Folder</Type>
+</Action></Actions>
+<Category>Fast Folders</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>1</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>Edit</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Clear the path stored in FastFolders slot 9.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>378</ID>
+<Name>Clear Fast Folders Slot 9</Name>
+<OfficialEvent>379</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Numpad9</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${SelNQ}</SourceFiles>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Uploads the file(s) selected in the currently active explorer window to the FTP server defined in FTP profile 1. Make sure to configure the FTP profile with your FTP login data.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>381</ID>
+<Name>Explorer: Upload selected files</Name>
+<OfficialEvent>382</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^U</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${SelNQ}</SourceFiles>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Uploads the file(s) selected in the currently active file dialog window to the FTP server defined in FTP profile 1. Make sure to configure the FTP profile with your FTP login data.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>382</ID>
+<Name>File Dialog: Upload selected files</Name>
+<OfficialEvent>383</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^U</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Clipboard Manager menu</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Show the clipboard manager menu, which is used to paste the most recent 10 clipboard text entries. You can also use the Numpad keys to select an entry.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>383</ID>
+<Name>Clipboard Manager</Name>
+<OfficialEvent>384</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#V</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D c:\</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Compare>${TitlePath}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>1</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in C:\ when no useful directory can be extracted from the current context.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>384</ID>
+<Name>Run CMD</Name>
+<OfficialEvent>385</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "${TitlePath}\"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Compare>${TitlePath}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>1</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD with the path extracted from the title of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>385</ID>
+<Name>Run CMD with path from window title</Name>
+<OfficialEvent>386</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>ConsoleWindowClass</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make it possible to close CMD with ALT+F4.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>387</ID>
+<Name>Close CMD with ALT + F4</Name>
+<OfficialEvent>388</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!F4</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Button>Right</Button>
+<Double>0</Double>
+<Relative>1</Relative>
+<RestorePosition>1</RestorePosition>
+<Type>Mouse click</Type>
+<X>40</X>
+<Y>40</Y>
+</Action><Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{Down 3}{Enter}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>ConsoleWindowClass</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make it possible to paste text in CMD by pressing CTRL+V.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>388</ID>
+<Name>Enable CTRL+V to paste from clipboard</Name>
+<OfficialEvent>389</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^V</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "${TitlePath}\"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in the current directory of the active file dialog window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>596</ID>
+<Name>Run CMD in current directory</Name>
+<OfficialEvent>597</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing the current files on the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>597</ID>
+<Name>Append file(s) to clipboard</Name>
+<OfficialEvent>598</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>0</Clear>
+<Content>${SelNM}</Content>
+<Cut>1</Cut>
+<InsertType>File</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND2|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append selected files to clipboard, instead of replacing the current files on the clipboard. The clipboard will be set to perform a paste operation.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>598</ID>
+<Name>Append file(s) to clipboard: Cut</Name>
+<OfficialEvent>599</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+X</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Path>Upward</Path>
+<Type>Set current directory</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND2</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Make backspace go upwards in file dialogs, like in the good ol' XP.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>600</ID>
+<Name>Make backspace go upwards</Name>
+<OfficialEvent>601</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Backspace</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND2</With>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>816</ID>
+<Name>Copy filenames to clipboard</Name>
+<OfficialEvent>817</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>0</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND2</With>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Copy the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>817</ID>
+<Name>Copy full filepaths to clipboard</Name>
+<OfficialEvent>818</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNNEM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND2</With>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the names of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>818</ID>
+<Name>Append filenames to clipboard</Name>
+<OfficialEvent>819</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Append>1</Append>
+<Clear>1</Clear>
+<Content>${SelNM}</Content>
+<Cut>0</Cut>
+<InsertType>Text</InsertType>
+<Type>Write to clipboard</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>DirectUIHWND2</With>
+</Condition><Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Append the paths of the selected files to the clipboard.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>819</ID>
+<Name>Append full filepaths to clipboard</Name>
+<OfficialEvent>820</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>^+!C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new file</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new text file in the directory of the currently active file dialog.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>826</ID>
+<Name>Create new textfile</Name>
+<OfficialEvent>827</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F7</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new folder</Type>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new folder in the directory of the currently active file dialog.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>827</ID>
+<Name>Create new folder</Name>
+<OfficialEvent>828</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F8</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Keep list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%ProgramFiles%\Paint.NET\PaintDotNet.exe" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected image files in an image editor (Paint.NET by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>895</ID>
+<Name>Open image files in image editor</Name>
+<OfficialEvent>896</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Remove list entries from</Action>
+<ExitOnEmptyList>1</ExitOnEmptyList>
+<Filter>(.*\.jpg|.*\.bmp|.*\.png|.*\.gif)</Filter>
+<List>${SelNQ}</List>
+<Operator>that match regular expression</Operator>
+<Separator>`n</Separator>
+<Type>Filter list</Type>
+</Action><Action>
+<Command>"%ProgramFiles%\Notepad++\notepad++.exe" ${SelNQ}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>File Dialog</Category>
+<Conditions>
+<Condition>
+<ListViewOnly>1</ListViewOnly>
+<Negate>0</Negate>
+<Type>Window is file dialog</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open selected non-image files in a text editor (Notepad++ by default).</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>896</ID>
+<Name>Open non-image files in text editor</Name>
+<OfficialEvent>897</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>F3</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>C:\Windows\System32\taskmgr.exe</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>C:\Windows\System32</WorkingDirectory>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open Task Manager when an empty part of the taskbar is double-clicked.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>897</ID>
+<Name>Run task manager</Name>
+<OfficialEvent>898</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Double click on taskbar</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>+5</Volume>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Window</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowFilterClass>Shell_TrayWnd</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Increase the sound volume with the mouse wheel over the taskbar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>959</ID>
+<Name>Over taskbar: Increase volume</Name>
+<OfficialEvent>960</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>WheelUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>-5</Volume>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Window</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowFilterClass>Shell_TrayWnd</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Decrease the sound volume with the mouse wheel over the taskbar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>960</ID>
+<Name>Over taskbar: Decrease volume</Name>
+<OfficialEvent>961</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>WheelDown</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^.</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>Photo_Lightweight_Viewer</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with R in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>961</ID>
+<Name>Picture viewer: Rotate image right with R</Name>
+<OfficialEvent>962</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>R</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^,</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window active</Type>
+<WindowFilterClass>Photo_Lightweight_Viewer</WindowFilterClass>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with L in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>962</ID>
+<Name>Picture viewer: Rotate image left with L</Name>
+<OfficialEvent>963</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>L</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${SelNNEM}</SourceFiles>
+<TargetFile>${Input}</TargetFile>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Explorer Buttons</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Upload the selected files to the FTP server defined in FTP profile 1 by clicking on the "Upload" button in explorer. Make sure to enter FTP login data for FTP profile 1.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>978</ID>
+<Name>Upload selected files</Name>
+<OfficialEvent>979</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Name>Upload</Name>
+<ShowNoSelected>0</ShowNoSelected>
+<ShowSelected>1</ShowSelected>
+<Tooltip>Upload a file</Tooltip>
+<Type>Explorer bar button</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Rename>1</Rename>
+<Type>Create new file</Type>
+</Action></Actions>
+<Category>Explorer Buttons</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Create a new text file by clicking on the "New text file" button in explorer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>979</ID>
+<Name>New text file</Name>
+<OfficialEvent>980</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Name>New text file</Name>
+<ShowNoSelected>1</ShowNoSelected>
+<ShowSelected>1</ShowSelected>
+<Tooltip>Creates a new text file</Tooltip>
+<Type>Explorer bar button</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Restore file selection</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${Control}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(DirectUIHWND3|SysListView321)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restores the previous file selection. This is very useful if you need to select many files and accidently click somewhere wrong.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1581</ID>
+<Name>Restore selection</Name>
+<OfficialEvent>985</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^+Z</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle show hidden files</Action>
+<Type>Change explorer view mode</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Toggles the "Show hidden files" explorer setting.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>980</ID>
+<Name>Toggle hidden files</Name>
+<OfficialEvent>981</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^!H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Put window in background</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Move the window under the mouse to the bottom of the window stack.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1582</ID>
+<Name>Move window to bottom</Name>
+<OfficialEvent>986</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>cmd.exe /k cd /D "%Desktop%"</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>CMD</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Open CMD in desktop directory when desktop window is active.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1583</ID>
+<Name>Run CMD in desktop directory</Name>
+<OfficialEvent>987</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#C</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>Input</Placeholder>
+<Text>Enter parameters. Paths might need`n to be enclosed in double quotes.</Text>
+<Title>Enter Parameters</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Command>${Context} ${Input}</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>${P}</WorkingDirectory>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description></Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1584</ID>
+<Name>Run with parameters</Name>
+<OfficialEvent>988</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Runs an executable file with parameters</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>exe,bat,cmd</FileTypes>
+<Name>Run with parameters...</Name>
+<SingleFileOnly>1</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Files>${Context}</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>0</ReuseWindow>
+<TemporaryFiles>0</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Opens a dialog for batch image conversion.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1585</ID>
+<Name>Batch image converter</Name>
+<OfficialEvent>989</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens a dialog for batch image conversion.</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>BMP,DIB,RLE,JPG,JPEG,JPE,JFIF,GIF,TIF,TIFF,PNG</FileTypes>
+<Name>Convert Images</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Files>${Context}</Files>
+<Type>Show Explorer checksum dialog</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Opens a dialog that displays MD5 checksums of the selected files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1586</ID>
+<Name>MD5 Checksums</Name>
+<OfficialEvent>990</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens a dialog that displays MD5 checksums of the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<FileTypes>*</FileTypes>
+<Name>MD5 Checksum(s)</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Clipboard>1</Clipboard>
+<FTPProfile>1</FTPProfile>
+<Silent>0</Silent>
+<SourceFiles>${Context}</SourceFiles>
+<Type>Upload to FTP</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Uploads the selected files to an FTP server.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1587</ID>
+<Name>Context Menu Upload</Name>
+<OfficialEvent>991</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Uploads the selected files to an FTP server</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<Name>Upload</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle show hidden files</Action>
+<Type>Change explorer view mode</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Toggles the visibility of hidden files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1588</ID>
+<Name>Toggle Hidden Files</Name>
+<OfficialEvent>992</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Toggles the visibility of hidden files</Description>
+<Desktop>0</Desktop>
+<Directory>0</Directory>
+<DirectoryBackground>1</DirectoryBackground>
+<Name>Toggle hidden files</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle mute/unmute</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>100</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume window when Mute button is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1589</ID>
+<Name>Show volume window</Name>
+<OfficialEvent>993</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Mute</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>-2</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume window when volume down is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1590</ID>
+<Name>Show volume window</Name>
+<OfficialEvent>994</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Down</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Set volume</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>+2</Volume>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows the volume window when volume up is pressed.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1591</ID>
+<Name>Show volume window</Name>
+<OfficialEvent>995</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>Volume_Up</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>1599</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts a dynamic timer when the "Start timer" menu entry from the 7plus tray menu is selected.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1597</ID>
+<Name>Dynamic Timer: tray menu item</Name>
+<OfficialEvent>5</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Menu>Tray</Menu>
+<Name>Start timer</Name>
+<Type>Menu item clicked</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Selection</DataType>
+<Placeholder>TimerType</Placeholder>
+<Selection>Message timer|Shutdown timer|Run program timer</Selection>
+<Text>What type of timer would you like to start?</Text>
+<Title>Dynamic timer</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Time</DataType>
+<Placeholder>TimerTime</Placeholder>
+<Text>Enter time [HH:MM:SS]:</Text>
+<Title>Dynamic timer - Enter time</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1602</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Message Timer</With>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1603</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Run program timer</With>
+</Action><Action>
+<Action>Trigger Event</Action>
+<Compare>${TimerType}</Compare>
+<EventID>1606</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+<With>Shutdown timer</With>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for the type of timer that shall be started and its time and then starts the appropriate event that configures and starts the matching timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1599</ID>
+<Name>Dynamic timer: Main</Name>
+<OfficialEvent>6</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Text>${TimerMessage}</Text>
+<Title>Timer</Title>
+<Type>Message</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer is triggered with a dynamic time set by an input action.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1600</ID>
+<Name>Dynamic Timer: Message timer</Name>
+<OfficialEvent>8</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>${TimerMessage}</Text>
+<Time>10000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>TimerMessage</Placeholder>
+<Text>Enter message text:</Text>
+<Title>Message text</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1600</EventID>
+<Operator>equals</Operator>
+<Placeholder>MessageTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${MessageTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${MessageTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for a message and starts the message timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1602</ID>
+<Name>Dynamic Timer: Ask for message and start message timer</Name>
+<OfficialEvent>9</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>File</DataType>
+<Placeholder>TimerProgram</Placeholder>
+<Text>Enter program to launch</Text>
+<Title>Select program</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+</Action><Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1604</EventID>
+<Operator>equals</Operator>
+<Placeholder>RunTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${RunTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${RunTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event asks for the program to be launched and starts the Run program timer</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1603</ID>
+<Name>Dynamic Timer: Ask for program and start Run program timer</Name>
+<OfficialEvent>11</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>${TimerProgram}</Command>
+<RunAsAdmin>-1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer runs the program selected by the user.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1604</ID>
+<Name>Dynamic Timer: Run program timer</Name>
+<OfficialEvent>12</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>Run ${TimerProgram}</Text>
+<Time>10000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<ForceClose>0</ForceClose>
+<ShutDownSelection>Shutdown</ShutDownSelection>
+<Type>Shutdown computer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This timer shuts down the computer after the specified time.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1605</ID>
+<Name>Dynamic Timer: Shutdown timer</Name>
+<OfficialEvent>13</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>1</ShowProgress>
+<Text>Shutdown</Text>
+<Time>600000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Copy Event</Action>
+<DeleteAfterUse>1</DeleteAfterUse>
+<EvaluateOnCopy>1</EvaluateOnCopy>
+<EventID>1605</EventID>
+<Operator>equals</Operator>
+<Placeholder>ShutdownTimer</Placeholder>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Set time</Action>
+<Time>${TimerTime}</Time>
+<TimerID>${ShutdownTimer}</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>${ShutdownTimer}</TimerID>
+<Type>Control timer</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts the Shutdown timer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1606</ID>
+<Name>Dynamic Timer: Start shutdown timer</Name>
+<OfficialEvent>14</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>1599</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Clock</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event starts a dynamic timer when the taskbar clock is clicked with the middle mouse button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1609</ID>
+<Name>Dynamic Timer: Middle mouse click over clock</Name>
+<OfficialEvent>17</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^k</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>ShImgVw:</With>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with R in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1614</ID>
+<Name>Picture viewer: Rotate image right with R</Name>
+<OfficialEvent>15</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>R</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>`r`n</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>1</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will write a newline sequence to the focused control and thus start a new line. This is useful in text fields where pressing Enter would press a button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1610</ID>
+<Name>Write newline characters</Name>
+<OfficialEvent>16</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^#Enter</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>^l</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>starts with</Operator>
+<Type>If</Type>
+<With>ShImgVw:</With>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>0</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Rotate images with L in windows picture viewer.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1615</ID>
+<Name>Picture viewer: Rotate image left with L</Name>
+<OfficialEvent>18</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>L</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Paths>${SelNM}</Paths>
+<Type>Show Explorer flat view</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|WorkerW|Progman)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition><Condition>
+<Compare>${WinVer}</Compare>
+<Negate>1</Negate>
+<Operator>equals</Operator>
+<Type>If</Type>
+<With>WIN_XP</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the contents of all selected folders in a flat view.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1616</ID>
+<Name>Show flat view of selected files</Name>
+<OfficialEvent>19</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+Enter</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Tab in Background</Action>
+<Type>Open folder in new window / tab</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over file list</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Opens the explorer folder under the mouse in a new window or tab.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1619</ID>
+<Name>Open folder in new window/tab</Name>
+<OfficialEvent>22</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close taskbar button under mouse</Type>
+</Action></Actions>
+<Category>Taskbar</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over taskbar list</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Closes the window belonging to the taskbar button under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1620</ID>
+<Name>Close window of task button under mouse</Name>
+<OfficialEvent>23</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Change desktop wallpaper</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(WorkerW|Progman)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Toggles the wallpaper using the list of wallpapers defined in Windows (7 or later). Same as the desktop context menu option.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1621</ID>
+<Name>Toggle Wallpaper (Mouse over desktop)</Name>
+<OfficialEvent>24</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close tab under mouse</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition><Condition>
+<Negate>0</Negate>
+<Type>Mouse over tab button</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Closes the explorer tab under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1622</ID>
+<Name>Close explorer tab under mouse</Name>
+<OfficialEvent>25</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>0</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Filenames</View>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the Explorer Rename/Replace dialog which is used to replace text in filenames and files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1623</ID>
+<Name>Show Explorer Rename/Replace dialog</Name>
+<OfficialEvent>20</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Paths>${Context}</Paths>
+<Type>Show Explorer flat view</Type>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu on directories to show them in a flat view.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1624</ID>
+<Name>Flat View in directory menus</Name>
+<OfficialEvent>21</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Shows the contents of the selected folders in a flat view.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<Name>Flat View</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Show Aero Flip</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the Aero Flip 3D Task switching dialog (or the standard task switcher dialog if unavailable) when the mouse is moved to the top left corner of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1625</ID>
+<Name>Show Aero Flip 3D</Name>
+<OfficialEvent>26</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Corner>1</Corner>
+<Time>100</Time>
+<Type>Screen corner</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Method>Goo.gl</Method>
+<Type>Shorten a URL</Type>
+<URL>${Clip}</URL>
+<WriteToClipboard>1</WriteToClipboard>
+<WriteToPlaceholder>ShortURL</WriteToPlaceholder>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will shorten an URL in the clipboard by using the goo.gl service. The URL in clipboard will be replaced with the shortened version.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1627</ID>
+<Name>URL shortener</Name>
+<OfficialEvent>27</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#S</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Merge Explorer windows</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate></Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event will merge all explorer windows into a single explorer window with tabs.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1628</ID>
+<Name>Merge all explorer windows</Name>
+<OfficialEvent>28</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^M</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Drag window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to drag the window under the cursor by holding ALT + Left mouse button. Alt+Left click is still possible. Explorer and dialog windows are handled in another event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1629</ID>
+<Name>Mouse Window Drag</Name>
+<OfficialEvent>29</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>~!LButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Drag window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to drag the explorer/dialog window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1630</ID>
+<Name>Mouse Window Drag</Name>
+<OfficialEvent>30</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!LButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Resize window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event resizes the explorer/dialog window under the cursor while holding ALT+Right mouse button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1631</ID>
+<Name>Mouse Window Resize</Name>
+<OfficialEvent>31</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Resize window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event resizes the window under the cursor while holding ALT + Right mouse button while still allowing ALT+Right clicks. Explorer and dialog windows are handled in another event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1632</ID>
+<Name>Mouse Window Resize</Name>
+<OfficialEvent>32</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>~!RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Invert file selection</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(ExploreWClass|CabinetWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event inverts the explorer file selection.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1633</ID>
+<Name>Invert selection</Name>
+<OfficialEvent>33</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^I UP</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>0</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Files</View>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition><Condition>
+<Negate>1</Negate>
+<Type>Explorer is renaming</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the explorer batch rename/replace dialog with "Replace in Files" preselected.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1634</ID>
+<Name>Explorer Replace in Files Dialog</Name>
+<OfficialEvent>34</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^+H</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>1</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Filenames</View>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu entry to batch-replace parts of the filenames of the selected files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1635</ID>
+<Name>Replace in filenames</Name>
+<OfficialEvent>35</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens the batch rename/replace dialog to replace parts of the filenames of the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<Name>Replace in filenames</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<SelectedFiles>1</SelectedFiles>
+<Type>Explorer replace dialog</Type>
+<View>Files</View>
+</Action></Actions>
+<Category>Context Menu</Category>
+<Conditions>
+<Condition>
+<Compare>${Class}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event adds a context menu entry to replace text in the selected files.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1636</ID>
+<Name>Replace in files</Name>
+<OfficialEvent>36</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Computer>0</Computer>
+<Description>Opens the batch rename/replace dialog to batch-replace text in the selected files.</Description>
+<Desktop>0</Desktop>
+<Directory>1</Directory>
+<DirectoryBackground>0</DirectoryBackground>
+<Name>Replace in file contents</Name>
+<SingleFileOnly>0</SingleFileOnly>
+<Type>Context menu</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>Screen</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1637</ID>
+<Name>Take screenshot: Use Image Converter</Name>
+<OfficialEvent>37</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>User selection</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot of an area that can be selected by the user and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1638</ID>
+<Name>Take screenshot of custom area: Use Image Converter</Name>
+<OfficialEvent>38</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Area>Window</Area>
+<Quality>95</Quality>
+<TargetFile>Screenshot.png</TargetFile>
+<TargetFolder>%Temp%\7plus</TargetFolder>
+<Type>Take a screenshot</Type>
+</Action><Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>NewName</Placeholder>
+<Rows>1</Rows>
+<Text>Enter a filename for the screenshot (without extension)</Text>
+<Title>Enter filename</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>200</Width>
+</Action><Action>
+<Overwrite>0</Overwrite>
+<Silent>0</Silent>
+<SourceFile>%Temp%\7plus\Screenshot.png</SourceFile>
+<TargetFile>${NewName}</TargetFile>
+<TargetPath>%Temp%\7plus</TargetPath>
+<Type>Move file</Type>
+</Action><Action>
+<Files>%Temp%\7plus\${NewName}.png</Files>
+<Hoster>ImgUr</Hoster>
+<ReuseWindow>1</ReuseWindow>
+<TemporaryFiles>1</TemporaryFiles>
+<Type>Show Image Converter</Type>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event takes a screenshot of the active window and shows it in image converter for further processing.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1639</ID>
+<Name>Take screenshot of window: Use Image Converter</Name>
+<OfficialEvent>39</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#PrintScreen</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>1</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the left side of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1640</ID>
+<Name>Slide Window left</Name>
+<OfficialEvent>40</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Left</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>3</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the right side of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1641</ID>
+<Name>Slide Window right</Name>
+<OfficialEvent>41</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Right</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>2</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the top side of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1642</ID>
+<Name>Slide Window up</Name>
+<OfficialEvent>42</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Up</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>4</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the bottom side of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1643</ID>
+<Name>Slide window down</Name>
+<OfficialEvent>43</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Down</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle always on top</Action>
+<ShowState>1</ShowState>
+<Type>Change window state</Type>
+<Value>100</Value>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This action toggles the always on top property of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1644</ID>
+<Name>Toggle always on top of active window</Name>
+<OfficialEvent>44</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#A</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Cancel>1</Cancel>
+<DataType>Text</DataType>
+<Placeholder>Script</Placeholder>
+<Rows>30</Rows>
+<Text>Enter script here</Text>
+<Title>Enter Script</Title>
+<Type>Ask for user input</Type>
+<Validate>1</Validate>
+<Width>600</Width>
+</Action><Action>
+<Append>0</Append>
+<Content>${script}</Content>
+<ImageExtension>png</ImageExtension>
+<Quality>95</Quality>
+<Target>%Temp%\7plus\script.ahk</Target>
+<Type>Write to file</Type>
+</Action><Action>
+<Command>%Temp%\7plus\script.ahk</Command>
+<RunAsAdmin>1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory>%Temp%\7plus</WorkingDirectory>
+</Action></Actions>
+<Category>Misc Hotkeys</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to paste an AutoHotkey script in a dialog  and runs it afterwards. This event requires that you have installed an AutoHotkey interpreter and assigned it to the .ahk file extension. The script file is deleted when 7plus exits. This event can be used as a template for other scripting languages.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1645</ID>
+<Name>Run temporary AHK script</Name>
+<OfficialEvent>45</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#T</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>(</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends an opening bracket character when NumpadEnd is pressed (Numpad1 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1646</ID>
+<Name>NumpadEnd -&gt; '('</Name>
+<OfficialEvent>46</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadEnd</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>)</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a closing bracket character when NumpadPgDn is pressed (Numpad3 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1647</ID>
+<Name>NumpadPgDn -&gt; ')'</Name>
+<OfficialEvent>47</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadPgDn</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{^ 2}{Backspace}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a '^' character when NumpadHome is pressed (Numpad7 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1648</ID>
+<Name>NumpadHome -&gt; '^'</Name>
+<OfficialEvent>48</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadHome</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>sqrt(</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a sqrt( string when NumpadPgUp is pressed Numpad9 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1649</ID>
+<Name>NumpadPgUp -&gt; "sqrt("</Name>
+<OfficialEvent>49</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadPgUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>=</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action></Actions>
+<Category>Numpad Enhancements</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event sends a '=' character when NumpadIns is pressed (Numpad0 with NumLock OFF). This remapping is used to enter equations into scientific calculators using only the numpad.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1650</ID>
+<Name>NumpadIns -&gt; '='</Name>
+<OfficialEvent>50</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>NumpadIns</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>http://www.google.com/search?q=${SelText}</Command>
+<RunAsAdmin>-1</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+</Action></Actions>
+<Category>Internet</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event runs a google search for the selected text.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1652</ID>
+<Name>Search selected text with Google</Name>
+<OfficialEvent>52</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#G</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>5</MinorVersion>

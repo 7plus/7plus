@@ -1,0 +1,662 @@
+<BugfixVersion>0</BugfixVersion>
+<Events>
+<Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Titlebar</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>OperaWindowClass|MozillaWindowClass</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Close a window by middle clicking it's title bar.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>305</ID>
+<Name>Middle click on title: Close window under mouse</Name>
+<OfficialEvent>306</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<FlashingWindows>1</FlashingWindows>
+<Notifications>1</Notifications>
+<ToggleWindows>1</ToggleWindows>
+<Type>Flashing windows</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Activate notification windows, flashing windows in the taskbar, or toggle between the current and the previously active window. Very useful for quickly responding to chats and switching back. Capslock state can still be changed by pressing a modifier key like CONTROL together with CAPSLOCK.&n;&n;This event is disabled by default to avoid confusing new users.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>307</ID>
+<Name>Activate notification/flashing/previous window</Name>
+<OfficialEvent>308</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>CapsLock</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle always on top</Action>
+<ShowState>1</ShowState>
+<Type>Change window state</Type>
+<Value>100</Value>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action><Action>
+<Action>Start timer</Action>
+<TimerID>311</TimerID>
+<Type>Control timer</Type>
+</Action><Action>
+<Action>Enable Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Enable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>Titlebar</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Right click on the titlebar of a window to toggle its "Always on top" property. This is useful for keeping a window visible so that you can easily copy data from and to it.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>308</ID>
+<Name>Right click on titlebar: Toggle always on top</Name>
+<OfficialEvent>309</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>{Esc}</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>0</WriteText>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>311</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Context menu active</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>1</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>309</ID>
+<Name>Toggle always on top -&gt; Context menu active</Name>
+<OfficialEvent>310</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Trigger Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Trigger Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Context menu active</Type>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>310</ID>
+<Name>Toggle always on top -&gt; No context menu active</Name>
+<OfficialEvent>311</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Disable Event</Action>
+<EventID>309</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>310</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action><Action>
+<Action>Disable Event</Action>
+<EventID>311</EventID>
+<Operator>equals</Operator>
+<Type>Control event</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Help event for "Toggle always on top" event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>311</ID>
+<Name>Toggle always on top -&gt; context menu timeout</Name>
+<OfficialEvent>312</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Restart>0</Restart>
+<ShowProgress>0</ShowProgress>
+<Time>2000</Time>
+<Type>Timer</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Disable always on top</Action>
+<Type>Change window state</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Removes "Always on top" window property when the window gets maximized. This is done so that you can still switch to other windows by activating them, instead of having to minimize the window which is always on top.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>316</ID>
+<Name>Remove always on top when window gets maximized</Name>
+<OfficialEvent>317</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Event>Window maximized</Event>
+<Type>Window state changed</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<ForceClose>1</ForceClose>
+<Type>Close a window</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<MouseOverType>CloseButton</MouseOverType>
+<Negate>0</Negate>
+<Type>Mouse over</Type>
+<WindowMatchType>Specific Window</WindowMatchType>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Right click on the close button of a window to kill its process.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>312</ID>
+<Name>Right click on close button: Force-close window</Name>
+<OfficialEvent>313</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Close a window</Type>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Kill the process of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>313</ID>
+<Name>Force-close active program</Name>
+<OfficialEvent>314</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!F5</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Minimize-&gt;Normal-&gt;Maximize</Action>
+<Type>Change window state</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Maximize the window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>314</ID>
+<Name>Maximize window under mouse</Name>
+<OfficialEvent>315</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!WheelUp</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Maximize-&gt;Normal-&gt;Minimize</Action>
+<Type>Change window state</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Restore or minimize the window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>315</ID>
+<Name>Restore / Minimize window under mouse</Name>
+<OfficialEvent>316</OfficialEvent>
+<OneInstance>1</OneInstance>
+<Trigger>
+<Key>!WheelDown</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Put window in background</Type>
+<WindowMatchType>UnderMouse</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Move the window under the mouse to the bottom of the window stack.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>1</EventComplexityLevel>
+<ID>1582</ID>
+<Name>Move window to bottom</Name>
+<OfficialEvent>986</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#MButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Show Aero Flip</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event shows the Aero Flip 3D Task switching dialog (or the standard task switcher dialog if unavailable) when the mouse is moved to the top left corner of the screen.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1625</ID>
+<Name>Show Aero Flip 3D</Name>
+<OfficialEvent>26</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Corner>1</Corner>
+<Time>100</Time>
+<Type>Screen corner</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Drag window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to drag the window under the cursor by holding ALT + Left mouse button. Alt+Left click is still possible. Explorer and dialog windows are handled in another event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1629</ID>
+<Name>Mouse Window Drag</Name>
+<OfficialEvent>29</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>~!LButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Drag window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event allows to drag the explorer/dialog window under the mouse.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1630</ID>
+<Name>Mouse Window Drag</Name>
+<OfficialEvent>30</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!LButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Resize window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>0</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event resizes the explorer/dialog window under the cursor while holding ALT+Right mouse button.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1631</ID>
+<Name>Mouse Window Resize</Name>
+<OfficialEvent>31</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Type>Resize window with mouse</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>0</Negate>
+<Type>Window is dragable</Type>
+</Condition><Condition>
+<Compare>${MC}</Compare>
+<Negate>1</Negate>
+<Operator>matches regular expression</Operator>
+<Type>If</Type>
+<With>(CabinetWClass|ExploreWClass|#32770)</With>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event resizes the window under the cursor while holding ALT + Right mouse button while still allowing ALT+Right clicks. Explorer and dialog windows are handled in another event.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1632</ID>
+<Name>Mouse Window Resize</Name>
+<OfficialEvent>32</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>~!RButton</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>1</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the left side of the screen. Also take a look at the Slide Window &lt;A HREF="Settings:Windows"&gt;settings&lt;/A&gt;.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1640</ID>
+<Name>Slide Window left</Name>
+<OfficialEvent>40</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Left</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>3</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the right side of the screen. Also take a look at the Slide Window &lt;A HREF="Settings:Windows"&gt;settings&lt;/A&gt;.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1641</ID>
+<Name>Slide Window right</Name>
+<OfficialEvent>41</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Right</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>2</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the top side of the screen. Also take a look at the Slide Window &lt;A HREF="Settings:Windows"&gt;settings&lt;/A&gt;.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1642</ID>
+<Name>Slide Window up</Name>
+<OfficialEvent>42</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Up</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Direction>4</Direction>
+<Type>Move Slide Window out of screen</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+<Condition>
+<Negate>1</Negate>
+<Type>Fullscreen window active</Type>
+<UseExcludeList>1</UseExcludeList>
+<UseIncludeList>1</UseIncludeList>
+</Condition></Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event slides a window out of the bottom side of the screen. Also take a look at the Slide Window &lt;A HREF="Settings:Windows"&gt;settings&lt;/A&gt;.&n;&n;NOTE: This event usually does nothing as the taskbar is at the bottom of the screen on most systems.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1643</ID>
+<Name>Slide window down</Name>
+<OfficialEvent>43</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>+#Down</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Action>Toggle always on top</Action>
+<ShowState>1</ShowState>
+<Type>Change window state</Type>
+<Value>100</Value>
+<WindowMatchType>Active</WindowMatchType>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This action toggles the always on top property of the active window.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1644</ID>
+<Name>Toggle always on top of active window</Name>
+<OfficialEvent>44</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>#A</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<InitialQuery>switch </InitialQuery>
+<Type>Show Accessor</Type>
+</Action></Actions>
+<Category>Window Handling</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>This event replaces the default ALT + TAB dialog with the window switcher plugin of Accessor.&n;&n;This event is disabled by default to avoid confusing new users.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>0</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1663</ID>
+<Name>Replace ALT + TAB dialog with Accessor</Name>
+<OfficialEvent>62</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>!Tab</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event></Events>
+<MajorVersion>2</MajorVersion>
+<MinorVersion>6</MinorVersion>
