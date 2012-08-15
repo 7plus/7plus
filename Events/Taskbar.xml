@@ -399,6 +399,11 @@
 <Actions>
 <Action>
 <Type>Close taskbar button under mouse</Type>
+</Action><Action>
+<Action>Toggle mute/unmute</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>100</Volume>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>

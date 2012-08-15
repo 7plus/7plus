@@ -27,7 +27,7 @@ GetTaskbarDirection()
 IsMouseOverTaskList()
 {
 	CoordMode, Mouse, Screen
-	WinGetPos , X, Y,,, ahk_class Shell_TrayWnd
+	WinGetPos , X, Y, , , ahk_class Shell_TrayWnd
 	if(WinVer >= WIN_7)
 		ControlGetPos , TaskListX, TaskListY, TaskListWidth, TaskListHeight, MSTaskListWClass1, ahk_class Shell_TrayWnd
 	else
@@ -35,11 +35,9 @@ IsMouseOverTaskList()
 	;Transform to screen coordinates
 	TaskListX += X
 	TaskListY += Y
-	MouseGetPos,x,y
+	MouseGetPos, x, y
 	z := GetTaskBarDirection()
-	if(z = 2 || z = 4)
-		return IsMouseOverTaskbar() && IsInArea(x, y, TaskListX, TaskListY, TaskListWidth, TaskListHeight)
-	if(z = 1 || z = 3)
+	if(z >= 1 && z <= 4)
 		return IsMouseOverTaskbar() && IsInArea(x, y, TaskListX, TaskListY, TaskListWidth, TaskListHeight)
 	return false
 }
@@ -50,9 +48,7 @@ IsMouseOverTray()
 	MouseGetPos, x, y
 	ControlGetPos , TrayX, TrayX, TrayWidth, TrayHeight, ToolbarWindow321, ahk_class Shell_TrayWnd
 	z := GetTaskBarDirection()
-	if(z = 2 || z = 4)
-		return IsMouseOverTaskbar() && IsInArea(x, y, TrayX, TrayY, TrayWidth, TrayHeight)
-	if(z = 1 || z = 3)
+	if(z >= 1 && z <= 4)
 		return IsMouseOverTaskbar() && IsInArea(x, y, TrayX, TrayY, TrayWidth, TrayHeight)
 	return false
 }
@@ -71,12 +67,10 @@ IsMouseOverClock()
 IsMouseOverShowDesktop()
 {
 	CoordMode, Mouse, Screen
-	MouseGetPos,x,y
-	z:=GetTaskBarDirection()
+	MouseGetPos, x, y
 	ControlGetPos , ShowDesktopX, ShowDesktopY, ShowDesktopWidth, ShowDesktopHeight, TrayShowDesktopButtonWClass1, ahk_class Shell_TrayWnd
-	if(z=2||z=4)
-		return IsMouseOverTaskbar() && IsInArea(x,y,ShowDesktopX,ShowDesktopY,ShowDesktopWidth,ShowDesktopHeight)
-	if(z=1||z=3)
+	z := GetTaskBarDirection()
+	if(z >= 1 && z <= 4)
 		return IsMouseOverTaskbar() && IsInArea(x,y,ShowDesktopX,ShowDesktopY,ShowDesktopWidth,ShowDesktopHeight)
 	return false
 }
@@ -85,10 +79,10 @@ IsMouseOverTaskbar()
 {
 	CoordMode, Mouse, Screen
 	MouseGetPos, , , WindowUnderMouseID 
-	WinGetClass, winclass , ahk_id %WindowUnderMouseID%
-	result:=false
-	if(winclass="Shell_TrayWnd")
-		result:=true
+	WinGetClass, winclass, ahk_id %WindowUnderMouseID%
+	result := false
+	if(winclass = "Shell_TrayWnd")
+		result := true
 	return result
 }
 
@@ -109,35 +103,34 @@ IsMouseOverFreeTaskListSpace()
 		x := HitTest()
 		return x < 0
 	}
-	IsRunning:=true
+	IsRunning := true
 	Click Right
-	result:=0
-	x:=0
-	while(x<50)
+	result := 0
+	x := 0
+	while(x < 50)
 	{
 		if(WinExist("ahk_class #32768"))
 		{
-			result:=true
+			result := true
 			break
 		}
 		else if(WinActive("ahk_id DV2ControlHost"))
 		{
-			result:=false
+			result := false
 			break
 		}
-		x+=10
+		x += 10
 		sleep 10
 	}
-	while(WinExist("ahk_class #32768")||WinActive("ahk_class DV2ControlHost"))
+	while(WinExist("ahk_class #32768") || WinActive("ahk_class DV2ControlHost"))
 		Send {Esc}
-	IsRunning:=false
-	return %result%
+	IsRunning := false
+	return result
 }
 
-;Middle click on taskbutton->close task
+;Middle click on taskbutton -> close task
 TaskButtonClose()
 {
-	static prevx, prevy
 	if(IsMouseOverTaskList())
 	{
 		click right
@@ -160,16 +153,16 @@ TaskButtonClose()
 					break
 				Sleep 10
 			}
-			while(prevx!=x || prevy!=y)
+			while(prevx != x || prevy != y)
 			{
-				prevx:=x
-				prevy:=y
-				WinGetPos x,y,,,ahk_class DV2ControlHost
+				prevx := x
+				prevy := y
+				WinGetPos x, y, , , ahk_class DV2ControlHost
 				Sleep 10
 			}
 		}
 		Send {up}{enter}
-		return true
+		return false
 	}
-	return false
+	return true
 }

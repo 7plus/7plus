@@ -6,7 +6,7 @@ Class CTaskButtonClose Extends CAction
 	
 	Execute(Event)
 	{
-		TaskButtonClose()
+		return TaskButtonClose()
 	}
 	DisplayString()
 	{

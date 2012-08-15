@@ -459,6 +459,7 @@
 </Event><Event>
 <Actions>
 <Action>
+<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>
@@ -500,6 +501,7 @@
 </Event><Event>
 <Actions>
 <Action>
+<FolderName>Neuer Ordner</FolderName>
 <Rename>1</Rename>
 <Type>Create new folder</Type>
 </Action></Actions>
@@ -2955,6 +2957,7 @@
 <Actions>
 <Action>
 <BaseFile></BaseFile>
+<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>
@@ -3747,6 +3750,11 @@
 <Actions>
 <Action>
 <Type>Close taskbar button under mouse</Type>
+</Action><Action>
+<Action>Toggle mute/unmute</Action>
+<ShowVolume>1</ShowVolume>
+<Type>Change sound volume</Type>
+<Volume>100</Volume>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>
@@ -5403,6 +5411,30 @@
 <OneInstance>0</OneInstance>
 <Trigger>
 <Key>#F18</Key>
+<Type>Hotkey</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<KeyDelay>0</KeyDelay>
+<Keys>&n;	static __WikiLink := ""</Keys>
+<Type>Send keyboard input</Type>
+<WriteText>1</WriteText>
+</Action></Actions>
+<Category>Uncategorized</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description></Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1684</ID>
+<Name>New event</Name>
+<OfficialEvent>80</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Key>^B</Key>
 <Type>Hotkey</Type>
 </Trigger>
 </Event></Events>
