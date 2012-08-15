@@ -140,8 +140,7 @@ Class CEventSystem extends CRichObject
 			outputdebug % "Process event ID: " Event.ID " Name: " Event.Name
 			
 			Loop % Event.Actions.MaxIndex()
-			{	
-				; outputdebug % "perform " Event.Actions[1].DisplayString()
+			{
 				result := Event.Actions[1].Execute(Event)
 				if(result = 0) ;Action was cancelled, stop all further actions
 				{

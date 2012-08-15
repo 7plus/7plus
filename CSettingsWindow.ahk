@@ -321,7 +321,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "Create &Shortcut")
 		Page.Controls.btnCreateShortcut.ToolTip := "Create a shortcut for the selected event"
-		
+
 		Page.AddControl("Edit", "editEventFilter", "xs+413 ys+50 w144 h20", "")
 		Page.AddControl("Text", "txtEventSearch", "xs+332 ys+53 w75 h13", "Event Search:")
 		
@@ -444,12 +444,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 		for index, Event in this.Events
 		{
 			ID := Event.ID
-			DisplayString := Event.Trigger.DisplayString()
+			DisplayString := ToSingleLine(Event.Trigger.DisplayString())
 			Name := Event.Name
 			;Show events that match the entered filter or the selected category and the selected complexity level
 			if(this.IsEventVisible(Event, Filter, DisplayString, SelectedCategory, ShowAdvancedEvents))
 			{
-				item := Items.Add((Event.Enabled ? " Check": " "), "", ID, Event.Trigger.DisplayString(), Event.Name)
+				item := Items.Add((Event.Enabled ? " Check": " "), "", ID, ToSingleLine(Event.Trigger.DisplayString()), Event.Name)
 				if(SelectedID && ID = SelectedID)
 					item.Modify("Select Focus Vis")
 			}
@@ -597,7 +597,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page := this.Pages.Events.Tabs[1].Controls
 		;Event is added to this.Events here and an ID is assigned
 		Event := this.Events.RegisterEvent()
-		ListItem := Page.listEvents.Items.Add("Select Vis", "", Event.ID, Event.Trigger.DisplayString(), Event.Name)
+		ListItem := Page.listEvents.Items.Add("Select Vis", "", Event.ID, ToSingleLine(Event.Trigger.DisplayString()), Event.Name)
 		Page.listEvents.SelectedItem := ListItem
 		SelectedCategory := this.GetSelectedCategory(true)
 		Event.Category := SelectedCategory
@@ -705,7 +705,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		;Check if the event needs to be hidden:
 		;This is the case when the event filter doesn't match it anymore (it should probably be removed then) and when it is marked as a complex event and displaying of complex events is disabled
-		if(!this.IsEventVisible(ChangedEvent, Page.editEventFilter.Text, ChangedEvent.Trigger.DisplayString(), SelectedCategory, Page.chkShowAdvancedEvents.Checked))
+		if(!this.IsEventVisible(ChangedEvent, Page.editEventFilter.Text, ToSingleLine(ChangedEvent.Trigger.DisplayString()), SelectedCategory, Page.chkShowAdvancedEvents.Checked))
 		{
 			Page.listEvents.Items.Delete(ListIndex)
 			return
@@ -715,7 +715,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listEvents.DisableNotifications := true
 		ListItem := Page.listEvents.Items[ListIndex]
 		ListItem.Checked := ChangedEvent.Enabled
-		ListItem[3] := ChangedEvent.Trigger.DisplayString()
+		ListItem[3] := ToSingleLine(ChangedEvent.Trigger.DisplayString())
 		ListItem[4] := ChangedEvent.Name
 		Page.lnkEventDescription.Text := ChangedEvent.Description
 		Page.listEvents.DisableNotifications := false
@@ -2044,7 +2044,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 							Page.AddControl("Picture", 	"imgDonate",		"xs+24 ys+170", 			A_ScriptDir "\Donate.png")
 							Page.AddControl("Link", 	"linkLicense",		"xs+176 ys+252", 			"<A HREF=""http://www.gnu.org/licenses/gpl.html"">GNU General Public License v3</A>")
 							Page.AddControl("Link", 	"linkAHK",			"xs+21 ys+217", 			"<A HREF=""www.autohotkey.com"">www.autohotkey.com</A>")
-							Page.AddControl("Link", 	"linkTwitter",		"xs+176 ys+121", 			"<A HREF=""http://www.twitter.com/7_plus"">7_plus</A>")
+							Page.AddControl("Link", 	"linkTwitter",		"xs+176 ys+121", 			"<A HREF=""http://www.twitter.com/7plus"">7plus</A>")
 							Page.AddControl("Link", 	"linkEmail",		"xs+176 ys+105", 			"<A HREF=""mailto://fragman@gmail.com"">fragman@gmail.com</A>")
 							Page.AddControl("Link", 	"linkBugs",			"xs+176 ys+73", 			"<A HREF=""http://code.google.com/p/7plus/issues/list"">http://code.google.com/p/7plus/issues/list</A>")
 							Page.AddControl("Link", 	"linkHomepage",		"xs+176 ys+57", 			"<A HREF=""http://code.google.com/p/7plus/"">http://code.google.com/p/7plus/</A>")
@@ -2066,15 +2066,18 @@ Finally, here are some settings that you're likely to change at the beginning:
 	{
 		;~ Page := this.Pages.About.Tabs[1].Controls
 	}
+
 	;Placeholder function, nothing to do yet
 	ApplyAbout()
 	{
 		;~ Page := this.Pages.About.Tabs[1].Controls
 	}
+
 	img7plus_Click()
 	{
 		MsgBox You found an easteregg, go get yourself a cookie!
 	}
+	
 	imgDonate_Click()
 	{
 		run https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CCDPER7Z2CHZW

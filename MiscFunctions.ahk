@@ -2010,3 +2010,10 @@ LookupFileInPATH(filename)
 	if(res != 0)
 		return Path
 }
+
+ToSingleLine(String)
+{
+	StringReplace, String, String, `n, ``n, All
+	StringReplace, String, String, `r`n, ``r``n, All
+	return String
+}

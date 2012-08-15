@@ -115,7 +115,7 @@ Class CEventEditor extends CGUI
 		
 		;Fill conditions list
 		for index, Condition in this.Event.Conditions
-			this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) Condition.DisplayString())
+			this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) ToSingleLine(Condition.DisplayString())
 
 		;Fill condition categories
 		for CategoryName, Category in CCondition.Categories
@@ -144,7 +144,7 @@ Class CEventEditor extends CGUI
 		
 		;Fill actions list
 		for index, Action in this.Event.Actions
-			this.listActions.Items.Add(Action.DisplayString())
+			this.listActions.Items.Add(ToSingleLine(Action.DisplayString()))
 		
 		;Fill action categories
 		for CategoryName, Category in CAction.Categories
@@ -350,7 +350,7 @@ Class CEventEditor extends CGUI
 		Gui, % this.GUINum ": Default"
 		Gui, Tab, 2
 		this.Condition.GuiSubmit(this.ConditionGUI)
-		this.listConditions.Items[this.Event.Conditions.IndexOf(this.Condition)].Text := (this.Condition.Negate ? "NOT " : "" ) this.Condition.DisplayString()
+		this.listConditions.Items[this.Event.Conditions.IndexOf(this.Condition)].Text := (this.Condition.Negate ? "NOT " : "" ) ToSingleLine(this.Condition.DisplayString())
 		Gui, Tab
 		this.Remove("Condition")
 		this.Remove("ConditionGUI")
@@ -369,24 +369,24 @@ Class CEventEditor extends CGUI
 		this.Condition.GuiShow(this.ConditionGUI)
 		Gui, Tab		
 		;Needed for changing the type of a condition
-		this.listConditions.Items[this.Event.Conditions.IndexOf(this.Condition)].Text := (this.Condition.Negate ? "NOT " : "" ) this.Condition.DisplayString()
+		this.listConditions.Items[this.Event.Conditions.IndexOf(this.Condition)].Text := (this.Condition.Negate ? "NOT " : "" ) ToSingleLine(this.Condition.DisplayString())
 	}
 	RefreshConditionDisplayString()
 	{
-		this.listConditions.SelectedItem.Text := (this.Condition.Negate ? "NOT " : "" ) this.Condition.DisplayString()
+		this.listConditions.SelectedItem.Text := (this.Condition.Negate ? "NOT " : "" ) ToSingleLine(this.Condition.DisplayString())
 	}
 	chkNegateCondition_CheckedChanged()
 	{
 		if(this.HasKey("Condition"))
 		{
 			this.Condition.Negate := this.chkNegateCondition.Checked
-			this.listConditions.SelectedItem.Text := (this.Condition.Negate ? "NOT " : "" ) this.Condition.DisplayString()
+			this.listConditions.SelectedItem.Text := (this.Condition.Negate ? "NOT " : "" ) ToSingleLine(this.Condition.DisplayString())
 		}
 	}
 	btnAddCondition_Click()
 	{
 		this.Event.Conditions.Insert(Condition := new CWindowActiveCondition())
-		this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) Condition.DisplayString())
+		this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) ToSingleLine(Condition.DisplayString()))
 		this.UseCondition := true
 		this.listConditions.SelectedIndex := this.listConditions.Items.MaxIndex()
 	}
@@ -407,7 +407,7 @@ Class CEventEditor extends CGUI
 	btnAddOR_Click()
 	{
 		this.Event.Conditions.Insert(Condition := new CORCondition())
-		this.listConditions.Items.Add(Condition.DisplayString())
+		this.listConditions.Items.Add(ToSingleLine(Condition.DisplayString()))
 		this.UseCondition := true
 		this.listConditions.SelectedIndex := this.listConditions.Items.MaxIndex()
 	}
@@ -434,7 +434,7 @@ Class CEventEditor extends CGUI
 	btnPasteCondition_Click()
 	{
 		this.Event.Conditions.Insert(EventSystem.ConditionClipboard.DeepCopy())
-		this.listConditions.Items.Add((EventSystem.ConditionClipboard.Negate ? "NOT " : "") EventSystem.ConditionClipboard.DisplayString(), -1, true)
+		this.listConditions.Items.Add((EventSystem.ConditionClipboard.Negate ? "NOT " : "") ToSingleLine(EventSystem.ConditionClipboard.DisplayString()), -1, true)
 	}
 	btnMoveConditionUp_Click()
 	{
@@ -531,7 +531,7 @@ Class CEventEditor extends CGUI
 		Gui, % this.GUINum ": Default"
 		Gui, Tab, 3
 		this.Action.GuiSubmit(this.ActionGUI)
-		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := this.Action.DisplayString()
+		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := ToSingleLine(this.Action.DisplayString())
 		Gui, Tab
 		this.Remove("Action")
 		this.Remove("ActionGUI")
@@ -548,16 +548,16 @@ Class CEventEditor extends CGUI
 		this.Action.GuiShow(this.ActionGUI)
 		Gui, Tab		
 		;Needed for changing the type of a Action
-		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := this.Action.DisplayString()
+		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := ToSingleLine(this.Action.DisplayString())
 	}
 	RefreshActionDisplayString()
 	{
-		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := this.Action.DisplayString()
+		this.listActions.Items[this.Event.Actions.IndexOf(this.Action)].Text := ToSingleLine(this.Action.DisplayString())
 	}
 	btnAddAction_Click()
 	{
 		this.Event.Actions.Insert(Action := new CRunAction())
-		this.listActions.Items.Add(Action.DisplayString())
+		this.listActions.Items.Add(ToSingleLine(Action.DisplayString()))
 		this.UseAction := true
 		this.listActions.SelectedIndex := this.listActions.Items.MaxIndex()
 	}
@@ -592,7 +592,7 @@ Class CEventEditor extends CGUI
 	btnPasteAction_Click()
 	{
 		this.Event.Actions.Insert(EventSystem.ActionClipboard.DeepCopy())
-		this.listActions.Items.Add(EventSystem.ActionClipboard.DisplayString(), -1, true)
+		this.listActions.Items.Add(ToSingleLine(EventSystem.ActionClipboard.DisplayString()), -1, true)
 	}
 	btnMoveActionUp_Click()
 	{
