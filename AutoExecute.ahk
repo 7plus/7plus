@@ -33,7 +33,7 @@ global Settings := new CSettings()
 
 Settings.SetupConfigurationPath()
 Settings.Load()
-Languages := new CLanguages()
+;Languages := new CLanguages()
 
 ;Create temp directory in which temporary files will be stored.
 ;hwnd.txt is stored in temp dir for finding the main 7plus window to allow sending messages to it. 

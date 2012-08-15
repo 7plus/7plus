@@ -109,7 +109,7 @@ Class CSettings
 		static FirstRun								:= true
 		static ShowAdvancedEvents	                := false
 		static ShowExecutingEvents             	    := false
-		static Language								:= "En"
+		;static Language								:= "En"
 		static ShowTips								:= true
 		static ShownTips							:= "00000000000000000000000000000000000000000000000000000000000000" ;Array of values that indicate if a tip has been shown yet
 		static DontRegisterSelectionChanged			:= false

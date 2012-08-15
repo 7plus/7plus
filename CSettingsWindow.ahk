@@ -227,8 +227,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("CheckBox", "chkAutoRun", "xs+24 ys+217 w187 h17", "Autorun 7plus on windows startup")
 		chkShowTips := Page.AddControl("CheckBox", "chkShowTips", "xs+24 ys+286", "Show tips about the usage of 7plus (highly recommended to discover its features)")
 		chkShowTips.ToolTip := "Tips will be shown when specific actions, such as pasting some text, are carried out. Each tip is only shown once in a non-obstrusive manner. This is recommended for most users that don't want to go through all the whole configuration of 7plus to discover most of its features."
-		Page.AddControl("Text", "txtLanguage", "xs+21 ys+339 w129 h13", "Documentation language:")
-		Page.AddControl("DropDownList", "ddlLanguage", "xs+203 ys+336 w160", "")
+		;Page.AddControl("Text", "txtLanguage", "xs+21 ys+339 w129 h13", "Documentation language:")
+		;Page.AddControl("DropDownList", "ddlLanguage", "xs+203 ys+336 w160", "")
 		Page.AddControl("Text", "txtRunAsAdmin", "xs+21 ys+312 w75 h13", "Run as admin:")
 		Page.AddControl("DropDownList", "ddlRunAsAdmin", "xs+203 ys+309 w160", "Always/Ask|Never")
 		Page.Controls.txtRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
@@ -236,7 +236,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 	}
 	InitIntroduction()
 	{
-		global Languages
+		;global Languages
 		Page := this.Pages.Introduction.Tabs[1].Controls
 		Page.chkAutoUpdate.Checked := Settings.General.AutoUpdate
 		Page.chkHideTrayIcon.Checked := Settings.Misc.HideTrayIcon
@@ -244,13 +244,13 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.chkAutoRun.Checked := IsAutoRunEnabled()
 		Page.chkShowTips.Checked := Settings.General.ShowTips
 		Page.ddlRunAsAdmin.Text := Settings.Misc.RunAsAdmin
-		Page.ddlLanguage.Items.Clear()
-		for key, Language in Languages.Languages
-			Page.ddlLanguage.Items.Add(Language.FullName, -1, Language.ShortName = Settings.General.Language)
+		;Page.ddlLanguage.Items.Clear()
+		;for key, Language in Languages.Languages
+		;	Page.ddlLanguage.Items.Add(Language.FullName, -1, Language.ShortName = Settings.General.Language)
 	}
 	ApplyIntroduction()
 	{
-		global Languages
+		;global Languages
 		Page := this.Pages.Introduction.Tabs[1].Controls
 		
 		Settings.General.AutoUpdate := Page.chkAutoUpdate.Checked
@@ -275,12 +275,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Settings.Misc.RunAsAdmin := Page.ddlRunAsAdmin.Text
 		Settings.General.ShowTips := Page.chkShowTips.Checked
 
-		for index, Language in Languages.Languages
-			if(Language.FullName = Page.ddlLanguage.Text)
-			{
-				Settings.General.Language := Language.ShortName
-				break
-			}
+		;for index, Language in Languages.Languages
+		;	if(Language.FullName = Page.ddlLanguage.Text)
+		;	{
+		;		Settings.General.Language := Language.ShortName
+		;		break
+		;	}
 	}
 	
 	;Events
