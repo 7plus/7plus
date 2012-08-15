@@ -290,18 +290,38 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("CheckBox", "chkShowAdvancedEvents", "xs+21 ys+53 w141 h17", "Show advanced events")
 		
 		Page.AddControl("Button", "btnEventHelp", "xs+567 ys+48 w80 h23", "&Help")
+		Page.Controls.btnEventHelp.ToolTip := "Show help on the event system"
+
 		Page.AddControl("Button", "btnAddEvent", "xs+567 ys+76 w80 h23", "&Add Event")
+		Page.Controls.btnAddEvent.ToolTip := "Add an event"
+
 		Page.AddControl("Button", "btnEditEvent", "xs+567 y+9 w80 h23", "&Edit Event")
+		Page.Controls.btnEditEvent.ToolTip := "Edit an event"
+
 		Page.AddControl("Button", "btnDeleteEvents", "xs+567 y+9 w80 h23", "&Delete Events")
+		Page.Controls.btnDeleteEvents.ToolTip := "Delete selected events"
+
 		Page.AddControl("Button", "btnEnableEvents", "xs+567 y+9 w80 h23", "E&nable Events")
+		Page.Controls.btnEnableEvents.ToolTip := "Enable selected events"
+
 		Page.AddControl("Button", "btnDisableEvents", "xs+567 y+9 w80 h23", "D&isable Events")
+		Page.Controls.btnDisableEvents.ToolTip := "Disable selected events"
+
 		Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy Events")
+		Page.Controls.btnCopyEvent.ToolTip := "Copy selected events"
+
 		Page.AddControl("Button", "btnPasteEvent", "xs+567 y+9 w80 h23", "&Paste Events")
+		Page.Controls.btnPasteEvent.ToolTip := "Paste copied events"
 		
 		Page.AddControl("Button", "btnImportEvents", "xs+567 y+9 w80 h23", "&Import")
+		Page.Controls.btnImportEvents.ToolTip := "Import events"
+
 		Page.AddControl("Button", "btnExportEvents", "xs+567 y+9 w80 h23", "E&xport")
+		Page.Controls.btnExportEvents.ToolTip := "Export events"
+
 		Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "Create &Shortcut")
-		Page.Controls.btnCreateShortcut.ToolTip := "Creates a shortcut for the selected event"
+		Page.Controls.btnCreateShortcut.ToolTip := "Create a shortcut for the selected event"
+		
 		Page.AddControl("Edit", "editEventFilter", "xs+413 ys+50 w144 h20", "")
 		Page.AddControl("Text", "txtEventSearch", "xs+332 ys+53 w75 h13", "Event Search:")
 		
