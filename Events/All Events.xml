@@ -3768,12 +3768,12 @@
 <Type>Mouse over taskbar list</Type>
 </Condition></Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
-<Description>Closes the window belonging to the taskbar button under the mouse.</Description>
+<Description>Closes the window belonging to the taskbar button under the mouse or toggles the mute state when over empty space</Description>
 <DisableAfterUse>0</DisableAfterUse>
 <Enabled>1</Enabled>
 <EventComplexityLevel>0</EventComplexityLevel>
 <ID>1620</ID>
-<Name>Close window of task button under mouse</Name>
+<Name>On Taskbar: Close window or toggle mute</Name>
 <OfficialEvent>23</OfficialEvent>
 <OneInstance>0</OneInstance>
 <Trigger>
