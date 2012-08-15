@@ -124,7 +124,6 @@ Class CFileSystemPlugin extends CAccessorPlugin
 		if(this.Settings.UseIcons)
 			for index, Icon in this.Icons
 				DestroyIcon(Icon)
-		this.AutoCompletionString := ""
 	}
 	RefreshList(Accessor, Filter, LastFilter, KeywordSet, Parameters)
 	{
@@ -161,9 +160,6 @@ Class CFileSystemPlugin extends CAccessorPlugin
 			Result.Actions.Insert(CAccessorPlugin.CActions.SearchDir)
 			this.Result := Result
 
-
-			if(this.AutocompletionString)
-				name := this.AutocompletionString
 			Loop %dir%\*%name%*, 2, 0
 			{
 				Result := new this.CResult("Folder")
@@ -208,7 +204,6 @@ Class CFileSystemPlugin extends CAccessorPlugin
 	
 	EnterDirectory(Accessor, ListEntry)
 	{
-		this.AutoCompletionString := ""
 		if(InStr(FileExist(ListEntry.Path),"D"))
 			Accessor.SetFilter(ListEntry.Path "\")
 	}
@@ -216,64 +211,6 @@ Class CFileSystemPlugin extends CAccessorPlugin
 	{
 		Files := Get(GetAll(Accessor.List, "Type", "File System"), "Title")
 		Navigation.SelectFiles(Files, Accessor.PreviousWindow)
-	}
-	OnTab()
-	{
-		Accessor := CAccessor.Instance
-		if(Accessor.List.MaxIndex() = 1 && InStr(FileExist(Accessor.List[1].Path),"D")) ;Go into folder if there is only one entry
-		{
-			Accessor.PerformAction()
-			return
-		}
-		
-		Filter := ExpandPathPlaceholders(Accessor.FilterWithoutTimer)
-		SplitPath, Filter, name, dir,,,drive
-		
-		if(name)
-		{
-			if(!this.AutocompletionString)
-				this.AutocompletionString := name
-			AutocompletionString := this.AutocompletionString
-			Loop %dir%\*%AutocompletionString%*,1,0
-			{
-				if(A_Index = 1)
-					first := A_LoopFileName
-				if(A_LoopFileName = name)
-				{
-					usenext := true
-					continue
-				}
-				if(usenext || (A_Index = 1 && name = AutocompletionString))
-				{
-					newname := A_LoopFileName
-					break
-				}
-			}
-		}
-		else
-			return 0
-		if(!newname)
-			newname := first
-		if(!newname)
-			return
-		
-		Accessor.SuppressListViewUpdate := 1
-		Accessor.SetFilter(dir "\" newname) 
-		Edit_Select(InStr(dir "\" newname, "\", false, 0), -1, "", "ahk_id " Accessor.GUI.EditControl.hwnd)
-		for index, item in Accessor.GUI.ListView.Items
-		{
-			if(item.Text = newname)
-			{
-				item.Selected := true
-				break
-			}
-		}
-		return 1
-	}
-	OnFilterChanged(ListEntry, Filter, LastFilter)
-	{
-		this.AutocompletionString := ""
-		return true
 	}
 	GetFooterText()
 	{
@@ -287,11 +224,6 @@ FileSystemPlugin_IsInDifferentPath(ListEntry)
 	return CFileSystemPlugin.Instance.Path != ListEntry.Path
 }
 
-#if (CAccessor.Instance.GUI && CAccessor.Instance.SingleContext = "File System")
-Tab::
-CFileSystemPlugin.Instance.OnTab()
-return
-#if
 #if (CAccessor.Instance.GUI && CAccessor.Instance.SingleContext = "File System" && CAccessor.Instance.GUI.ActiveControl = CAccessor.Instance.GUI.ListView)
 Backspace::
 CAccessor.Instance.SetFilter(SubStr(CAccessor.Instance.FilterWithoutTimer, 1, InStr(CAccessor.Instance.FilterWithoutTimer, "\", false, 0, strEndsWith(CAccessor.Instance.FilterWithoutTimer, "\") ? 2 : 1)))

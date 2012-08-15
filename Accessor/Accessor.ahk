@@ -2046,6 +2046,15 @@ Class CAccessorGUI extends CGUI
 			this.ListView.Items[selected].Modify("Select Vis")
 		}
 	}
+	OnTab()
+	{
+		if(CAccessor.Instance.List.MaxIndex() = 1) ;Go into folder if there is only one entry
+		{
+			CAccessor.Instance.PerformAction()
+			return
+		}
+		this.OnDown()
+	}
 	SetQueryButtonIcon()
 	{
 		Button := this.ClickedQueryButton
@@ -2150,8 +2159,8 @@ IsAccessorButtonUnderCursor()
 }
 
 
-#if CAccessor.Instance.GUI.Visible && !IsContextMenuActive() && (!CAccessor.Instance.SingleContext || !CAccessor.Instance.Plugins[CAccessor.Instance.SingleContext].IsFunc("OnTab"))
-Tab::CAccessor.Instance.GUI.OnDown()
+#if CAccessor.Instance.GUI.Visible && !IsContextMenuActive()
+Tab::CAccessor.Instance.GUI.OnTab()
 #if
 
 #if CAccessor.Instance.GUI.Visible && !IsContextMenuActive()
