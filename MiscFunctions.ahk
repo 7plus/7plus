@@ -822,15 +822,16 @@ UriEncode(str, full = 0)
 	    oSC.ExecuteStatement(Script)
 	    encoded := oSC.Eval("Encoded")
 	    Return encoded
+	}
 	catch e
 	{
 		f = %A_FormatInteger%
 		SetFormat, Integer, Hex
-		if(RegExMatch(str, "^\w+:/{0,2}", pr)
+		if(RegExMatch(str, "^\w+:/{0,2}", pr))
 			StringTrimLeft, str, str, StrLen(pr)
 		StringReplace, str, str, `%, `%25, All
 		Loop
-			if(RegExMatch(str, "i)[^\w\.~%]", char)
+			if(RegExMatch(str, "i)[^\w\.~%]", char))
 				StringReplace, str, str, %char%, % "%" . Asc(char), All
 			Else
 				Break
