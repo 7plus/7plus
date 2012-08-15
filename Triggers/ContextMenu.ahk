@@ -114,10 +114,11 @@ IfMsgbox Yes
 	UnregisterShellExtension(0)
 return
 
-RegisterShellExtension(Silent=1)
+RegisterShellExtension(Silent = 1)
 {
 	if(!ApplicationState.IsPortable)
 	{
+		outputdebug % "Registering Shell Extension" (Silent ? " quietly" : "")
 		if(WinVer >= WIN_Vista)
 			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s """ A_ScriptDir "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
 		else
@@ -133,10 +134,11 @@ RegisterShellExtension(Silent=1)
 	else if(!Silent)
 		MsgBox Context menu shell extension can only be used in non-portable mode for now.
 }
-UnregisterShellExtension(Silent=1)
+UnregisterShellExtension(Silent = 1)
 {
 	if(!ApplicationState.IsPortable)
 	{
+		outputdebug % "Unregistering Shell Extension" (Silent ? " quietly" : "")
 		if(WinVer >= WIN_Vista)
 			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s /u """ A_ScriptDir "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
 		else

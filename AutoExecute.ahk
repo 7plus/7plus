@@ -97,10 +97,6 @@ if(Settings.General.AutoUpdate)
 
 PostUpdate()
 
-;Check if the user did a manual upgrade by extracting an archive over the previous 7plus installation
-if(CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) = -1)
-	ApplyUpdateFixes()
-
 if(Settings.GamepadRemoteControl)
 	JoystickStart()
 CAccessor.Instance := new CAccessor()
@@ -170,8 +166,8 @@ if(!Settings.Misc.HidetrayIcon)
 ;possibly start wizard
 if (Settings.General.Firstrun)
 {
-	outputdebug Registering Shell Extension
-	RegisterShellExtension(1)
+	;outputdebug Registering Shell Extension
+	;RegisterShellExtension(1)
 	GoSub, wizardry
 }
 

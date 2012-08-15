@@ -2150,8 +2150,11 @@ IsAccessorButtonUnderCursor()
 }
 
 
+#if CAccessor.Instance.GUI.Visible && !IsContextMenuActive() && (!CAccessor.Instance.SingleContext || !CAccessor.Instance.Plugins[CAccessor.Instance.SingleContext].IsFunc("OnTab"))
+Tab::CAccessor.Instance.GUI.OnDown()
+#if
+
 #if CAccessor.Instance.GUI.Visible && !IsContextMenuActive()
-Tab::Down
 *Up::CAccessor.Instance.GUI.OnUp()
 *Down::CAccessor.Instance.GUI.OnDown()
 #if
@@ -2502,6 +2505,9 @@ uninstall plugin not working (x64) -- Or is it?
 random accessor crashes, maybe related to uninstall plugin
 infinite loop somewhere, possibly CEnumerator. Need to debug with callstack when it happens
 File search is too slow...should maybe run in a separate thread
+Check location of ShellExtension.dll during update and registration
+Change layout of event page buttons
+TAB key should cycle the entries
 
 find in filenames can easily be crashed with subdirectory option
 explorer tabs in slide windows

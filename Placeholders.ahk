@@ -1,6 +1,6 @@
 ;Main function to expand placeholders. Placeholders are marked by ${key} and by %PATH%
 ;Also see Placeholders.ahk
-ExpandPlaceholders(SubEvent, Text)
+ExpandPlaceholders(Event, Text)
 {
 	if(IsObject(Text)) ;Internally arrays may be supplied as parameters which mustn't be expanded here
 		return Text
@@ -12,7 +12,7 @@ ExpandPlaceholders(SubEvent, Text)
 		OriginalText := Text
 		
 		;Expand local dynamic placeholders (for example ${MessageResult} defined by SendMessage action)
-		for key, value in SubEvent.Placeholders
+		for key, value in Event.Placeholders
 		{
 			if(InStr(Text,"${" key "}"))
 				Text := StringReplace(Text, "${" key "}", value, 1)

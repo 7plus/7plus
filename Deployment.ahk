@@ -67,9 +67,9 @@ PostUpdate()
 	if(FileExist(A_TEMP "\7plus\Updater.exe"))
 	{
 		;Check if the version from downloaded version.ini in temp directory matches the version of the current instance. If yes, an update has been performed.
-		IniRead, tmpMajorVersion, %A_TEMP%\7plus\Version.ini,Version,MajorVersion
-		IniRead, tmpMinorVersion, %A_TEMP%\7plus\Version.ini,Version,MinorVersion
-		IniRead, tmpBugfixVersion, %A_TEMP%\7plus\Version.ini,Version,BugfixVersion
+		IniRead, tmpMajorVersion, %A_TEMP%\7plus\Version.ini, Version, MajorVersion
+		IniRead, tmpMinorVersion, %A_TEMP%\7plus\Version.ini, Version, MinorVersion
+		IniRead, tmpBugfixVersion, %A_TEMP%\7plus\Version.ini, Version, BugfixVersion
 		if(CompareVersion(tmpMajorVersion, MajorVersion, tmpMinorVersion, MinorVersion, tmpBugfixVersion, BugfixVersion) = 0)
 		{
 			ApplyUpdateFixes()
@@ -82,6 +82,10 @@ PostUpdate()
 		}		
 		FileDelete %A_TEMP%\7plus\Updater.exe
 	}
+	;Check if the user did a manual upgrade by extracting an archive over the previous 7plus installation
+	else if(CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) = -1)
+		ApplyUpdateFixes()
+
 	FileDelete %A_TEMP%\7plus\Version.ini
 }
 ApplyFreshInstallSteps()
@@ -116,9 +120,12 @@ ApplyUpdateFixes()
 			EventSystem.Events.WriteMainEventsFile()
 		}
 	}
+
 	;Register shell extension quietly
 	RegisterShellExtension(1)
 	AddUninstallInformation()
+
+	;Version specific code
 	if(MajorVersion "." MinorVersion "." BugfixVersion = "2.3.0")
 	{
 		;Switch to new autorun method

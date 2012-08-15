@@ -24,7 +24,8 @@ Class CEventSystem extends CRichObject
 		this.Events := new CEvents()
 		
 		;Temporary events are not visible in settings GUI and won't be saved. See ControlEvent -> Copy Event for usage example.
-		this.TemporaryEvents := new CEvents() ;object("base", object("base", Array(), "HighestID", -1, "Add", "Events_Add","RegisterEvent", "EventSystem_RegisterEvent"))
+		this.TemporaryEvents := new CEvents()
+		
 		;Call startup functions for all subevents
 		for index, Trigger in this.Triggers
 			Trigger.Startup()
@@ -32,6 +33,7 @@ Class CEventSystem extends CRichObject
 			Condition.Startup()
 		for index, Action in this.Actions
 			Action.Startup()
+
 		;Load main events file. This will create event objects for all stored event configs in Events object.
 		this.Events.ReadMainEventsFile()
 		
@@ -61,6 +63,7 @@ Class CEventSystem extends CRichObject
 		DllCall("ChangeWindowMessageFilter", "UInt", 55555, "UInt", 1) 
 		DllCall("ChangeWindowMessageFilter", "UInt", 55556, "UInt", 1) 
 	}
+
 	OnExit()
 	{
 		for index, Event in this.Events
@@ -75,6 +78,8 @@ Class CEventSystem extends CRichObject
 			for ActionIndex, Action in Event.Actions
 				Action.OnExit()
 		}
+
+		;Save events
 		this.Events.WriteMainEventsFile()
 	}
 	
@@ -207,18 +212,21 @@ Class CEventSystem extends CRichObject
 		}
 		return 0
 	}
+
 	;Same as EventFromSubEventKey except that it returns only the SubEvent
 	SubEventFromSubEventKey(Key, Value, Filter = "TCA")
 	{
 		this.EventFromSubEventKey("", SubEvent, Key, Value, Filter)
 		return SubEvent
 	}
+
 	;Finds the event and subevent of a running event of specified type by its gui number
 	;This function assumes that the gui number is stored as "tmpGUINum" in the subevent of the specified type.
 	EventFromGUI(ByRef pEvent, ByRef pSubEvent)
 	{
 		return this.EventFromSubEventKey(pEvent, pSubEvent, "tmpGUINum", A_GUI)
 	}
+
 	;Same as EventFromGUI except that it returns only the SubEvent
 	SubEventFromGUI()
 	{
@@ -246,7 +254,7 @@ Class CEvent extends CRichObject
 	Trigger := new CHotkeyTrigger()
 	Conditions := new CArray()
 	Actions := new CArray()
-	PlaceHolders := object()
+	PlaceHolders := Object()
 	
 	;Enabled state needs to be set through this function, to allow syncing with settings window
 	SetEnabled(Value) 
@@ -270,6 +278,7 @@ Class CEvent extends CRichObject
 	{
 		this.Trigger.Delete(this)
 	}
+
 	Enable()
 	{
 		this.SetEnabled(true)
@@ -281,6 +290,7 @@ Class CEvent extends CRichObject
 		this.SetEnabled(false)
 		this.Trigger.Disable(this)
 	}
+
 	;Applies a patch to this event, overwriting only some of its values
 	ApplyPatch(Patch)
 	{
@@ -344,7 +354,7 @@ Class CEvent extends CRichObject
 	;Tests if this event matches to a trigger. If it does, this event is schedule for execution.
 	;To just trigger it without performing trigger matching, leave Trigger Parameter empty.
 	;It returns the event on the EventSchedule so its state can be examined later.
-	TriggerThisEvent(Trigger="")
+	TriggerThisEvent(Trigger = "")
 	{
 		;Order of this if condition is important here, because Event.Trigger.Matches() can disable the event for timers
 		if(this.Enabled && (!IsObject(Trigger) || (this.Trigger.Type = Trigger.Type && this.Trigger.Matches(Trigger, this)) || (Trigger.Is(CTriggerTrigger) && this.ID = Trigger.TargetID)))
@@ -463,6 +473,7 @@ Class CEvents extends CArray
 		else
 			return Base.FindKeyWithValue(Key, Value)
 	}
+
 	ReadMainEventsFile()
 	{
 		this.ReadEventsFile(Settings.ConfigPath "\Events.xml")
@@ -941,6 +952,7 @@ Class CSubEvent extends CRichObject
 	Startup()
 	{		
 	}
+
 	;To be implemented by the specific inheriting subevent
 	DisplayString()
 	{
@@ -1022,21 +1034,24 @@ Class CTrigger extends CSubEvent
 	{
 	}
 }
-Class CExampleTrigger extends CTrigger
-{
-	static Type := "ExampleTrigger"
-	static Category := "ExampleTriggerCategory"
-	Static Property := 5
-	
-	Matches(Filter, Event)
-	{
-		return Check.Something()
-	}
-	DisplayString()
-	{
-		return "ExampleTrigger"
-	}
-}
+
+;Class CExampleTrigger extends CTrigger
+;{
+;	static Type := RegisterType(CExampleTrigger, "ExampleTrigger")
+;	static Category := RegisterCategory(CExampleTrigger, "ExampleTriggerCategory")
+;	Static PropertyThatIsSaved := 5
+;	static __UnsavedProperty := "Hello World!"
+;
+;	Matches(Filter, Event)
+;	{
+;		return Check.Something()
+;	}
+
+;	DisplayString()
+;	{
+;		return "ExampleTrigger"
+;	}
+;}
 
 Class CCondition extends CSubEvent
 {
@@ -1071,20 +1086,24 @@ Class CCondition extends CSubEvent
 		return true
 	}
 }
-Class CExampleCondition extends CCondition
-{
-	static Type := "ExampleCondition"
-	static Category := "ExampleConditionCategory"
-	static Property := 5
-	Evaluate(Event)
-	{
-		return Check.Something()
-	}
-	DisplayString()
-	{
-		return "ExampleCondition"
-	}
-}
+
+;Class CExampleCondition extends CCondition
+;{
+;	static Type := RegisterType(CExampleCondition, "ExampleCondition")
+;	static Category := RegisterCategory(CExampleCondition, "ExampleConditionCategory")
+;	static PropertyThatIsSaved := 5
+;	static __UnsavedProperty := "Hello World!"
+;
+;	Evaluate(Event)
+;	{
+;		return Check.Something()
+;	}
+;
+;	DisplayString()
+;	{
+;		return "ExampleCondition"
+;	}
+;}
 
 Class CAction extends CSubEvent
 {
@@ -1177,22 +1196,31 @@ Class CAction extends CSubEvent
 		
 	}
 }
-Class CExampleAction extends CAction
-{
-	static Type := "ExampleAction"
-	static Category := "ExampleActionCategory"
-	Static Property := 5
 
-	Execute(Event)
-	{
-		Do.Something()
-	}
+;Class CExampleAction extends CAction
+;{
+;	static Type := RegisterType(CExampleAction, "ExampleAction")
+;	static Category := RegisterCategory(CExampleAction, "ExampleActionCategory")
+;	Static PropertyThatIsSaved := 5
+;	static __UnsavedProperty := "Hello World!"
 
-	DisplayString()
-	{
-		return "ExampleAction"
-	}
-}
+;	Execute(Event)
+;	{
+;		Do.Something()
+;	}
+
+;	DisplayString()
+;	{
+;		return "ExampleAction"
+;	}
+;}
+
+
+
+;==========================
+;Include all Subevents here
+;==========================
+
 #include %A_ScriptDir%\Triggers\AccessorTrigger.ahk
 #include %A_ScriptDir%\Triggers\ContextMenu.ahk
 #include %A_ScriptDir%\Triggers\DirectoryChangeTrigger.ahk
