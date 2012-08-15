@@ -795,24 +795,10 @@ uriDecode(str) {
          StringReplace, str, str, `%%hex%, % Chr("0x" . hex), All 
       Else Break 
    Return, str 
-} 
+}
 
-;Encodes a URL. Full : Also encode ?&=
-;uriEncode(str, full = 0) { 
-;   f = %A_FormatInteger% 
-;   SetFormat, Integer, Hex 
-;   If RegExMatch(str, "^\w+:/{0,2}", pr) 
-;      StringTrimLeft, str, str, StrLen(pr) 
-;   StringReplace, str, str, `%, `%25, All 
-;   Loop
-;      If RegExMatch(str, full ? "i)[^a-zA-Z0-9_\.~%/:]" : "i)[^a-zA-Z0-9_\.~%/:?&=]", char) 
-;         StringReplace, str, str, %char%, % "%" . SubStr(Asc(char),3), All 
-;      Else Break 
-;   SetFormat, Integer, %f% 
-;   Return, pr . str 
-;}
-
-UriEncode(str, full = 0)
+; modified from jackieku's code (http://www.autohotkey.com/forum/post-310959.html#310959)
+UriEncode(str, Enc = "UTF-8")
 {
 	try
 	{
@@ -825,52 +811,32 @@ UriEncode(str, full = 0)
 	}
 	catch e
 	{
-		f = %A_FormatInteger%
-		SetFormat, Integer, Hex
-		if(RegExMatch(str, "^\w+:/{0,2}", pr))
-			StringTrimLeft, str, str, StrLen(pr)
-		StringReplace, str, str, `%, `%25, All
+		StrPutVar(str, Var, Enc)
+		f := A_FormatInteger
+		SetFormat, IntegerFast, H
 		Loop
-			if(RegExMatch(str, "i)[^\w\.~%]", char))
-				StringReplace, str, str, %char%, % "%" . Asc(char), All
-			Else
+		{
+			Code := NumGet(Var, A_Index - 1, "UChar")
+			If (!Code)
 				Break
-		SetFormat, Integer, %f%
-		Return pr str
+			If (Code >= 0x30 && Code <= 0x39 ; 0-9
+			 || Code >= 0x41 && Code <= 0x5A ; A-Z
+			 || Code >= 0x61 && Code <= 0x7A) ; a-z
+				Res .= Chr(Code)
+			Else
+				Res .= "%" . SubStr(Code + 0x100, -1)
+		}
+		SetFormat, IntegerFast, %f%
+		Return, Res
 	}
 }
-;UriEncode(str, full = 0)
-;{
-;     f = %A_FormatInteger%
-;   SetFormat, Integer, Hex   ; set integer format to hex
-   
-;   If RegExMatch(str, "^\w+:/{0,2}", pr)   
-;      StringTrimLeft, str, str, StrLen(pr)
-   
-;   StringReplace, str, str, `%, `%25, All    ; replace all % with %25
-   
-;   Loop
-;      If RegExMatch(str, "i)[^\w\.~%/:]", char)    ; exclude alphnumeric . ~ % / : 
-;         StringReplace, str, str, %char%, % "%" . fn_zerofill(SubStr(Asc(char),3),2) , All
-;      Else Break
-   
-;   SetFormat, Integer, %f%   ; restore integer format
-;   outputdebug % pr str
-;   Return, pr . str
-;}
-;uriEncode(str) {
-;   f = %A_FormatInteger%
-;   SetFormat, Integer, Hex
-;   If RegExMatch(str, "^\w+:/{0,2}", pr)
-;      StringTrimLeft, str, str, StrLen(pr)
-;   StringReplace, str, str, `%, `%25, All
-;   Loop
-;      If RegExMatch(str, "i)[^\w\.~%]", char)
-;         StringReplace, str, str, %char%, % "%" . Asc(char), All
-;      Else Break
-;   SetFormat, Integer, %f%
-;   Return, pr . str
-;}
+
+StrPutVar(Str, ByRef Var, Enc = "")
+{
+   Len := StrPut(Str, Enc) * (Enc = "UTF-16" || Enc = "CP1200" ? 2 : 1)
+   VarSetCapacity(Var, Len, 0)
+   Return, StrPut(Str, &Var, Enc)
+}
 
 ;Old function for codepage conversions. AHK_L can do this now.
 Unicode2Ansi(ByRef wString, ByRef sString, CP = 0) 
