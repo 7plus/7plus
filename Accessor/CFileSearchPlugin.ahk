@@ -11,7 +11,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 	AllowDelayedExecution := true
 	SearchIcon := ExtractIcon("%WINDIR%\System32\shell32.dll", 23)
 
-	DllPath := A_ScriptDir "\lib" (A_PtrSize = 8 ? "\x64" : "" ) "\FileSearch.dll"
+	static DllPath := A_ScriptDir "\lib" (A_PtrSize = 8 ? "\x64" : "" ) "\FileSearch.dll"
 	IndexingWorkerThreads := {}
 	FileSystemIndex := {}
 
@@ -111,7 +111,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 	{
 		this.hModule := DllCall("LoadLibrary", "Str", this.DllPath, "PTR")
 		if(!this.hModule)
-			MsgBox % "Failed to load " this.DllPath "!"
+			MsgBox % A_ThisFunc ": Failed to load " this.DllPath "!"
 		else
 			this.BuildFileDatabase()
 	}
@@ -135,7 +135,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 			DllCall("FreeLibrary", "PTR", this.hModule)
 		this.Remove("hModule")
 	}
-	
+
 	ShowSettings(PluginSettings, GUI, PluginGUI)
 	{
 		AddControl(PluginSettings, PluginGUI, "Checkbox", "UseIcons", "Use proper icons (not recommended)", "", "", "", "", "", "", "If checked, 7plus will use the correct icon for each file. This can cause instabilities for large results.")
@@ -362,7 +362,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 			if(DriveIndex := DllCall(this.DllPath "\LoadIndexFromDisk", "str", Path, "PTR"))
 				this.FileSystemIndex[Drive] := DriveIndex
 			else
-				Msgbox Failed to load %Path%!
+				Msgbox %A_ThisFunc%: Failed to load %Path%!
 		}
 	}
 
@@ -390,7 +390,7 @@ BuildFileDatabaseForDrive(WorkerThread, Drive, Path)
 	hModule := DllCall("LoadLibrary", "Str", DllPath, "PTR")
 	result := false
 	if(!hModule)
-		MsgBox % "Failed to load " DllPath "!"
+		MsgBox % A_ThisFunc ": Failed to load " DllPath "!"
 	else
 	{
 		DriveIndex := DllCall(DllPath "\CreateIndex", ushort, NumGet(Drive, "ushort"), "PTR")

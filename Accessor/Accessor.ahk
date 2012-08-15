@@ -659,7 +659,7 @@ Class CAccessor
 			SavedPlugin := IsObject(SavedPluginSettings[Plugin.Type]) ? SavedPluginSettings[Plugin.Type] : {}
 			Plugin.Instance.Settings.Load(SavedPlugin)
 			Plugin.Instance.Init(SavedPlugin.Settings)
-			if(SavedPlugin.Settings.Enabled)
+			if(Plugin.Instance.Settings.Enabled)
 				Plugin.Enable()
 		}
 		
@@ -2516,7 +2516,6 @@ infinite loop somewhere, possibly CEnumerator. Need to debug with callstack when
 File search is too slow...should maybe run in a separate thread
 Check location of ShellExtension.dll during update and registration
 Change layout of event page buttons
-TAB key should cycle the entries
 
 find in filenames can easily be crashed with subdirectory option
 explorer tabs in slide windows

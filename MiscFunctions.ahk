@@ -798,28 +798,41 @@ uriDecode(str) {
 } 
 
 ;Encodes a URL. Full : Also encode ?&=
-;uriEncode(str, full = 0) { 
-;   f = %A_FormatInteger% 
-;   SetFormat, Integer, Hex 
-;   If RegExMatch(str, "^\w+:/{0,2}", pr) 
-;      StringTrimLeft, str, str, StrLen(pr) 
-;   StringReplace, str, str, `%, `%25, All 
-;   Loop
-;      If RegExMatch(str, full ? "i)[^a-zA-Z0-9_\.~%/:]" : "i)[^a-zA-Z0-9_\.~%/:?&=]", char) 
-;         StringReplace, str, str, %char%, % "%" . SubStr(Asc(char),3), All 
-;      Else Break 
-;   SetFormat, Integer, %f% 
-;   Return, pr . str 
-;}
-
-UriEncode(Uri, full = 0)
-{
-    oSC := ComObjCreate("ScriptControl")
-    oSC.Language := "JScript"
-    Script := "var Encoded = encodeURIComponent(""" . Uri . """)"
-    oSC.ExecuteStatement(Script)
-    Return, oSC.Eval("Encoded")
+uriEncode(str, full = 0) { 
+   f = %A_FormatInteger% 
+   SetFormat, Integer, Hex 
+   If RegExMatch(str, "^\w+:/{0,2}", pr) 
+      StringTrimLeft, str, str, StrLen(pr) 
+   StringReplace, str, str, `%, `%25, All 
+   Loop
+      If RegExMatch(str, full ? "i)[^a-zA-Z0-9_\.~%/:]" : "i)[^a-zA-Z0-9_\.~%/:?&=]", char) 
+         StringReplace, str, str, %char%, % "%" . SubStr(Asc(char),3), All 
+      Else Break 
+   SetFormat, Integer, %f% 
+   Return, pr . str 
 }
+
+;UriEncode(Uri, full = 0)
+;{
+;    oSC := ComObjCreate("ScriptControl")
+;    oSC.Language := "JScript"
+;    Script := "var Encoded = encodeURIComponent(""" . Uri . """)"
+;    oSC.ExecuteStatement(Script)
+;    Return, oSC.Eval("Encoded")
+;}
+;uriEncode(str) {
+;   f = %A_FormatInteger%
+;   SetFormat, Integer, Hex
+;   If RegExMatch(str, "^\w+:/{0,2}", pr)
+;      StringTrimLeft, str, str, StrLen(pr)
+;   StringReplace, str, str, `%, `%25, All
+;   Loop
+;      If RegExMatch(str, "i)[^\w\.~%]", char)
+;         StringReplace, str, str, %char%, % "%" . Asc(char), All
+;      Else Break
+;   SetFormat, Integer, %f%
+;   Return, pr . str
+;}
 ;Old function for codepage conversions. AHK_L can do this now.
 Unicode2Ansi(ByRef wString, ByRef sString, CP = 0) 
 { 
