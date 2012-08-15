@@ -2513,9 +2513,13 @@ icon in context menu
 uninstall plugin not working (x64) -- Or is it?
 random accessor crashes, maybe related to uninstall plugin
 infinite loop somewhere, possibly CEnumerator. Need to debug with callstack when it happens
+
+
 File search is too slow...should maybe run in a separate thread
 Check location of ShellExtension.dll during update and registration
 Change layout of event page buttons
+closing of notification windows/Worker threads
+
 
 find in filenames can easily be crashed with subdirectory option
 explorer tabs in slide windows

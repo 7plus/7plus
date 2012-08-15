@@ -115,7 +115,7 @@ Class CEventEditor extends CGUI
 		
 		;Fill conditions list
 		for index, Condition in this.Event.Conditions
-			this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) ToSingleLine(Condition.DisplayString())
+			this.listConditions.Items.Add((Condition.Negate ? "NOT " : "" ) ToSingleLine(Condition.DisplayString()))
 
 		;Fill condition categories
 		for CategoryName, Category in CCondition.Categories
