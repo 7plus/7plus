@@ -13,6 +13,7 @@ Class CRichObject
 			return IsObject(Class) ? (this.base = Class) : (this.base.__Class = Class)
 		return 0
 	}
+
 	Extends(Class)
 	{
 		obj := this
@@ -24,8 +25,8 @@ Class CRichObject
 		}
 		return false
 	}
-	;; DeepCopy(reserved=0) 
-	DeepCopy(reserved=0) 
+
+	DeepCopy(reserved = 0) 
 	{
 		if !reserved 
 			reserved := object("copied" . &this, 1)  ; to keep track of unique objects within top object 
@@ -48,7 +49,8 @@ Class CRichObject
 		} 
 		return copy
 	}
-	ToString(reserved=0) 
+
+	ToString(reserved = 0) 
 	{ 
 		if !isobject(this) 
 			return " " this " " 
@@ -99,6 +101,7 @@ Class CRichObject
 			 Return, k
 		Return 0
 	}
+
 	FindKeyWithValueBetween(subitem, val, val2){
 		if(IsObject(val))
 		{
@@ -114,6 +117,7 @@ Class CRichObject
 				Return A_Index
 		Return 0
 	}
+
 	GetItemWithValue(subitem, val)
 	{
 		for k, v in this
@@ -164,5 +168,14 @@ Class CRichObject
 			} 
 		} 
 		return flat 
+	}
+
+	Count()
+	{
+		count := 0
+		for key, value in this
+			count++
+		outputdebug count %count%
+		return count
 	}
 }
