@@ -103,7 +103,7 @@ Class CSettings
 	
 	Class CGeneral
 	{
-		static DebugEnabled 		                := false
+		static DebugEnabled 		                := true
 		static ProfilingEnabled 	                := false
 		static AutoUpdate 		                    := true
 		static FirstRun								:= true
