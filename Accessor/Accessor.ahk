@@ -2515,7 +2515,7 @@ random accessor crashes, maybe related to uninstall plugin
 infinite loop somewhere, possibly CEnumerator. Need to debug with callstack when it happens
 
 
-File search is too slow...should maybe run in a separate thread
+File search is too slow...should maybe run in a separate thread?
 Change layout of event page buttons
 closing of notification windows/Worker threads
 
