@@ -660,7 +660,7 @@ Class CAccessor
 			Plugin.Instance.Settings.Load(SavedPlugin)
 			Plugin.Instance.Init(SavedPlugin.Settings)
 			if(Plugin.Instance.Settings.Enabled)
-				Plugin.Enable()
+				Plugin.Instance.Enable()
 		}
 		
 		;Init keywords
