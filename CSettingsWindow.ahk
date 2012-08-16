@@ -16,8 +16,8 @@ ShowSettings(Page = "Events")
 }
 Class CSettingsWindow Extends CGUI
 {
-	Width := 890
-	Height := 560
+	Width := 892
+	Height := 572
 	treePages := this.AddControl("TreeView", "treePages", "x19 y12 w182 h" this.Height - 47, "")
 	grpPage := this.AddControl("GroupBox", "grpPage", "x+17 w" this.Width - 226 " h" this.Height - 47 " Section", "Events")
 	btnOK := this.AddControl("Button", "btnOK", "x" this.Width - 254 " y" this.Height - 29 " w73 h23", "OK")
@@ -332,7 +332,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("GroupBox", "grpEventDescription", "xs+21 y+5 w536 h120", "Description")
 		Page.AddControl("Link", "lnkEventDescription", "xp+10 yp+20 w500 h81", "")
-		Page.AddControl("Text", "txtEventDescription", "xs+21 ys+16 w606 h26", "You can add events here that are triggered under certain conditions. When triggered, the event can launch a series of actions.`n This is a very powerful tool to add all kinds of features, and many features from 7plus are now implemented with this system.")
+		Page.AddControl("Text", "txtEventDescription", "xs+21 ys+16 w606 h26", "You can add events here that are triggered under certain conditions. When triggered, the event can launch a series of actions.`nThis is a very powerful tool to add all kinds of features, and many features from 7plus are now implemented with this system.")
 	}	
 	InitEvents()
 	{
@@ -1162,7 +1162,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.listClipboard.Items.Add(A_Index = 1 ? "Select" : "", this.ClipboardList[A_Index].Name, this.ClipboardList[A_Index].Text)
 		this.listClipboard_SelectionChanged("")
 
-		for index, program in ToArray(Settings.Misc.IgnoredPrograms, "|")
+		programs := ToArray(Settings.Misc.IgnoredPrograms, "|")
+		for index, program in programs
 			Page.listClipboardIgnore.Items.Add(program)
 	}
 

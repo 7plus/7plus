@@ -32,6 +32,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 		MatchQuality := 1 ;Only direct matches are used by this plugin
 		Title := "Show search results in Accessor for:"
 		Detail1 := "File search"
+		Icon := CFileSearchPlugin.Instance.SearchIcon
 	}
 
 	Class CNoResultsResult extends CAccessorPlugin.CResult
@@ -43,6 +44,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 		Title := "No results found!"
 		Path := "Stop crying and look elsewhere `;)"
 		Detail1 := "File search"
+		Icon := CFileSearchPlugin.Instance.SearchIcon
 	}
 
 	Class CSearchingResult extends CAccessorPlugin.CResult
@@ -53,6 +55,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 		MatchQuality := 1 ;Only direct matches are used by this plugin
 		Title := "Searching, please wait..."
 		Detail1 := "File search"
+		Icon := CFileSearchPlugin.Instance.SearchIcon
 	}
 
 	Class CSearchResult extends CAccessorPlugin.CResult
@@ -213,7 +216,6 @@ Class CFileSearchPlugin extends CAccessorPlugin
 			}
 			else
 				Result.Path := Filter
-			Result.Icon := Accessor.GenericIcons.7plus
 			Results.Insert(Result)
 		}
 		else if((StrLen(Filter) >= 5 && !strEndsWith(Filter, " i") && !strEndsWith(Filter, " in")) || this.SearchAnyway)
@@ -517,3 +519,6 @@ LoadDriveIndex(Drive, Path, hModule)
 			outputdebug WT: Failed to load %Path%!
 	}
 }
+
+;Why is OnClose called all the time?
+;Why do we see refreshes while we type? Is it really so fast? Unlikely
