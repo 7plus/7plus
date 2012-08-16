@@ -2516,7 +2516,6 @@ infinite loop somewhere, possibly CEnumerator. Need to debug with callstack when
 
 
 File search is too slow...should maybe run in a separate thread
-Check location of ShellExtension.dll during update and registration
 Change layout of event page buttons
 closing of notification windows/Worker threads
 
