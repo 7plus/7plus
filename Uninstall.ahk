@@ -37,7 +37,11 @@ IfMsgBox Yes
 			ScheduleDeletion(A_AppData "\7plus")
 			FilesLeft := true
 		}
+
+		;Just try all possible locations to increase the chance that it gets unregistered if there were problems before
 		run, regsvr32.exe /u /s "%A_ScriptDir%\ShellExtension.dll"
+		run, regsvr32.exe /u /s "%A_ScriptDir%\Lib\ShellExtension.dll"
+		run, regsvr32.exe /u /s "%A_ScriptDir%\Lib\x64\ShellExtension.dll"
 		DisableAutorun()
 		RegDelete, HKCU, Software\7plus
 		RestoreFolderBandButtons()

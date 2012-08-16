@@ -120,9 +120,9 @@ RegisterShellExtension(Silent = 1)
 	{
 		outputdebug % "Registering Shell Extension" (Silent ? " quietly" : "")
 		if(WinVer >= WIN_Vista)
-			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s """ A_ScriptDir "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
+			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s """ Settings.DllPath "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
 		else
-			run regsvr32 /s "%A_ScriptDir%\ShellExtension.dll"
+			run % "regsvr32 /s """ Settings.DllPath "\ShellExtension.dll"""
 		If(uacrep = 42 || WinVer < WIN_Vista) ;UAC Prompt confirmed, application may run as admin
 		{
 			if(!Silent)
@@ -140,9 +140,9 @@ UnregisterShellExtension(Silent = 1)
 	{
 		outputdebug % "Unregistering Shell Extension" (Silent ? " quietly" : "")
 		if(WinVer >= WIN_Vista)
-			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s /u """ A_ScriptDir "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
+			uacrep := DllCall("shell32\ShellExecute", uint, 0, str, "RunAs", str, "regsvr32", str, "/s /u """ Settings.DllPath "\ShellExtension.dll""", str, A_ScriptDir, int, 1)
 		else
-			run regsvr32 /s /u "%A_ScriptDir%\ShellExtension.dll"
+			run % "regsvr32 /s /u """ Settings.DllPath "\ShellExtension.dll"""
 		If(uacrep = 42 || WinVer < WIN_Vista) ;UAC Prompt confirmed, application may run as admin
 		{
 			if(!Silent)

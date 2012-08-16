@@ -49,8 +49,8 @@ CreateUpdate(Platform, Version)
 	if(Platform = "X86")
 	{
 		FileCopy, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC_UNICODE_32.bin, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC.bin, 1
-		FileCopy, %A_ScriptDir%\ShellExtension\Release\ShellExtension.dll, 			%A_TEMP%\7plusUpdateCreator, 1
 		FileCreateDir, %A_TEMP%\7plusUpdateCreator\lib
+		FileCopy, %A_ScriptDir%\lib\ShellExtension.dll,					 			%A_TEMP%\7plusUpdateCreator\lib, 1
 		FileCopy, %A_ScriptDir%\lib\sqlite3.dll, 									%A_TEMP%\7plusUpdateCreator\lib, 1
 		FileCopy, %A_ScriptDir%\lib\Explorer.dll, 									%A_TEMP%\7plusUpdateCreator\lib, 1
 		FileCopy, %A_ScriptDir%\lib\FileSearch.dll, 								%A_TEMP%\7plusUpdateCreator\lib, 1
@@ -59,8 +59,8 @@ CreateUpdate(Platform, Version)
 	else
 	{
 		FileCopy, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC_UNICODE_64.bin, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC.bin, 1
-		FileCopy, %A_ScriptDir%\ShellExtension\x64\Release\ShellExtension.dll, 		%A_TEMP%\7plusUpdateCreator, 1
 		FileCreateDir, %A_TEMP%\7plusUpdateCreator\lib\x64
+		FileCopy, %A_ScriptDir%\lib\x64\ShellExtension.dll, 						%A_TEMP%\7plusUpdateCreator\lib\x64, 1
 		FileCopy, %A_ScriptDir%\lib\x64\sqlite3.dll, 								%A_TEMP%\7plusUpdateCreator\lib\x64, 1
 		FileCopy, %A_ScriptDir%\lib\x64\Explorer.dll, 								%A_TEMP%\7plusUpdateCreator\lib\x64, 1
 		FileCopy, %A_ScriptDir%\lib\x64\FileSearch.dll, 							%A_TEMP%\7plusUpdateCreator\lib\x64, 1
@@ -149,7 +149,7 @@ WriteUpdater()
 	FileAppend, Progress zh0 fs18`, Updating, please wait.`n,														%A_scriptdir%\Updater.ahk
 	FileAppend, FileInstall`, %A_scriptdir%\Update.zip`, Update.zip`,1`n,											%A_scriptdir%\Updater.ahk	;%A_scriptdir% mustn't be dynamic for FileInstall -> no quotes
 	FileAppend, FileInstall`, %A_scriptdir%\7za.exe`, 7za.exe`,1`n,													%A_scriptdir%\Updater.ahk	;%A_scriptdir% mustn't be dynamic for FileInstall -> no quotes
-	FileAppend, run regsvr32 /s "`%ScriptDir`%\ShellExtension.dll"`n,											%A_scriptdir%\Updater.ahk	;Unregister context menu shell extension. It will get reregistered in PostUpdate()
+	FileAppend, run regsvr32 /s /u "`%ScriptDir`%\ShellExtension.dll"`n,											%A_scriptdir%\Updater.ahk	;Unregister context menu shell extension. It will get reregistered in PostUpdate()
 	FileAppend, runwait 7za.exe x Update.zip -y -o`%A_Temp`%\7plus\Update`, `%A_Temp`%\7plus`, hide`n,				%A_scriptdir%\Updater.ahk	
 	FileAppend, FileMoveDir`, `%A_Temp`%\7plus\Update\Patches`, `%ConfigPath`%\Patches`, 2`n, 						%A_scriptdir%\Updater.ahk	
     ; First move all the files (but not the folders):
