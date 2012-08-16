@@ -996,7 +996,7 @@ Class CAccessor
 				Result := Plugin.RefreshList(this, Filter, LastFilter, KeywordSet, Parameters)
 				PostRefreshTime := A_TickCount
 				if(PostRefreshTime - PreRefreshTime > 1000 && Settings.General.DebugEnabled)
-					Notify("", Plugin.Type " took unusually long for refresh: " PostRefreshTime - PreRefreshTime " ms")
+					Notify("", Plugin.Type " took unusually long for refresh: " PostRefreshTime - PreRefreshTime " ms", 10)
 				if(Result)
 					this.List.Extend(Result)
 				break
