@@ -109,7 +109,7 @@ ShellMessage( wParam, lParam, Msg)
 		{
 			RecentCreateCloseEvents[lParam] := 1
 			Trigger := wParam = 1 ? new CWindowCreatedTrigger() : new CWindowClosedTrigger()
-			class:= wParam = 1 ? WinGetClass("ahk_Id " lParam) : (IsObject(WindowList) && IsObject(WindowList[lParam]) ? WindowList[lParam].class : "INVALID WINDOW CLASS")
+			class := wParam = 1 ? WinGetClass("ahk_Id " lParam) : (IsObject(WindowList) && IsObject(WindowList[lParam]) ? WindowList[lParam].class : "INVALID WINDOW CLASS")
 			Trigger.Window := lParam
 			EventSystem.OnTrigger(Trigger)
 			;Keep a list of windows and their required info stored. This allows to identify windows which were closed recently.
