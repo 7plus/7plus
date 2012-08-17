@@ -190,23 +190,27 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		AddControl(PluginSettings, PluginGUI, "Checkbox", "IgnoreExtensions", "Ignore file extensions", "", "", "", "", "", "", "If checked, file extensions will be excluded from the query.")
 		AddControl(PluginSettings, PluginGUI, "Edit", "OpenWithKeyword", "", "", "Open With keyword", "", "", "", "", "Selected files in explorer or similar programs can be quickly opened by typing this keyword and then an application name, i.e. ""ow Notepad""")
 		
-		GUI.ListBox := GUI.AddControl("ListBox", "ListBox", "-Hdr -Multi -ReadOnly x" PluginGUI.x " y+10 w330 R9", "")
+		GUI.ListBox := GUI.AddControl("ListBox", "ListBox", "-Hdr -Multi -ReadOnly x" PluginGUI.x " y+10 w310 R9", "")
 		for index, IndexedPath in this.SettingsWindow.Paths
 			GUI.ListBox.Items.Add(IndexedPath.Path)
 		GUI.ListBox.SelectionChanged.Handler := new Delegate(this, "Settings_PathSelectionChanged")
 		GUI.ListBox.DoubleClick.Handler := new Delegate(this, "Settings_Edit")
 		
-		GUI.btnAddPath := GUI.AddControl("Button", "btnAddPath", "x+10 w80", "&Add Path")
+		GUI.btnAddPath := GUI.AddControl("Button", "btnAddPath", "x+10 w100", "&Add Path")
 		GUI.btnAddPath.Click.Handler := new Delegate(this, "Settings_AddPath")
-		
-		GUI.btnEdit := GUI.AddControl("Button", "btnEdit", "y+10 w80", "&Edit")
+		GUI.btnAddPath.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+
+		GUI.btnEdit := GUI.AddControl("Button", "btnEdit", "y+10 w100", "&Edit")
 		GUI.btnEdit.Click.Handler := new Delegate(this, "Settings_Edit")
+		GUI.btnEdit.SetImage(A_ScriptDir "\Icons\edit.ico", 16, 16, 0)
 		
-		GUI.btnDeletePath := GUI.AddControl("Button", "btnDeletePath", "y+10 w80", "&Delete Path")
+		GUI.btnDeletePath := GUI.AddControl("Button", "btnDeletePath", "y+10 w100", "&Delete Path")
 		GUI.btnDeletePath.Click.Handler := new Delegate(this, "Settings_DeletePath")
+		GUI.btnDeletePath.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		
-		GUI.btnRefreshCache := GUI.AddControl("Button", "btnRefreshCache", "y+10 w80", "&Refresh Cache")
+		GUI.btnRefreshCache := GUI.AddControl("Button", "btnRefreshCache", "y+10 w100", "&Refresh Cache")
 		GUI.btnRefreshCache.Click.Handler := new Delegate(this, "Settings_RefreshCache")
+		GUI.btnRefreshCache.SetImage(A_WinDir "\system32\shell32.dll:238", 16, 16, 0)
 
 
 		if(GUI.ListBox.Items.MaxIndex())
