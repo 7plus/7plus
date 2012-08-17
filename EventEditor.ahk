@@ -21,16 +21,16 @@ Class CEventEditor extends CGUI
 	Delimiter := "`n"
 	btnOK := this.AddControl("Button", "btnOK", "x729 y557 w70 h23", "&OK")
 	btnCancel := this.AddControl("Button", "btnCancel", "x809 y557 w80 h23", "&Cancel")
-	Tab := this.AddControl("Tab", "Tab", "x17 y8 w872 h512", "Trigger`nConditions`nActions`nOptions")
+	Tab := this.AddControl("Tab", "Tab", "x17 y8 w872 h530", "Trigger && Options`nConditions`nActions")
 	
 	;Trigger controls
 	txtTrigger := this.Tab.Tabs[1].AddControl("Text", "txtTrigger", "x31 y36", "Here you can define how this event gets triggered.")
 	txtTriggerCategory := this.Tab.Tabs[1].AddControl("Text", "txtTriggerCategory", "x31 y60", "Category:")
 	txtTriggerTrigger := this.Tab.Tabs[1].AddControl("Text", "txtTriggerTrigger", "x31 y90", "Trigger:")
-	ddlTriggerCategory := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerCategory", "x101 y56 w300", "")
-	ddlTriggerType := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerType", "x101 y86 w300", "")
+	ddlTriggerCategory := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerCategory", "x101 y56 w240", "")
+	ddlTriggerType := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerType", "x101 y86 w240", "")
 	btnTriggerHelp := this.Tab.Tabs[1].AddControl("Button", "btnTriggerHelp", "x+10 y85 w80", "Help")
-	grpTriggerOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpTriggerOptions", "x31 y116 w846 h384", "Options")
+	grpTriggerOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpTriggerOptions", "x31 y130 w400 h398", "Trigger Options")
 	
 	;Condition controls
 	txtCondition := this.Tab.Tabs[2].AddControl("Text", "txtCondition", "x31 y36", "The conditions below must be fullfilled to allow this event to execute.")
@@ -69,16 +69,17 @@ Class CEventEditor extends CGUI
 	grpActionOptions := this.Tab.Tabs[3].AddControl("GroupBox", "grpActionOptions", "x431 y116 w446 h394", "Options")
 	
 	;Option controls
-	txtEventName := this.Tab.Tabs[4].AddControl("Text", "txtEventName", "x31 y48", "Event Name:")
-	editEventName := this.Tab.Tabs[4].AddControl("Edit", "editEventName", "x131 y44 w300", "")
-	txtEventDescription := this.Tab.Tabs[4].AddControl("Text", "txtEventDescription", "x31 y74", "Event Description:")
-	editEventDescription := this.Tab.Tabs[4].AddControl("Edit", "editEventDescription", "x131 y70 w300 h60 Multi", "")
-	txtEventCategory := this.Tab.Tabs[4].AddControl("Text", "txtEventCategory", "x31 y140", "Event Category:")
-	comboEventCategory := this.Tab.Tabs[4].AddControl("ComboBox", "comboEventCategory", "x131 y139 w300", "")
-	chkDisableEventAfterUse := this.Tab.Tabs[4].AddControl("CheckBox", "chkDisableEventAfterUse", "x31 y166", "Disable after use")
-	chkDeleteEventAfterUse := this.Tab.Tabs[4].AddControl("CheckBox", "chkDeleteEventAfterUse", "x31 y196", "Delete after use")
-	chkEventOneInstance := this.Tab.Tabs[4].AddControl("CheckBox", "chkEventOneInstance", "x31 y226", "Disallow this event from being run in parallel")
-	chkComplexEvent := this.Tab.Tabs[4].AddControl("CheckBox", "chkComplexEvent", "x31 y256", "Advanced event (hidden from simple view)")
+	grpOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpOptions", "x461 y48 w400 h480 Section", "Options")
+	txtEventName := this.Tab.Tabs[1].AddControl("Text", "txtEventName", "xs+10 ys+24", "Event Name:")
+	editEventName := this.Tab.Tabs[1].AddControl("Edit", "editEventName", "xs+110 ys+20 w270", "")
+	txtEventDescription := this.Tab.Tabs[1].AddControl("Text", "txtEventDescription", "xs+10 ys+50", "Event Description:")
+	editEventDescription := this.Tab.Tabs[1].AddControl("Edit", "editEventDescription", "xs+110 ys+46 w270 h60 Multi", "")
+	txtEventCategory := this.Tab.Tabs[1].AddControl("Text", "txtEventCategory", "xs+10 ys+116", "Event Category:")
+	comboEventCategory := this.Tab.Tabs[1].AddControl("ComboBox", "comboEventCategory", "xs+110 ys+115 w270", "")
+	chkDisableEventAfterUse := this.Tab.Tabs[1].AddControl("CheckBox", "chkDisableEventAfterUse", "xs+10 ys+142", "Disable after use")
+	chkDeleteEventAfterUse := this.Tab.Tabs[1].AddControl("CheckBox", "chkDeleteEventAfterUse", "xs+10 ys+172", "Delete after use")
+	chkEventOneInstance := this.Tab.Tabs[1].AddControl("CheckBox", "chkEventOneInstance", "xs+10 ys+202", "Disallow this event from being run in parallel")
+	chkComplexEvent := this.Tab.Tabs[1].AddControl("CheckBox", "chkComplexEvent", "xs+10 ys+232", "Advanced event (hidden from simple view)")
 	
 	;SubeventGUIs contain information about specific subparts of the GUI which are handled by the sub-events like triggers, conditions and actions
 	TriggerGUI := ""
