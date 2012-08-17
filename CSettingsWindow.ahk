@@ -8,7 +8,7 @@ return
 ShowSettings(Page = "Events")
 {
 	;Settings window is created in AutoExecute to save some time when this function is called the first time.
-	if(!IsObject(SettingsWindow))
+	if(!IsObject(SettingsWindow))y
 		SetTimer, SettingsHandler, -20
 	if(SettingsActive() && !Page)
 		return
@@ -1162,8 +1162,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.listClipboard.Items.Add(A_Index = 1 ? "Select" : "", this.ClipboardList[A_Index].Name, this.ClipboardList[A_Index].Text)
 		this.listClipboard_SelectionChanged("")
 
-		for index, program in ToArray(Settings.Misc.IgnoredPrograms, "|")
-			Page.listClipboardIgnore.Items.Add(program)
+		programs := ToArray(Settings.Misc.IgnoredPrograms, "|") 
+          for index, program in programs 
+               Page.listClipboardIgnore.Items.Add(program)
 	}
 
 	ShowClipboard()
