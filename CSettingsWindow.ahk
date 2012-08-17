@@ -1180,6 +1180,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.listClipboard.Items.Add(A_Index = 1 ? "Select" : "", this.ClipboardList[A_Index].Name, this.ClipboardList[A_Index].Text)
 		this.listClipboard_SelectionChanged("")
 
+		Page.listClipboardIgnore.Items.Clear()
 		programs := ToArray(Settings.Misc.IgnoredPrograms, "|")
 		for index, program in programs
 			Page.listClipboardIgnore.Items.Add(program)
@@ -1297,6 +1298,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listClipboardIgnore.Items.Delete(Page.listClipboardIgnore.SelectedIndex)
 	}
 
+
 	;Explorer
 	CreateExplorer()
 	{
@@ -1328,6 +1330,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.editPasteImageAsFileName := chkPasteImageAsFileName.AddControl("Edit", "editPasteImageAsFileName", "x506 ys+302 w150", "", 1)
 		Page.Controls.editPasteTextAsFileName := chkPasteTextAsFileName.AddControl("Edit", "editPasteTextAsFileName", "x506 ys+276 w150", "", 1)
 	}
+
 	InitExplorer()
 	{
 		Page := this.Pages.Explorer.Tabs[1].Controls
@@ -1345,6 +1348,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.editPasteImageAsFileName.Text := Settings.Explorer.PasteImageAsFileName
 		Page.editPasteTextAsFileName.Text := Settings.Explorer.PasteTextAsFileName
 	}
+
 	ApplyExplorer()
 	{
 		Page := this.Pages.Explorer.Tabs[1].Controls
@@ -1378,6 +1382,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.chkTabWindowClose := chkUseTabs.AddControl("CheckBox", "chkTabWindowClose", "xs+53 ys+161 h17", "Close all tabs when window is closed", 1)
 		Page.Controls.chkActivateTab := chkUseTabs.AddControl("CheckBox", "chkActivateTab", "xs+53 ys+138 h17", "Activate tab on tab creation", 1)
 	}
+
 	InitExplorerTabs()
 	{
 		Page := this.Pages.ExplorerTabs.Tabs[1].Controls
@@ -1388,6 +1393,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.chkTabWindowClose.Checked := Settings.Explorer.Tabs.TabWindowClose
 		Page.ddlOnTabClose.SelectedIndex := Settings.Explorer.Tabs.OnTabClose
 	}
+
 	ApplyExplorerTabs()
 	{
 		Page := this.Pages.ExplorerTabs.Tabs[1].Controls
@@ -1398,6 +1404,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Settings.Explorer.Tabs.TabWindowClose := Page.chkTabWindowClose.Checked
 		Settings.Explorer.Tabs.OnTabClose := Page.ddlOnTabClose.SelectedIndex
 	}
+
 	btnTabStartupPath_Click()
 	{
 		FolderDialog := new CFolderDialog()
@@ -1420,6 +1427,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Button", 	"btnRemoveCustomButtons", 		"xs+40 ys+120", "&Remove custom Explorer buttons")
 		Page.Controls.btnRemoveCustomButtons.ToolTip := "By doing this all custom buttons in the explorer folder band bar will be removed. This is useful if an error occurred and some buttons get duplicated. Once you press OK or Apply in this dialog, the buttons created with an ExplorerButton trigger will reappear. To make the FastFolder buttons reappear, save a directory to a FastFolder slot by pressing CTRL+Numpad[0-9] (Default keys)"
 	}
+
 	InitFastFolders()
 	{
 		Page := this.Pages.FastFolders.Tabs[1].Controls
@@ -1436,6 +1444,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		Page.chkShowInPlacesBar.Checked := Settings.Explorer.FastFolders.ShowInPlacesBar
 	}
+
 	ApplyFastFolders()
 	{
 		Page := this.Pages.FastFolders.Tabs[1].Controls
@@ -1473,6 +1482,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Settings.Explorer.FastFolders.ShowInPlacesBar := Page.chkShowInPlacesBar.Checked			
 		}
 	}
+
 	btnRemoveCustomButtons_Click()
 	{
 		if(WinVer >= WIN_Vista && WinVer < WIN_8)
@@ -1709,21 +1719,25 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		HotStrings := localHotStrings
 	}
+
 	btnAddHotString_Click()
 	{
 		this.AddHotString()
 	}
+
 	AddHotString()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
 		Item := Page.listHotStrings.Items.Add("Select", "HotString", "Output")
 		Page.listHotStrings.SelectedItem := Item
 		this.ActiveControl := Page.listAccessorKeywords
-	}	
+	}
+
 	btnDeleteHotString_Click()
 	{
 		this.DeleteHotString()
 	}
+
 	DeleteHotString()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1735,7 +1749,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 			SelectedIndex := Page.listHotStrings.Items.MaxIndex()
 		Page.listHotStrings.SelectedIndex := SelectedIndex
 		this.ActiveControl := Page.listHotStrings
-	}	
+	}
+
 	listHotStrings_SelectionChanged(Row)
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1747,6 +1762,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.btnDeleteHotString.Enabled := SingleSelection
 		this.ActiveControl := Page.listHotStrings
 	}
+
 	EditHotStringInput_TextChanged()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1755,6 +1771,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		Page.listHotStrings.SelectedItem[1] := Page.editHotStringInput.Text
 	}
+
 	editHotStringOutput_TextChanged()
 	{		
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1763,6 +1780,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		Page.listHotStrings.SelectedItem[2] := Page.editHotStringOutput.Text
 	}
+
 	btnHotStringRegExHelp_Click()
 	{
 		run http://www.autohotkey.com/docs/misc/RegEx-QuickRef.htm
@@ -1855,6 +1873,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.chkAutoCloseWindowsUpdate.Checked := Settings.Windows.AutoCloseWindowsUpdate
 		Page.chkShowResizeTooltip.Checked := Settings.Windows.ShowResizeToolTip
 	}
+
 	ApplyWindows()
 	{
 		global SlideWindows
@@ -1896,6 +1915,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else
 			Page.chkDisableMinimizeAnim.Text := "Disable window minimize animation"
 	}
+
+
 	;WindowsSettings
 	CreateWindowsSettings()
 	{
@@ -1917,6 +1938,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Text", 	"txtThumbnailHoverTime",		"xs+21 ys+346",			"Taskbar thumbnail hover time [ms] (WIN7 or later):")
 		Page.AddControl("Edit", 	"editThumbnailHoverTime",		"xs+258 ys+343",		"")
 	}
+
 	InitWindowsSettings()
 	{
 		Page := this.Pages.WindowsSettings.Tabs[1].Controls
@@ -1937,6 +1959,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else
 			Page.editThumbnailHoverTime.Text := Page.editThumbnailHoverTime.OrigText := Property
 	}
+
 	ApplyWindowsSettings()
 	{
 		Page := this.Pages.WindowsSettings.Tabs[1].Controls
@@ -2152,6 +2175,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			}
 		}
 	}
+	
 	WM_KEYUP(Message, wParam, lParam, hwnd)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
