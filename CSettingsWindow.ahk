@@ -2069,7 +2069,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 							Page.AddControl("Link", 	"linkLicense",		"xs+176 ys+252", 			"<A HREF=""http://www.gnu.org/licenses/gpl.html"">GNU General Public License v3</A>")
 							Page.AddControl("Link", 	"linkAHK",			"xs+21 ys+217", 			"<A HREF=""www.autohotkey.com"">www.autohotkey.com</A>")
 							Page.AddControl("Link", 	"linkTwitter",		"xs+176 ys+121", 			"<A HREF=""http://www.twitter.com/7plus"">7plus</A>")
-							Page.AddControl("Link", 	"linkEmail",		"xs+176 ys+105", 			"<A HREF=""mailto://fragman@gmail.com"">fragman@gmail.com</A>")
+							Page.AddControl("Link", 	"linkEmail",		"xs+176 ys+105", 			"<A HREF=""mailto://contact@sevenplus.co"">contact@sevenplus.co</A>")
 							Page.AddControl("Link", 	"linkBugs",			"xs+176 ys+73", 			"<A HREF=""http://code.google.com/p/7plus/issues/list"">http://code.google.com/p/7plus/issues/list</A>")
 							Page.AddControl("Link", 	"linkHomepage",		"xs+176 ys+57", 			"<A HREF=""http://code.google.com/p/7plus/"">http://code.google.com/p/7plus/</A>")
 							Page.AddControl("Link", 	"linkAutoupdater",	"xs+21 ys+281", 			"The Autoupdater uses <A HREF=""http://www.7-zip.org"">7-Zip</A>, which is licensed under the <A HREF=""http://www.gnu.org/licenses/lgpl.html"">LGPL</A>")
