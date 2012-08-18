@@ -358,8 +358,8 @@ Class CFileSearchPlugin extends CAccessorPlugin
 					FileGetTime, ModificationTime, %IndexPath%
 					Delta := A_Now
 					EnvSub, Delta, %ModificationTime%, minutes
-					;if(Delta > 0 && Delta / 60 < this.Settings.IndexingFrequency && LoadExisting)
-					;	continue
+					if(Delta > 0 && Delta / 60 < this.Settings.IndexingFrequency && LoadExisting)
+						continue
 				}
 				Outputdebug Start worker thread to build index for %Drive%
 				WorkerThread := new CWorkerThread("BuildFileDatabaseForDrive", 0, 1, 1)
