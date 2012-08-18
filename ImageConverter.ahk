@@ -79,7 +79,7 @@ Class CImageConverter extends CGUI
 		this.btnUpload := this.AddControl("Button", "btnUpload", "x+5 y400 w69", "&Upload")
 		this.btnCopyToClipboard := this.AddControl("Button", "btnCopyToClipboard", "x+62 y400 w95", "&Copy to Clipboard")
 		this.btnConvertAndSave := this.AddControl("Button", "btnConvertAndSave", "x+5 y400 w124", "Convert && &Save && Close")
-		this.btnCancel := this.AddControl("Button", "btnCancel", "x+5 y400 w60", "Cancel")
+		this.btnCancel := this.AddControl("Button", "btnCancel", "x+5 y400 w60", "Close")
 		LV_Modify(1, "Select")
 		this.CloseOnEscape := true
 		this.DestroyOnClose := true
