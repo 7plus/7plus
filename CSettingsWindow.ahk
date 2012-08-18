@@ -144,6 +144,10 @@ Class CSettingsWindow Extends CGUI
 	PreClose()
 	{
 		this.Events := ""
+		;Close event editor. Loop through all windows if there are ever more than one editor window
+		for GUINum, GUI in CGUI.GUIList
+			if(GUI.__Class = "CEventEditor")
+				GUI.Close()
 	}
 	ApplySettings(Close = 0)
 	{
@@ -2175,7 +2179,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			}
 		}
 	}
-	
+
 	WM_KEYUP(Message, wParam, lParam, hwnd)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
