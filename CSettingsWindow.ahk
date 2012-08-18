@@ -144,6 +144,10 @@ Class CSettingsWindow Extends CGUI
 	PreClose()
 	{
 		this.Events := ""
+		;Close event editor. Loop through all windows if there are ever more than one editor window
+		for GUINum, GUI in CGUI.GUIList
+			if(GUI.__Class = "CEventEditor")
+				GUI.Close()
 	}
 	ApplySettings(Close = 0)
 	{
@@ -617,6 +621,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 	
 	EditEvent(TemporaryEvent)
 	{
+		if(this.EditingEvent)
+			return
 		Page := this.Pages.Events.Tabs[1].Controls
 		if(Page.listEvents.SelectedItems.MaxIndex() != 1)
 			return
@@ -627,10 +633,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Msgbox ExplorerButton trigger events may not be modified in portable or non-admin mode, as this might cause inconsistencies with the registry.
 			return
 		}
+		this.EditingEvent := true
 		EventEditor := new CEventEditor(OriginalEvent.DeepCopy(), TemporaryEvent)
 	}
 	FinishEditing(NewEvent, TemporaryEvent)
 	{
+		this.Remove("EditingEvent")
 		Page := this.Pages.Events.Tabs[1].Controls
 		if(NewEvent && (ApplicationState.IsPortable || !A_IsAdmin) && NewEvent.Trigger.Is(CExplorerButtonTrigger)) ;Explorer buttons may not be added in portable/non-admin mode
 		{
@@ -2175,7 +2183,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			}
 		}
 	}
-	
+
 	WM_KEYUP(Message, wParam, lParam, hwnd)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
