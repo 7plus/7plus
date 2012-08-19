@@ -359,11 +359,11 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		Loop % this.List.MaxIndex()
 		{
 			ListEntry := this.List[index]
-			if(!ListEntry.Command || !FileExist(ListEntry.Command))
-			{
-				this.List.Remove(index)
-				continue
-			}
+			;if(!ListEntry.Command || !FileExist(ListEntry.Command))
+			;{
+			;	this.List.Remove(index)
+			;	continue
+			;}
 			MatchPos := 0
 			
 			;Match by name of the resolved filename
