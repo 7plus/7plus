@@ -16,8 +16,8 @@ ShowSettings(Page = "Events")
 }
 Class CSettingsWindow Extends CGUI
 {
-	Width := 890
-	Height := 560
+	Width := 892
+	Height := 572
 	treePages := this.AddControl("TreeView", "treePages", "x19 y12 w182 h" this.Height - 47, "")
 	grpPage := this.AddControl("GroupBox", "grpPage", "x+17 w" this.Width - 226 " h" this.Height - 47 " Section", "Events")
 	btnOK := this.AddControl("Button", "btnOK", "x" this.Width - 254 " y" this.Height - 29 " w73 h23", "OK")
@@ -144,6 +144,10 @@ Class CSettingsWindow Extends CGUI
 	PreClose()
 	{
 		this.Events := ""
+		;Close event editor. Loop through all windows if there are ever more than one editor window
+		for GUINum, GUI in CGUI.GUIList
+			if(GUI.__Class = "CEventEditor")
+				GUI.Close()
 	}
 	ApplySettings(Close = 0)
 	{
@@ -291,36 +295,47 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		Page.AddControl("Button", "btnEventHelp", "xs+567 ys+48 w80 h23", "&Help")
 		Page.Controls.btnEventHelp.ToolTip := "Show help on the event system"
+		Page.Controls.btnEventHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
 
 		Page.AddControl("Button", "btnAddEvent", "xs+567 ys+76 w80 h23", "&Add Event")
 		Page.Controls.btnAddEvent.ToolTip := "Add an event"
+		Page.Controls.btnAddEvent.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
 
 		Page.AddControl("Button", "btnEditEvent", "xs+567 y+9 w80 h23", "&Edit Event")
 		Page.Controls.btnEditEvent.ToolTip := "Edit an event"
+		Page.Controls.btnEditEvent.SetImage(A_ScriptDir "\Icons\edit.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnDeleteEvents", "xs+567 y+9 w80 h23", "&Delete Events")
+		Page.AddControl("Button", "btnDeleteEvents", "xs+567 y+9 w80 h23", "&Delete")
 		Page.Controls.btnDeleteEvents.ToolTip := "Delete selected events"
+		Page.Controls.btnDeleteEvents.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 
-		Page.AddControl("Button", "btnEnableEvents", "xs+567 y+9 w80 h23", "E&nable Events")
+		Page.AddControl("Button", "btnEnableEvents", "xs+567 y+9 w80 h23", "E&nable")
 		Page.Controls.btnEnableEvents.ToolTip := "Enable selected events"
+		Page.Controls.btnEnableEvents.SetImage(A_ScriptDir "\Icons\check.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnDisableEvents", "xs+567 y+9 w80 h23", "D&isable Events")
+		Page.AddControl("Button", "btnDisableEvents", "xs+567 y+9 w80 h23", "D&isable")
 		Page.Controls.btnDisableEvents.ToolTip := "Disable selected events"
+		Page.Controls.btnDisableEvents.SetImage(A_ScriptDir "\Icons\uncheck.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy Events")
+		Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy")
 		Page.Controls.btnCopyEvent.ToolTip := "Copy selected events"
+		Page.Controls.btnCopyEvent.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnPasteEvent", "xs+567 y+9 w80 h23", "&Paste Events")
+		Page.AddControl("Button", "btnPasteEvent", "xs+567 y+9 w80 h23", "&Paste")
 		Page.Controls.btnPasteEvent.ToolTip := "Paste copied events"
+		Page.Controls.btnPasteEvent.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
 		
 		Page.AddControl("Button", "btnImportEvents", "xs+567 y+9 w80 h23", "&Import")
 		Page.Controls.btnImportEvents.ToolTip := "Import events"
+		Page.Controls.btnImportEvents.SetImage(A_ScriptDir "\Icons\open.ico", 16, 16, 0)
 
 		Page.AddControl("Button", "btnExportEvents", "xs+567 y+9 w80 h23", "E&xport")
 		Page.Controls.btnExportEvents.ToolTip := "Export events"
+		Page.Controls.btnExportEvents.SetImage(A_ScriptDir "\Icons\save.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "Create &Shortcut")
+		Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "&Shortcut")
 		Page.Controls.btnCreateShortcut.ToolTip := "Create a shortcut for the selected event"
+		Page.Controls.btnCreateShortcut.SetImage(A_ScriptDir "\Icons\link.ico", 16, 16, 0)
 
 		Page.AddControl("Edit", "editEventFilter", "xs+413 ys+50 w144 h20", "")
 		Page.AddControl("Text", "txtEventSearch", "xs+332 ys+53 w75 h13", "Event Search:")
@@ -332,7 +347,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("GroupBox", "grpEventDescription", "xs+21 y+5 w536 h120", "Description")
 		Page.AddControl("Link", "lnkEventDescription", "xp+10 yp+20 w500 h81", "")
-		Page.AddControl("Text", "txtEventDescription", "xs+21 ys+16 w606 h26", "You can add events here that are triggered under certain conditions. When triggered, the event can launch a series of actions.`n This is a very powerful tool to add all kinds of features, and many features from 7plus are now implemented with this system.")
+		Page.AddControl("Text", "txtEventDescription", "xs+21 ys+16 w606 h26", "You can add events here that are triggered under certain conditions. When triggered, the event can launch a series of actions.`nThis is a very powerful tool to add all kinds of features, and many features from 7plus are now implemented with this system.")
 	}	
 	InitEvents()
 	{
@@ -606,6 +621,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 	
 	EditEvent(TemporaryEvent)
 	{
+		if(this.EditingEvent)
+			return
 		Page := this.Pages.Events.Tabs[1].Controls
 		if(Page.listEvents.SelectedItems.MaxIndex() != 1)
 			return
@@ -616,10 +633,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Msgbox ExplorerButton trigger events may not be modified in portable or non-admin mode, as this might cause inconsistencies with the registry.
 			return
 		}
+		this.EditingEvent := true
 		EventEditor := new CEventEditor(OriginalEvent.DeepCopy(), TemporaryEvent)
 	}
 	FinishEditing(NewEvent, TemporaryEvent)
 	{
+		this.Remove("EditingEvent")
 		Page := this.Pages.Events.Tabs[1].Controls
 		if(NewEvent && (ApplicationState.IsPortable || !A_IsAdmin) && NewEvent.Trigger.Is(CExplorerButtonTrigger)) ;Explorer buttons may not be added in portable/non-admin mode
 		{
@@ -922,6 +941,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 	{
 		Page := this.Pages.Plugins.Tabs[1]
 		Page.AddControl("Button", "btnAccessorHelp", "xs+554 ys+19 w90 h23", "&Help")
+		Page.Controls.btnAccessorHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
 		Page.AddControl("Button", "btnAccessorSettings", "xs+554 ys+48 w90 h23", "Plugin &Settings")
 		Page.AddControl("ListView", "listAccessorPlugins", "xs+21 ys+19 w525 h400 Checked", "Plugin Name")
 		Page.Controls.listAccessorPlugins.IndependentSorting := true
@@ -1014,8 +1034,10 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Edit", "editAccessorCommand", "xs+84 ys+383 w462 h20", "")
 		Page.Controls.editAccessorCommand.ToolTip := "You can use parameters here which are inserted into the command at specific places. This is currently only supported by the URL plugin. Example: Keyword: ""google"" Command: ""www.google.com/search?q=${1}"" Entered Text: ""google 7plus"" result: ""www.google.com/search?q=7plus"""
 		
-		Page.AddControl("Button", "btnDeleteAccessorKeyword", "xs+554 ys+48 w90 h23", "&Delete Keyword")
 		Page.AddControl("Button", "btnAddAccessorKeyword", "xs+554 ys+19 w90 h23", "&Add Keyword")
+		Page.Controls.btnAddAccessorKeyword.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.AddControl("Button", "btnDeleteAccessorKeyword", "xs+554 ys+48 w90 h23", "&Delete")
+		Page.Controls.btnDeleteAccessorKeyword.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListView", "listAccessorKeywords", "xs+21 ys+19 w525 h332", "Keyword|Command")
 		Page.Controls.listAccessorKeywords.IndependentSorting := true
 	}
@@ -1134,7 +1156,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Text", "txtClipboardDescription", "xs+21 ys+19", "You can define custom clips here that can be inserted through the clipboard manager menu (Default: WIN + V)`nor through Accessor (Default: ALT + Space). These clips support %Parameters%.")
 		
 		Page.AddControl("Button", "btnAddClip", "xs+554 ys+49 w90 h23", "&Add Clip")
+		Page.Controls.btnAddClip.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
 		Page.AddControl("Button", "btnDeleteClip", "xs+554 ys+79 w90 h23", "&Delete Clip")
+		Page.Controls.btnDeleteClip.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListView", "listClipboard", "xs+21 ys+49 w525 h152", "Name|Text")
 		Page.Controls.listClipboard.IndependentSorting := true
 		
@@ -1147,7 +1171,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("Text", "txtClipboardIgnoreDescription", "xs+21 ys+353", "The programs listed here will be ignored by any clipboard related functions of 7plus. This can be used`nto protect the privacy of some clipboard contents such as passwords copied by password managers.")
 		Page.AddControl("Button", "btnAddClipboardProgram", "xs+554 ys+383 w90 h23", "Add Program")
-		Page.AddControl("Button", "btnDeleteClipboardProgram", "xs+554 ys+413 w90 h23", "Delete Program")
+		Page.Controls.btnAddClipboardProgram.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.AddControl("Button", "btnDeleteClipboardProgram", "xs+554 ys+413 w90 h23", "Delete")
+		Page.Controls.btnDeleteClipboardProgram.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListBox", "listClipboardIgnore", "xs+21 ys+383 w525 h120", "")
 	}
 	InitClipboard()
@@ -1162,7 +1188,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.listClipboard.Items.Add(A_Index = 1 ? "Select" : "", this.ClipboardList[A_Index].Name, this.ClipboardList[A_Index].Text)
 		this.listClipboard_SelectionChanged("")
 
-		for index, program in ToArray(Settings.Misc.IgnoredPrograms, "|")
+		Page.listClipboardIgnore.Items.Clear()
+		programs := ToArray(Settings.Misc.IgnoredPrograms, "|")
+		for index, program in programs
 			Page.listClipboardIgnore.Items.Add(program)
 	}
 
@@ -1278,6 +1306,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listClipboardIgnore.Items.Delete(Page.listClipboardIgnore.SelectedIndex)
 	}
 
+
 	;Explorer
 	CreateExplorer()
 	{
@@ -1309,6 +1338,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.editPasteImageAsFileName := chkPasteImageAsFileName.AddControl("Edit", "editPasteImageAsFileName", "x506 ys+302 w150", "", 1)
 		Page.Controls.editPasteTextAsFileName := chkPasteTextAsFileName.AddControl("Edit", "editPasteTextAsFileName", "x506 ys+276 w150", "", 1)
 	}
+
 	InitExplorer()
 	{
 		Page := this.Pages.Explorer.Tabs[1].Controls
@@ -1326,6 +1356,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.editPasteImageAsFileName.Text := Settings.Explorer.PasteImageAsFileName
 		Page.editPasteTextAsFileName.Text := Settings.Explorer.PasteTextAsFileName
 	}
+
 	ApplyExplorer()
 	{
 		Page := this.Pages.Explorer.Tabs[1].Controls
@@ -1359,6 +1390,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.chkTabWindowClose := chkUseTabs.AddControl("CheckBox", "chkTabWindowClose", "xs+53 ys+161 h17", "Close all tabs when window is closed", 1)
 		Page.Controls.chkActivateTab := chkUseTabs.AddControl("CheckBox", "chkActivateTab", "xs+53 ys+138 h17", "Activate tab on tab creation", 1)
 	}
+
 	InitExplorerTabs()
 	{
 		Page := this.Pages.ExplorerTabs.Tabs[1].Controls
@@ -1369,6 +1401,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.chkTabWindowClose.Checked := Settings.Explorer.Tabs.TabWindowClose
 		Page.ddlOnTabClose.SelectedIndex := Settings.Explorer.Tabs.OnTabClose
 	}
+
 	ApplyExplorerTabs()
 	{
 		Page := this.Pages.ExplorerTabs.Tabs[1].Controls
@@ -1379,6 +1412,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Settings.Explorer.Tabs.TabWindowClose := Page.chkTabWindowClose.Checked
 		Settings.Explorer.Tabs.OnTabClose := Page.ddlOnTabClose.SelectedIndex
 	}
+
 	btnTabStartupPath_Click()
 	{
 		FolderDialog := new CFolderDialog()
@@ -1401,6 +1435,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Button", 	"btnRemoveCustomButtons", 		"xs+40 ys+120", "&Remove custom Explorer buttons")
 		Page.Controls.btnRemoveCustomButtons.ToolTip := "By doing this all custom buttons in the explorer folder band bar will be removed. This is useful if an error occurred and some buttons get duplicated. Once you press OK or Apply in this dialog, the buttons created with an ExplorerButton trigger will reappear. To make the FastFolder buttons reappear, save a directory to a FastFolder slot by pressing CTRL+Numpad[0-9] (Default keys)"
 	}
+
 	InitFastFolders()
 	{
 		Page := this.Pages.FastFolders.Tabs[1].Controls
@@ -1417,6 +1452,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		Page.chkShowInPlacesBar.Checked := Settings.Explorer.FastFolders.ShowInPlacesBar
 	}
+
 	ApplyFastFolders()
 	{
 		Page := this.Pages.FastFolders.Tabs[1].Controls
@@ -1454,6 +1490,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Settings.Explorer.FastFolders.ShowInPlacesBar := Page.chkShowInPlacesBar.Checked			
 		}
 	}
+
 	btnRemoveCustomButtons_Click()
 	{
 		if(WinVer >= WIN_Vista && WinVer < WIN_8)
@@ -1471,8 +1508,10 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page := this.Pages.FTPProfiles.Tabs[1]
 					Page.AddControl("Text",			"txtFTPDescription",		"xs+37 ys+20", 				"You can define FTP profiles for use with the upload action here.`nBy default the selected files and folders can be uploaded by pressing CTRL + U.")
 					Page.AddControl("DropDownList",	"ddlFTPProfile",			"xs+37 ys+62 w297", 		"")
-					Page.AddControl("Button",		"btnAddFTPProfile",			"x+10 ys+60",				"&Add profile")
-					Page.AddControl("Button",		"btnDeleteFTPProfile",		"x+10",						"&Delete profile")
+					Page.AddControl("Button",		"btnAddFTPProfile",			"x+10 ys+60 w80",				"&Add profile")
+		Page.Controls.btnAddFTPProfile.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+					Page.AddControl("Button",		"btnDeleteFTPProfile",		"x+10 w80",						"&Delete")
+		Page.Controls.btnDeleteFTPProfile.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 					Page.AddControl("Button",		"btnTestFTPProfile",		"x+30",						"&Test profile")
 					Page.AddControl("Text",			"txtFTPHostname",			"xs+37 ys+101",				"Hostname:")
 					Page.AddControl("Edit",			"editFTPHostname",			"xs+258 ys+98",				"")
@@ -1623,13 +1662,16 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("ListView",	"listHotStrings",		 	"xs+21 ys+19 w525 h282", 	"HotString|Output")
 		Page.Controls.listHotStrings.IndependentSorting := true
 		
-		Page.AddControl("Button",	"btnAddHotString",		 	"xs+554 ys+19", 			"&Add HotString")
-		Page.AddControl("Button",	"btnDeleteHotString",		"xs+554 ys+48", 			"&Delete HotString")
+		Page.AddControl("Button",	"btnAddHotString",		 	"xs+554 ys+19 w100", 			"&Add HotString")
+		Page.Controls.btnAddHotString.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.AddControl("Button",	"btnDeleteHotString",		"xs+554 ys+48 w100", 			"&Delete")
+		Page.Controls.btnDeleteHotString.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("Text",		"txtHotStringInput",		"xs+21 ys+310", 			"HotString:")
 		Page.AddControl("Edit",		"editHotStringInput",		"xs+84 ys+307", 			"")
 		Page.AddControl("Text",		"txtHotStringOutput",		"xs+21 ys+336", 			"Output:")
 		Page.AddControl("Edit",		"editHotStringOutput",		"xs+84 ys+333", 			"")
-		Page.AddControl("Button",	"btnHotStringRegExHelp",	"xs+554 ys+77", 			"&RegEx Help")
+		Page.AddControl("Button",	"btnHotStringRegExHelp",	"xs+554 ys+77 w100", 			"&RegEx Help")
+		Page.Controls.btnHotStringRegExHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
 	}
 
 	InitHotStrings()
@@ -1685,21 +1727,25 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		HotStrings := localHotStrings
 	}
+
 	btnAddHotString_Click()
 	{
 		this.AddHotString()
 	}
+
 	AddHotString()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
 		Item := Page.listHotStrings.Items.Add("Select", "HotString", "Output")
 		Page.listHotStrings.SelectedItem := Item
 		this.ActiveControl := Page.listAccessorKeywords
-	}	
+	}
+
 	btnDeleteHotString_Click()
 	{
 		this.DeleteHotString()
 	}
+
 	DeleteHotString()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1711,7 +1757,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 			SelectedIndex := Page.listHotStrings.Items.MaxIndex()
 		Page.listHotStrings.SelectedIndex := SelectedIndex
 		this.ActiveControl := Page.listHotStrings
-	}	
+	}
+
 	listHotStrings_SelectionChanged(Row)
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1723,6 +1770,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.btnDeleteHotString.Enabled := SingleSelection
 		this.ActiveControl := Page.listHotStrings
 	}
+
 	EditHotStringInput_TextChanged()
 	{
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1731,6 +1779,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		Page.listHotStrings.SelectedItem[1] := Page.editHotStringInput.Text
 	}
+
 	editHotStringOutput_TextChanged()
 	{		
 		Page := this.Pages.HotStrings.Tabs[1].Controls
@@ -1739,6 +1788,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		
 		Page.listHotStrings.SelectedItem[2] := Page.editHotStringOutput.Text
 	}
+
 	btnHotStringRegExHelp_Click()
 	{
 		run http://www.autohotkey.com/docs/misc/RegEx-QuickRef.htm
@@ -1831,6 +1881,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.chkAutoCloseWindowsUpdate.Checked := Settings.Windows.AutoCloseWindowsUpdate
 		Page.chkShowResizeTooltip.Checked := Settings.Windows.ShowResizeToolTip
 	}
+
 	ApplyWindows()
 	{
 		global SlideWindows
@@ -1872,6 +1923,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else
 			Page.chkDisableMinimizeAnim.Text := "Disable window minimize animation"
 	}
+
+
 	;WindowsSettings
 	CreateWindowsSettings()
 	{
@@ -1893,6 +1946,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Text", 	"txtThumbnailHoverTime",		"xs+21 ys+346",			"Taskbar thumbnail hover time [ms] (WIN7 or later):")
 		Page.AddControl("Edit", 	"editThumbnailHoverTime",		"xs+258 ys+343",		"")
 	}
+
 	InitWindowsSettings()
 	{
 		Page := this.Pages.WindowsSettings.Tabs[1].Controls
@@ -1913,6 +1967,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else
 			Page.editThumbnailHoverTime.Text := Page.editThumbnailHoverTime.OrigText := Property
 	}
+
 	ApplyWindowsSettings()
 	{
 		Page := this.Pages.WindowsSettings.Tabs[1].Controls
@@ -2045,7 +2100,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 							Page.AddControl("Link", 	"linkLicense",		"xs+176 ys+252", 			"<A HREF=""http://www.gnu.org/licenses/gpl.html"">GNU General Public License v3</A>")
 							Page.AddControl("Link", 	"linkAHK",			"xs+21 ys+217", 			"<A HREF=""www.autohotkey.com"">www.autohotkey.com</A>")
 							Page.AddControl("Link", 	"linkTwitter",		"xs+176 ys+121", 			"<A HREF=""http://www.twitter.com/7plus"">7plus</A>")
-							Page.AddControl("Link", 	"linkEmail",		"xs+176 ys+105", 			"<A HREF=""mailto://fragman@gmail.com"">fragman@gmail.com</A>")
+							Page.AddControl("Link", 	"linkEmail",		"xs+176 ys+105", 			"<A HREF=""mailto://contact@sevenplus.co"">contact@sevenplus.co</A>")
 							Page.AddControl("Link", 	"linkBugs",			"xs+176 ys+73", 			"<A HREF=""http://code.google.com/p/7plus/issues/list"">http://code.google.com/p/7plus/issues/list</A>")
 							Page.AddControl("Link", 	"linkHomepage",		"xs+176 ys+57", 			"<A HREF=""http://code.google.com/p/7plus/"">http://code.google.com/p/7plus/</A>")
 							Page.AddControl("Link", 	"linkAutoupdater",	"xs+21 ys+281", 			"The Autoupdater uses <A HREF=""http://www.7-zip.org"">7-Zip</A>, which is licensed under the <A HREF=""http://www.gnu.org/licenses/lgpl.html"">LGPL</A>")
@@ -2128,6 +2183,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			}
 		}
 	}
+
 	WM_KEYUP(Message, wParam, lParam, hwnd)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls

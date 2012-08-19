@@ -41,9 +41,9 @@ Class COnMessageTrigger Extends CTrigger
 
 	GuiShow(GUI, GoToLabel = "")
 	{
-		this.AddControl(GUI, "Text", "Desc", "This trigger allows you to react to window messages from other programs. You can use it to trigger events in 7plus from other programs that support sending messages.")
+		this.AddControl(GUI, "Text", "Desc", "This trigger allows you to react to window messages from other programs.`nYou can use it to trigger events in 7plus from other programs`nthat support sending messages.")
 		this.AddControl(GUI, "Text", "tmpMessageText", "Enter a message number here or ""ShellHook""")
 		this.AddControl(GUI, "Edit", "Message", this.Message, "", "Message:")
-		this.AddControl(GUI, "Text", "tmpText", "This trigger allows you to use wParam and lParam placeholders in conditions/actions")
+		this.AddControl(GUI, "Text", "tmpText", "This trigger allows you to use wParam and lParam placeholders`nin conditions/actions")
 	}
 }
