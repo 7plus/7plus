@@ -100,9 +100,9 @@ CreateUpdate(Platform, Version)
 FolderLoop(Platform, Version)
 {
 	global 7plusVersion
-	SkipNameList := ["7za.exe", "Version.ini", "Autohotkey.exe", "Explorer.dll", "sqlite3.dll", "SetACL", "AU3_Spy.exe", "7+-128.ico", "Uninstall.ico", "Donate.ico", "Improvements.txt", "PatchInfo.xml"]
-	SkipExtList := ["ini","bak","html","bin","zip","svg","log"]
-	SkipPathList := ["To be implemented\", "Old Versions", "Tools\", "Winspector", "DebugView", ".svn", "Compiler", "Explorer\Explorer", "x64\", "x86\", "Patches\", "DefaultConfig\", "ShellExtension", "tests\", "CreateEventPatch", "SubEventBackup", "NewSettings", "Kopie", "UpdateCreator"]
+	SkipNameList := ["7plusGApps.png", ".gitignore", "7za.exe", "Version.ini", "Autohotkey.exe", "Explorer.dll", "sqlite3.dll", "SetACL", "AU3_Spy.exe", "7+-128.ico", "Uninstall.ico", "Donate.ico", "Improvements.txt", "PatchInfo.xml"]
+	SkipExtList := ["ini","bak","html","bin","zip","svg","log", "pdf"]
+	SkipPathList := [".git", "To be implemented\", "Old Versions", "Tools\", "Winspector", "DebugView", ".svn", "Compiler", "Explorer\Explorer", "x64\", "x86\", "Patches\", "DefaultConfig\", "ShellExtension", "tests\", "CreateEventPatch", "SubEventBackup", "NewSettings", "Kopie", "UpdateCreator"]
 	Loop *.*, 0, 1 ;Find files which should be included
 	{
 		if(SkipNameList.IndexOf(A_LoopFileName))

@@ -6,7 +6,7 @@ IniRead, ConfigPath, %A_Temp%\7plus\Update.ini, Update, ConfigPath, %A_AppData%\
 IniRead, ScriptDir, %A_Temp%\7plus\Update.ini, Update, ScriptDir, %A_ProgramFiles%\7plus
 FileInstall, D:\Projekte\Autohotkey\7plus\Update.zip, Update.zip,1
 FileInstall, D:\Projekte\Autohotkey\7plus\7za.exe, 7za.exe,1
-run regsvr32 /s "%ScriptDir%\ShellExtension.dll"
+run regsvr32 /s /u "%ScriptDir%\ShellExtension.dll"
 runwait 7za.exe x Update.zip -y -o%A_Temp%\7plus\Update, %A_Temp%\7plus, hide
 FileMoveDir, %A_Temp%\7plus\Update\Patches, %ConfigPath%\Patches, 2
 FileMove, %A_Temp%\7plus\Update, %ScriptDir%, 1

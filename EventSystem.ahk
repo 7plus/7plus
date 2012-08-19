@@ -117,7 +117,7 @@ Class CEventSystem extends CRichObject
 			;Check conditions
 			if(Event.Conditions.Success != 1) ;Check if conditions have been evaluated before.
 			{
-				Success := Event.CheckConditions(true)
+				Event.Conditions.Success := Success := Event.CheckConditions(true)
 				
 				;if the conditions were not fulfilled, remove this event and continue with the next one
 				if(!Success)
