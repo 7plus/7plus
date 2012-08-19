@@ -456,6 +456,7 @@ return
 ;Builds a database of all files on fixed drives
 BuildFileDatabaseForDrive(WorkerThread, Drive, Path)
 {
+	outputdebug WT: Start indexing drive %drive%
 	DllPath := A_ScriptDir "\lib" (A_PtrSize = 8 ? "\x64" : "" ) "\FileSearch.dll"
 	hModule := DllCall("LoadLibrary", "Str", DllPath, "PTR")
 	result := false
@@ -472,6 +473,7 @@ BuildFileDatabaseForDrive(WorkerThread, Drive, Path)
 	}
 	if(hModule)
 		DllCall("FreeLibrary", "PTR", hModule)
+	outputdebug WT: Indexing for %Drive% finished with result %result%
 	return result
 }
 

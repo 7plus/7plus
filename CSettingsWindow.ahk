@@ -129,18 +129,22 @@ Class CSettingsWindow Extends CGUI
 		this.Y := (Monitor.Bottom - Monitor.Top) / 2 - this.Height / 2
 		base.Show()
 	}
+
 	btnApply_Click()
 	{
 		this.ApplySettings(0)
 	}
+
 	btnCancel_Click()
 	{
 		this.CancelSettings()
 	}
+
 	btnOK_Click()
 	{
 		this.ApplySettings(1)
 	}
+
 	PreClose()
 	{
 		this.Events := ""
@@ -149,6 +153,7 @@ Class CSettingsWindow Extends CGUI
 			if(GUI.__Class = "CEventEditor")
 				GUI.Close()
 	}
+
 	ApplySettings(Close = 0)
 	{
 		this.Enabled := false
@@ -168,6 +173,7 @@ Class CSettingsWindow Extends CGUI
 		if(Close)
 			this.Close()
 	}
+
 	CancelSettings()
 	{
 		this.Close()
@@ -238,6 +244,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.txtRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
 		Page.Controls.ddlRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
 	}
+
 	InitIntroduction()
 	{
 		;global Languages
@@ -252,6 +259,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;for key, Language in Languages.Languages
 		;	Page.ddlLanguage.Items.Add(Language.FullName, -1, Language.ShortName = Settings.General.Language)
 	}
+
 	ApplyIntroduction()
 	{
 		;global Languages
@@ -348,7 +356,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("GroupBox", "grpEventDescription", "xs+21 y+5 w536 h120", "Description")
 		Page.AddControl("Link", "lnkEventDescription", "xp+10 yp+20 w500 h81", "")
 		Page.AddControl("Text", "txtEventDescription", "xs+21 ys+16 w606 h26", "You can add events here that are triggered under certain conditions. When triggered, the event can launch a series of actions.`nThis is a very powerful tool to add all kinds of features, and many features from 7plus are now implemented with this system.")
-	}	
+	}
+
 	InitEvents()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -369,6 +378,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		this.ActiveControl := Page.listEvents
 		this.Remove("SupressFillEventsList")
 	}
+
 	ApplyEvents()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -408,6 +418,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		EventSystem.EventsChanged()
 	}
+
 	RecreateTreeView()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -480,15 +491,18 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listEvents.ModifyCol(3, 195)
 		Page.listEvents.ModifyCol(4, 225)
 	}
+
 	IsEventVisible(Event, Filter, TriggerDisplayString, SelectedCategory, ShowAdvancedEvents)
 	{
 		return (!Filter || InStr(Event.ID, Filter) || InStr(TriggerDisplayString, Filter) || InStr(Event.Name, filter) || InStr(Event.Description, Filter)) && (filter || !SelectedCategory || SelectedCategory = Event.Category)
 			&& (ShowAdvancedEvents || !Event.EventComplexityLevel)
 	}
+
 	chkShowAdvancedEvents_CheckedChanged()
 	{
 		this.FillEventsList()
 	}
+
 	editEventFilter_TextChanged()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -503,6 +517,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		this.FillEventsList()
 	}
+
 	listEvents_SelectionChanged(Row)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -537,57 +552,70 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		this.ActiveControl := Page.listEvents
 	}
+
 	listEvents_DoubleClick(Row)
 	{
 		this.EditEvent(0)
 	}
+
 	listEvents_CheckedChanged(Row)
 	{
 		if(IsObject(Row))
 			this.Events.GetItemWithValue("ID", Row[2]).Enabled := Row.Checked
 	}
+
 	btnAddEvent_Click()
 	{
 		this.AddEvent()
 	}
+
 	btnEditEvent_Click()
 	{
 		this.EditEvent(0)
 	}
+
 	btnDeleteEvents_Click()
 	{
 		this.DeleteEvents()
 	}
+
 	btnEnableEvents_Click()
 	{
 		for key, item in this.Pages.Events.Tabs[1].Controls.listEvents.SelectedItems
 			item.Checked := true
 	}
+
 	btnDisableEvents_Click()
 	{
 		for key, item in this.Pages.Events.Tabs[1].Controls.listEvents.SelectedItems
 			item.Checked := false
 	}
+
 	btnCopyEvent_Click()
 	{
 		this.CopyEvent()
 	}
+
 	btnPasteEvent_Click()
 	{
 		this.PasteEvent()
 	}
+
 	btnImportEvents_Click()
 	{
 		this.ImportEvents()
 	}
+
 	btnExportEvents_Click()
 	{
 		this.ExportEvents()
 	}
+
 	btnEventHelp_Click()
 	{
 		OpenWikiPage("EventsOverview")
 	}
+	
 	btnCreateShortcut_Click()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -604,9 +632,11 @@ Finally, here are some settings that you're likely to change at the beginning:
 	
 	lnkEventDescription_Click(URL)
 	{
+		;Support redirection to other settings pages by URLS with <A HREF="Settings:Pagename">Text</A>
 		if(InStr(URL, "Settings:") = 1)
 			this.Show(SubStr(URL, 10))
 	}
+
 	AddEvent()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -636,6 +666,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		this.EditingEvent := true
 		EventEditor := new CEventEditor(OriginalEvent.DeepCopy(), TemporaryEvent)
 	}
+
 	FinishEditing(NewEvent, TemporaryEvent)
 	{
 		this.Remove("EditingEvent")
@@ -655,6 +686,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else if(TemporaryEvent)
 			this.DeleteEvents()
 	}
+
 	UpdateEventsView(ChangedEvent)
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -739,6 +771,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.lnkEventDescription.Text := ChangedEvent.Description
 		Page.listEvents.DisableNotifications := false
 	}
+
 	DeleteEvents()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -766,6 +799,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		else
 			this.ActiveControl := Page.listEvents
 	}
+
 	CopyEvent()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -784,6 +818,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		ClipboardEvents.WriteEventsFile(A_Temp "/7plus/EventsClipboard.xml")	
 		Page.btnPasteEvent.Enabled := true
 	}
+
 	PasteEvent()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -794,6 +829,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			this.FillEventsList()
 		}
 	}
+
 	ImportEvents()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
@@ -824,6 +860,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			this.Enabled := true
 		}
 	}
+
 	ExportEvents()
 	{
 		global MajorVersion, MinorVersion, BugFixVersion
@@ -907,6 +944,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;Page.AddControl("Text", "txtAccessorHeight", "xs+21 y+13 h17", "Accessor Height:")
 		;Page.AddControl("Edit", "editAccessorHeight", "xs+120 yp-3 w60 h20 Number", "")
 	}
+
 	InitAccessor()
 	{
 		Page := this.Pages.Accessor.Tabs[1].Controls
@@ -921,6 +959,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;Page.editAccessorWidth.Text := Clamp(CAccessor.Instance.Settings.Width, 600, 2000)
 		;Page.editAccessorHeight.Text := Clamp(CAccessor.Instance.Settings.Height, 200, 2000)
 	}
+
 	ApplyAccessor()
 	{
 		Page := this.Pages.Accessor.Tabs[1].Controls
@@ -936,6 +975,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;CAccessor.Instance.Settings.Width := Clamp(Page.editAccessorWidth.Text, 600, 2000)
 		;CAccessor.Instance.Settings.Height := Clamp(Page.editAccessorHeight.Text, 200, 2000)
 	}
+
 	;Accessor Plugins
 	CreatePlugins()
 	{
@@ -948,11 +988,13 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("Edit", "editPluginDescription", "xs+21 y+5 w525 h81 ReadOnly", "")
 	}
+
 	ShowPlugins()
 	{
 		Page := this.Pages.Plugins.Tabs[1].Controls
 		this.ActiveControl := Page.listAccessorPlugins
 	}
+
 	InitPlugins()
 	{
 		Page := this.Pages.Plugins.Tabs[1].Controls
@@ -969,6 +1011,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listAccessorPlugins.ModifyCol(1, "AutoHdr")
 		Page.listAccessorPlugins.SelectedIndex := 1
 	}
+
 	ApplyPlugins()
 	{
 		Page := this.Pages.Plugins.Tabs[1].Controls
@@ -984,19 +1027,23 @@ Finally, here are some settings that you're likely to change at the beginning:
 				Plugin.Enable()
 		}
 	}
+
 	listAccessorPlugins_SelectionChanged()
 	{
 		Page := this.Pages.Plugins.Tabs[1].Controls
 		Page.editPluginDescription.Text := CAccessor.Plugins[Page.listAccessorPlugins.SelectedItem.Text].Description
 	}
+
 	btnAccessorHelp_Click()
 	{
 		OpenWikiPage("docsAccessor")
 	}
+
 	btnAccessorSettings_Click()
 	{
 		this.ShowAccessorSettings()
 	}
+
 	ShowAccessorSettings()
 	{
 		Page := this.Pages.Plugins.Tabs[1].Controls
@@ -1007,16 +1054,19 @@ Finally, here are some settings that you're likely to change at the beginning:
 		AccessorPluginSettingsWindow := new CAccessorPluginSettingsWindow(Plugin, CAccessor.Plugins.GetItemWithValue("Type", Plugin.Type))
 		AccessorPluginSettingsWindow.Show()
 	}
+
 	OnAccessorPluginSettingsWindowClosed(ModifiedPlugin)
 	{
 		if(ModifiedPlugin)
 			this.AccessorPlugins[this.AccessorPlugins.FindKeyWithValue("Type", ModifiedPlugin.Type)] := ModifiedPlugin
 	}
+
 	listAccessorPlugins_CheckedChanged(Row)
 	{
 		if(IsObject(Row))
 			this.AccessorPlugins[Row._.RowNumber].Settings.Enabled := Row.Checked
 	}
+
 	listAccessorPlugins_DoubleClick(Row)
 	{
 		this.ShowAccessorSettings()
@@ -1041,6 +1091,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("ListView", "listAccessorKeywords", "xs+21 ys+19 w525 h332", "Keyword|Command")
 		Page.Controls.listAccessorKeywords.IndependentSorting := true
 	}
+
 	InitKeywords()
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1052,11 +1103,13 @@ Finally, here are some settings that you're likely to change at the beginning:
 			Page.listAccessorKeywords.Items.Add(A_Index = 1 ? "Select" : "", this.AccessorKeywords[A_Index].Key, this.AccessorKeywords[A_Index].Command)
 		this.listAccessorKeywords_SelectionChanged("")
 	}
+
 	ShowKeywords()
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
 		this.ActiveControl := Page.listAccessorKeywords
 	}
+
 	ApplyKeywords()
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1080,10 +1133,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		CAccessor.Instance.Keywords := this.AccessorKeywords.DeepCopy()
 	}
+
 	btnAddAccessorKeyword_Click()
 	{
 		this.AddAccessorKeyword()
 	}
+
 	;This function is also called by the keywords plugin when a keyword is added through the Accessor window while settings window is open.
 	AddAccessorKeyword(Key = "", Command = "")
 	{
@@ -1101,10 +1156,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 			this.ActiveControl := Page.listAccessorKeywords
 		}
 	}
+
 	btnDeleteAccessorKeyword_Click()
 	{
 		this.DeleteAccessorKeyword()
 	}
+
 	DeleteAccessorKeyword()
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1118,6 +1175,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listAccessorKeywords.SelectedIndex := SelectedIndex
 		this.ActiveControl := Page.listAccessorKeywords
 	}
+
 	listAccessorKeywords_SelectionChanged(Row)
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1129,6 +1187,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.btnDeleteAccessorKeyword.Enabled := SingleSelection
 		this.ActiveControl := Page.listAccessorKeywords
 	}
+
 	EditAccessorKeyword_TextChanged()
 	{
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1138,6 +1197,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listAccessorKeywords.SelectedItem[1] := Page.EditAccessorKeyword.Text
 		this.AccessorKeywords[Page.listAccessorKeywords.SelectedIndex].key := Page.EditAccessorKeyword.Text
 	}
+
 	EditAccessorCommand_TextChanged()
 	{		
 		Page := this.Pages.Keywords.Tabs[1].Controls
@@ -1176,6 +1236,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.btnDeleteClipboardProgram.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListBox", "listClipboardIgnore", "xs+21 ys+383 w525 h120", "")
 	}
+
 	InitClipboard()
 	{
 		global ClipboardList
@@ -1229,10 +1290,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 			IgnoredPrograms .= (A_Index = 1 ? "" : "|") item.Text
 		Settings.Misc.IgnoredPrograms := IgnoredPrograms
 	}
+
 	btnAddClip_Click()
 	{
 		this.AddClip()
 	}
+
 	AddClip()
 	{
 		Page := this.Pages.Clipboard.Tabs[1].Controls
@@ -1241,10 +1304,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listClipboard.SelectedItem := Item
 		this.ActiveControl := Page.listClipboard
 	}
+
 	btnDeleteClip_Click()
 	{
 		this.DeleteClip()
 	}
+
 	DeleteClip()
 	{
 		Page := this.Pages.Clipboard.Tabs[1].Controls
@@ -1258,6 +1323,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listClipboard.SelectedIndex := SelectedIndex
 		this.ActiveControl := Page.listClipboard
 	}
+
 	listClipboard_SelectionChanged(Row)
 	{
 		Page := this.Pages.Clipboard.Tabs[1].Controls
@@ -1269,6 +1335,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.btnDeleteClip.Enabled := SingleSelection
 		this.ActiveControl := Page.listClipboard
 	}
+
 	editClipboardName_TextChanged()
 	{
 		Page := this.Pages.Clipboard.Tabs[1].Controls
@@ -1277,6 +1344,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.listClipboard.SelectedItem[1] := Page.editClipboardName.Text
 		this.ClipboardList[Page.listClipboard.SelectedIndex].Name := Page.editClipboardName.Text
 	}
+
 	editClipboardText_TextChanged()
 	{		
 		Page := this.Pages.Clipboard.Tabs[1].Controls
