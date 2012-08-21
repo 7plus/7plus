@@ -175,6 +175,10 @@ return
 #b::
 msgbox % Callstack(5, 1)
 return
+
+#z::
+msgbox % Exploreobj(RefTracker)
+return
 #if
 
 AttachDebugger()
@@ -208,4 +212,37 @@ CallStack(deepness = 5, printLines = 1)
 		stack .= (stack ? "`n" : "") "File '" oEx.file "', Line " oEx.line (oExPrev.What = lvl-1 ? "" : ", in " oExPrev.What) (printLines ? ":`n" line : "") "`n"
 	}
 	return stack
+}
+
+
+LogAddRef(type)
+{
+	global RefTracker
+	if(!Settings.General.DebugEnabled)
+		return
+	if(!RefTracker)
+		RefTracker := {}
+	if(!RefTracker[type])
+		RefTracker[type] := {}
+	e := Exception("", -2)
+	if(!RefTracker[type][e.File ":" e.Line])
+		RefTracker[type][e.File ":" e.Line] := 1
+	else
+		RefTracker[type][e.File ":" e.Line]++
+}
+
+LogReleaseRef(type)
+{
+	global RefTracker
+	if(!Settings.General.DebugEnabled)
+		return
+	if(!RefTracker)
+		RefTracker := {}
+	if(!RefTracker[type])
+		RefTracker[type] := {}
+	e := Exception("", -2)
+	if(!RefTracker[type][e.File ":" e.Line])
+		RefTracker[type][e.File ":" e.Line] := -1
+	else
+		RefTracker[type][e.File ":" e.Line]--
 }

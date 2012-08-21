@@ -33,6 +33,7 @@ HICON WINAPI ExtractAssociatedIcon(
 */
 ExtractAssociatedIcon(hInst, lpIconPath, ByRef lpiIcon)
 {
+  LogAddRef("hIcon")
   VarSetCapacity(Path, 260 * 2) ;MAXPATH
   Path := lpIconPath
 	return DllCall("Shell32\ExtractAssociatedIcon", "Ptr", hInst, "Str", Path, "UShortP", lpiIcon, "Ptr")

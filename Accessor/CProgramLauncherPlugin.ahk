@@ -356,9 +356,8 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		strippedFilter := this.Settings.IgnoreFileExtensions ? RegexReplace(Filter, "\.\w+") : Filter
 
 		index := 1
-		Loop % this.List.MaxIndex()
+		for index, ListEntry in this.List
 		{
-			ListEntry := this.List[index]
 			;if(!ListEntry.Command || !FileExist(ListEntry.Command))
 			;{
 			;	this.List.Remove(index)
@@ -397,7 +396,6 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 				result.MatchQuality := Quality
 				Results.Insert(result)
 			}
-			index++
 		}
 		return Results
 	}	
@@ -435,7 +433,7 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	{
 		if(!ListEntry.Path)
 			return
-		if(!this.List.FindKeyWithValue("Command",ListEntry.Path))
+		if(!this.List.FindKeyWithValue("Command", ListEntry.Path))
 		{
 			path := ListEntry.Path
 			SplitPath, path, Filename
@@ -625,16 +623,17 @@ UpdateLauncherPrograms()
 	{
 		if(Window.Path) ;Fails sometimes for some reason
 		{
-			if(!CProgramLauncherPlugin.Instance.List.FindKeyWithValue("Command", Window.Path))
+			if(!CProgramLauncherPlugin.Instance.List.GetItemWithValue("Command", Window.Path))
 			{
 				path := Window.Path
 				SplitPath, path, Filename
 				exclude := CProgramLauncherPlugin.Instance.Settings.Exclude
 				if path not contains %exclude%
 				{
-					IndexedFile := new CProgramLauncherPlugin.IndexedFile()
+					IndexedFile := new CProgramLauncherPlugin.CIndexedFile()
 					IndexedFile.Filename := Filename
 					IndexedFile.Command := Window.Path
+					outputdebug % "add " Window.Path
 					if(CProgramLauncherPlugin.Instance.Settings.LoadIconsDirectly)
 						IndexedFile.hIcon := ExtractAssociatedIcon(0, IndexedFile.Command, iIndex)
 					CProgramLauncherPlugin.Instance.List.Insert(IndexedFile)

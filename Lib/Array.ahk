@@ -20,15 +20,18 @@ Class CArray extends CRichObject
 		for index, Param in Params
 			this.Insert(Param)
 	}
+
 	_NewEnum()
 	{
 		return new CEnumerator(this)
 	}
+
 	InsertUnique(Params*)
 	{
 		if(Params.MaxIndex() && !this.IndexOf(Params[1]))
 			this.Insert(Params*)
 	}
+
 	IndexOf(val, opts = "", startpos = 1)
 	{
 		if(IsObject(val))
@@ -42,8 +45,8 @@ Class CArray extends CRichObject
 		If A := !!InStr(opts, "A")
 			matches := Array()
 		Loop % this.MaxIndex()
-			If(A_Index>=startpos)
-				If(match := InStr(this[A_Index], val, C)) and (P or StrLen(this[A_Index])=StrLen(val))
+			If(A_Index >= startpos)
+				If(match := InStr(this[A_Index], val, C)) and (P or StrLen(this[A_Index]) = StrLen(val))
 				{
 					If A
 						matches.Insert(A_Index)
@@ -55,6 +58,7 @@ Class CArray extends CRichObject
 		Else
 		  return 0
 	}
+
 	IndexOfEqual(val, startpos = 0, key = "")
 	{
 		if(IsObject(val))
@@ -66,6 +70,7 @@ Class CArray extends CRichObject
 				if(A_Index >= startpos && this[A_Index] = val)
 					return A_Index
 	}
+
 	ToString(Separator = "`n")
 	{
 		string := ""
@@ -73,6 +78,7 @@ Class CArray extends CRichObject
 			string .= (A_Index = 1 ? "" : Separator) this[A_Index]
 		return string
 	}
+
 	Contains(val)
 	{
 		Loop % this.MaxIndex()
@@ -80,12 +86,14 @@ Class CArray extends CRichObject
 				return true
 		return false
 	}
-	Join(sep="`n"){ 
+
+	Join(sep = "`n"){ 
 	   Loop, % this.MaxIndex() 
 		  str .= this[A_Index] sep 
 	   StringTrimRight, str, str, % StrLen(sep) 
 	   return str 
-	} 
+	}
+
 	Copy(){ 
 	   Return Array().extend(this) 
 	} 
@@ -99,30 +107,33 @@ Class CArray extends CRichObject
 				;~ this._Insert(index + (offset-1), param) 
 		;~ Return this 
 	;~ }
+	
 	Reverse(){ 
 	   arr2 := Array() 
-	   Loop, % len:=this.MaxIndex() 
-		  arr2[len-(A_Index-1)] := this[A_Index] 
+	   Loop, % len := this.MaxIndex() 
+		  arr2[len - (A_Index - 1)] := this[A_Index] 
 	   Return arr2 
-	} 
-	Sort(func="Array_CompareFunc"){ 
+	}
+
+	Sort(func = "Array_CompareFunc"){ 
 	   n := this.MaxIndex(), swapped := true 
 	   while swapped { 
 		  swapped := false 
 		  Loop, % n-1 { 
 			 i := A_Index 
-			 if %func%(this[i], this[i+1], 1) > 0 ; standard ahk syntax for sort callout functions 
-				this.insert(i, this[i+1]).delete(i+2), swapped := true 
+			 if %func%(this[i], this[i + 1], 1) > 0 ; standard ahk syntax for sort callout functions 
+				this.insert(i, this[i + 1]).delete(i + 2), swapped := true 
 		  } 
 		  n-- 
 	   } 
 	   Return this 
 	} 
-	Unique(func="Array_CompareFunc"){   ; by infogulch 
+
+	Unique(func = "Array_CompareFunc"){   ; by infogulch 
 	   i := 0 
 	   while ++i < this.MaxIndex(), j := i + 1 
 		  while j <= this.MaxIndex() 
-			 if !%func%(this[i], this[j], i-j) 
+			 if !%func%(this[i], this[j], i - j) 
 				this.delete(j) ; j comes after 
 			 else 
 				j++ ; only increment to next element if not removing the current one 
@@ -135,10 +146,12 @@ Class CArray extends CRichObject
 			 for index2, value in Param
 				this.Insert(value)
 	   Return this 
-	} 
+	}
+
 	Pop(){ 
 	   Return this.delete(this.MaxIndex()) 
 	} 
+
 	Delete(Params*){ 
 		for index, Param in Params
 		{
@@ -152,19 +165,19 @@ Class CArray extends CRichObject
 
 	MaxIndex(){ 
 	   len := this._MaxIndex() 
-	   Return len="" ? 0 : len 
+	   Return len = "" ? 0 : len 
 	}
 
-	Swap(i,j){
-		if(this.MaxIndex()<i||this.MaxIndex()<j||i<1||j<1)
+	Swap(i, j){
+		if(this.MaxIndex() < i || this.MaxIndex() < j || i < 1 || j < 1)
 			return 0
-		x:=this[i]
-		this[i]:=this[j]
-		this[j]:=x
+		x := this[i]
+		this[i] := this[j]
+		this[j] := x
 		return 1
 	}
 
-	Move(i,j)
+	Move(i, j)
 	{
 		if(i > this.MaxIndex() || j > this.MaxIndex())
 			return 0

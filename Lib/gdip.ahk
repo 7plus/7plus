@@ -453,6 +453,7 @@ PrintWindow(hwnd, hdc, Flags=0)
 
 DestroyIcon(hIcon)
 {
+	LogReleaseRef("hIcon")
    return DllCall("DestroyIcon", "ptr", hIcon)
 }
 
