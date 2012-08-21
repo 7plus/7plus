@@ -1628,7 +1628,7 @@ GetCPA_file_name( p_hw_target )
    WinGet, pid_target, PID, ahk_id %p_hw_target%
    hp_target := DllCall( "OpenProcess", "uint", 0x18, "int", false, "uint", pid_target, "Ptr")
    hm_kernel32 := GetModuleHandle("kernel32.dll")
-   pGetCommandLine := DllCall( "GetProcAddress", "Ptr", hm_kernel32, "str", A_IsUnicode ? "GetCommandLineW"  : "GetCommandLineA")
+   pGetCommandLine := DllCall( "GetProcAddress", "Ptr", hm_kernel32, "Astr", A_IsUnicode ? "GetCommandLineW"  : "GetCommandLineA")
    buffer_size := 6
    VarSetCapacity( buffer, buffer_size )
    DllCall( "ReadProcessMemory", "Ptr", hp_target, "uint", pGetCommandLine, "uint", &buffer, "uint", buffer_size, "uint", 0 )

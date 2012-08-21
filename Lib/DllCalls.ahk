@@ -33,7 +33,9 @@ HICON WINAPI ExtractAssociatedIcon(
 */
 ExtractAssociatedIcon(hInst, lpIconPath, ByRef lpiIcon)
 {
-	return DllCall("Shell32\ExtractAssociatedIcon", "Ptr", hInst, "Str", lpIconPath, "UShortP", lpiIcon, "Ptr")
+  VarSetCapacity(Path, 260 * 2) ;MAXPATH
+  Path := lpIconPath
+	return DllCall("Shell32\ExtractAssociatedIcon", "Ptr", hInst, "Str", Path, "UShortP", lpiIcon, "Ptr")
  }
  
  /*
@@ -54,7 +56,7 @@ FARPROC WINAPI GetProcAddress(
 */
 GetProcAddress(hModule, lpProcName)
 {
-	return DllCall("GetProcAddress", "Ptr", hModule, "str", lpProcName)
+	return DllCall("GetProcAddress", "Ptr", hModule, "AStr", lpProcName)
 }
 
 /*
