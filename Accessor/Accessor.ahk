@@ -649,9 +649,10 @@ Class CAccessor
 			SavedPluginSettings := SavedSettings.Plugins
 			SavedKeywords := SavedSettings.Keywords
 		}
+
 		;Create and load settings
 		this.Settings := new this.CSettings(SavedSettings)
-		
+
 		;Init plugins
 		for index, Plugin in this.Plugins
 		{
@@ -662,7 +663,7 @@ Class CAccessor
 			if(Plugin.Instance.Settings.Enabled)
 				Plugin.Instance.Enable()
 		}
-		
+
 		;Init keywords
 		;No keywords?
 		if(!IsObject(SavedKeywords))
@@ -1498,13 +1499,10 @@ Class CAccessorGUI extends CGUI
 		this.ListView := this.AddControl("ListView", "ListView", "x39 y129 w683 h456 AltSubmit +LV0x100 +LV0x4000 -Multi NoSortHdr", "Title|Path| |")
 		this.lnkFooter := this.AddControl("Link", "lnkFooter", "x43 y+-1 w637 0x1 -TabStop", this.FooterText)
 		this.Footer := this.AddControl("Picture", "Footer", "x39 yp+0 w683 h20 +0xE")
-
 		;Use a 7plus image as background for the listview
 		this.SetListViewBackground()
 		
-
 		this.DrawFooter()
-
 		ButtonX := this.ButtonsX
 		ButtonY := this.ButtonsY
 		for index, Button in Accessor.QueryButtons
@@ -1532,7 +1530,6 @@ Class CAccessorGUI extends CGUI
 			this.ProgramButtons.Insert(ButtonControl)
 			ButtonX += this.ButtonOffsetX
 		}
-
 		ButtonX := this.ButtonsX + 13 * this.ButtonOffsetX
 		ButtonY := this.ButtonsY
 		for index, Button in Accessor.FastFolderButtons
@@ -1544,10 +1541,8 @@ Class CAccessorGUI extends CGUI
 			this.FastFolderButtons.Insert(ButtonControl)
 			ButtonX += this.ButtonOffsetX / 2
 		}
-
 		this.BackgroundFake := this.AddControl("Picture", "BackgroundFake", "x0 y0 w761 h131 +0xE +0x04000000")
 		this.DrawBackground()
-
 		if(Accessor.Settings.OpenInMonitorOfMouseCursor)
 		{
 			Monitor := FindMonitorFromMouseCursor()

@@ -481,26 +481,62 @@ Class CControl ;Never created directly
 				Controlhwnd := [this.hwnd]
 				if(this.type = "ComboBox") ;'ComboBox' = Drop-Down button + Edit
 				{
-					VarSetCapacity(CBBINFO, 52, 0)
-					NumPut(52, CBBINFO,0, "UINT")
+					/*
+					typedef struct tagCOMBOBOXINFO {
+					  DWORD cbSize;
+					  RECT  rcItem;
+					  RECT  rcButton;
+					  DWORD stateButton;
+					  HWND  hwndCombo;
+					  HWND  hwndItem;
+					  HWND  hwndList;
+					} COMBOBOXINFO, *PCOMBOBOXINFO, *LPCOMBOBOXINFO;
+					*/
+					VarSetCapacity(CBBINFO, 40 + 3 * A_PtrSize, 0)
+					NumPut(40 + 3 * A_PtrSize, CBBINFO, 0, "UINT")
 					result := DllCall("GetComboBoxInfo", "UInt", Controlhwnd[1], "PTR", &CBBINFO)
-					Controlhwnd.Insert(Numget(CBBINFO,44))
+					Controlhwnd.Insert(Numget(CBBINFO, 40 + A_PtrSize))
 				}
 				else if(this.type = "ListView")
 					Controlhwnd.Insert(DllCall("SendMessage", "UInt", Controlhwnd[1], "UInt", 0x101f, "PTR", 0, "PTR", 0))
 				; - 'Text' and 'Picture' Controls requires a g-label to be defined.
 				if(!TThwnd){
 					; - 'ListView' = ListView + Header       (Get hWnd of the 'Header' control using "ControlGet" command).
-					TThwnd := CGUI.GUIList[this.GUINum]._.TThwnd := DllCall("CreateWindowEx","Uint",0,"Str","TOOLTIPS_CLASS32","Uint",0,"Uint",2147483648 | 3,"Uint",-2147483648
-									,"Uint",-2147483648,"Uint",-2147483648,"Uint",-2147483648,"Ptr",GuiHwnd,"Uint",0,"Uint",0,"Uint",0, "PTR")
-					DllCall("uxtheme\SetWindowTheme","Ptr",TThwnd,"Ptr",0,"UintP",0)   ; TTM_SETWINDOWTHEME
+					TThwnd := CGUI.GUIList[this.GUINum]._.TThwnd := DllCall("CreateWindowEx", "Uint", 0, "Str", "TOOLTIPS_CLASS32", "Uint", 0, "Uint", 2147483648 | 3, "Uint", -2147483648
+									, "Uint", -2147483648, "Uint", -2147483648, "Uint", -2147483648, "Ptr", GuiHwnd, "Uint", 0, "Uint", 0,"Uint", 0, "PTR")
+					DllCall("uxtheme\SetWindowTheme", "Ptr", TThwnd, "Ptr", 0, "UintP", 0)   ; TTM_SETWINDOWTHEME
 				}
 				for index, chwnd in Controlhwnd
 				{
-					Varsetcapacity(TInfo,44,0), Numput(44,TInfo), Numput(1|16,TInfo,4), Numput(GuiHwnd,TInfo,8), Numput(chwnd,TInfo,12), Numput(&Value,TInfo,36)
-					!this._.Tooltip   ? (DllCall("SendMessage",Ptr,TThwnd,"Uint",1028,Ptr,0,Ptr,&TInfo,Ptr))         ; TTM_ADDTOOL = 1028 (used to add a tool, and assign it to a control)
-					. (DllCall("SendMessage",Ptr,TThwnd,"Uint",1048,Ptr,0,Ptr,A_ScreenWidth))      ; TTM_SETMAXTIPWIDTH = 1048 (This one allows the use of multiline tooltips)
-					DllCall("SendMessage",Ptr,TThwnd,"UInt",(A_IsUnicode ? 0x439 : 0x40c),Ptr,0,Ptr,&TInfo,Ptr)   ; TTM_UPDATETIPTEXT (OLD_MSG=1036) (used to adjust the text of a tip)
+					/*
+					typedef struct {
+					  UINT      cbSize;
+					  UINT      uFlags;
+					  HWND      hwnd;
+					  UINT_PTR  uId;
+					  RECT      rect;
+					  HINSTANCE hinst;
+					  LPTSTR    lpszText;
+					#if (_WIN32_IE >= 0x0300)
+					  LPARAM    lParam;
+					#endif 
+					#if (_WIN32_WINNT >= Ox0501)
+					  void      *lpReserved;
+					#endif 
+					} TOOLINFO, *PTOOLINFO, *LPTOOLINFO;
+					*/
+					Varsetcapacity(TInfo, 24 + 6 * A_PtrSize, 0)
+					Numput(24 + 6 * A_PtrSize, TInfo, "UINT")
+					Numput(1|16, TInfo, 4, "UINT")
+					Numput(GuiHwnd, TInfo, 8, "PTR")
+					Numput(chwnd, TInfo, 8 + A_PtrSize, "PTR")
+					Numput(&Value, TInfo, 6 + 3 * A_PtrSize, "PTR")
+					if(!this._.Tooltip)
+					{
+						DllCall("SendMessage", "Ptr", TThwnd, "Uint", 1028, "Ptr", 0, Ptr, &TInfo, "Ptr")         ; TTM_ADDTOOL = 1028 (used to add a tool, and assign it to a control)
+						DllCall("SendMessage", "Ptr", TThwnd, "Uint", 1048, "Ptr", 0, Ptr, A_ScreenWidth, "PTR")      ; TTM_SETMAXTIPWIDTH = 1048 (This one allows the use of multiline tooltips)
+					}
+					DllCall("SendMessage", "Ptr", TThwnd, "UInt", (A_IsUnicode ? 0x439 : 0x40c), "Ptr", 0, "Ptr", &TInfo, "Ptr")   ; TTM_UPDATETIPTEXT (OLD_MSG=1036) (used to adjust the text of a tip)
 				}
 			}
 			else

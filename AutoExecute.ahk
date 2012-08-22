@@ -99,6 +99,7 @@ PostUpdate()
 
 if(Settings.GamepadRemoteControl)
 	JoystickStart()
+
 CAccessor.Instance := new CAccessor()
 
 ;Hwnd.txt is written to allow other processes to find the main window of 7plus
