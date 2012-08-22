@@ -249,9 +249,11 @@ ShellMessage( wParam, lParam, Msg)
 ClearRecentCreateCloseEvents:
 RecentCreateCloseEvents := Array()
 return
+
 UpdateWindowPosition:
 UpdateWindowPosition()
 return
+
 UpdateWindowPosition()
 {
 	global WindowList
@@ -263,6 +265,7 @@ UpdateWindowPosition()
 	WindowList[WindowList.MovedWindow].w := w
 	WindowList[WindowList.MovedWindow].h := h
 }
+
 WM_POWERBROADCAST(wParam, lParam, msg)
 {
 	if (wParam = 18)
