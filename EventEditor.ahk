@@ -113,7 +113,7 @@ Class CEventEditor extends CGUI
 		this.ddlTriggerCategory.SelectedIndex := IndexToSelect
 		
 		;Initilialize conditions tab (conditions, categories, types and condition gui)
-		this.btnAddCondition.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		this.btnAddCondition.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		this.btnDeleteCondition.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		this.btnCopyCondition.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
 		this.btnPasteCondition.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
@@ -151,7 +151,7 @@ Class CEventEditor extends CGUI
 		AssignHotkeyToControl(this.listConditions.hwnd, "Delete", "EventEditor_DeleteCondition")
 		
 		;Initilialize actions tab (actions, categories, types and action gui)
-		this.btnAddAction.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		this.btnAddAction.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		this.btnDeleteAction.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		this.btnCopyAction.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
 		this.btnPasteAction.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)

@@ -307,7 +307,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("Button", "btnAddEvent", "xs+567 ys+76 w80 h23", "&Add Event")
 		Page.Controls.btnAddEvent.ToolTip := "Add an event"
-		Page.Controls.btnAddEvent.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddEvent.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 
 		Page.AddControl("Button", "btnEditEvent", "xs+567 y+9 w80 h23", "&Edit Event")
 		Page.Controls.btnEditEvent.ToolTip := "Edit an event"
@@ -1085,7 +1085,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.editAccessorCommand.ToolTip := "You can use parameters here which are inserted into the command at specific places. This is currently only supported by the URL plugin. Example: Keyword: ""google"" Command: ""www.google.com/search?q=${1}"" Entered Text: ""google 7plus"" result: ""www.google.com/search?q=7plus"""
 		
 		Page.AddControl("Button", "btnAddAccessorKeyword", "xs+554 ys+19 w90 h23", "&Add Keyword")
-		Page.Controls.btnAddAccessorKeyword.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddAccessorKeyword.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		Page.AddControl("Button", "btnDeleteAccessorKeyword", "xs+554 ys+48 w90 h23", "&Delete")
 		Page.Controls.btnDeleteAccessorKeyword.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListView", "listAccessorKeywords", "xs+21 ys+19 w525 h332", "Keyword|Command")
@@ -1216,7 +1216,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.AddControl("Text", "txtClipboardDescription", "xs+21 ys+19", "You can define custom clips here that can be inserted through the clipboard manager menu (Default: WIN + V)`nor through Accessor (Default: ALT + Space). These clips support %Parameters%.")
 		
 		Page.AddControl("Button", "btnAddClip", "xs+554 ys+49 w90 h23", "&Add Clip")
-		Page.Controls.btnAddClip.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddClip.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		Page.AddControl("Button", "btnDeleteClip", "xs+554 ys+79 w90 h23", "&Delete Clip")
 		Page.Controls.btnDeleteClip.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListView", "listClipboard", "xs+21 ys+49 w525 h152", "Name|Text")
@@ -1231,7 +1231,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 
 		Page.AddControl("Text", "txtClipboardIgnoreDescription", "xs+21 ys+353", "The programs listed here will be ignored by any clipboard related functions of 7plus. This can be used`nto protect the privacy of some clipboard contents such as passwords copied by password managers.")
 		Page.AddControl("Button", "btnAddClipboardProgram", "xs+554 ys+383 w90 h23", "Add Program")
-		Page.Controls.btnAddClipboardProgram.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddClipboardProgram.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		Page.AddControl("Button", "btnDeleteClipboardProgram", "xs+554 ys+413 w90 h23", "Delete")
 		Page.Controls.btnDeleteClipboardProgram.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("ListBox", "listClipboardIgnore", "xs+21 ys+383 w525 h120", "")
@@ -1577,7 +1577,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 					Page.AddControl("Text",			"txtFTPDescription",		"xs+37 ys+20", 				"You can define FTP profiles for use with the upload action here.`nBy default the selected files and folders can be uploaded by pressing CTRL + U.")
 					Page.AddControl("DropDownList",	"ddlFTPProfile",			"xs+37 ys+62 w297", 		"")
 					Page.AddControl("Button",		"btnAddFTPProfile",			"x+10 ys+60 w80",				"&Add profile")
-		Page.Controls.btnAddFTPProfile.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddFTPProfile.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 					Page.AddControl("Button",		"btnDeleteFTPProfile",		"x+10 w80",						"&Delete")
 		Page.Controls.btnDeleteFTPProfile.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 					Page.AddControl("Button",		"btnTestFTPProfile",		"x+30",						"&Test profile")
@@ -1731,7 +1731,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.listHotStrings.IndependentSorting := true
 		
 		Page.AddControl("Button",	"btnAddHotString",		 	"xs+554 ys+19 w100", 			"&Add HotString")
-		Page.Controls.btnAddHotString.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		Page.Controls.btnAddHotString.SetImage(A_ScriptDir "\Icons\add.ico", 16, 16, 0)
 		Page.AddControl("Button",	"btnDeleteHotString",		"xs+554 ys+48 w100", 			"&Delete")
 		Page.Controls.btnDeleteHotString.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		Page.AddControl("Text",		"txtHotStringInput",		"xs+21 ys+310", 			"HotString:")
