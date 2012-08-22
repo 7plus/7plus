@@ -42,7 +42,7 @@ Class CFileSearchPlugin extends CAccessorPlugin
 		Priority := 0
 		MatchQuality := 1 ;Only direct matches are used by this plugin
 		Title := "No results found!"
-		Path := "Stop crying and look elsewhere `;)"
+		Path := "Please try another search term"
 		Detail1 := "File search"
 		Icon := CFileSearchPlugin.Instance.SearchIcon
 	}

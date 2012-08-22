@@ -633,7 +633,6 @@ UpdateLauncherPrograms()
 					IndexedFile := new CProgramLauncherPlugin.CIndexedFile()
 					IndexedFile.Filename := Filename
 					IndexedFile.Command := Window.Path
-					outputdebug % "add " Window.Path
 					if(CProgramLauncherPlugin.Instance.Settings.LoadIconsDirectly)
 						IndexedFile.hIcon := ExtractAssociatedIcon(0, IndexedFile.Command, iIndex)
 					CProgramLauncherPlugin.Instance.List.Insert(IndexedFile)
