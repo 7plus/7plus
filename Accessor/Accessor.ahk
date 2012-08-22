@@ -2218,7 +2218,7 @@ Class CAccessorPluginSettingsWindow extends CGUI
 	PluginGUI := object("x", 38,"y", 80)
 	Width := 500
 	Height := 560
-	btnHelp := this.AddControl("Button", "btnHelp", "x" this.PluginGUI.x " y" (this.Height - 34) " w70 h23", "&Help")
+	btnHelp := this.AddControl("Button", "btnHelp", "x" this.PluginGUI.x " y" (this.Height - 34) " w80 h23", "&Help")
 	btnOK := this.AddControl("Button", "btnOK", "x" (this.Width - 174) " y" (this.Height - 34) " w70 h23 Default", "&OK")
 	btnCancel := this.AddControl("Button", "btnCancel", "x" (this.Width - 94) " y" (this.Height - 34) " w70 h23", "&Cancel")
 	grpPlugin := this.AddControl("GroupBox", "grpPlugin", "x28 y62 w" (this.Width - 54) " h" (this.Height - 110), "&Options")
@@ -2248,6 +2248,7 @@ Class CAccessorPluginSettingsWindow extends CGUI
 			GuiControl, % this.GUINum ":Disable", %hwnd%
 		if(Plugin.Settings.HasKey("FuzzySearch"))
 			AddControl(Plugin.Settings, this.PluginGUI, "Checkbox", "FuzzySearch", "Use fuzzy search (slower)", "", "", "", "", "", "", "Fuzzy search allows this plugin to find programs that don't match exactly.`nThis is good if you mistype a program but it will noticably drain on the Accessor performance.")
+		this.btnHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
 		this.OriginalPlugin := OriginalPlugin
 		OriginalPlugin.ShowSettings(Plugin.Settings, this, this.PluginGUI)
 	}

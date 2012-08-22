@@ -412,7 +412,6 @@
 </Event><Event>
 <Actions>
 <Action>
-<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>
@@ -454,7 +453,6 @@
 </Event><Event>
 <Actions>
 <Action>
-<FolderName>Neuer Ordner</FolderName>
 <Rename>1</Rename>
 <Type>Create new folder</Type>
 </Action></Actions>

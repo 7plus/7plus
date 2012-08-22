@@ -77,8 +77,11 @@ Class CImageConverter extends CGUI
 		}
 
 		this.btnUpload := this.AddControl("Button", "btnUpload", "x+5 y400 w69", "&Upload")
-		this.btnCopyToClipboard := this.AddControl("Button", "btnCopyToClipboard", "x+62 y400 w95", "&Copy to Clipboard")
-		this.btnConvertAndSave := this.AddControl("Button", "btnConvertAndSave", "x+5 y400 w124", "Convert && &Save && Close")
+		this.btnUpload.SetImage(A_WinDir "\system32\shell32.dll:13", 16, 16, 0)
+		this.btnCopyToClipboard := this.AddControl("Button", "btnCopyToClipboard", "x+30 y400 w111", "&Copy to Clipboard")
+		this.btnCopyToClipboard.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
+		this.btnConvertAndSave := this.AddControl("Button", "btnConvertAndSave", "x+5 y400 w140", "Convert && &Save && Close")
+		this.btnConvertAndSave.SetImage(A_ScriptDir "\Icons\save.ico", 16, 16, 0)
 		this.btnCancel := this.AddControl("Button", "btnCancel", "x+5 y400 w60", "Cancel")
 		LV_Modify(1, "Select")
 		this.CloseOnEscape := true

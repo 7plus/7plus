@@ -21,64 +21,65 @@ Class CEventEditor extends CGUI
 	Delimiter := "`n"
 	btnOK := this.AddControl("Button", "btnOK", "x729 y557 w70 h23", "&OK")
 	btnCancel := this.AddControl("Button", "btnCancel", "x809 y557 w80 h23", "&Cancel")
-	Tab := this.AddControl("Tab", "Tab", "x17 y8 w872 h512", "Trigger`nConditions`nActions`nOptions")
+	Tab := this.AddControl("Tab", "Tab", "x17 y8 w872 h530", "Trigger && Options`nConditions`nActions")
 	
 	;Trigger controls
 	txtTrigger := this.Tab.Tabs[1].AddControl("Text", "txtTrigger", "x31 y36", "Here you can define how this event gets triggered.")
 	txtTriggerCategory := this.Tab.Tabs[1].AddControl("Text", "txtTriggerCategory", "x31 y60", "Category:")
 	txtTriggerTrigger := this.Tab.Tabs[1].AddControl("Text", "txtTriggerTrigger", "x31 y90", "Trigger:")
-	ddlTriggerCategory := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerCategory", "x101 y56 w300", "")
-	ddlTriggerType := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerType", "x101 y86 w300", "")
-	btnTriggerHelp := this.Tab.Tabs[1].AddControl("Button", "btnTriggerHelp", "x+10 y85", "Help")
-	grpTriggerOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpTriggerOptions", "x31 y116 w846 h384", "Options")
+	ddlTriggerCategory := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerCategory", "x101 y56 w240", "")
+	ddlTriggerType := this.Tab.Tabs[1].AddControl("DropDownList", "ddlTriggerType", "x101 y86 w240", "")
+	btnTriggerHelp := this.Tab.Tabs[1].AddControl("Button", "btnTriggerHelp", "x+10 y85 w80", "Help")
+	grpTriggerOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpTriggerOptions", "x31 y130 w400 h398", "Trigger Options")
 	
 	;Condition controls
 	txtCondition := this.Tab.Tabs[2].AddControl("Text", "txtCondition", "x31 y36", "The conditions below must be fullfilled to allow this event to execute.")
 	listConditions := this.Tab.Tabs[2].AddControl("ListBox", "listConditions", "x31 y56 w270 h454", "")
 	btnAddCondition := this.Tab.Tabs[2].AddControl("Button", "btnAddCondition", "x311 y56 w90", "Add Condition")
-	btnDeleteCondition := this.Tab.Tabs[2].AddControl("Button", "btnDeleteCondition", "x311 y86 w90", "Delete Condition")
-	btnAddOR := this.Tab.Tabs[2].AddControl("Button", "btnAddOR", "x311 y116 w90", "Add OR branch")
-	btnCopyCondition := this.Tab.Tabs[2].AddControl("Button", "btnCopyCondition", "x311 y146 w90", "Copy Condition")
-	btnPasteCondition := this.Tab.Tabs[2].AddControl("Button", "btnPasteCondition", "x311 y176 w90", "Paste Condition")
+	btnDeleteCondition := this.Tab.Tabs[2].AddControl("Button", "btnDeleteCondition", "x311 y86 w90", "Delete")
+	btnAddOR := this.Tab.Tabs[2].AddControl("Button", "btnAddOR", "x311 y116 w90", "OR branch")
+	btnCopyCondition := this.Tab.Tabs[2].AddControl("Button", "btnCopyCondition", "x311 y146 w90", "Copy")
+	btnPasteCondition := this.Tab.Tabs[2].AddControl("Button", "btnPasteCondition", "x311 y176 w90", "Paste")
 	btnMoveConditionUp := this.Tab.Tabs[2].AddControl("Button", "btnMoveConditionUp", "x311 y206 w90", "Move Up")
 	btnMoveConditionDown := this.Tab.Tabs[2].AddControl("Button", "btnMoveConditionDown", "x311 y236 w90", "Move Down")
 	txtCondition2 := this.Tab.Tabs[2].AddControl("Text", "txtCondition2", "x431 y36", "Here you can define the selected condition.")
 	chkNegateCondition := this.Tab.Tabs[2].AddControl("Checkbox", "chkNegateCondition", "x431 y56", "Negate Condition")
 	txtConditionCategory := this.Tab.Tabs[2].AddControl("Text", "txtConditionCategory", "x431 y89", "Category:")
 	txtConditionType := this.Tab.Tabs[2].AddControl("Text", "txtConditionType", "x431 y119", "Condition:")
-	ddlConditionCategory := this.Tab.Tabs[2].AddControl("DropDownList", "ddlConditionCategory", "x501 y86 w300", "")
-	btnConditionHelp := this.Tab.Tabs[2].AddControl("Button", "btnConditionHelp", "x+10 y114", "Help")
-	ddlConditionType := this.Tab.Tabs[2].AddControl("DropDownList", "ddlConditionType", "x501 y116 w300", "")
+	ddlConditionCategory := this.Tab.Tabs[2].AddControl("DropDownList", "ddlConditionCategory", "x501 y86 w280", "")
+	btnConditionHelp := this.Tab.Tabs[2].AddControl("Button", "btnConditionHelp", "x+10 y114 w80", "Help")
+	ddlConditionType := this.Tab.Tabs[2].AddControl("DropDownList", "ddlConditionType", "x501 y116 w280", "")
 	grpConditionOptions := this.Tab.Tabs[2].AddControl("GroupBox", "grpConditionOptions", "x431 y146 w446 h364", "Options")
 	
 	;Action controls
 	txtAction := this.Tab.Tabs[3].AddControl("Text", "txtAction", "x31 y36", "These actions will be executed when the event gets triggered.")
 	listActions := this.Tab.Tabs[3].AddControl("ListBox", "listActions", "x31 y56 w270 h454 -Multi", "")
 	btnAddAction := this.Tab.Tabs[3].AddControl("Button", "btnAddAction", "x311 y56 w90", "Add Action")
-	btnDeleteAction := this.Tab.Tabs[3].AddControl("Button", "btnDeleteAction", "x311 y86 w90", "Delete Action")
-	btnCopyAction := this.Tab.Tabs[3].AddControl("Button", "btnCopyAction", "x311 y116 w90", "Copy Action")
-	btnPasteAction := this.Tab.Tabs[3].AddControl("Button", "btnPasteAction", "x311 y146 w90", "Paste Action")
+	btnDeleteAction := this.Tab.Tabs[3].AddControl("Button", "btnDeleteAction", "x311 y86 w90", "Delete")
+	btnCopyAction := this.Tab.Tabs[3].AddControl("Button", "btnCopyAction", "x311 y116 w90", "Copy")
+	btnPasteAction := this.Tab.Tabs[3].AddControl("Button", "btnPasteAction", "x311 y146 w90", "Paste")
 	btnMoveActionUp := this.Tab.Tabs[3].AddControl("Button", "btnMoveActionUp", "x311 y176 w90", "Move Up")
 	btnMoveActionDown := this.Tab.Tabs[3].AddControl("Button", "btnMoveActionDown", "x311 y206 w90", "Move Down")
 	txtAction2 := this.Tab.Tabs[3].AddControl("Text", "txtAction2", "x431 y36", "Here you can define what this action does.")
 	txtActionCategory := this.Tab.Tabs[3].AddControl("Text", "txtActionCategory", "x431 y60", "Category:")
 	txtActionType := this.Tab.Tabs[3].AddControl("Text", "txtActionType", "x431 y90", "Action:")
-	ddlActionCategory := this.Tab.Tabs[3].AddControl("DropDownList", "ddlActionCategory", "x501 y56 w300", "")
-	btnActionHelp := this.Tab.Tabs[3].AddControl("Button", "btnActionHelp", "x+10 y85", "Help")
-	ddlActionType := this.Tab.Tabs[3].AddControl("DropDownList", "ddlActionType", "x501 y86 w300", "")
+	ddlActionCategory := this.Tab.Tabs[3].AddControl("DropDownList", "ddlActionCategory", "x501 y56 w280", "")
+	btnActionHelp := this.Tab.Tabs[3].AddControl("Button", "btnActionHelp", "x+10 y85 w80", "Help")
+	ddlActionType := this.Tab.Tabs[3].AddControl("DropDownList", "ddlActionType", "x501 y86 w280", "")
 	grpActionOptions := this.Tab.Tabs[3].AddControl("GroupBox", "grpActionOptions", "x431 y116 w446 h394", "Options")
 	
 	;Option controls
-	txtEventName := this.Tab.Tabs[4].AddControl("Text", "txtEventName", "x31 y48", "Event Name:")
-	editEventName := this.Tab.Tabs[4].AddControl("Edit", "editEventName", "x131 y44 w300", "")
-	txtEventDescription := this.Tab.Tabs[4].AddControl("Text", "txtEventDescription", "x31 y74", "Event Description:")
-	editEventDescription := this.Tab.Tabs[4].AddControl("Edit", "editEventDescription", "x131 y70 w300 h60 Multi", "")
-	txtEventCategory := this.Tab.Tabs[4].AddControl("Text", "txtEventCategory", "x31 y140", "Event Category:")
-	comboEventCategory := this.Tab.Tabs[4].AddControl("ComboBox", "comboEventCategory", "x131 y139 w300", "")
-	chkDisableEventAfterUse := this.Tab.Tabs[4].AddControl("CheckBox", "chkDisableEventAfterUse", "x31 y166", "Disable after use")
-	chkDeleteEventAfterUse := this.Tab.Tabs[4].AddControl("CheckBox", "chkDeleteEventAfterUse", "x31 y196", "Delete after use")
-	chkEventOneInstance := this.Tab.Tabs[4].AddControl("CheckBox", "chkEventOneInstance", "x31 y226", "Disallow this event from being run in parallel")
-	chkComplexEvent := this.Tab.Tabs[4].AddControl("CheckBox", "chkComplexEvent", "x31 y256", "Advanced event (hidden from simple view)")
+	grpOptions := this.Tab.Tabs[1].AddControl("GroupBox", "grpOptions", "x461 y48 w400 h480 Section", "Options")
+	txtEventName := this.Tab.Tabs[1].AddControl("Text", "txtEventName", "xs+10 ys+24", "Event Name:")
+	editEventName := this.Tab.Tabs[1].AddControl("Edit", "editEventName", "xs+110 ys+20 w270", "")
+	txtEventDescription := this.Tab.Tabs[1].AddControl("Text", "txtEventDescription", "xs+10 ys+50", "Event Description:")
+	editEventDescription := this.Tab.Tabs[1].AddControl("Edit", "editEventDescription", "xs+110 ys+46 w270 h60 Multi", "")
+	txtEventCategory := this.Tab.Tabs[1].AddControl("Text", "txtEventCategory", "xs+10 ys+116", "Event Category:")
+	comboEventCategory := this.Tab.Tabs[1].AddControl("ComboBox", "comboEventCategory", "xs+110 ys+115 w270", "")
+	chkDisableEventAfterUse := this.Tab.Tabs[1].AddControl("CheckBox", "chkDisableEventAfterUse", "xs+10 ys+142", "Disable after use")
+	chkDeleteEventAfterUse := this.Tab.Tabs[1].AddControl("CheckBox", "chkDeleteEventAfterUse", "xs+10 ys+172", "Delete after use")
+	chkEventOneInstance := this.Tab.Tabs[1].AddControl("CheckBox", "chkEventOneInstance", "xs+10 ys+202", "Disallow this event from being run in parallel")
+	chkComplexEvent := this.Tab.Tabs[1].AddControl("CheckBox", "chkComplexEvent", "xs+10 ys+232", "Advanced event (hidden from simple view)")
 	
 	;SubeventGUIs contain information about specific subparts of the GUI which are handled by the sub-events like triggers, conditions and actions
 	TriggerGUI := ""
@@ -99,7 +100,9 @@ Class CEventEditor extends CGUI
 		SettingsWindow.Enabled := false
 		this.Owner := SettingsWindow.hwnd
 		;Setup control states
+
 		;Initialize trigger tab (categories and types and trigger gui)
+		this.btnTriggerHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
 		IndexToSelect := 1
 		for CategoryName, Category in CTrigger.Categories
 		{
@@ -110,6 +113,15 @@ Class CEventEditor extends CGUI
 		this.ddlTriggerCategory.SelectedIndex := IndexToSelect
 		
 		;Initilialize conditions tab (conditions, categories, types and condition gui)
+		this.btnAddCondition.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		this.btnDeleteCondition.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
+		this.btnCopyCondition.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
+		this.btnPasteCondition.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
+		this.btnConditionHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
+		this.btnMoveConditionDown.SetImage(A_ScriptDir "\Icons\down.ico", 16, 16, 0)
+		this.btnMoveConditionUp.SetImage(A_ScriptDir "\Icons\up.ico", 16, 16, 0)
+		this.btnAddOR.SetImage(A_ScriptDir "\Icons\or.ico", 16, 16, 0)
+
 		if(!IsObject(ConditionClipboard))
 			this.btnPasteCondition.Enabled := false
 		
@@ -139,6 +151,14 @@ Class CEventEditor extends CGUI
 		AssignHotkeyToControl(this.listConditions.hwnd, "Delete", "EventEditor_DeleteCondition")
 		
 		;Initilialize actions tab (actions, categories, types and action gui)
+		this.btnAddAction.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+		this.btnDeleteAction.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
+		this.btnCopyAction.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
+		this.btnPasteAction.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
+		this.btnActionHelp.SetImage(A_WinDir "\system32\shell32.dll:23", 16, 16, 0)
+		this.btnMoveActionDown.SetImage(A_ScriptDir "\Icons\down.ico", 16, 16, 0)
+		this.btnMoveActionUp.SetImage(A_ScriptDir "\Icons\up.ico", 16, 16, 0)
+
 		if(!IsObject(ActionClipboard))
 			this.btnPasteAction.Enabled := false
 		

@@ -20,6 +20,7 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		KeywordOnly := false
 		FuzzySearch := false
 		IgnoreExtensions := true
+		LoadIconsDirectly := true
 		;Exclude := "setup,install,uninst,remove"
 		MinChars := 2
 		OpenWithKeyword := "ow"
@@ -188,25 +189,30 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		this.SettingsWindow := {Settings: PluginSettings, GUI: GUI, PluginGUI: PluginGUI}
 		this.SettingsWindow.Paths := this.Paths.DeepCopy()
 		AddControl(PluginSettings, PluginGUI, "Checkbox", "IgnoreExtensions", "Ignore file extensions", "", "", "", "", "", "", "If checked, file extensions will be excluded from the query.")
+		AddControl(PluginSettings, PluginGUI, "Checkbox", "LoadIconsDirectly", "Load icons in advance", "", "", "", "", "", "", "If checked, indexing will take longer, some more RAM is used but the launcher will be faster.")
 		AddControl(PluginSettings, PluginGUI, "Edit", "OpenWithKeyword", "", "", "Open With keyword", "", "", "", "", "Selected files in explorer or similar programs can be quickly opened by typing this keyword and then an application name, i.e. ""ow Notepad""")
 		
-		GUI.ListBox := GUI.AddControl("ListBox", "ListBox", "-Hdr -Multi -ReadOnly x" PluginGUI.x " y+10 w330 R9", "")
+		GUI.ListBox := GUI.AddControl("ListBox", "ListBox", "-Hdr -Multi -ReadOnly x" PluginGUI.x " y+10 w310 R9", "")
 		for index, IndexedPath in this.SettingsWindow.Paths
 			GUI.ListBox.Items.Add(IndexedPath.Path)
 		GUI.ListBox.SelectionChanged.Handler := new Delegate(this, "Settings_PathSelectionChanged")
 		GUI.ListBox.DoubleClick.Handler := new Delegate(this, "Settings_Edit")
 		
-		GUI.btnAddPath := GUI.AddControl("Button", "btnAddPath", "x+10 w80", "&Add Path")
+		GUI.btnAddPath := GUI.AddControl("Button", "btnAddPath", "x+10 w100", "&Add Path")
 		GUI.btnAddPath.Click.Handler := new Delegate(this, "Settings_AddPath")
-		
-		GUI.btnEdit := GUI.AddControl("Button", "btnEdit", "y+10 w80", "&Edit")
+		GUI.btnAddPath.SetImage(A_WinDir "\system32\wmploc.dll:15", 16, 16, 0)
+
+		GUI.btnEdit := GUI.AddControl("Button", "btnEdit", "y+10 w100", "&Edit")
 		GUI.btnEdit.Click.Handler := new Delegate(this, "Settings_Edit")
+		GUI.btnEdit.SetImage(A_ScriptDir "\Icons\edit.ico", 16, 16, 0)
 		
-		GUI.btnDeletePath := GUI.AddControl("Button", "btnDeletePath", "y+10 w80", "&Delete Path")
+		GUI.btnDeletePath := GUI.AddControl("Button", "btnDeletePath", "y+10 w100", "&Delete Path")
 		GUI.btnDeletePath.Click.Handler := new Delegate(this, "Settings_DeletePath")
+		GUI.btnDeletePath.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 		
-		GUI.btnRefreshCache := GUI.AddControl("Button", "btnRefreshCache", "y+10 w80", "&Refresh Cache")
+		GUI.btnRefreshCache := GUI.AddControl("Button", "btnRefreshCache", "y+10 w100", "&Refresh Cache")
 		GUI.btnRefreshCache.Click.Handler := new Delegate(this, "Settings_RefreshCache")
+		GUI.btnRefreshCache.SetImage(A_WinDir "\system32\shell32.dll:238", 16, 16, 0)
 
 
 		if(GUI.ListBox.Items.MaxIndex())
@@ -350,14 +356,13 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		strippedFilter := this.Settings.IgnoreFileExtensions ? RegexReplace(Filter, "\.\w+") : Filter
 
 		index := 1
-		Loop % this.List.MaxIndex()
+		for index, ListEntry in this.List
 		{
-			ListEntry := this.List[index]
-			if(!ListEntry.Command || !FileExist(ListEntry.Command))
-			{
-				this.List.Remove(index)
-				continue
-			}
+			;if(!ListEntry.Command || !FileExist(ListEntry.Command))
+			;{
+			;	this.List.Remove(index)
+			;	continue
+			;}
 			MatchPos := 0
 			
 			;Match by name of the resolved filename
@@ -391,7 +396,6 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 				result.MatchQuality := Quality
 				Results.Insert(result)
 			}
-			index++
 		}
 		return Results
 	}	
@@ -429,13 +433,15 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	{
 		if(!ListEntry.Path)
 			return
-		if(!this.List.FindKeyWithValue("Command",ListEntry.Path))
+		if(!this.List.FindKeyWithValue("Command", ListEntry.Path))
 		{
 			path := ListEntry.Path
 			SplitPath, path, Filename
 			IndexedFile := new this.CIndexedFile()
 			IndexedFile.Filename := Filename
 			IndexedFile.Command := path
+			if(this.Settings.LoadIconsDirectly)
+				IndexedFile.hIcon := ExtractAssociatedIcon(0, path, iIndex)
 			this.List.Insert(IndexedFile)
 		}
 	}
@@ -486,12 +492,17 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 				jsonObject.Paths := IsObject(jsonObject.Paths) ? Array(jsonObject.Paths) : Array()
 			FileDelete, % Settings.ConfigPath "\ProgramCache.xml"
 		}
+
 		for index, json in jsonObject.List ;Read cached files
 		{
 			jsonFile := new this.CIndexedFile()
 			jsonFile.Load(json)
 			if(!this.List.FindKeyWithValue("Command", jsonFile.Command))
+			{
+				if(this.Settings.LoadIconsDirectly)
+					jsonFile.hIcon := ExtractAssociatedIcon(0, jsonFile.Command, iIndex)
 				this.List.Insert(jsonFile)
+			}
 		}
 		
 		for index2, json in jsonObject.Paths ;Read scan directories
@@ -585,6 +596,8 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 								IndexedFile.args := args
 								IndexedFile.BasePath := BasePath
 								IndexedFile.Filename := Filename
+								if(this.Settings.LoadIconsDirectly)
+									IndexedFile.hIcon := ExtractAssociatedIcon(0, Command, iIndex)
 								if(ResolvedName)
 									IndexedFile.ResolvedName := ResolvedName
 								this.List.Insert(IndexedFile)
@@ -610,16 +623,19 @@ UpdateLauncherPrograms()
 	{
 		if(Window.Path) ;Fails sometimes for some reason
 		{
-			if(!CProgramLauncherPlugin.Instance.List.FindKeyWithValue("Command", Window.Path))
+			if(!CProgramLauncherPlugin.Instance.List.GetItemWithValue("Command", Window.Path))
 			{
 				path := Window.Path
 				SplitPath, path, Filename
 				exclude := CProgramLauncherPlugin.Instance.Settings.Exclude
 				if path not contains %exclude%
 				{
-					IndexedFile := new CProgramLauncherPlugin.IndexedFile()
+					IndexedFile := new CProgramLauncherPlugin.CIndexedFile()
 					IndexedFile.Filename := Filename
 					IndexedFile.Command := Window.Path
+					outputdebug % "add " Window.Path
+					if(CProgramLauncherPlugin.Instance.Settings.LoadIconsDirectly)
+						IndexedFile.hIcon := ExtractAssociatedIcon(0, IndexedFile.Command, iIndex)
 					CProgramLauncherPlugin.Instance.List.Insert(IndexedFile)
 				}
 			}

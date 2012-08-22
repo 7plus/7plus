@@ -15,7 +15,7 @@ Class CScreenCornerTrigger Extends CTrigger
 	}
 	GuiShow(GUI)
 	{
-		this.AddControl(GUI, "Text", "Desc", "This trigger is executed when the mouse hovers over a screen corner for a specified time.")
+		this.AddControl(GUI, "Text", "Desc", "This trigger is executed when the mouse hovers`nover a screen corner for a specified time.")
 		this.AddControl(GUI, "DropDownList", "Corner", "1: Upper Left|2: Upper Right|3: Lower Right|4: Lower Left", "", "Corner:")	
 		this.AddControl(GUI, "Edit", "Time", "", "", "Time[ms]:")
 	}
