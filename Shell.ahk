@@ -62,15 +62,26 @@ ShellFileOperation( fileO=0x0, fSource="", fTarget="", flags=0x0, ghwnd=0x0 )
    Loop % StrLen(fTarget)
       if NumGet(fTarget, (A_Index-1)*char_size, char_type) = 124
          NumPut(0, fTarget, (A_Index-1)*char_size, char_type)
-   
-   VarSetCapacity( SHFILEOPSTRUCT, 60, 0 )                 ; Encoding SHFILEOPSTRUCT
-   NextOffset := NumPut( ghwnd, &SHFILEOPSTRUCT )          ; hWnd of calling GUI
-   NextOffset := NumPut( fileO, NextOffset+0    )          ; File operation
-   NextOffset := NumPut( fsPtr, NextOffset+0    )          ; Source file / pattern
-   NextOffset := NumPut( ftPtr, NextOffset+0    )          ; Target file / folder
-   NextOffset := NumPut( flags, NextOffset+0, 0, "Short" ) ; options
+   /*
+   typedef struct _SHFILEOPSTRUCT {
+     HWND         hwnd;
+     UINT         wFunc;
+     PCZZTSTR     pFrom; <-- LPCWSTR
+     PCZZTSTR     pTo;
+     FILEOP_FLAGS fFlags; <-- WORD
+     BOOL         fAnyOperationsAborted;
+     LPVOID       hNameMappings;
+     PCTSTR       lpszProgressTitle;
+   } SHFILEOPSTRUCT, *LPSHFILEOPSTRUCT;
+   */
+   VarSetCapacity( SHFILEOPSTRUCT, 3 + 5 * A_PtrSize, 0)                 ; Encoding SHFILEOPSTRUCT
+   NumPut( ghwnd, &SHFILEOPSTRUCT, "PTR")   ; hWnd of calling GUI
+   NumPut( fileO, SHFILEOPSTRUCT, A_PtrSize, "UINT")          ; File operation
+   NumPut( fsPtr, SHFILEOPSTRUCT, 4 + A_PtrSize, "PTR")          ; Source file / pattern
+   NumPut( ftPtr, SHFILEOPSTRUCT, 4 + 2 * A_PtrSize, "PTR" )          ; Target file / folder
+   NumPut( flags, SHFILEOPSTRUCT, 4 + 3 * A_PtrSize, "Short" ) ; options
 
-   code := DllCall( "Shell32\SHFileOperation" . (A_IsUnicode ? "W" : "A"), UInt,&SHFILEOPSTRUCT )
+   code := DllCall( "Shell32\SHFileOperation" . (A_IsUnicode ? "W" : "A"), UInt, &SHFILEOPSTRUCT )
    ErrorLevel := ShellFileOperation_InterpretReturn(code)
 
    Return NumGet( NextOffset+0 )

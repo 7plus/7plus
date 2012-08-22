@@ -102,11 +102,11 @@ DisableMinimizeAnim(disable)
 	static original,lastcall	
 	if(disable && !lastcall) ;Backup original value if disabled is called the first time after a restore call
 	{
-		lastcall:=1
+		lastcall := 1
 		RegRead, original, HKCU, Control Panel\Desktop\WindowMetrics , MinAnimate
 	}
 	else if(!disable) ;this is a restore call, on next disable backup may be created again
-		lastcall:=0
+		lastcall := 0
 	;Disable Minimize/Restore animation
 	VarSetCapacity(struct, 8, 0)	
 	NumPut(8, struct, 0, "UInt")
