@@ -1,25 +1,25 @@
 IsMouseOverStartButton()
 {
 	CoordMode, Mouse, Screen
-	MouseGetPos,,,win
-	WinGetClass,class,ahk_id %win%
-	return class="button"
+	MouseGetPos, , , win
+	WinGetClass, class, ahk_id %win%
+	return class = "button"
 }
 
 GetTaskbarDirection()
 {
 	WinGetPos X, Y, Width, Height, ahk_class Shell_TrayWnd
-	x:=(x+x+width)/2
-	y:=(y+y+height)/2
-	if(x<0.1*A_ScreenWidth)
+	x := (x + x + width) / 2
+	y := (y + y + height) / 2
+	if(x < 0.1 * A_ScreenWidth)
 		return 1
-	if(x>0.9*A_ScreenWidth)
+	if(x > 0.9 * A_ScreenWidth)
 		return 2
-	if(y<0.1*A_ScreenHeight)
+	if(y < 0.1 * A_ScreenHeight)
 		return 3
-	if(y>0.9*A_ScreenHeight)
+	if(y > 0.9 * A_ScreenHeight)
 		return 4
-	if(IsFullscreen("A",false,false))
+	if(IsFullscreen("A", false, false))
 		return -1
 	return 0
 }

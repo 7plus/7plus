@@ -1,13 +1,16 @@
+;Main autoupdate function. Possibly downloads an update and runs the updater executable.
 AutoUpdate()
 {	
 	global MajorVersion,MinorVersion,BugfixVersion
 	outputdebug AutoUpdate
+	BaseURL := "http://7plus.googlecode.com"
 	if(IsConnected())
 	{
 		random, rand
+		NewVersionPath := "/files/NewVersion.ini?x=" rand
 		;Disable keyboard hook to increase responsiveness
 		Suspend, On
-		URLDownloadToFile, http://7plus.googlecode.com/files/NewVersion.ini?x=%rand%, %A_Temp%\7plus\Version.ini
+		URLDownloadToFile, %BaseURL%%NewVersionPath, %A_Temp%\7plus\Version.ini
 		Suspend, Off
 		if(!Errorlevel && FileExist(A_Temp "\7plus\Version.ini"))
 		{
@@ -46,19 +49,21 @@ AutoUpdate()
 						}
 						else
 						{
-							MsgBox Error while updating. Make sure http://7plus.googlecode.com is reachable.
+							MsgBox Error while updating. Make sure %BaseURL% is reachable.
 							Progress, Off
 						}
 					}
 				}
 				else
-					MsgBox Error while updating. Make sure http://7plus.googlecode.com is reachable.
+					MsgBox Error while updating. Make sure %BaseURL% is reachable.
 			}
 		}
 		else
-			MsgBox Could not download version info. Make sure http://7plus.googlecode.com is reachable.
+			MsgBox Could not download version info. Make sure %BaseURL% is reachable.
 	}
 }
+
+;This function carries out all necessary steps after an update has been installed. This code is executed in the updated script.
 PostUpdate()
 {
 	global MajorVersion,MinorVersion,BugfixVersion
@@ -99,27 +104,8 @@ ApplyFreshInstallSteps()
 ;C) If the user manually extracted a newer version
 ApplyUpdateFixes()
 {
-	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion, ClipboardList
-	;On fresh installation, the versions are identical since a new Events.xml is used and no events patch needs to be applied
-	;After autoupdate has finished, the XML version is lower and the events are patched
-	;After manually overwriting 7plus, the XML version is lower and the events are patched
-	if(XMLMajorVersion != "" && CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) = -1)
-	{		
-		;apply release patch without showing messages
-		if(FileExist(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")) 
-		{
-			;This will also set the XML version variables. 
-			;In case this is triggered by an autoupdate, it will make sure that case C) won't be recognized afterwards.
-			;This requires that the version is specified in the patch.
-			EventSystem.Events.ReadEventsFile(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")
-			
-			;Upgrade from previous version resets the Patch version to 0
-			PatchVersion := 0
-			
-			;Save the patched file immediately
-			EventSystem.Events.WriteMainEventsFile()
-		}
-	}
+	global MajorVersion, MinorVersion, BugfixVersion
+	ApplyReleasePatch()
 
 	;Register shell extension quietly
 	RegisterShellExtension(1)
@@ -175,16 +161,47 @@ ApplyUpdateFixes()
 		FileDelete, %A_ScriptDir%\Explorer.dll
 	}
 }
+
+;This function applies the release patch during the updating process.
+;It will do nothing on new installations where the event file is already up to date.
+ApplyReleasePatch()
+{
+	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion
+	;On fresh installation, the versions are identical since a new Events.xml is used and no events patch needs to be applied
+	;After autoupdate has finished, the XML version is lower and the events are patched
+	;After manually overwriting 7plus, the XML version is lower and the events are patched
+	if(XMLMajorVersion != "" && CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) = -1)
+	{		
+		;apply release patch without showing messages
+		if(FileExist(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")) 
+		{
+			;This will also set the XML version variables. 
+			;In case this is triggered by an autoupdate, it will make sure that case C) won't be recognized afterwards.
+			;This requires that the version is specified in the patch.
+			EventSystem.Events.ReadEventsFile(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")
+			
+			;Upgrade from previous version resets the Patch version to 0
+			PatchVersion := 0
+			
+			;Save the patched file immediately
+			EventSystem.Events.WriteMainEventsFile()
+		}
+	}
+}
+
+;This function is used to update patches only. Should it be removed for simplicity? It has never been used so far.
 AutoUpdate_CheckPatches()
 {
 	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion
 	;Disable keyboard hook to increase responsiveness
 	FileCreateDir, % Settings.ConfigPath "\Patches"
-	FileDelete, % Settings.ConfigPath "\PatchInfo.xml"	
+	FileDelete, % Settings.ConfigPath "\PatchInfo.xml"
+	BaseURL := "http://7plus.googlecode.com"
 	random, rand
-	if(IsConnected("http://7plus.googlecode.com/files/PatchInfo.xml?x=" rand))
+	PatchInfoPath := "/files/PatchInfo.xml?x=" rand
+	if(IsConnected(BaseURL PatchInfoPath))
 	{
-		URLDownloadToFile, http://7plus.googlecode.com/files/PatchInfo.xml?x=%rand%, % Settings.ConfigPath "\PatchInfo.xml"
+		URLDownloadToFile, %BaseURL%%PatchInfoPath%, % Settings.ConfigPath "\PatchInfo.xml"
 		if(!Errorlevel)
 		{
 			FileRead, xml, % Settings.ConfigPath "\PatchInfo.xml"
