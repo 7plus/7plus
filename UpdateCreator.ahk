@@ -28,80 +28,160 @@ Loop, Read, 7plus.ahk
 		MinorVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
 	else if(InStr(A_LoopReadLine, "BugfixVersion := "))
 		BugfixVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
+	else if(InStr(A_LoopReadLine, "BuildVersion := "))
+	{
+		BuildVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
+		VersionString := A_LoopReadLine
+	}
 }
-7plusVersion := MajorVersion "." MinorVersion "." BugfixVersion
+
+;Now show a GUI with publishing options
+Gui, Add, Button, gBuild, Build Only
+Gui, Add, Button, gPublish, Publish
+Gui, Add, Button, gPublishAsBeta, Publish as Beta
+Gui, Show
+return
+
+
+Build:
+Publish:
+PublishAsBeta:
+
+if(VersionString)
+{
+	BuildVersion := A_ThisLabel = "Publish" ? 0 : BuildVersion + 1
+	FileRead, code, 7plus.ahk
+	StringReplace, code, %VersionString%, BuildVersion := %BuildVersion%
+}
+7plusVersion := MajorVersion "." MinorVersion "." BugfixVersion "." BuildVersion
+
+;The Autoupdater uses a file called NewVersion.ini hosted on a server that contains information about the newest available (beta)version
+;This file is updated here.
+FilesURL := "http://7plus.googlecode.com/files/"
+if(A_ThisLabel = "Publish")
+{
+	IniWrite, %MajorVersion%, NewVersion.ini, Version, MajorVersion
+	IniWrite, %MinorVersion%, NewVersion.ini, Version, MinorVersion
+	IniWrite, %BugfixVersion%, NewVersion.ini, Version, BugfixVersion
+	IniWrite, %BuildVersion%, NewVersion.ini, Version, BuildVersion
+	InputBox, Message, Enter Update Message, A new update is available. Download now?
+	IniWrite, %Message%, NewVersion.ini, Version, UpdateMessage
+	IniWrite, %FilesURL%UpdaterX86Binary.exe, NewVersion.ini, Version, LinkX86
+	IniWrite, %FilesURL%UpdaterX86Source.exe, NewVersion.ini, Version, LinkX86Source
+	IniWrite, %FilesURL%UpdaterX64Binary.exe, NewVersion.ini, Version, LinkX64
+	IniWrite, %FilesURL%UpdaterX64Source.exe, NewVersion.ini, Version, LinkX64Source
+}
+else if(A_ThisLabel = "PublishAsBeta")
+{
+	IniWrite, %BuildVersion%, NewVersion.ini, Version, BuildVersion
+	InputBox, Message, Enter Update Message, A new beta update is available. Download now?
+	IniWrite, %Message%, NewVersion.ini, Version, BetaUpdateMessage
+	IniWrite, %FilesURL%BetaUpdaterX86Binary.exe, NewVersion.ini, Version, BetaLinkX86
+	IniWrite, %FilesURL%BetaUpdaterX86Source.exe, NewVersion.ini, Version, BetaLinkX86Source
+	IniWrite, %FilesURL%BetaUpdaterX64Binary.exe, NewVersion.ini, Version, BetaLinkX64
+	IniWrite, %FilesURL%BetaUpdaterX64Source.exe, NewVersion.ini, Version, BetaLinkX64Source
+}
+
+
+if(A_ThisLabel != "Build")
+{
+	;Create the event patch file required for the autoupdater.
+	;The user of this script needs to select the event file version this patch should use as a base.
+	fd := new CFileDialog("Open")
+	fd.Filter := "*.xml"
+	fd.InitialDirectory := A_ScriptDir "\Events"
+	fd.Title := "Select old ""All Events.xml"" file to generate the events patch file."
+	if(!fd.Show())
+		return
+	run % """" A_AhkPath """ """   A_ScriptDir "\CreateEventPatch.ahk"" """ fd.Filename  """ """ A_ScriptDir "\Events\All Events.xml"""
+}
+
+;Create updates for all configurations
 CreateUpdate("X86", "Source")
 CreateUpdate("X86", "Binary")
 CreateUpdate("X64", "Source")
 CreateUpdate("X64", "Binary")
+
+;And start 7plus again if it was running before
 if(running)
 	run, %A_ScriptDir%\7plus.ahk
+ExitApp
+
 return
+GuiEscape:
+GuiClose:
+ExitApp
+
+;Called to create .zip and Autoupdate executable files for a build configuration
+;Everything is temporarily copied to %A_TEMP%\7plusUpdateCreator
 CreateUpdate(Platform, Version)
 {
 	global 7plusVersion
-	;Everything is temporarily copied to %A_TEMP%\7plusUpdateCreator
-	FileRemoveDir %A_TEMP%\7plusUpdateCreator, 1
-	FileCreateDir %A_TEMP%\7plusUpdateCreator
-	FileDelete Updater.exe
-	FileDelete Update.zip
-	;Copy matching autohotkey binary files and Dlls of the correct bitness
+
+	;Clean up first
+	FileRemoveDir, %A_TEMP%\7plusUpdateCreator, 1
+	FileCreateDir, %A_TEMP%\7plusUpdateCreator
+	FileDelete, Updater.exe
+	FileDelete, Update.zip
+
+	;Copy binary image of AHK_L for the compiler
 	if(Platform = "X86")
-	{
-		FileCopy, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC_UNICODE_32.bin, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC.bin, 1
-		FileCreateDir, %A_TEMP%\7plusUpdateCreator\lib
-		FileCopy, %A_ScriptDir%\lib\ShellExtension.dll,					 			%A_TEMP%\7plusUpdateCreator\lib, 1
-		FileCopy, %A_ScriptDir%\lib\sqlite3.dll, 									%A_TEMP%\7plusUpdateCreator\lib, 1
-		FileCopy, %A_ScriptDir%\lib\Explorer.dll, 									%A_TEMP%\7plusUpdateCreator\lib, 1
-		FileCopy, %A_ScriptDir%\lib\FileSearch.dll, 								%A_TEMP%\7plusUpdateCreator\lib, 1
-		FileCopy, %A_ScriptDir%\lib\SetACL.exe, 									%A_TEMP%\7plusUpdateCreator\lib, 1
-	}
+		FileCopy, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC_UNICODE_32.bin, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC.bin, 1		
 	else
-	{
 		FileCopy, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC_UNICODE_64.bin, %A_ProgramFiles%\Autohotkey\Compiler\AutoHotkeySC.bin, 1
-		FileCreateDir, %A_TEMP%\7plusUpdateCreator\lib\x64
-		FileCopy, %A_ScriptDir%\lib\x64\ShellExtension.dll, 						%A_TEMP%\7plusUpdateCreator\lib\x64, 1
-		FileCopy, %A_ScriptDir%\lib\x64\sqlite3.dll, 								%A_TEMP%\7plusUpdateCreator\lib\x64, 1
-		FileCopy, %A_ScriptDir%\lib\x64\Explorer.dll, 								%A_TEMP%\7plusUpdateCreator\lib\x64, 1
-		FileCopy, %A_ScriptDir%\lib\x64\FileSearch.dll, 							%A_TEMP%\7plusUpdateCreator\lib\x64, 1
-		FileCopy, %A_ScriptDir%\lib\x64\SetACL.exe, 								%A_TEMP%\7plusUpdateCreator\lib\x64, 1
-	}
 	
 	;Compile 7plus and Uninstaller
 	if(Version = "Binary")
 	{
-		runwait %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\7plus.ahk"
+		RunWait, %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\7plus.ahk"
 		Sleep 1500
-		
 	}
+
 	;Uninstaller is always compiled
-	runwait %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\Uninstall.ahk"
+	RunWait, %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\Uninstall.ahk"
 	Sleep 1500
+
 	;Copy all other files
 	FolderLoop(Platform, Version)
+
 	;Zip them
-	runwait 7za.exe a -y "%a_scriptdir%\update.zip" "%A_TEMP%\7plusUpdateCreator\*", %a_scriptdir%,Hide
+	RunWait, 7za.exe a -y "%a_scriptdir%\update.zip" "%A_TEMP%\7plusUpdateCreator\*", %a_scriptdir%,Hide
+
 	;Generate update script
 	WriteUpdater()
 	
 	if(!FileExist(A_Scriptdir "\update.zip"))
-		msgbox update.zip doesn't exist!
+		MsgBox, update.zip doesn't exist!
 	
 	;Compile updater
-	runwait %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\Updater.ahk"
-	sleep 2000
+	RunWait, %A_ProgramFiles%\Autohotkey\Compiler\Compile_AHK.exe /nogui "%A_ScriptDir%\Updater.ahk"
+	Sleep 2000
 	if(!FileExist(A_Scriptdir "\updater.exe"))
-		msgbox updater.exe doesn't exist!
+		MsgBox updater.exe doesn't exist!
 	;Cleanup and move resulting files
-	FileRemoveDir %A_TEMP%\7plusUpdateCreator,1
-	FileMove %a_scriptdir%\update.zip, %A_ScriptDir%\7plus V.%7plusVersion% %Platform% %Version%.zip, 1
+	FileRemoveDir, %A_TEMP%\7plusUpdateCreator,1
+	FileMove, %a_scriptdir%\update.zip, %A_ScriptDir%\7plus V.%7plusVersion% %Platform% %Version%.zip, 1
 	FileMove, %A_ScriptDir%\Updater.exe, %A_ScriptDir%\Updater%Platform%%Version%.exe, 1
 }
+
+;Copies all relevant files for the update to %A_Temp%\7plusUpdateCreator
 FolderLoop(Platform, Version)
 {
 	global 7plusVersion
+	;Copy matching autohotkey binary files and Dlls of the correct bitness
+	DllTargetPath := Platform = "X86" ? A_TEMP "\7plusUpdateCreator\lib" : A_TEMP "\7plusUpdateCreator\lib\x64"
+	DllSourcePath := Platform = "X86" ? A_ScriptDir "\lib" : A_ScriptDir "\lib\x64"
+	FileCreateDir, %DllTargetPath%
+	FileCopy, %DllSourcePath%\ShellExtension.dll,	%DllTargetPath%, 1
+	FileCopy, %DllSourcePath%\sqlite3.dll, 			%DllTargetPath%, 1
+	FileCopy, %DllSourcePath%\Explorer.dll, 		%DllTargetPath%, 1
+	FileCopy, %DllSourcePath%\FileSearch.dll, 		%DllTargetPath%, 1
+	FileCopy, %DllSourcePath%\SetACL.exe, 			%DllTargetPath%, 1
+
+
+	;Now loop over the 7plus directory and copy all other needed files
 	SkipNameList := ["7plusGApps.png", ".gitignore", "7za.exe", "Version.ini", "Autohotkey.exe", "Explorer.dll", "sqlite3.dll", "SetACL", "AU3_Spy.exe", "7+-128.ico", "Uninstall.ico", "Donate.ico", "Improvements.txt", "PatchInfo.xml"]
-	SkipExtList := ["ini","bak","html","bin","zip","svg","log", "pdf"]
+	SkipExtList := ["ini","bak","html","bin","zip","svg","log", "pdf", "md"]
 	SkipPathList := [".git", "To be implemented\", "Old Versions", "Tools\", "Winspector", "DebugView", ".svn", "Compiler", "Explorer\Explorer", "x64\", "x86\", "Patches\", "DefaultConfig\", "ShellExtension", "tests\", "CreateEventPatch", "SubEventBackup", "NewSettings", "Kopie", "UpdateCreator"]
 	Loop *.*, 0, 1 ;Find files which should be included
 	{
@@ -166,5 +246,7 @@ WriteUpdater()
 	FileAppend, `trun `%ScriptDir`%\7plus.exe`n,																	%A_scriptdir%\Updater.ahk
 	FileAppend, ExitApp,																							%A_scriptdir%\Updater.ahk
 }
+
 #include <RichObject>
+#include <CFileDialog>
 #include <Array>

@@ -106,6 +106,7 @@ Class CSettings
 		static DebugEnabled 		                := false
 		static ProfilingEnabled 	                := false
 		static AutoUpdate 		                    := true
+		static UseBeta								:= false
 		static FirstRun								:= true
 		static ShowAdvancedEvents	                := false
 		static ShowExecutingEvents             	    := false

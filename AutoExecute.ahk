@@ -90,10 +90,7 @@ BuildMenu("Tray")
 
 ;Update checker
 if(Settings.General.AutoUpdate)
-{
 	AutoUpdate()
-	AutoUpdate_CheckPatches()
-}
 
 PostUpdate()
 

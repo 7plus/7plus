@@ -22,6 +22,7 @@ SetTitleMatchMode, 2 ;Match anywhere in title
 MajorVersion := 2
 MinorVersion := 6
 BugfixVersion := 0
+BuildVersion := 0
 ComObjError(1)
 StartupTime := A_TickCount
 

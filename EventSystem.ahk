@@ -485,19 +485,19 @@ Class CEvents extends CArray
 
 	ReadEventsFile(Path, OverwriteCategory = "", Update = "")
 	{
-		global MajorVersion, MinorVersion, BugfixVersion, PatchVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion
+		global MajorVersion, MinorVersion, BugfixVersion, BuildVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion, XMLBuildVersion
 		FileRead, xml, %path%
 		XMLObject := XML_Read(xml)
-		XMLMajorVersion := XMLObject.MajorVersion
-		XMLMinorVersion := XMLObject.MinorVersion
+		XMLMajorVersion  := XMLObject.MajorVersion
+		XMLMinorVersion  := XMLObject.MinorVersion
 		XMLBugfixVersion := XMLObject.BugfixVersion
-		if(CompareVersion(XMLMajorVersion,MajorVersion,XMLMinorVersion,MinorVersion,XMLBugfixVersion,BugfixVersion) > 0)
-			Msgbox Events file was made with a newer version of 7plus. Compatibility is not guaranteed. Please update, or use at own risk!
+		XMLBuildVersion  := XMLObject.BuildVersion
+
+		if(CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) > 0)
+			Msgbox, Events file was made with a newer version of 7plus. Compatibility is not guaranteed. Please update, or use at own risk!
 		
 		if(Update)
 			Update.Message := Update.Message (XMLObject.Message? "`n" XMLObject.Message : "")
-		if(path = Settings.ConfigPath "\Events.xml") ;main config file, read patch version
-			PatchVersion := XMLObject.PatchVersion ? XMLObject.PatchVersion : 0
 		
 		count := this.MaxIndex()
 		lowestID := 999999999999
@@ -735,18 +735,15 @@ Class CEvents extends CArray
 	;This function writes this event configuration into the file specified by path.
 	WriteEventsFile(Path)
 	{
-		global MajorVersion, MinorVersion, BugfixVersion, PatchVersion
+		global MajorVersion, MinorVersion, BugfixVersion, BuildVersion
 		
 		;Create Events node
 		xmlObject := Object()
 		xmlObject.MajorVersion := MajorVersion
 		xmlObject.MinorVersion := MinorVersion
 		xmlObject.BugfixVersion := BugfixVersion
-		
-		;Store Patch version information in the main events file.
-		if(path = Settings.ConfigPath "\Events.xml")
-			xmlObject.PatchVersion := PatchVersion
-		
+		xmlObject.BuildVersion := BuildVersion
+				
 		xmlObject.Events := Object()
 		xmlEvents := Array()
 		xmlObject.Events.Event := xmlEvents

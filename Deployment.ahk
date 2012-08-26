@@ -14,19 +14,31 @@ AutoUpdate()
 		Suspend, Off
 		if(!Errorlevel && FileExist(A_Temp "\7plus\Version.ini"))
 		{
-			IniRead, tmpMajorVersion, %A_Temp%\7plus\Version.ini, Version,MajorVersion
-			IniRead, tmpMinorVersion, %A_Temp%\7plus\Version.ini, Version,MinorVersion
-			IniRead, tmpBugfixVersion, %A_Temp%\7plus\Version.ini, Version,BugfixVersion
-			Update := (CompareVersion(tmpMajorVersion, MajorVersion, tmpMinorVersion, MinorVersion, tmpBugfixVersion, BugfixVersion) = 1)
-			if(Update)
+			IniRead, tmpMajorVersion, %A_Temp%\7plus\Version.ini, Version, MajorVersion
+			IniRead, tmpMinorVersion, %A_Temp%\7plus\Version.ini, Version, MinorVersion
+			IniRead, tmpBugfixVersion, %A_Temp%\7plus\Version.ini, Version, BugfixVersion
+			IniRead, tmpBuildVersion, %A_Temp%\7plus\Version.ini, Version, BuildVersion
+			DifferentVersion := CompareVersion(tmpMajorVersion, MajorVersion, tmpMinorVersion, MinorVersion, tmpBugfixVersion, BugfixVersion)
+			BetaUpdate := DifferentVersion >= 0 && tmpBuildVersion > BuildVersion && Settings.General.UseBeta
+			Update := DifferentVersion = 1
+			if(BetaUpdate)
 			{
-				IniRead, UpdateMessage, %A_Temp%\7plus\Version.ini, Version,UpdateMessage
+				IniRead, UpdateMessage, %A_Temp%\7plus\Version.ini, Version, BetaUpdateMessage
+				IniRead, Link, %A_Temp%\7plus\Version.ini, Version, % "BetaLink" (!A_IsCompiled ? "Source" : "") (A_PtrSize = 8 ? "x64" : "x86")
+			}
+			else if(Update)
+			{
+				IniRead, UpdateMessage, %A_Temp%\7plus\Version.ini, Version, UpdateMessage
+				IniRead, Link, %A_Temp%\7plus\Version.ini, Version, % "Link" (!A_IsCompiled ? "Source" : "") (A_PtrSize = 8 ? "x64" : "x86")
+			}
+			if(Update || BetaUpdate)
+			{
 				if(UpdateMessage != "ERROR")
 				{
-					MsgBox,4,,%UpdateMessage%
+					MsgBox, 4, , %UpdateMessage%
 					IfMsgBox Yes
 					{
-						Progress zh0 fs18,Downloading Update, please wait.
+						Progress, zh0 fs18, Downloading Update, please wait.
 						Sleep 10
 						;Versions pre 2.4.0 have the following, erroneous code, and thus need a separate updating script that downloads the correct update:
 						;~ if(A_IsCompiled)
@@ -34,39 +46,36 @@ AutoUpdate()
 						;~ else
 							;~ IniRead, Link, %A_Temp%\7plus\Version.ini, Version,LinkSource
 						
-						link := "Link" (!A_IsCompiled ? "Source" : "") (A_PtrSize = 8 ? "x64" : "x86")
-						IniRead, Link, %A_Temp%\7plus\Version.ini, Version,%Link%
-						
-						URLDownloadToFile, %link%?x=%rand%,%A_Temp%\7plus\Updater.exe
+						URLDownloadToFile, %link%?x=%rand%, %A_Temp%\7plus\Updater.exe
 						if(!Errorlevel)
 						{
 							;Write config path and script dir location to temp file to let updater know
 							IniWrite, % Settings.ConfigPath, %A_Temp%\7plus\Update.ini, Update, ConfigPath
 							IniWrite, %A_ScriptDir%, %A_Temp%\7plus\Update.ini, Update, ScriptDir
-							Run %A_Temp%\7plus\Updater.exe,,UseErrorlevel
+							Run %A_Temp%\7plus\Updater.exe, , UseErrorlevel
 							OnExit
 							ExitApp
 						}
 						else
 						{
-							MsgBox Error while updating. Make sure %BaseURL% is reachable.
+							MsgBox, Error while updating. Make sure %BaseURL% is reachable.
 							Progress, Off
 						}
 					}
 				}
 				else
-					MsgBox Error while updating. Make sure %BaseURL% is reachable.
+					MsgBox, Error while updating. Make sure %BaseURL% is reachable.
 			}
 		}
 		else
-			MsgBox Could not download version info. Make sure %BaseURL% is reachable.
+			MsgBox, Could not download version info. Make sure %BaseURL% is reachable.
 	}
 }
 
 ;This function carries out all necessary steps after an update has been installed. This code is executed in the updated script.
 PostUpdate()
 {
-	global MajorVersion,MinorVersion,BugfixVersion
+	global MajorVersion, MinorVersion, BugfixVersion
 	outputdebug PostUpdate
 	;If there is an Updater.exe in 7plus temp directory, it is likely that an update was performed.
 	if(FileExist(A_TEMP "\7plus\Updater.exe"))
@@ -75,7 +84,8 @@ PostUpdate()
 		IniRead, tmpMajorVersion, %A_TEMP%\7plus\Version.ini, Version, MajorVersion
 		IniRead, tmpMinorVersion, %A_TEMP%\7plus\Version.ini, Version, MinorVersion
 		IniRead, tmpBugfixVersion, %A_TEMP%\7plus\Version.ini, Version, BugfixVersion
-		if(CompareVersion(tmpMajorVersion, MajorVersion, tmpMinorVersion, MinorVersion, tmpBugfixVersion, BugfixVersion) = 0)
+		IniRead, tmpBuildVersion, %A_TEMP%\7plus\Version.ini, Version, BuildVersion
+		if(CompareVersion(tmpMajorVersion, MajorVersion, tmpMinorVersion, MinorVersion, tmpBugfixVersion, BugfixVersion) = 0 && (!Settings.General.UseBeta || tmpBuildVersion = BuildVersion))
 		{
 			ApplyUpdateFixes()
 			if(FileExist(A_ScriptDir "\Changelog.txt"))
@@ -143,7 +153,7 @@ ApplyUpdateFixes()
 			
 			Loop % min(XMLObject.List.MaxIndex(), 10)
 				ClipboardList.Insert(Decrypt(XMLObject.List[A_Index])) ;Read encrypted clipboard history
-			XMLObject := Object("List",Array())
+			XMLObject := Object("List", Array())
 			Loop % min(ClipboardList.MaxIndex(), 10)
 				XMLObject.List.Insert(Encrypt(ClipboardList[A_Index])) ;Store encrypted
 			XML_Save(XMLObject, Settings.ConfigPath "\Clipboard.xml")
@@ -166,22 +176,20 @@ ApplyUpdateFixes()
 ;It will do nothing on new installations where the event file is already up to date.
 ApplyReleasePatch()
 {
-	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion
+	global MajorVersion, MinorVersion, BugfixVersion, BuildVersion, XMLMajorVersion, XMLMinorVersion, XMLBugfixVersion, XMLBuildVersion
 	;On fresh installation, the versions are identical since a new Events.xml is used and no events patch needs to be applied
 	;After autoupdate has finished, the XML version is lower and the events are patched
 	;After manually overwriting 7plus, the XML version is lower and the events are patched
-	if(XMLMajorVersion != "" && CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion) = -1)
+	DifferentVersion := CompareVersion(XMLMajorVersion, MajorVersion, XMLMinorVersion, MinorVersion, XMLBugfixVersion, BugfixVersion)
+	if(XMLMajorVersion != "" && DifferentVersion = -1 || (DifferentVersion <= 0 && Settings.UseBeta && XMLBuildVersion < BuildVersion))
 	{		
 		;apply release patch without showing messages
-		if(FileExist(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")) 
+		if(FileExist(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion "." BuildVersion ".xml")) 
 		{
-			;This will also set the XML version variables. 
+			;This will also set the XML version variables.
 			;In case this is triggered by an autoupdate, it will make sure that case C) won't be recognized afterwards.
 			;This requires that the version is specified in the patch.
-			EventSystem.Events.ReadEventsFile(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion ".0.xml")
-			
-			;Upgrade from previous version resets the Patch version to 0
-			PatchVersion := 0
+			EventSystem.Events.ReadEventsFile(A_ScriptDir "\Events\ReleasePatch\" MajorVersion "." MinorVersion "." BugfixVersion "." BuildVersion ".xml")
 			
 			;Save the patched file immediately
 			EventSystem.Events.WriteMainEventsFile()
@@ -189,57 +197,12 @@ ApplyReleasePatch()
 	}
 }
 
-;This function is used to update patches only. Should it be removed for simplicity? It has never been used so far.
-AutoUpdate_CheckPatches()
-{
-	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion
-	;Disable keyboard hook to increase responsiveness
-	FileCreateDir, % Settings.ConfigPath "\Patches"
-	FileDelete, % Settings.ConfigPath "\PatchInfo.xml"
-	BaseURL := "http://7plus.googlecode.com"
-	random, rand
-	PatchInfoPath := "/files/PatchInfo.xml?x=" rand
-	if(IsConnected(BaseURL PatchInfoPath))
-	{
-		URLDownloadToFile, %BaseURL%%PatchInfoPath%, % Settings.ConfigPath "\PatchInfo.xml"
-		if(!Errorlevel)
-		{
-			FileRead, xml, % Settings.ConfigPath "\PatchInfo.xml"
-			XMLObject := XML_Read(xml)
-		}
-	}
-	Update := Object("Message", "") ;Object storing update message
-	patch := false
-	Loop ;Iteratively apply all available patches
-	{
-		version := MajorVersion "." MinorVersion "." BugfixVersion "." (PatchVersion + 1)
-		if(IsObject(XMLObject) && !FileExist(Settings.ConfigPath "\Patches\" version ".xml") && XMLObject.HasKey(version)) ;If a new patch is available online, download it to patches directory
-		{
-			PatchURL := XMLObject[version]
-			if(IsConnected(PatchURL "?x=" rand))
-				URLDownloadToFile, %PatchURL%?x=%rand%, % Settings.ConfigPath "\Patches\" version ".xml"
-		}
-		if(FileExist(Settings.ConfigPath "\Patches\" version ".xml")) ;If the patch exists in patches directory (does not mean it has been downloaded now, they are stored)
-		{
-			EventSystem.Events.ReadEventsFile(Settings.ConfigPath "\Patches\" version ".xml","", Update)
-			PatchVersion++
-			EventSystem.Events.WriteMainEventsFile()
-			patch := true
-			continue
-		}
-		break
-	}
-	if(patch)
-		MsgBox, % "A Patch has been installed that updates the event configuration. Applied changes:`n" Update.Message
-}
-
-
 AddUninstallInformation()
 {
-	global MajorVersion, MinorVersion, BugfixVersion, PatchVersion
+	global MajorVersion, MinorVersion, BugfixVersion, BuildVersion
 	if(ApplicationState.IsPortable)
 		return
-	RegWrite, REG_SZ, HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7plus, DisplayName, 7plus V.%MajorVersion%.%MinorVersion%.%BugfixVersion%.%PatchVersion%
+	RegWrite, REG_SZ, HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7plus, DisplayName, 7plus V.%MajorVersion%.%MinorVersion%.%BugfixVersion%.%BuildVersion%
 	RegWrite, REG_DWORD, HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7plus, NoModify, 1
 	RegWrite, REG_DWORD, HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7plus, NoRepair, 1
 	RegWrite, REG_SZ, HKLM, SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7plus, UninstallString, 1, "%A_ScriptDir%\Uninstall.exe"

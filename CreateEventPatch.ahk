@@ -32,16 +32,10 @@ Loop, Read, 7plus.ahk
 		PatchXMLObject.MinorVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
 	else if(InStr(A_LoopReadLine, "BugfixVersion := "))
 		PatchXMLObject.BugfixVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
+	else if(InStr(A_LoopReadLine, "BuildVersion := "))
+		PatchXMLObject.BuildVersion := SubStr(A_LoopReadLine, InStr(A_LoopReadLine, " := ") + 4)
 }
-if(!StrLen(arg3))
-{
-	InputBox, PatchVersion, Patch version, Enter patch version (0 for release)
-	if(Errorlevel)
-		ExitApp
-}
-else
-	PatchVersion := 0
-PatchXMLObject.PatchVersion := PatchVersion
+PatchXMLObject.BuildVersion := BuildVersion
 
 ;Convert to array
 Loop % NewXMLObject.Events.Event.MaxIndex()
@@ -133,7 +127,7 @@ Loop % NewXMLObject.Events.Event.MaxIndex()
 	if(!OldXMLObject.Events.Event.GetItemWithValue("OfficialEvent", NewEvent.OfficialEvent)) ;Event was added
 		PatchXMLObject.Events.Event.Insert(NewEvent)
 }
-XML_Save(PatchXMLObject, A_ScriptDir "\Events\ReleasePatch\" PatchXMLObject.MajorVersion "." PatchXMLObject.MinorVersion "." PatchXMLObject.BugfixVersion "." PatchXMLObject.PatchVersion ".xml")
+XML_Save(PatchXMLObject, A_ScriptDir "\Events\ReleasePatch\" PatchXMLObject.MajorVersion "." PatchXMLObject.MinorVersion "." PatchXMLObject.BugfixVersion "." PatchXMLObject.BuildVersion ".xml")
 ExitApp
 
 #include %A_ScriptDir%\lib\richobject.ahk

@@ -891,7 +891,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 			fd.InitialDirectory := A_ScriptDir "\Events"
 			if(!fd.Show())
 				return
-			run % """" A_AhkPath """ """   A_ScriptDir "\CreateEventPatch.ahk"" """ fd.Filename  """ """ A_ScriptDir "\Events\All Events.xml"" 0" ;Create event patch, assumes that last minor version was incremented by one since last release
+			;run % """" A_AhkPath """ """   A_ScriptDir "\CreateEventPatch.ahk"" """ fd.Filename  """ """ A_ScriptDir "\Events\All Events.xml"" 0" ;Create event patch, assumes that last minor version was incremented by one since last release
 			this.Enabled := true
 			return
 		}
