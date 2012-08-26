@@ -10,7 +10,7 @@ AutoUpdate()
 		NewVersionPath := "/files/NewVersion.ini?x=" rand
 		;Disable keyboard hook to increase responsiveness
 		Suspend, On
-		URLDownloadToFile, %BaseURL%%NewVersionPath, %A_Temp%\7plus\Version.ini
+		URLDownloadToFile, %BaseURL%%NewVersionPath%, %A_Temp%\7plus\Version.ini
 		Suspend, Off
 		if(!Errorlevel && FileExist(A_Temp "\7plus\Version.ini"))
 		{
@@ -40,7 +40,7 @@ AutoUpdate()
 					{
 						Progress, zh0 fs18, Downloading Update, please wait.
 						Sleep 10
-						;Versions pre 2.4.0 have the following, erroneous code, and thus need a separate updating script that downloads the correct update:
+						;Versions before 2.4.0 have the following, erroneous code, and thus need a separate updating script that downloads the correct update:
 						;~ if(A_IsCompiled)
 							;~ IniRead, Link, %A_Temp%\7plus\Version.ini, Version,Link
 						;~ else

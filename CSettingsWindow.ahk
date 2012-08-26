@@ -232,15 +232,16 @@ Finally, here are some settings that you're likely to change at the beginning:
 )
 		Page.AddControl("Text", "textIntroduction", "xs+21 ys+16 w574 h182", Text)
 
-		Page.AddControl("CheckBox", "chkAutoUpdate", "xs+24 ys+263 w219 h17", "Automatically look for updates on startup")
-		Page.AddControl("CheckBox", "chkHideTrayIcon", "xs+24 ys+240 w339 h17", "Hide Tray Icon (press WIN + H (default settings) to show settings!)")
-		Page.AddControl("CheckBox", "chkAutoRun", "xs+24 ys+217 w187 h17", "Autorun 7plus on windows startup")
-		chkShowTips := Page.AddControl("CheckBox", "chkShowTips", "xs+24 ys+286", "Show tips about the usage of 7plus (highly recommended to discover its features)")
+		Page.AddControl("CheckBox", "chkAutoUpdate", "xs+24 ys+263", "Automatically look for updates on startup")
+		Page.AddControl("CheckBox", "chkAutoUpdateBeta", "xs+40 y+30", "Participate in Betas")
+		Page.AddControl("CheckBox", "chkHideTrayIcon", "xs+24 y+30", "Hide Tray Icon (press WIN + H (default settings) to show settings!)")
+		Page.AddControl("CheckBox", "chkAutoRun", "xs+24 y+30", "Autorun 7plus on windows startup")
+		chkShowTips := Page.AddControl("CheckBox", "chkShowTips", "xs+24 y+30", "Show tips about the usage of 7plus (highly recommended to discover its features)")
 		chkShowTips.ToolTip := "Tips will be shown when specific actions, such as pasting some text, are carried out. Each tip is only shown once in a non-obstrusive manner. This is recommended for most users that don't want to go through all the whole configuration of 7plus to discover most of its features."
 		;Page.AddControl("Text", "txtLanguage", "xs+21 ys+339 w129 h13", "Documentation language:")
 		;Page.AddControl("DropDownList", "ddlLanguage", "xs+203 ys+336 w160", "")
-		Page.AddControl("Text", "txtRunAsAdmin", "xs+21 ys+312 w75 h13", "Run as admin:")
-		Page.AddControl("DropDownList", "ddlRunAsAdmin", "xs+203 ys+309 w160", "Always/Ask|Never")
+		Page.AddControl("Text", "txtRunAsAdmin", "xs+24 y+30", "Run as admin:")
+		Page.AddControl("DropDownList", "ddlRunAsAdmin", "xs+203 yp+-3 w160", "Always/Ask|Never")
 		Page.Controls.txtRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
 		Page.Controls.ddlRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
 	}
@@ -250,6 +251,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;global Languages
 		Page := this.Pages.Introduction.Tabs[1].Controls
 		Page.chkAutoUpdate.Checked := Settings.General.AutoUpdate
+		Page.chkAutoUpdateBeta.Checked := Settings.General.UseBeta
 		Page.chkHideTrayIcon.Checked := Settings.Misc.HideTrayIcon
 		if(!ApplicationState.IsPortable)
 			Page.chkAutoRun.Checked := IsAutoRunEnabled()
@@ -266,6 +268,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page := this.Pages.Introduction.Tabs[1].Controls
 		
 		Settings.General.AutoUpdate := Page.chkAutoUpdate.Checked
+		Settings.General.UseBeta := Page.chkAutoUpdateBeta.Checked
 		
 		if(!Settings.Misc.HideTrayIcon && Settings.Misc.HideTrayIcon != Page.chkHideTrayIcon.Checked)
 		{
@@ -886,11 +889,11 @@ Finally, here are some settings that you're likely to change at the beginning:
 					ExportEvents.WriteEventsFile(A_ScriptDir "\Events\" Category ".xml")
 			}
 			this.Events.WriteEventsFile(A_ScriptDir "\Events\All Events.xml")
-			fd := new CFileDialog("Open")
-			fd.Filter := "*.xml"
-			fd.InitialDirectory := A_ScriptDir "\Events"
-			if(!fd.Show())
-				return
+			;fd := new CFileDialog("Open")
+			;fd.Filter := "*.xml"
+			;fd.InitialDirectory := A_ScriptDir "\Events"
+			;if(!fd.Show())
+			;	return
 			;run % """" A_AhkPath """ """   A_ScriptDir "\CreateEventPatch.ahk"" """ fd.Filename  """ """ A_ScriptDir "\Events\All Events.xml"" 0" ;Create event patch, assumes that last minor version was incremented by one since last release
 			this.Enabled := true
 			return
