@@ -22,7 +22,7 @@ DebuggingStart()
 		winwait, DebugView Filter
 		winactivate, DebugView Filter
 		Winwaitactive, DebugView Filter 
-		ControlSetText, Edit1, [*, A ;%a_scriptPID%*, A ;Set filter
+		ControlSetText, Edit1, [%a_scriptPID%*, A ;Set filter
 		Send, {Enter}
 		send, !M{Down}{Enter} ;Connect local
 		Coordmode, Mouse, Screen
