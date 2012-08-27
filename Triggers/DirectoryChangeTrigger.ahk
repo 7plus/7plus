@@ -33,7 +33,7 @@ Class CDirectoryChangeTrigger Extends CTrigger
 		;Check if the involved file matches the files specified here
 		Files := ToArray(this.Files, "|")
 		Path := (strEndsWith(this.Path, "*") || strEndsWith(this.Path, "\")) ? this.Path : this.Path "\"
-		for index,File in Files
+		for index, File in Files
 		{
 			Regex := ConvertFilterStringToRegex(Path File)
 			if(RegExMatch(Filter.File, Regex))

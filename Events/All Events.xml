@@ -5470,6 +5470,57 @@
 <Key>#F18</Key>
 <Type>Hotkey</Type>
 </Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<EventOnClickID>1685</EventOnClickID>
+<Text>Click here to open the drive</Text>
+<Timeout>10</Timeout>
+<Title>${Drive} was added!</Title>
+<TrayToolTip>1</TrayToolTip>
+<Type>Show a tooltip</Type>
+</Action></Actions>
+<Category>Explorer</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Shows a notification window when a new device is mounted as a volume that allows to open the drive.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1684</ID>
+<Name>Notify on new volume</Name>
+<OfficialEvent>80</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<ChangeType>Volume Added</ChangeType>
+<Drive>All</Drive>
+<Type>Device Changed</Type>
+</Trigger>
+</Event><Event>
+<Actions>
+<Action>
+<Command>explorer.exe ${Drive}:\</Command>
+<RunAsAdmin>0</RunAsAdmin>
+<Type>Run a program</Type>
+<WaitForFinish>0</WaitForFinish>
+<WorkingDirectory></WorkingDirectory>
+</Action></Actions>
+<Category>Uncategorized</Category>
+<Conditions>
+</Conditions>
+<DeleteAfterUse>0</DeleteAfterUse>
+<Description>Executed when the notification window of a an added volume is clicked on. Opens the respective drive.</Description>
+<DisableAfterUse>0</DisableAfterUse>
+<Enabled>1</Enabled>
+<EventComplexityLevel>0</EventComplexityLevel>
+<ID>1685</ID>
+<Name>Open added drive</Name>
+<OfficialEvent>81</OfficialEvent>
+<OneInstance>0</OneInstance>
+<Trigger>
+<Type>Triggered by an action</Type>
+</Trigger>
 </Event></Events>
 <MajorVersion>2</MajorVersion>
 <MinorVersion>6</MinorVersion>

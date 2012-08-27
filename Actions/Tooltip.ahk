@@ -7,6 +7,7 @@ Class CTooltipAction Extends CAction
 	static Timeout := 5
 	static Text := "Some Tooltip"
 	static Title := "Title is used for tray tooltips only."
+	static EventOnClickID := ""
 	
 	Execute(Event)
 	{
@@ -15,7 +16,9 @@ Class CTooltipAction Extends CAction
 		if(this.TrayToolTip)
 		{		
 			Title := Event.ExpandPlaceholders(this.Title)
-			Notify(Title, Text, Timeout / 1000, "GC=555555 TC=White MC=White","")
+			this.tmpPlaceholders := Event.Placeholders
+			outputdebug % "Placeholders:`n" IsObject(this.tmpPlaceholders) exploreobj(this.tmpPlaceholders)
+			Notify(Title, Text, Timeout / 1000, "", new Delegate(this, "TipClicked"))
 		}
 		else
 		{
@@ -25,6 +28,23 @@ Class CTooltipAction Extends CAction
 		return 1
 	}
 	
+	TipClicked(URLorID = "")
+	{
+		outputdebug tip clicked
+		if(IsNumeric(URLorID))
+		{
+			Event := EventSystem.Events.GetEventWithValue("ID", URLorID)
+			outputdebug % URLorID Event.Name IsObject(this.tmpPlaceholders)
+			if(Event)
+				Event.TriggerThisEvent("", this.tmpPlaceholders)
+		}
+		else if(URLorID = "" && this.EventOnClickID)
+		{
+			Event := EventSystem.Events.GetEventWithValue("ID", this.EventOnClickID)
+			if(Event)
+				Event.TriggerThisEvent("", this.tmpPlaceholders)
+		}
+	}
 
 	DisplayString()
 	{
@@ -41,6 +61,7 @@ Class CTooltipAction Extends CAction
 			this.AddControl(GUI, "Edit", "Timeout", "", "", "Timeout [s]:")
 			this.AddControl(GUI, "Checkbox", "TrayToolTip", "Use notification window instead")
 			this.AddControl(GUI, "Edit", "Title", "", "", "Title:", "Placeholders", "Action_ToolTip_Placeholders_Title")
+			this.AddControl(GUI, "ComboBox", "EventOnClickID", "TriggerType:", "", "Trigger on click:")
 		}
 		else if(GoToLabel = "Placeholders_Text")
 			ShowPlaceholderMenu(sGUI, "Text")

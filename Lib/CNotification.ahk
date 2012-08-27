@@ -263,11 +263,13 @@ Class CNotificationWindow Extends CGUI
 	}
 	Click()
 	{
+		outputdebug on close
 		this.Close()
 		this.OnClick.()
 	}
 	lnkText_Click(URLOrID, Index)
 	{
+		outputdebug on link click
 		this.Close()
 		this.OnClick.(URLOrID, Index)
 	}

@@ -253,7 +253,7 @@ Class CEvent extends CRichObject
 	Trigger := new CHotkeyTrigger()
 	Conditions := new CArray()
 	Actions := new CArray()
-	PlaceHolders := Object()
+	PlaceHolders := RichObject()
 	
 	;Enabled state needs to be set through this function, to allow syncing with settings window
 	SetEnabled(Value) 
@@ -353,7 +353,7 @@ Class CEvent extends CRichObject
 	;Tests if this event matches to a trigger. If it does, this event is schedule for execution.
 	;To just trigger it without performing trigger matching, leave Trigger Parameter empty.
 	;It returns the event on the EventSchedule so its state can be examined later.
-	TriggerThisEvent(Trigger = "")
+	TriggerThisEvent(Trigger = "", ParentPlaceholders = "")
 	{
 		;Order of this if condition is important here, because Event.Trigger.Matches() can disable the event for timers
 		if(this.Enabled && (!IsObject(Trigger) || (this.Trigger.Type = Trigger.Type && this.Trigger.Matches(Trigger, this)) || (Trigger.Is(CTriggerTrigger) && this.ID = EventSystem.Events.GetEventWithValue("ID", Trigger.TargetID).ID)))
@@ -363,6 +363,8 @@ Class CEvent extends CRichObject
 			{
 				EventSystem.EventSchedule.Insert(Copy := this.DeepCopy())
 				Copy.EventScheduleID := EventSystem.EventScheduleID
+				if(ParentPlaceholders)
+					Copy.Placeholders := ParentPlaceholders.DeepCopy()
 				EventSystem.EventScheduleID++ ;Increment event schedule ID for next scheduled event.
 			}
 			return Copy
@@ -1223,6 +1225,7 @@ Class CAction extends CSubEvent
 
 #include %A_ScriptDir%\Triggers\AccessorTrigger.ahk
 #include %A_ScriptDir%\Triggers\ContextMenu.ahk
+#include %A_ScriptDir%\Triggers\DeviceChanged.ahk
 #include %A_ScriptDir%\Triggers\DirectoryChangeTrigger.ahk
 #include %A_ScriptDir%\Triggers\DoubleClickDesktop.ahk
 #include %A_ScriptDir%\Triggers\DoubleClickTaskbar.ahk
