@@ -260,7 +260,7 @@ Class CEvent extends CRichObject
 	{
 		this.Enabled := Value
 		;if settings are open and updating a regular event, update its counterpart in SettingsWindow.Events
-		;Note that GetItemWithValue is called instead of GetEventWithValue so that only events from this CEvent instance are retrieved.
+		;Note that GetItemWithValue is called instead of GetEventWithValue so that only events from this CEvents instance are retrieved.
 		if(SettingsActive() && EventSystem.Events.GetItemWithValue("ID", this.ID))
 		{
 			SettingsEvent := SettingsWindow.Events.GetItemWithValue("ID", this.ID)
@@ -356,7 +356,7 @@ Class CEvent extends CRichObject
 	TriggerThisEvent(Trigger = "")
 	{
 		;Order of this if condition is important here, because Event.Trigger.Matches() can disable the event for timers
-		if(this.Enabled && (!IsObject(Trigger) || (this.Trigger.Type = Trigger.Type && this.Trigger.Matches(Trigger, this)) || (Trigger.Is(CTriggerTrigger) && this.ID = Trigger.TargetID)))
+		if(this.Enabled && (!IsObject(Trigger) || (this.Trigger.Type = Trigger.Type && this.Trigger.Matches(Trigger, this)) || (Trigger.Is(CTriggerTrigger) && this.ID = EventSystem.Events.GetEventWithValue("ID", Trigger.TargetID).ID)))
 		{
 			;Test if the event is already running and mustn't be run multiple times
 			if(!this.OneInstance || !EventSystem.EventSchedule.FindKeyWithValue("ID", this.ID))
@@ -457,8 +457,10 @@ Class CEvents extends CArray
 	GetEventWithValue(Key, Value)
 	{
 		;Call the regular function from CArray on the matching CEvents instance.
-		if(Key = "ID" && Value < 0)
+		if(Key = "ID" && Value < 0 && this != EventSystem.TemporaryEvents)
 			return EventSystem.TemporaryEvents.GetItemWithValue(Key, Value)
+		else if(Key = "ID" && InStr(Value, "o") = 1)
+			return this.GetItemWithValue("Officialevent", SubStr(Value, 2))
 		else
 			return this.GetItemWithValue(Key, Value)
 	}
@@ -469,6 +471,8 @@ Class CEvents extends CArray
 		;Call the regular function from CArray on the matching CEvents instance.
 		if(Key = "ID" && Value < 0 && this != EventSystem.TemporaryEvents)
 			return EventSystem.TemporaryEvents.FindKeyWithValue(Key, Value)
+		else if(Key = "ID" && InStr(Value, "o") = 1)
+			return Base.FindKeyWithValue("Officialevent", SubStr(Value, 2))
 		else
 			return Base.FindKeyWithValue(Key, Value)
 	}
@@ -700,17 +704,17 @@ Class CEvents extends CArray
 			;Now adjust Event ID references
 			for k,v in Event.Trigger
 			{
-				if(strEndsWith(k, "ID") && IsNumeric(v))
+				if(strEndsWith(k, "ID") && IsNumeric(v) && v >= 0)
 					Event.Trigger[k] := Event.Trigger[k] + offset
 			}
 			for index, Condition in Event.Conditions
 				for k,v in Condition
-					if(strEndsWith(k, "ID") && IsNumeric(v))
+					if(strEndsWith(k, "ID") && IsNumeric(v) && v >= 0)
 						Condition[k] := Condition[k] + offset
 			
 			for index, Action in Event.Actions
 				for k,v in Action
-					if(strEndsWith(k, "ID") && IsNumeric(v))
+					if(strEndsWith(k, "ID") && IsNumeric(v) && v >= 0)
 						Action[k] := Action[k] + offset
 			
 			pos++

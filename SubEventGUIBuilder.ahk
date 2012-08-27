@@ -112,17 +112,30 @@ AddControl(ValueObj, GUI, type, name, text = "", glabel = "", description = "", 
 				if(!TriggerType || SettingsWindow.Events[A_Index].Trigger.Type = TriggerType)
 					text .= SettingsWindow.Events[A_Index].ID ": " SettingsWindow.Events[A_Index].Name "|"
 			}
+
+			;OfficialEvent numbers in the event system are denoted by "oNumber". Here they are remapped to event IDs for unique identification.
+			if(InStr(ValueObj[name], "o") = 1)
+			{
+				value := SettingsWindow.Events.GetItemWithValue("OfficialEvent", SubStr(ValueObj[name], 2)).ID
+				GUI["TargetsEvent_" (type = "DropDownList" ? "DropDown_" : "ComboBox_") name] := true
+			}
+			else
+				value := ValueObj[name]
 		}
+		else
+			value := ValueObj[name]
+
+
 		;Construct options
 		Loop, Parse, text, |
 		{
 			if(A_LoopField)
 				if(InStr(A_LoopField, ": ")) ;if list entries start with "\d+: " or similar, it is sufficient to store \d+ in the assigned variable to select its item
-					text1 .= A_LoopField (SubStr(A_LoopField, 1, InStr(A_LoopField, ": ") - 1) = ValueObj[name] ? "||" : "|")
+					text1 .= A_LoopField (SubStr(A_LoopField, 1, InStr(A_LoopField, ": ") - 1) = value ? "||" : "|")
 				else
-					text1 .= A_LoopField (A_LoopField = ValueObj[name] ? "||" : "|")
+					text1 .= A_LoopField (A_LoopField = value ? "||" : "|")
 		}
-		if(!strEndsWith(text1,"||"))
+		if(!strEndsWith(text1, "||"))
 			text1 := SubStr(text1, 1, -1)
 		if(type = "DropDownList")
 		{
@@ -193,8 +206,7 @@ AddControl(ValueObj, GUI, type, name, text = "", glabel = "", description = "", 
 SubmitControls(ValueObj, GUI)
 {
 	;Loop over all controls added to GUI, and store their results and delete them
-	enum := GUI._newEnum()
-	while enum[key,value]
+	for key, value in GUI
 	{
 		if(InStr(key, "Desc_") = 1 || InStr(key, "Text_") = 1 || InStr(key, "Button") = 1)
 			WinKill, ahk_id %value%
@@ -219,7 +231,16 @@ SubmitControls(ValueObj, GUI)
 			name := SubStr(key, 10)
 			ControlGetText, text, , ahk_id %value%
 			if(InStr(text, ": ")) ;If the selection starts with "\d+: " or similar, (\d+) is returned instead
+			{
 				text := SubStr(text, 1, InStr(text, ": ") - 1)
+				;If this control identifies an event, try to use its OfficialEvent id when possible for unique identification.
+				if(GUI["TargetsEvent_DropDown_" value])
+				{
+					Event := SettingsWindow.Events.GetItemWithValue("ID", text)
+					if(Event.HasKey("OfficialEvent"))
+						text := "o" Event.OfficialEvent
+				}
+			}
 			ValueObj[name] := text
 			WinKill, ahk_id %value%
 		}

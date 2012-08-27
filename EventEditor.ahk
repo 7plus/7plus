@@ -7,7 +7,7 @@ GetCurrentSubEvent()
 		return
 	}
 	CurrentTab := EventEditor.Tab.SelectedItem.Text
-	if(CurrentTab = "Trigger")
+	if(CurrentTab = "Trigger && Options")
 		return EventEditor.Event.Trigger
 	else if(CurrentTab = "Conditions")
 		return EventEditor.Event.Conditions[EventEditor.listConditions.SelectedIndex]

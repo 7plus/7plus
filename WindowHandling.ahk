@@ -111,6 +111,7 @@ NothingSelected()
 }
 ControlBackspaceFix()
 {
+	SetKeyDelay, 0, 0
 	if(WinVer >= WIN_7)
 		ControlGetFocus focussed, A
 	else
@@ -118,7 +119,7 @@ ControlBackspaceFix()
 	ControlGet, line, CurrentLine, , %focussed%, A
 	ControlGet, col, CurrentCol, , %focussed%, A
 	ControlGet, text, Line, %line%, %focussed%, A
-	SpecialChars := ".,;:""`\/!§$%&/()=#'+-*~€|<>``´{[]}"
+	SpecialChars := ".,;:""`\/!Â§$%&/()=#'+-*~â‚¬|<>``Â´{[]}"
 	loop ;Remove spaces and tabs first
 	{
 		char := Substr(text, col - 1, 1)
@@ -164,7 +165,7 @@ ControlDeleteFix()
 	ControlGet, line, CurrentLine, , %focussed%, A
 	ControlGet, col, CurrentCol, , %focussed%, A
 	ControlGet, text, Line, %line%, %focussed%, A
-	SpecialChars := ".,;:""`\/!§$%&/()=#'+-*~€|<>``´{[]}"
+	SpecialChars := ".,;:""`\/!Â§$%&/()=#'+-*~â‚¬|<>``Â´{[]}"
 	length := strLen(text)
 	char := Substr(text, col, 1)
 	if(char = "") ;Linebreak(\r\n is removed automagically), only remove if first char
