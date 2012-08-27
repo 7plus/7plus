@@ -5,7 +5,7 @@ Class CTooltipAction Extends CAction
 	static __WikiLink := "ToolTip"
 	static TrayToolTip := false
 	static Timeout := 5
-	static Tooltip := "Some Tooltip"
+	static Text := "Some Tooltip"
 	static Title := "Title is used for tray tooltips only."
 	
 	Execute(Event)
