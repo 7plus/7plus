@@ -1,4 +1,5 @@
 <BugfixVersion>0</BugfixVersion>
+<BuildVersion>0</BuildVersion>
 <Events>
 <Event>
 <Actions>
@@ -88,9 +89,11 @@
 <Actions>
 <Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>1599</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>
@@ -108,6 +111,7 @@
 <Icon>%SystemRoot%\system32\SHELL32.dll,266</Icon>
 <Menu>Tray</Menu>
 <Name>Start timer</Name>
+<Submenu></Submenu>
 <Type>Menu item clicked</Type>
 </Trigger>
 </Event><Event>
@@ -116,19 +120,24 @@
 <Cancel>1</Cancel>
 <DataType>Selection</DataType>
 <Placeholder>TimerType</Placeholder>
+<Rows>1</Rows>
 <Selection>Message timer|Shutdown timer|Run program timer</Selection>
 <Text>What type of timer would you like to start?</Text>
 <Title>Dynamic timer</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Cancel>1</Cancel>
 <DataType>Time</DataType>
 <Placeholder>TimerTime</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter time [HH:MM:SS]:</Text>
 <Title>Dynamic timer - Enter time</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Trigger Event</Action>
 <Compare>${TimerType}</Compare>
@@ -170,6 +179,7 @@
 <Actions>
 <Action>
 <Text>${TimerMessage}</Text>
+<Timeout>0</Timeout>
 <Title>Timer</Title>
 <Type>Message</Type>
 </Action></Actions>
@@ -198,18 +208,23 @@
 <Cancel>1</Cancel>
 <DataType>Text</DataType>
 <Placeholder>TimerMessage</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter message text:</Text>
 <Title>Message text</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1600</EventID>
 <Operator>equals</Operator>
 <Placeholder>MessageTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -217,6 +232,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${MessageTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -241,18 +257,23 @@
 <Cancel>1</Cancel>
 <DataType>File</DataType>
 <Placeholder>TimerProgram</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter program to launch</Text>
 <Title>Select program</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1604</EventID>
 <Operator>equals</Operator>
 <Placeholder>RunTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -260,6 +281,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${RunTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -285,6 +307,7 @@
 <RunAsAdmin>-1</RunAsAdmin>
 <Type>Run a program</Type>
 <WaitForFinish>0</WaitForFinish>
+<WorkingDirectory></WorkingDirectory>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>
@@ -335,12 +358,14 @@
 <Actions>
 <Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1605</EventID>
 <Operator>equals</Operator>
 <Placeholder>ShutdownTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -348,6 +373,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${ShutdownTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -417,12 +443,12 @@
 <Type>Mouse over taskbar list</Type>
 </Condition></Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
-<Description>Closes the window belonging to the taskbar button under the mouse or toggles the mute state when over empty space</Description>
+<Description>Closes the window belonging to the taskbar button under the mouse.</Description>
 <DisableAfterUse>0</DisableAfterUse>
 <Enabled>1</Enabled>
 <EventComplexityLevel>0</EventComplexityLevel>
 <ID>1620</ID>
-<Name>On Taskbar: Close window or toggle mute</Name>
+<Name>Close window of task button under mouse</Name>
 <OfficialEvent>23</OfficialEvent>
 <OneInstance>0</OneInstance>
 <Trigger>

@@ -1,4 +1,5 @@
 <BugfixVersion>0</BugfixVersion>
+<BuildVersion>0</BuildVersion>
 <Events>
 <Event>
 <Actions>
@@ -459,6 +460,7 @@
 </Event><Event>
 <Actions>
 <Action>
+<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>
@@ -500,6 +502,7 @@
 </Event><Event>
 <Actions>
 <Action>
+<FolderName>Neuer Ordner</FolderName>
 <Rename>1</Rename>
 <Type>Create new folder</Type>
 </Action></Actions>
@@ -777,31 +780,43 @@
 <ShowState>1</ShowState>
 <Type>Change window state</Type>
 <Value>100</Value>
+<WindowFilterClass></WindowFilterClass>
+<WindowFilterExecutable></WindowFilterExecutable>
+<WindowFilterTitle></WindowFilterTitle>
 <WindowMatchType>UnderMouse</WindowMatchType>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>311</TimerID>
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Enable Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Enable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -809,6 +824,10 @@
 <MouseOverType>Titlebar</MouseOverType>
 <Negate>0</Negate>
 <Type>Mouse over</Type>
+<WindowFilterClass></WindowFilterClass>
+<WindowFilterExecutable></WindowFilterExecutable>
+<WindowFilterTitle></WindowFilterTitle>
+<WindowMatchType></WindowMatchType>
 </Condition></Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
 <Description>Right click on the titlebar of a window to toggle its "Always on top" property. This is useful for keeping a window visible so that you can easily copy data from and to it.</Description>
@@ -832,14 +851,18 @@
 <WriteText>0</WriteText>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>311</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -863,14 +886,18 @@
 <Actions>
 <Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -894,19 +921,25 @@
 <Actions>
 <Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>311</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -923,6 +956,7 @@
 <Trigger>
 <Restart>0</Restart>
 <ShowProgress>0</ShowProgress>
+<Text></Text>
 <Time>2000</Time>
 <Type>Timer</Type>
 </Trigger>
@@ -2955,6 +2989,7 @@
 <Actions>
 <Action>
 <BaseFile></BaseFile>
+<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>
@@ -3345,9 +3380,11 @@
 <Actions>
 <Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>1599</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>
@@ -3365,6 +3402,7 @@
 <Icon>%SystemRoot%\system32\SHELL32.dll,266</Icon>
 <Menu>Tray</Menu>
 <Name>Start timer</Name>
+<Submenu></Submenu>
 <Type>Menu item clicked</Type>
 </Trigger>
 </Event><Event>
@@ -3373,19 +3411,24 @@
 <Cancel>1</Cancel>
 <DataType>Selection</DataType>
 <Placeholder>TimerType</Placeholder>
+<Rows>1</Rows>
 <Selection>Message timer|Shutdown timer|Run program timer</Selection>
 <Text>What type of timer would you like to start?</Text>
 <Title>Dynamic timer</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Cancel>1</Cancel>
 <DataType>Time</DataType>
 <Placeholder>TimerTime</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter time [HH:MM:SS]:</Text>
 <Title>Dynamic timer - Enter time</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Trigger Event</Action>
 <Compare>${TimerType}</Compare>
@@ -3427,6 +3470,7 @@
 <Actions>
 <Action>
 <Text>${TimerMessage}</Text>
+<Timeout>0</Timeout>
 <Title>Timer</Title>
 <Type>Message</Type>
 </Action></Actions>
@@ -3455,18 +3499,23 @@
 <Cancel>1</Cancel>
 <DataType>Text</DataType>
 <Placeholder>TimerMessage</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter message text:</Text>
 <Title>Message text</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1600</EventID>
 <Operator>equals</Operator>
 <Placeholder>MessageTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -3474,6 +3523,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${MessageTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -3498,18 +3548,23 @@
 <Cancel>1</Cancel>
 <DataType>File</DataType>
 <Placeholder>TimerProgram</Placeholder>
+<Rows>1</Rows>
+<Selection></Selection>
 <Text>Enter program to launch</Text>
 <Title>Select program</Title>
 <Type>Ask for user input</Type>
 <Validate>1</Validate>
+<Width>200</Width>
 </Action><Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1604</EventID>
 <Operator>equals</Operator>
 <Placeholder>RunTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -3517,6 +3572,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${RunTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -3542,6 +3598,7 @@
 <RunAsAdmin>-1</RunAsAdmin>
 <Type>Run a program</Type>
 <WaitForFinish>0</WaitForFinish>
+<WorkingDirectory></WorkingDirectory>
 </Action></Actions>
 <Category>Taskbar</Category>
 <Conditions>
@@ -3592,12 +3649,14 @@
 <Actions>
 <Action>
 <Action>Copy Event</Action>
+<Compare></Compare>
 <DeleteAfterUse>1</DeleteAfterUse>
 <EvaluateOnCopy>1</EvaluateOnCopy>
 <EventID>1605</EventID>
 <Operator>equals</Operator>
 <Placeholder>ShutdownTimer</Placeholder>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Set time</Action>
 <Time>${TimerTime}</Time>
@@ -3605,6 +3664,7 @@
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>${ShutdownTimer}</TimerID>
 <Type>Control timer</Type>
 </Action></Actions>
@@ -3765,12 +3825,12 @@
 <Type>Mouse over taskbar list</Type>
 </Condition></Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
-<Description>Closes the window belonging to the taskbar button under the mouse or toggles the mute state when over empty space</Description>
+<Description>Closes the window belonging to the taskbar button under the mouse.</Description>
 <DisableAfterUse>0</DisableAfterUse>
 <Enabled>1</Enabled>
 <EventComplexityLevel>0</EventComplexityLevel>
 <ID>1620</ID>
-<Name>On Taskbar: Close window or toggle mute</Name>
+<Name>Close window of task button under mouse</Name>
 <OfficialEvent>23</OfficialEvent>
 <OneInstance>0</OneInstance>
 <Trigger>
@@ -5408,30 +5468,6 @@
 <OneInstance>0</OneInstance>
 <Trigger>
 <Key>#F18</Key>
-<Type>Hotkey</Type>
-</Trigger>
-</Event><Event>
-<Actions>
-<Action>
-<KeyDelay>0</KeyDelay>
-<Keys>&n;	static __WikiLink := ""</Keys>
-<Type>Send keyboard input</Type>
-<WriteText>1</WriteText>
-</Action></Actions>
-<Category>Uncategorized</Category>
-<Conditions>
-</Conditions>
-<DeleteAfterUse>0</DeleteAfterUse>
-<Description></Description>
-<DisableAfterUse>0</DisableAfterUse>
-<Enabled>1</Enabled>
-<EventComplexityLevel>0</EventComplexityLevel>
-<ID>1684</ID>
-<Name>New event</Name>
-<OfficialEvent>80</OfficialEvent>
-<OneInstance>0</OneInstance>
-<Trigger>
-<Key>^B</Key>
 <Type>Hotkey</Type>
 </Trigger>
 </Event></Events>

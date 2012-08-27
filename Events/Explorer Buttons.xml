@@ -1,4 +1,5 @@
 <BugfixVersion>0</BugfixVersion>
+<BuildVersion>0</BuildVersion>
 <Events>
 <Event>
 <Actions>
@@ -34,6 +35,7 @@
 <Actions>
 <Action>
 <BaseFile></BaseFile>
+<Filename>Neues Textdokument.txt</Filename>
 <Rename>1</Rename>
 <Type>Create new file</Type>
 </Action></Actions>

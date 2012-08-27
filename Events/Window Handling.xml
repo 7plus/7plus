@@ -1,4 +1,5 @@
 <BugfixVersion>0</BugfixVersion>
+<BuildVersion>0</BuildVersion>
 <Events>
 <Event>
 <Actions>
@@ -64,31 +65,43 @@
 <ShowState>1</ShowState>
 <Type>Change window state</Type>
 <Value>100</Value>
+<WindowFilterClass></WindowFilterClass>
+<WindowFilterExecutable></WindowFilterExecutable>
+<WindowFilterTitle></WindowFilterTitle>
 <WindowMatchType>UnderMouse</WindowMatchType>
 </Action><Action>
 <Action>Start timer</Action>
+<Time></Time>
 <TimerID>311</TimerID>
 <Type>Control timer</Type>
 </Action><Action>
 <Action>Enable Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Enable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -96,6 +109,10 @@
 <MouseOverType>Titlebar</MouseOverType>
 <Negate>0</Negate>
 <Type>Mouse over</Type>
+<WindowFilterClass></WindowFilterClass>
+<WindowFilterExecutable></WindowFilterExecutable>
+<WindowFilterTitle></WindowFilterTitle>
+<WindowMatchType></WindowMatchType>
 </Condition></Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
 <Description>Right click on the titlebar of a window to toggle its "Always on top" property. This is useful for keeping a window visible so that you can easily copy data from and to it.</Description>
@@ -119,14 +136,18 @@
 <WriteText>0</WriteText>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>311</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -150,14 +171,18 @@
 <Actions>
 <Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Trigger Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -181,19 +206,25 @@
 <Actions>
 <Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>309</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>310</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action><Action>
 <Action>Disable Event</Action>
+<Compare></Compare>
 <EventID>311</EventID>
 <Operator>equals</Operator>
 <Type>Control event</Type>
+<With></With>
 </Action></Actions>
 <Category>Window Handling</Category>
 <Conditions>
@@ -210,6 +241,7 @@
 <Trigger>
 <Restart>0</Restart>
 <ShowProgress>0</ShowProgress>
+<Text></Text>
 <Time>2000</Time>
 <Type>Timer</Type>
 </Trigger>
