@@ -5474,17 +5474,18 @@
 <Actions>
 <Action>
 <EventOnClickID>1685</EventOnClickID>
+<Icon>${Drive}:\</Icon>
 <Text>Click here to open the drive</Text>
 <Timeout>10</Timeout>
 <Title>${Drive} was added!</Title>
 <TrayToolTip>1</TrayToolTip>
 <Type>Show a tooltip</Type>
 </Action></Actions>
-<Category>Explorer</Category>
+<Category>Uncategorized</Category>
 <Conditions>
 </Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
-<Description>Shows a notification window when a new device is mounted as a volume that allows to open the drive.</Description>
+<Description>This event displays a notification when a new device adds a volume so that the drive can be opened by clicking on it.</Description>
 <DisableAfterUse>0</DisableAfterUse>
 <Enabled>1</Enabled>
 <EventComplexityLevel>0</EventComplexityLevel>
@@ -5510,7 +5511,7 @@
 <Conditions>
 </Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
-<Description>Executed when the notification window of a an added volume is clicked on. Opens the respective drive.</Description>
+<Description>This event is called by clicking on the notification that gets shown when a new device adds a volume. It opens the new drive.</Description>
 <DisableAfterUse>0</DisableAfterUse>
 <Enabled>1</Enabled>
 <EventComplexityLevel>0</EventComplexityLevel>

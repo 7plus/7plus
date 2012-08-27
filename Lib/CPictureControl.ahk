@@ -13,6 +13,13 @@ Class CPictureControl Extends CControl
 	{
 		if(Text && DllCall("GetObjectType", "PTR", Text) != (OBJ_BITMAP := 7) && !FileExist(Text)) ;If Text is no bitmap or path, assume that it's an icon and add the matching style
 			Options .= " +0x3"
+		if(InStr(FileExist(Text), "D"))
+		{
+			Options .= " +0x3"
+			VarSetCapacity(Path, 260 * 2) ;MAXPATH
+		  	Path := Text
+			Text := DllCall("Shell32\ExtractAssociatedIcon", "Ptr", 0, "Str", Path, "UShortP", lpiIcon, "Ptr")
+		}
 		if Text is Number
 			base.__New(Name, Options, Text, GUINum)
 		else

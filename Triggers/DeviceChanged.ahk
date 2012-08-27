@@ -19,7 +19,6 @@ Class CDeviceChangedTrigger Extends CTrigger
 		if(this.Drive != "All" && Filter.Drive != this.Drive)
 			return false
 		Event.Placeholders.Drive := Filter.Drive
-		outputdebug % "matches " exploreobj(Event.Placeholders)
 		return true
 	}
 	

@@ -7,7 +7,8 @@ Class CTooltipAction Extends CAction
 	static Timeout := 5
 	static Text := "Some Tooltip"
 	static Title := "Title is used for tray tooltips only."
-	static EventOnClickID := ""
+	static Icon := ""
+	static EventOnClickID := "%SystemRoot%\system32\SHELL32.dl,2"
 	
 	Execute(Event)
 	{
@@ -17,8 +18,7 @@ Class CTooltipAction Extends CAction
 		{		
 			Title := Event.ExpandPlaceholders(this.Title)
 			this.tmpPlaceholders := Event.Placeholders
-			outputdebug % "Placeholders:`n" IsObject(this.tmpPlaceholders) exploreobj(this.tmpPlaceholders)
-			Notify(Title, Text, Timeout / 1000, "", new Delegate(this, "TipClicked"))
+			Notify(Title, Text, Timeout / 1000, Event.ExpandPlaceholders(this.Icon), new Delegate(this, "TipClicked"))
 		}
 		else
 		{
@@ -62,11 +62,19 @@ Class CTooltipAction Extends CAction
 			this.AddControl(GUI, "Checkbox", "TrayToolTip", "Use notification window instead")
 			this.AddControl(GUI, "Edit", "Title", "", "", "Title:", "Placeholders", "Action_ToolTip_Placeholders_Title")
 			this.AddControl(GUI, "ComboBox", "EventOnClickID", "TriggerType:", "", "Trigger on click:")
+			this.AddControl(GUI, "Edit", "Icon", "", "", "Icon:","Browse", "Action_Tooltip_Icon")
 		}
 		else if(GoToLabel = "Placeholders_Text")
 			ShowPlaceholderMenu(sGUI, "Text")
 		else if(GoToLabel = "Placeholders_Title")
 			ShowPlaceholderMenu(sGUI, "Title")
+		else if(GoToLabel = "Icon")
+		{
+			ControlGetText, icon, , % "ahk_id " sGUI.Edit_Icon
+			StringSplit, icon, icon, `, ,%A_Space%
+			if(PickIcon(icon1, icon2))
+				ControlSetText, , %icon1%`, %icon2%, % "ahk_id " sGUI.Edit_Icon
+		}
 	}
 }
 
@@ -74,6 +82,9 @@ Action_ToolTip_Timeout:
 Tooltip
 return
 
+Action_ToolTip_Icon:
+GetCurrentSubEvent().GuiShow("", "Icon")
+return
 Action_ToolTip_Placeholders_Text:
 GetCurrentSubEvent().GuiShow("", "Placeholders_Text")
 return
