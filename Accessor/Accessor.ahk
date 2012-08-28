@@ -1423,7 +1423,7 @@ AccessorGUIClose:
 CAccessor.Instance.GUI.Close()
 return
 
-#if CAccessor.Instance.GUI.Visible
+#if CAccessor.Instance.GUI.Visible && CAccessor.Instance.SingleContext != CCalculatorPlugin.Type && !InStr(CAccessor.Instance.Filter, " in ")
 Numpad0::
 Numpad1::
 Numpad2::
