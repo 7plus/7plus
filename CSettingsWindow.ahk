@@ -2230,12 +2230,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 				PageEvents.listEvents.SelectedItems := PageEvents.listEvents.Items
 				return true
 			}
-			;Forward regular keys to event filter edit control
-			else if(wParam != 17 && (wParam <= 32 || wParam >= 41) && !GetKeyState("Control", "P"))
-			{
-				PostMessage, Message, %wParam%, %lParam%,, % "ahk_id " PageEvents.editEventFilter.hwnd
-				return true
-			}
+			;;Forward regular keys to event filter edit control
+			;else if(wParam != 17 && (wParam <= 32 || wParam >= 41) && !GetKeyState("Control", "P"))
+			;{
+			;	PostMessage, Message, %wParam%, %lParam%,, % "ahk_id " PageEvents.editEventFilter.hwnd
+			;	return true
+			;}
 		}
 		else if(hwnd = PageAccessorKeywords.listAccessorKeywords.hwnd)
 		{
