@@ -810,32 +810,38 @@ Class CExplorerWindow
 			return
 		for Item in ComObjCreate("Shell.Application").Windows
 		{
-			if(Item.hWnd != this.hWnd)
-				continue
-			if(!this.Selection.COMObject) ;New explorer window
+			try
 			{
-				doc := Item.Document
-				if(!doc)
-					return 0
-				ComObjConnect(doc, "Explorer")
-				this.Selection.COMObject := doc
-				this.Selection.History := Array(Navigation.GetSelectedFilenames(this.hwnd))
-			}
-			else ;explorer window is already registered, lets see if its view changed
-			{
-				doc := Item.Document
-				if(!doc)
-					continue			
-				Path := doc.Folder.Self.path
-				if(!Path)
+				if(Item.hWnd != this.hWnd)
 					continue
-				if(this.Path != Path) ;Compare by path since the COM wrapper objects are different
+				if(!this.Selection.COMObject) ;New explorer window
 				{
+					doc := Item.Document
+					if(!doc)
+						return 0
 					ComObjConnect(doc, "Explorer")
 					this.Selection.COMObject := doc
-					this.Selection.History := Array(Navigation.GetSelectedFilenames(this.hwnd)) ;Recreate array to remove selection history from previous folder
-					this.Path := Path
+					this.Selection.History := Array(Navigation.GetSelectedFilenames(this.hwnd))
 				}
+				else ;explorer window is already registered, lets see if its view changed
+				{
+					doc := Item.Document
+					if(!doc)
+						continue			
+					Path := doc.Folder.Self.path
+					if(!Path)
+						continue
+					if(this.Path != Path) ;Compare by path since the COM wrapper objects are different
+					{
+						ComObjConnect(doc, "Explorer")
+						this.Selection.COMObject := doc
+						this.Selection.History := Array(Navigation.GetSelectedFilenames(this.hwnd)) ;Recreate array to remove selection history from previous folder
+						this.Path := Path
+					}
+				}
+			}
+			catch e
+			{
 			}
 		}
 	}

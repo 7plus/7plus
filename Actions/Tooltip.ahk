@@ -8,7 +8,7 @@ Class CTooltipAction Extends CAction
 	static Text := "Some Tooltip"
 	static Title := "Title is used for tray tooltips only."
 	static Icon := ""
-	static EventOnClickID := "%SystemRoot%\system32\SHELL32.dl,2"
+	static EventOnClickID := ""
 	
 	Execute(Event)
 	{
@@ -18,7 +18,13 @@ Class CTooltipAction Extends CAction
 		{		
 			Title := Event.ExpandPlaceholders(this.Title)
 			this.tmpPlaceholders := Event.Placeholders
-			Notify(Title, Text, Timeout / 1000, Event.ExpandPlaceholders(this.Icon), new Delegate(this, "TipClicked"))
+			Icon := Event.ExpandPlaceholders(this.Icon)
+			if(InStr(Icon, ","))
+			{
+				StringSplit, icon, icon, `, ,%A_Space%
+				this.tmpIcon := Icon := ExtractIcon(icon1, icon2, 32)
+			}
+			Notify(Title, Text, Timeout / 1000, Icon, new Delegate(this, "TipClicked"))
 		}
 		else
 		{
@@ -30,11 +36,9 @@ Class CTooltipAction Extends CAction
 	
 	TipClicked(URLorID = "")
 	{
-		outputdebug tip clicked
 		if(IsNumeric(URLorID))
 		{
 			Event := EventSystem.Events.GetEventWithValue("ID", URLorID)
-			outputdebug % URLorID Event.Name IsObject(this.tmpPlaceholders)
 			if(Event)
 				Event.TriggerThisEvent("", this.tmpPlaceholders)
 		}
@@ -44,6 +48,8 @@ Class CTooltipAction Extends CAction
 			if(Event)
 				Event.TriggerThisEvent("", this.tmpPlaceholders)
 		}
+		; TODO: There are GDI object leaks around here. This function call is only a partial fix that reduces the leaks somewhat.
+		DestroyIcon(this.tmpIcon)
 	}
 
 	DisplayString()

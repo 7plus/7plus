@@ -5474,7 +5474,7 @@
 <Actions>
 <Action>
 <EventOnClickID>1685</EventOnClickID>
-<Icon>${Drive}:\</Icon>
+<Icon>${Drive}</Icon>
 <Text>Click here to open the drive</Text>
 <Timeout>10</Timeout>
 <Title>${Drive} was added!</Title>
@@ -5501,7 +5501,7 @@
 </Event><Event>
 <Actions>
 <Action>
-<Command>explorer.exe ${Drive}:\</Command>
+<Command>explorer.exe ${Drive}</Command>
 <RunAsAdmin>0</RunAsAdmin>
 <Type>Run a program</Type>
 <WaitForFinish>0</WaitForFinish>

@@ -71,7 +71,6 @@ Class CNotification
 	}
 	RegisterNotificationWindow(NotificationWindow)
 	{
-		;msgbox % this.Windows.MaxIndex() ": " this.Windows[this.Windows.MaxIndex()].Y
 		if(this.Windows.MaxIndex())
 			Y := this.Windows[this.Windows.MaxIndex()].Y - NotificationWindow.WindowHeight
 		else
@@ -81,7 +80,6 @@ Class CNotification
 			Y := this.WorkspaceArea.Bottom - NotificationWindow.WindowHeight
 		}
 		this.Windows.Insert(NotificationWindow)
-		;msgbox % objmaxindex(this.Windows)
 		NotificationWindow.OnClose.Handler := new Delegate(this, "OnClose")
 		if(NotificationWindow.Timeout)
 			SetTimer, CNotification_CloseTimer, -10
@@ -104,10 +102,7 @@ Class CNotification
 	{
 		Target := this.WorkspaceArea.Bottom
 		Loop % this.Windows.MaxIndex()
-		{
-			;msgbox % "Window " A_Index ": " Target - this.Windows[A_Index].WindowHeight
 			Target := this.Windows[A_Index].Target := Target - this.Windows[A_Index].WindowHeight
-		}
 	}
 	MoveWindows()
 	{
@@ -116,14 +111,12 @@ Class CNotification
 		{
 			hwnd := Window.hwnd
 			WinGetPos, , Y, , , ahk_id %hwnd%
-			;Y := Window.Y
 			if((Distance := Window.Target - Y) > 0)
 			{
 				Moved := true
 				Delta := (Distance > 50 ? 5 : Round(5 - 5/Distance))
 				Delta := Delta > Distance ? Distance : Delta
 				WinMove, ahk_id %hwnd%, , , % Y + Delta
-				;Window.Y := Y + (Distance > 50 ? 5 : Round(5 - 5/Distance))
 			}
 		}
 		if(Moved)
