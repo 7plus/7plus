@@ -5481,7 +5481,7 @@
 <TrayToolTip>1</TrayToolTip>
 <Type>Show a tooltip</Type>
 </Action></Actions>
-<Category>Uncategorized</Category>
+<Category>Window Handling</Category>
 <Conditions>
 </Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>
@@ -5507,7 +5507,7 @@
 <WaitForFinish>0</WaitForFinish>
 <WorkingDirectory></WorkingDirectory>
 </Action></Actions>
-<Category>Uncategorized</Category>
+<Category>Window Handling</Category>
 <Conditions>
 </Conditions>
 <DeleteAfterUse>0</DeleteAfterUse>

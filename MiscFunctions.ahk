@@ -502,7 +502,7 @@ ExtractIcon(Filename, IconNumber = 0, IconSize = 64)
 }
 
 ;Gets the visible window at a screen coordinate
-GetVisibleWindowAtPoint(x,y,IgnoredWindow)
+GetVisibleWindowAtPoint(x, y, IgnoredWindow)
 {
 	DetectHiddenWindows,off
 	WinGet, id, list,,,
@@ -512,9 +512,9 @@ GetVisibleWindowAtPoint(x,y,IgnoredWindow)
 	    ;WinActivate, ahk_id %this_id%
 	    WinGetClass, this_class, ahk_id %this_id%
 	    WinGetPos , WinX, WinY, Width, Height, ahk_id %this_id%
-	    if(IsInArea(x,y,WinX,WinY,Width,Height)&&this_class!=IgnoredWindow)
+	    if(IsInArea(x, y, WinX, WinY, Width, Height) && this_class != IgnoredWindow)
 	    {
-	    	DetectHiddenWindows,on
+	    	DetectHiddenWindows, on
 	    	return this_class
 	    }
 	}
@@ -522,34 +522,34 @@ GetVisibleWindowAtPoint(x,y,IgnoredWindow)
 }
 
 ;checks if a point is in a rectangle
-IsInArea(px,py,x,y,w,h)
+IsInArea(px, py, x, y, w, h)
 {
 	return (px > x && py > y && px < x + w && py < y + h)
 }
 
 ;Checks if two rectangles overlap
-RectsOverlap(x1,y1,w1,h1,x2,y2,w2,h2)
+RectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2)
 {
-	Union := RectUnion(x1,y1,w1,h1,x2,y2,w2,h2)
+	Union := RectUnion(x1, y1, w1, h1, x2, y2, w2, h2)
 	return Union.w && Union.h
 }
 
 ;Checks if two rectangles are separate
-RectsSeparate(x1,y1,w1,h1,x2,y2,w2,h2)
+RectsSeparate(x1, y1, w1, h1, x2, y2, w2, h2)
 {
-	Union := RectUnion(x1,y1,w1,h1,x2,y2,w2,h2)
+	Union := RectUnion(x1, y1, w1, h1, x2, y2, w2, h2)
 	return Union.w = 0 && Union.h = 0
 }
 
 ;Check if the first rectangle includes the second one
-RectIncludesRect(x1,y1,w1,h1,ix,iy,iw,ih)
+RectIncludesRect(x1, y1, w1, h1, ix, iy, iw, ih)
 {
-	Union := RectUnion(x1,y1,w1,h1,ix,iy,iw,ih)
+	Union := RectUnion(x1, y1, w1, h1, ix, iy, iw, ih)
 	return Union.x = ix && Union.y = iy && Union.w = iw && Union.h = ih
 }
 
 ;Calculates the union of two rectangles
-RectUnion(x1,y1,w1,h1,x2,y2,w2,h2)
+RectUnion(x1, y1, w1, h1, x2, y2, w2, h2)
 {
 	x3 := ""
 	y3 := ""

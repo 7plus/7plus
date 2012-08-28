@@ -232,15 +232,15 @@ Finally, here are some settings that you're likely to change at the beginning:
 )
 		Page.AddControl("Text", "textIntroduction", "xs+21 ys+16 w574 h182", Text)
 
-		Page.AddControl("CheckBox", "chkAutoUpdate", "xs+24 ys+263", "Automatically look for updates on startup")
-		Page.AddControl("CheckBox", "chkAutoUpdateBeta", "xs+40 y+30", "Participate in Betas")
-		Page.AddControl("CheckBox", "chkHideTrayIcon", "xs+24 y+30", "Hide Tray Icon (press WIN + H (default settings) to show settings!)")
-		Page.AddControl("CheckBox", "chkAutoRun", "xs+24 y+30", "Autorun 7plus on windows startup")
-		chkShowTips := Page.AddControl("CheckBox", "chkShowTips", "xs+24 y+30", "Show tips about the usage of 7plus (highly recommended to discover its features)")
+		Page.AddControl("CheckBox", "chkAutoUpdate", "xs+24 ys+200", "Automatically look for updates on startup")
+		Page.AddControl("CheckBox", "chkAutoUpdateBeta", "xs+40 y+10", "Participate in Betas")
+		Page.AddControl("CheckBox", "chkHideTrayIcon", "xs+24 y+10", "Hide Tray Icon (press WIN + H (default settings) to show settings!)")
+		Page.AddControl("CheckBox", "chkAutoRun", "xs+24 y+10", "Autorun 7plus on windows startup")
+		chkShowTips := Page.AddControl("CheckBox", "chkShowTips", "xs+24 y+10", "Show tips about the usage of 7plus (highly recommended to discover its features)")
 		chkShowTips.ToolTip := "Tips will be shown when specific actions, such as pasting some text, are carried out. Each tip is only shown once in a non-obstrusive manner. This is recommended for most users that don't want to go through all the whole configuration of 7plus to discover most of its features."
 		;Page.AddControl("Text", "txtLanguage", "xs+21 ys+339 w129 h13", "Documentation language:")
 		;Page.AddControl("DropDownList", "ddlLanguage", "xs+203 ys+336 w160", "")
-		Page.AddControl("Text", "txtRunAsAdmin", "xs+24 y+30", "Run as admin:")
+		Page.AddControl("Text", "txtRunAsAdmin", "xs+24 y+10", "Run as admin:")
 		Page.AddControl("DropDownList", "ddlRunAsAdmin", "xs+203 yp+-3 w160", "Always/Ask|Never")
 		Page.Controls.txtRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
 		Page.Controls.ddlRunAsAdmin.ToolTip := "Required for explorer buttons, Autoupdate and for accessing programs which are running as admin. Also make sure that 7plus has write access to its config files when not running as admin."
@@ -320,13 +320,13 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.btnDeleteEvents.ToolTip := "Delete selected events"
 		Page.Controls.btnDeleteEvents.SetImage(A_WinDir "\system32\shell32.dll:131", 16, 16, 0)
 
-		Page.AddControl("Button", "btnEnableEvents", "xs+567 y+9 w80 h23", "E&nable")
-		Page.Controls.btnEnableEvents.ToolTip := "Enable selected events"
-		Page.Controls.btnEnableEvents.SetImage(A_ScriptDir "\Icons\check.ico", 16, 16, 0)
+		;Page.AddControl("Button", "btnEnableEvents", "xs+567 y+9 w80 h23", "E&nable")
+		;Page.Controls.btnEnableEvents.ToolTip := "Enable selected events"
+		;Page.Controls.btnEnableEvents.SetImage(A_ScriptDir "\Icons\check.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnDisableEvents", "xs+567 y+9 w80 h23", "D&isable")
-		Page.Controls.btnDisableEvents.ToolTip := "Disable selected events"
-		Page.Controls.btnDisableEvents.SetImage(A_ScriptDir "\Icons\uncheck.ico", 16, 16, 0)
+		;Page.AddControl("Button", "btnDisableEvents", "xs+567 y+9 w80 h23", "D&isable")
+		;Page.Controls.btnDisableEvents.ToolTip := "Disable selected events"
+		;Page.Controls.btnDisableEvents.SetImage(A_ScriptDir "\Icons\uncheck.ico", 16, 16, 0)
 
 		Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy")
 		Page.Controls.btnCopyEvent.ToolTip := "Copy selected events"
@@ -366,6 +366,8 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page := this.Pages.Events.Tabs[1].Controls
 		this.SupressFillEventsList := true
 		Page.chkShowAdvancedEvents.Checked := Settings.General.ShowAdvancedEvents
+		Page.btnPasteEvent.Enabled := this.IsEventClipboardAvailable()
+
 		if(!this.Events)
 		{
 			for index, Event in EventSystem.Events
@@ -567,6 +569,71 @@ Finally, here are some settings that you're likely to change at the beginning:
 			this.Events.GetItemWithValue("ID", Row[2]).Enabled := Row.Checked
 	}
 
+	;This additional handler is needed apparently due to clipping isuses with the tab controls.
+	;Sometiems right clicks on the listview will register as right clicks on the tab control
+	Events_ContextMenu()
+	{
+		ControlGetPos, x, y, w, h, , % "ahk_id " this.Pages.Events.Tabs[1].Controls.listEvents.hwnd
+		CoordMode, Mouse, Relative
+		MouseGetPos, mx, my
+		if(IsInArea(mx, my, x, y, w, h))
+			this.listEvents_ContextMenu()
+	}
+	listEvents_ContextMenu()
+	{
+		Menu, EventList, UseErrorLevel
+		Menu, EventList, DeleteAll
+		;Fake default menu items
+		count := this.Pages.Events.Tabs[1].Controls.listEvents.SelectedItems.MaxIndex()
+		if(count = 1)
+		{
+			Menu, EventList, add, Edit Event, Settings_EditEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Edit Event, % A_WinDir "\system32\shell32.dll", 166
+			menu, EventList, Default, Edit Event
+
+			Menu, EventList, add, Delete Event, Settings_DeleteEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Delete Event, % A_WinDir "\system32\shell32.dll", 166
+
+			Menu, EventList, add, Copy Event, Settings_CopyEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Copy Event, % A_WinDir "\system32\shell32.dll", 166
+
+			if(this.IsEventClipboardAvailable())
+			{
+				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
+				Menu, EventList, Icon, Paste Event(s), % A_WinDir "\system32\shell32.dll", 166
+			}
+
+			Menu, EventList, add, Create Shortcut, Settings_CreateShortcut; Creates a new menu item.
+			Menu, EventList, Icon, Create Shortcut, % A_WinDir "\system32\shell32.dll", 166
+
+			Menu, EventList, add, Export Event, Settings_ExportEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Export Event, % A_WinDir "\system32\shell32.dll", 166
+
+			Menu, EventList, add, Share Event, Settings_ShareEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Share Event, % A_WinDir "\system32\shell32.dll", 166
+		}
+		else if(count > 1)
+		{
+			Menu, EventList, add, Delete Events, Settings_DeleteEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Delete Events, % A_WinDir "\system32\shell32.dll", 166
+
+			Menu, EventList, add, Copy Events, Settings_CopyEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Copy Events, % A_WinDir "\system32\shell32.dll", 166
+
+			if(this.IsEventClipboardAvailable())
+			{
+				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
+				Menu, EventList, Icon, Paste Event(s), % A_WinDir "\system32\shell32.dll", 166
+			}
+
+			Menu, EventList, add, Export Events, Settings_ExportEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Export Events, % A_WinDir "\system32\shell32.dll", 166
+
+			Menu, EventList, add, Share Events, Settings_ShareEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Share Events, % A_WinDir "\system32\shell32.dll", 166
+		}
+		Menu, EventList, Show
+	}
 	btnAddEvent_Click()
 	{
 		this.AddEvent()
@@ -621,16 +688,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 	
 	btnCreateShortcut_Click()
 	{
-		Page := this.Pages.Events.Tabs[1].Controls
-		if(Page.listEvents.SelectedItems.MaxIndex() != 1)
-			return
-		Event := this.Events.GetItemWithValue("ID", Page.listEvents.SelectedItem[2])
-		if(!Event)
-			return
-		fd := new CFileDialog("Save")
-		fd.Filter := "Link files (*.lnk)"
-		if(fd.Show())
-			FileCreateShortcut, % (A_IsCompiled ? A_ScriptFullPath : A_AhkPath), % (strEndsWith(fd.Filename, ".lnk") ? fd.Filename : fd.Filename ".lnk"), %A_ScriptDir%, % (A_IsCompiled ? "": """" A_ScriptFullPath """ ") "-id:" Event.ID, % "7plus: Trigger """ Event.Name """", %A_ScriptDir%\7+-128.ico
+		this.CreateShortcut()
 	}
 	
 	lnkEventDescription_Click(URL)
@@ -808,7 +866,7 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page := this.Pages.Events.Tabs[1].Controls
 		count := Page.listEvents.SelectedItems.MaxIndex()
 		if(!count)
-			return
+			return 0
 		ClipboardEvents := new CEvents()
 		for index, item in Page.listEvents.SelectedItems
 		{	
@@ -818,19 +876,47 @@ Finally, here are some settings that you're likely to change at the beginning:
 			if((!ApplicationState.IsPortable && A_IsAdmin) || !Event.Trigger.Is(CExplorerButtonTrigger))
 				ClipboardEvents.Insert(copy)
 		}
-		ClipboardEvents.WriteEventsFile(A_Temp "/7plus/EventsClipboard.xml")	
+		ClipboardEvents.WriteEventsFile(A_Temp "\7plus\EventsClipboard.xml")	
 		Page.btnPasteEvent.Enabled := true
+		return count
 	}
 
 	PasteEvent()
 	{
 		Page := this.Pages.Events.Tabs[1].Controls
-		if(FileExist(A_Temp "/7plus/EventsClipboard.xml"))
+		if(this.IsEventClipboardAvailable())
 		{
 			SelectedCategory := this.GetSelectedCategory(true)
-			this.Events.ReadEventsFile(A_Temp "/7plus/EventsClipboard.xml", SelectedCategory)
+			this.Events.ReadEventsFile(A_Temp "\7plus\EventsClipboard.xml", SelectedCategory)
 			this.FillEventsList()
 		}
+	}
+
+	IsEventClipboardAvailable()
+	{
+		return FileExist(A_Temp "\7plus\EventsClipboard.xml") != ""
+	}
+
+	DuplicateEvent()
+	{
+		if(n := this.CopyEvent())
+			this.PasteEvent()
+		if(n = 1)
+			this.EditEvent()
+	}
+
+	CreateShortcut()
+	{
+		Page := this.Pages.Events.Tabs[1].Controls
+		if(Page.listEvents.SelectedItems.MaxIndex() != 1)
+			return
+		Event := this.Events.GetItemWithValue("ID", Page.listEvents.SelectedItem[2])
+		if(!Event)
+			return
+		fd := new CFileDialog("Save")
+		fd.Filter := "Link files (*.lnk)"
+		if(fd.Show())
+			FileCreateShortcut, % (A_IsCompiled ? A_ScriptFullPath : A_AhkPath), % (strEndsWith(fd.Filename, ".lnk") ? fd.Filename : fd.Filename ".lnk"), %A_ScriptDir%, % (A_IsCompiled ? "": """" A_ScriptFullPath """ ") "-id:" Event.ID, % "7plus: Trigger """ Event.Name """", %A_ScriptDir%\7+-128.ico
 	}
 
 	ImportEvents()
@@ -927,7 +1013,12 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		this.Enabled := true
 	}
-	
+
+	ShareEvent()
+	{
+
+	}
+
 	;Accessor
 	CreateAccessor()
 	{
@@ -2209,11 +2300,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 		run https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CCDPER7Z2CHZW
 	}
 	
-	
-	
 	WM_KEYDOWN(Message, wParam, lParam, hwnd)
 	{
-		static VK_DELETE := 46, VK_A := 65
+		static VK_DELETE := 46, VK_A := 65, VK_C := 67, VK_D := 68, VK_V := 86
 		PageEvents := this.Pages.Events.Tabs[1].Controls
 		PageAccessorKeywords := this.Pages.Keywords.Tabs[1].Controls
 		PageHotStrings := this.Pages.HotStrings.Tabs[1].Controls
@@ -2228,6 +2317,21 @@ Finally, here are some settings that you're likely to change at the beginning:
 			else if(wParam = VK_A && GetKeyState("Control", "P"))
 			{
 				PageEvents.listEvents.SelectedItems := PageEvents.listEvents.Items
+				return true
+			}
+			else if(wParam = VK_C && GetKeyState("Control", "P"))
+			{
+				this.CopyEvent()
+				return true
+			}
+			else if(wParam = VK_D && GetKeyState("Control", "P"))
+			{
+				this.DuplicateEvent()
+				return true
+			}
+			else if(wParam = VK_V && GetKeyState("Control", "P"))
+			{
+				this.PasteEvent()
 				return true
 			}
 			;;Forward regular keys to event filter edit control
@@ -2280,4 +2384,26 @@ Finally, here are some settings that you're likely to change at the beginning:
 ;Called as timer by ApplyFastFolders to show quicker settings apply (even though it isn't in reality!)
 PrepareFolderBand:
 PrepareFolderBand()
+return
+
+Settings_EditEvent:
+SettingsWindow.EditEvent(0)
+return
+Settings_DeleteEvent:
+SettingsWindow.DeleteEvents()
+return
+Settings_CopyEvent:
+SettingsWindow.CopyEvent()
+return
+Settings_PasteEvent:
+SettingsWindow.PasteEvent()
+return
+Settings_CreateShortcut:
+SettingsWindow.CreateShortcut()
+return
+Settings_ExportEvent:
+SettingsWindow.ExportEvents()
+return
+Settings_ShareEvent:
+SettingsWindow.ShareEvent()
 return
