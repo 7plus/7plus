@@ -588,49 +588,49 @@ Finally, here are some settings that you're likely to change at the beginning:
 		if(count = 1)
 		{
 			Menu, EventList, add, Edit Event, Settings_EditEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Edit Event, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Edit Event, % A_ScriptDir "\Icons\edit.ico"
 			menu, EventList, Default, Edit Event
 
 			Menu, EventList, add, Delete Event, Settings_DeleteEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Delete Event, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Delete Event, % A_WinDir "\system32\shell32.dll", 132
 
 			Menu, EventList, add, Copy Event, Settings_CopyEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Copy Event, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Copy Event, % A_ScriptDir "\Icons\copy.ico"
 
 			if(this.IsEventClipboardAvailable())
 			{
 				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
-				Menu, EventList, Icon, Paste Event(s), % A_WinDir "\system32\shell32.dll", 166
+				Menu, EventList, Icon, Paste Event(s), % A_ScriptDir "\Icons\paste.ico"
 			}
 
 			Menu, EventList, add, Create Shortcut, Settings_CreateShortcut; Creates a new menu item.
-			Menu, EventList, Icon, Create Shortcut, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Create Shortcut, % A_ScriptDir "\Icons\link.ico"
 
 			Menu, EventList, add, Export Event, Settings_ExportEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Export Event, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Export Event, % A_ScriptDir "\Icons\save.ico"
 
 			Menu, EventList, add, Share Event, Settings_ShareEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Share Event, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Share Event, % A_ScriptDir "\Icons\share.ico"
 		}
 		else if(count > 1)
 		{
 			Menu, EventList, add, Delete Events, Settings_DeleteEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Delete Events, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Delete Events, % A_WinDir "\system32\shell32.dll", 132
 
 			Menu, EventList, add, Copy Events, Settings_CopyEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Copy Events, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Copy Events, % A_ScriptDir "\Icons\copy.ico"
 
 			if(this.IsEventClipboardAvailable())
 			{
 				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
-				Menu, EventList, Icon, Paste Event(s), % A_WinDir "\system32\shell32.dll", 166
+				Menu, EventList, Icon, Paste Event(s), % A_ScriptDir "\Icons\paste.ico"
 			}
 
 			Menu, EventList, add, Export Events, Settings_ExportEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Export Events, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Export Events, % A_ScriptDir "\Icons\save.ico"
 
 			Menu, EventList, add, Share Events, Settings_ShareEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Share Events, % A_WinDir "\system32\shell32.dll", 166
+			Menu, EventList, Icon, Share Events, % A_ScriptDir "\Icons\share.ico"
 		}
 		Menu, EventList, Show
 	}
