@@ -328,13 +328,13 @@ Finally, here are some settings that you're likely to change at the beginning:
 		;Page.Controls.btnDisableEvents.ToolTip := "Disable selected events"
 		;Page.Controls.btnDisableEvents.SetImage(A_ScriptDir "\Icons\uncheck.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy")
-		Page.Controls.btnCopyEvent.ToolTip := "Copy selected events"
-		Page.Controls.btnCopyEvent.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
+		;Page.AddControl("Button", "btnCopyEvent", "xs+567 y+9 w80 h23", "&Copy")
+		;Page.Controls.btnCopyEvent.ToolTip := "Copy selected events"
+		;Page.Controls.btnCopyEvent.SetImage(A_ScriptDir "\Icons\copy.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnPasteEvent", "xs+567 y+9 w80 h23", "&Paste")
-		Page.Controls.btnPasteEvent.ToolTip := "Paste copied events"
-		Page.Controls.btnPasteEvent.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
+		;Page.AddControl("Button", "btnPasteEvent", "xs+567 y+9 w80 h23", "&Paste")
+		;Page.Controls.btnPasteEvent.ToolTip := "Paste copied events"
+		;Page.Controls.btnPasteEvent.SetImage(A_ScriptDir "\Icons\paste.ico", 16, 16, 0)
 		
 		Page.AddControl("Button", "btnImportEvents", "xs+567 y+9 w80 h23", "&Import")
 		Page.Controls.btnImportEvents.ToolTip := "Import events"
@@ -344,9 +344,9 @@ Finally, here are some settings that you're likely to change at the beginning:
 		Page.Controls.btnExportEvents.ToolTip := "Export events"
 		Page.Controls.btnExportEvents.SetImage(A_ScriptDir "\Icons\save.ico", 16, 16, 0)
 
-		Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "&Shortcut")
-		Page.Controls.btnCreateShortcut.ToolTip := "Create a shortcut for the selected event"
-		Page.Controls.btnCreateShortcut.SetImage(A_ScriptDir "\Icons\link.ico", 16, 16, 0)
+		;Page.AddControl("Button", "btnCreateShortcut", "xs+567 y+9 w80 h23", "&Shortcut")
+		;Page.Controls.btnCreateShortcut.ToolTip := "Create a shortcut for the selected event"
+		;Page.Controls.btnCreateShortcut.SetImage(A_ScriptDir "\Icons\link.ico", 16, 16, 0)
 
 		Page.AddControl("Edit", "editEventFilter", "xs+413 ys+50 w144 h20", "")
 		Page.AddControl("Text", "txtEventSearch", "xs+332 ys+53 w75 h13", "Event Search:")
@@ -583,27 +583,28 @@ Finally, here are some settings that you're likely to change at the beginning:
 	{
 		Menu, EventList, UseErrorLevel
 		Menu, EventList, DeleteAll
+		Menu, EventList, UseErrorLevel, Off
 		;Fake default menu items
 		count := this.Pages.Events.Tabs[1].Controls.listEvents.SelectedItems.MaxIndex()
 		if(count = 1)
 		{
-			Menu, EventList, add, Edit Event, Settings_EditEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Edit Event, % A_ScriptDir "\Icons\edit.ico"
-			menu, EventList, Default, Edit Event
+			Menu, EventList, add, Edit Event`tDouble click, Settings_EditEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Edit Event`tDouble click, % A_ScriptDir "\Icons\edit.ico"
+			menu, EventList, Default, Edit Event`tDouble click
 
-			Menu, EventList, add, Delete Event, Settings_DeleteEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Delete Event, % A_WinDir "\system32\shell32.dll", 132
+			Menu, EventList, add, Delete Event`tDelete, Settings_DeleteEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Delete Event`tDelete, % A_WinDir "\system32\shell32.dll", 132
 
-			Menu, EventList, add, Copy Event, Settings_CopyEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Copy Event, % A_ScriptDir "\Icons\copy.ico"
+			Menu, EventList, add, Copy Event`tCTRL + C, Settings_CopyEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Copy Event`tCTRL + C, % A_ScriptDir "\Icons\copy.ico"
 
 			if(this.IsEventClipboardAvailable())
 			{
-				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
-				Menu, EventList, Icon, Paste Event(s), % A_ScriptDir "\Icons\paste.ico"
+				Menu, EventList, add, Paste Event(s)`tCTRL + V, Settings_PasteEvent  ; Creates a new menu item.
+				Menu, EventList, Icon, Paste Event(s)`tCTRL + V, % A_ScriptDir "\Icons\paste.ico"
 			}
 
-			Menu, EventList, add, Create Shortcut, Settings_CreateShortcut; Creates a new menu item.
+			Menu, EventList, add, Create Shortcut, Settings_CreateShortcut ; Creates a new menu item.
 			Menu, EventList, Icon, Create Shortcut, % A_ScriptDir "\Icons\link.ico"
 
 			Menu, EventList, add, Export Event, Settings_ExportEvent  ; Creates a new menu item.
@@ -614,16 +615,16 @@ Finally, here are some settings that you're likely to change at the beginning:
 		}
 		else if(count > 1)
 		{
-			Menu, EventList, add, Delete Events, Settings_DeleteEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Delete Events, % A_WinDir "\system32\shell32.dll", 132
+			Menu, EventList, add, Delete Events`tDelete, Settings_DeleteEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Delete Events`tDelete, % A_WinDir "\system32\shell32.dll", 132
 
-			Menu, EventList, add, Copy Events, Settings_CopyEvent  ; Creates a new menu item.
-			Menu, EventList, Icon, Copy Events, % A_ScriptDir "\Icons\copy.ico"
+			Menu, EventList, add, Copy Events`tCTRL + C, Settings_CopyEvent  ; Creates a new menu item.
+			Menu, EventList, Icon, Copy Events`tCTRL + C, % A_ScriptDir "\Icons\copy.ico"
 
 			if(this.IsEventClipboardAvailable())
 			{
-				Menu, EventList, add, Paste Event(s), Settings_PasteEvent  ; Creates a new menu item.
-				Menu, EventList, Icon, Paste Event(s), % A_ScriptDir "\Icons\paste.ico"
+				Menu, EventList, add, Paste Event(s)`tCTRL + V, Settings_PasteEvent  ; Creates a new menu item.
+				Menu, EventList, Icon, Paste Event(s)`tCTRL + V, % A_ScriptDir "\Icons\paste.ico"
 			}
 
 			Menu, EventList, add, Export Events, Settings_ExportEvent  ; Creates a new menu item.
