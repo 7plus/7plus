@@ -530,7 +530,7 @@ Class CControl ;Never created directly
 					Numput(1|16, TInfo, 4, "UINT")
 					Numput(GuiHwnd, TInfo, 8, "PTR")
 					Numput(chwnd, TInfo, 8 + A_PtrSize, "PTR")
-					Numput(&Value, TInfo, 6 + 3 * A_PtrSize, "PTR")
+					Numput(&Value, TInfo, 24 + 3 * A_PtrSize, "PTR")
 					if(!this._.Tooltip)
 					{
 						DllCall("SendMessage", "Ptr", TThwnd, "Uint", 1028, "Ptr", 0, Ptr, &TInfo, "Ptr")         ; TTM_ADDTOOL = 1028 (used to add a tool, and assign it to a control)
