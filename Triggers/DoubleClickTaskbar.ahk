@@ -15,10 +15,14 @@ Class CDoubleClickTaskbarTrigger Extends CTrigger
 
 ;Can't add the double click condition here, because IsDoubleClick seems to fail when called in the #if condition
 ;mouse click on the taskbar is simulated instead.
-#if IsMouseOverTaskList()
+#if Is_DoubleClickTaskbar_Enabled()
 LButton::DoubleClickTaskbar()
 #if
-
+Is_DoubleClickTaskbar_Enabled()
+{
+	EventSystem.Events.EventFromSubEventKey(Event, Trigger, "Type", CDoubleClickTaskbarTrigger.Type, "T")
+	return IsMouseOverTaskList() && IsObject(Event) && Event.Enabled
+}
 DoubleClickTaskbar()
 {
 	if(IsDoubleClick() && IsMouseOverFreeTaskListSpace())
