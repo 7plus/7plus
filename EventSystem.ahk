@@ -478,7 +478,45 @@ Class CEvents extends CArray
 		else
 			return Base.FindKeyWithValue(Key, Value)
 	}
-
+	;Finds the event and subevent in which a subevent has a specific key with a specific value. Filter specifies which types of subevents should be searched.
+	EventFromSubEventKey(ByRef pEvent, ByRef pSubEvent, Key, Value, Filter = "TCA")
+	{
+		for index, Event in this
+		{
+			if(InStr(Filter, "A"))
+			{
+				for index2, Action in Event.Actions
+				{
+					if(Action[Key] = Value)
+					{
+						pEvent := Event
+						pSubEvent := Action
+						return Event
+					}
+				}
+			}
+			if(InStr(Filter, "C"))
+			{
+				for index3, Condition in Event.Conditions
+				{
+					if(Condition[Key] = Value)
+					{
+						pEvent := Event
+						pSubEvent := Condition
+						return Event
+					}
+				}
+			}
+			
+			if(Event.Trigger[Key] = Value && InStr(Filter, "T"))
+			{
+				pEvent := Event
+				pSubEvent := Event.Trigger
+				return Event
+			}
+		}
+		return 0
+	}
 	ReadMainEventsFile()
 	{
 		this.ReadEventsFile(Settings.ConfigPath "\Events.xml")
