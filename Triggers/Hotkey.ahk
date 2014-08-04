@@ -1,4 +1,4 @@
-Class CHotkeyTrigger Extends CTrigger
+﻿Class CHotkeyTrigger Extends CTrigger
 {
 	static Type := RegisterType(CHotkeyTrigger, "Hotkey")
 	static Category := RegisterCategory(CHotkeyTrigger, "Hotkeys")
@@ -330,9 +330,8 @@ Class CHotkeyTrigger Extends CTrigger
 		;Return to sender
 		return Abort = true
 	}
-
 	;Checks if a hotkey is not used internally by 7plus and may be used for a custom hotkey trigger
-	CollisionCheck(key1, filter1, exclude)
+	CollisionCheck(key1,filter1,exclude)
 	{
 		7PlusHotkeys := "#e,^i,^t,^Tab,^+Tab,^w"
 		if(key1 = exclude) 
@@ -345,7 +344,7 @@ Class CHotkeyTrigger Extends CTrigger
 		key1_Right := InStr(key1, ">") > 0 || !InStr(key1, "<")
 		key1_WildCard := InStr(key1, "*") > 0
 		key1_stripped := RegExReplace(key1, "[\*\+\^#><!~]*")
-		Loop, parse, 7PlusHotkeys, `, ,%A_Space%
+		Loop, parse, 7PlusHotkeys, `,,%A_Space%
 		{
 			key2 := A_LoopField
 			key2_Win := InStr(key2, "#") > 0
@@ -356,7 +355,7 @@ Class CHotkeyTrigger Extends CTrigger
 			key2_Right := InStr(key2, ">") > 0 || !InStr(key2, "<")
 			key2_WildCard := InStr(key2, "*") > 0
 			key2_stripped := RegExReplace(key2, "[\*\+\^#><!~]*")
-			DirCollision:=((key1_Left = true && key1_Left = key2_Left) || (key1_Right = true && key1_Right = key2_Right))
+			DirCollision:=((key1_Left = true && key1_Left = key2_Left)||(key1_Right = true && key1_Right = key2_Right))
 			KeyCollision:=(key1_stripped = key2_stripped)
 			StateCollision:=((key1_Win = key2_Win && key1_Alt = key2_Alt && key1_Control = key2_Control && key1_Shift = key2_Shift) || key1_WildCard || key2_WildCard)
 			if(KeyCollision && StateCollision && DirCollision)
@@ -365,7 +364,6 @@ Class CHotkeyTrigger Extends CTrigger
 		return false
 	}
 }
-
 HotkeyGUI_UpdateHotkey:
 GetCurrentSubEvent().GuiShow("", "UpdateHotkey")
 return

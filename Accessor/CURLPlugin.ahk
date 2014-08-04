@@ -162,7 +162,10 @@ Class CURLPlugin extends CAccessorPlugin
 			RegRead, LocalAppData, HKEY_CURRENT_USER, Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders, Local AppData
 			if(FileExist(LocalAppData "\Google\Chrome\User Data\Default\Bookmarks"))
 			{
+				oldFileEncoding := A_FileEncoding ;backup
+				FileEncoding, UTF-8
 				FileRead, json, % LocalAppData "\Google\Chrome\User Data\Default\Bookmarks"
+				FileEncoding, %oldFileEncoding% ;restore
 				obj := lson(json)
 				;obj := JSON_load(LocalAppData "\Google\Chrome\User Data\Default\Bookmarks")
 				this.ChromeBookmarks := Array()
