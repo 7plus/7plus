@@ -8,7 +8,7 @@ Class CFileMoveAction Extends CAction
 	Execute(Event)
 	{
 		this.FileOperationProcessPaths(Event, sources, targets, flags)
-		ShellFileOperation(0x1, sources, targets, flags)  
+		ShellFileOperation(0x1, sources, targets, flags, A_ScriptHwnd)  
 		return 1
 	}
 
