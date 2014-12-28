@@ -64,26 +64,27 @@ ShellFileOperation( fileO=0x0, fSource="", fTarget="", flags=0x0, ghwnd=0x0 )
          NumPut(0, fTarget, (A_Index-1)*char_size, char_type)
    /*
    typedef struct _SHFILEOPSTRUCT {
-     HWND         hwnd;
-     UINT         wFunc;
-     PCZZTSTR     pFrom; <-- LPCWSTR
-     PCZZTSTR     pTo;
-     FILEOP_FLAGS fFlags; <-- WORD
-     BOOL         fAnyOperationsAborted;
-     LPVOID       hNameMappings;
-     PCTSTR       lpszProgressTitle;
+     HWND         hwnd; A_PtrSize
+     UINT         wFunc; 4
+     PCZZTSTR     pFrom; <-- LPCWSTR, A_PtrSize
+     PCZZTSTR     pTo; A_PtrSize
+     FILEOP_FLAGS fFlags; <-- WORD, 2
+     BOOL         fAnyOperationsAborted;, 4
+     LPVOID       hNameMappings; A_PtrSize
+     PCTSTR       lpszProgressTitle; A_PtrSize
    } SHFILEOPSTRUCT, *LPSHFILEOPSTRUCT;
+   Total:
+   A_PtrSize + 4 (+ 4 Padding) Padding + A_PtrSize + A_PtrSize + 2 + 2 Padding + 4 + A_PtrSize + A_PtrSize = 12 (+4) + 5 x A_PtrSize
    */
-   VarSetCapacity( SHFILEOPSTRUCT, 3 + 5 * A_PtrSize, 0)                 ; Encoding SHFILEOPSTRUCT
+   VarSetCapacity( SHFILEOPSTRUCT, 12 + 5 * A_PtrSize, 0)                 ; Encoding SHFILEOPSTRUCT
    NumPut( ghwnd, &SHFILEOPSTRUCT, "PTR")   ; hWnd of calling GUI
    NumPut( fileO, SHFILEOPSTRUCT, A_PtrSize, "UINT")          ; File operation
-   NumPut( fsPtr, SHFILEOPSTRUCT, 4 + A_PtrSize, "PTR")          ; Source file / pattern
-   NumPut( ftPtr, SHFILEOPSTRUCT, 4 + 2 * A_PtrSize, "PTR" )          ; Target file / folder
-   NumPut( flags, SHFILEOPSTRUCT, 4 + 3 * A_PtrSize, "Short" ) ; options
+   NumPut( fsPtr, SHFILEOPSTRUCT, 2 * A_PtrSize, "PTR")          ; Source file / pattern
+   NumPut( ftPtr, SHFILEOPSTRUCT, 3 * A_PtrSize, "PTR" )          ; Target file / folder
+   NumPut( flags, SHFILEOPSTRUCT, 4 * A_PtrSize, "Short" ) ; options
 
-   code := DllCall( "Shell32\SHFileOperation" . (A_IsUnicode ? "W" : "A"), UInt, &SHFILEOPSTRUCT )
+   code := DllCall( "Shell32\SHFileOperation" . (A_IsUnicode ? "W" : "A"), Ptr, &SHFILEOPSTRUCT )
    ErrorLevel := ShellFileOperation_InterpretReturn(code)
-
    Return NumGet( NextOffset+0 )
 }
 
