@@ -8,7 +8,7 @@ Class CFileCopyAction Extends CAction
 	Execute(Event)
 	{
 		this.FileOperationProcessPaths(Event, sources, targets, flags)
-		ShellFileOperation(0x2, sources, targets, flags)  
+		ShellFileOperation(0x2, sources, targets, flags, A_ScriptHwnd)  
 		return 1
 	}
 
