@@ -8,7 +8,7 @@ Class CFileDeleteAction Extends CAction
 	Execute(Event)
 	{
 		this.FileOperationProcessPaths(Event, sources, targets, flags)
-		ShellFileOperation(0x3, sources, "", flags)  
+		ShellFileOperation(0x3, sources, "", flags, A_ScriptHwnd)  
 		return 1
 	}
 
