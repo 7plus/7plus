@@ -24,7 +24,7 @@ OnClipboardChange()
 	if(ToArray(Settings.Misc.IgnoredPrograms, "|").indexOf(owner))
 		return
 
-	if(WinActive("ahk_group ExplorerGroup") || WinActive("ahk_group DesktopGroup")|| IsDialog())
+	if(WinActive(("ahk_group ExplorerGroup") || WinActive("ahk_group DesktopGroup")|| IsDialog()) && !IsRenaming())
 		CreateFileFromClipboard()
 	else
 		ShowTip({Min : 1, Max : 2})
