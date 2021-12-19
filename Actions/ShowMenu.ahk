@@ -67,7 +67,7 @@ BuildMenu(Name)
 	if(Name = "Tray")
 	{
 		Menu, tray, NoStandard
-		Menu, tray, add, Settings, SettingsHandler  ; Creates a new menu item.
+		Menu, tray, add, Settings, ShowSettings  ; Creates a new menu item.
 		Menu, tray, Icon, Settings, % A_WinDir "\system32\shell32.dll", 166
 		menu, tray, Default, Settings
 	}

@@ -2,14 +2,11 @@
 {
 	return IsObject(SettingsWindow) && IsObject(SettingsWindow.Events) 
 }
-SettingsHandler:
-ShowSettings()
-return
 ShowSettings(Page = "Events")
 {
 	;Settings window is created in AutoExecute to save some time when this function is called the first time.
 	if(!IsObject(SettingsWindow))
-		SetTimer, SettingsHandler, -20
+		SetTimer, ShowSettings, -20
 	if(SettingsActive() && !Page)
 		return
 	SettingsWindow.Show(Page)
@@ -2381,11 +2378,6 @@ Finally, here are some settings that you're likely to change at the beginning:
 		return this.treePages.SelectedItem.Parent = this.treePages.Items[2] ? this.treePages.SelectedItem.Text : (DefaultToUncategorized ? "Uncategorized" : "")
 	}
 }
-
-;Called as timer by ApplyFastFolders to show quicker settings apply (even though it isn't in reality!)
-PrepareFolderBand:
-PrepareFolderBand()
-return
 
 Settings_EditEvent:
 SettingsWindow.EditEvent(0)

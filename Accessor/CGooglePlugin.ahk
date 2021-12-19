@@ -98,9 +98,6 @@ Class CGooglePlugin extends CAccessorPlugin
 }
 
 ;This function is not moved into the class because it seems possible that AHK can hang up when this function is called via SetTimerF().
-QueryGoogleResult:
-QueryGoogleResult()
-return
 QueryGoogleResult()
 {
 	outputdebug query google result

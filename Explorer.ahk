@@ -469,9 +469,6 @@ SetTimer, CheckFileDialogFolder, -200
 return
 #if
 
-CheckFileDialogFolder:
-CheckFileDialogFolder()
-return
 CheckFileDialogFolder()
 {
 	global ExplorerHistory

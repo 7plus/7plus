@@ -11,6 +11,8 @@ RegRevokePermissions(key)
 {
 	RunWait(Settings.DllPath "\SetACL.exe -on """ key """ -ot Reg -actn ace -ace ""n:S-1-5-32-545;p:full;s:y;i:so,sc;m:revoke;w:dacl""","","Hide")
 }
+
+;Called as timer by ApplyFastFolders to show quicker settings apply (even though it isn't in reality!)
 PrepareFolderBand()
 {
 	if(WinVer >= WIN_Vista && WinVer < WIN_8)

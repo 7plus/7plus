@@ -610,9 +610,6 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	}
 }
 
-UpdateLauncherPrograms:
-UpdateLauncherPrograms()
-return
 ;This function is periodically called and adds running programs to the ProgramLauncher cache
 UpdateLauncherPrograms()
 {

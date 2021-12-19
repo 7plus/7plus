@@ -1,37 +1,36 @@
 ;Called when clipboard changes, used for "Paste text/image as file" functionality and for clipboard manager
 ;To use the clipboard without triggering these features, set MuteClipboardList := true before writing to clipboard
-OnClipboardChange:
-if(!ApplicationState.ClipboardListenerRegistered)
-	OnClipboardChange()
-return
-
 OnClipboardChange()
 {
-	global MuteClipboardList, ClipboardList
-	RaiseEvent("ClipboardChange")
-	if(MuteClipboardList)
+	global MuteClipboardList, ClipboardList, ApplicationState
+	
+	if(!ApplicationState.ClipboardListenerRegistered)
 	{
-		FileAppend, %A_Now%: Clipboard changed to %Clipboard% but it's muted`n, %A_Temp%\7plus\Log.log
-		return
+		RaiseEvent("ClipboardChange")
+		if(MuteClipboardList)
+		{
+			FileAppend, %A_Now%: Clipboard changed to %Clipboard% but it's muted`n, %A_Temp%\7plus\Log.log
+			return
+		}
+
+		; Some programs can be ignored to protect privacy of passwords, ...
+		; Note: This fails in certain cases where AHK needs to temporarily use the clipboard while sensitive content is on it.
+		; An example is the GetSelectedText() function. It might be useful to try waiting in this function to skip the event
+		; which apparently doesn't work right now.
+		owner := GetProcessName(DllCall("GetClipboardOwner"))
+		outputdebug % "owner: " owner " index: " ToArray(Settings.Misc.IgnoredPrograms, "|").indexOf(owner)
+		if(ToArray(Settings.Misc.IgnoredPrograms, "|").indexOf(owner))
+			return
+
+		if(WinActive("ahk_group ExplorerGroup") || WinActive("ahk_group DesktopGroup")|| IsDialog())
+			CreateFileFromClipboard()
+		else
+			ShowTip({Min : 1, Max : 2})
+		text := ReadClipboardText()
+		FileAppend, %A_Now%: Clipboard changed to %text%`n, %A_Temp%\7plus\Log.log
+		if(text && IsObject(ClipboardList))
+			ClipboardList.Push(text)
 	}
-
-	; Some programs can be ignored to protect privacy of passwords, ...
-	; Note: This fails in certain cases where AHK needs to temporarily use the clipboard while sensitive content is on it.
-	; An example is the GetSelectedText() function. It might be useful to try waiting in this function to skip the event
-	; which apparently doesn't work right now.
-	owner := GetProcessName(DllCall("GetClipboardOwner"))
-	outputdebug % "owner: " owner " index: " ToArray(Settings.Misc.IgnoredPrograms, "|").indexOf(owner)
-	if(ToArray(Settings.Misc.IgnoredPrograms, "|").indexOf(owner))
-		return
-
-	if(WinActive("ahk_group ExplorerGroup") || WinActive("ahk_group DesktopGroup")|| IsDialog())
-		CreateFileFromClipboard()
-	else
-		ShowTip({Min : 1, Max : 2})
-	text := ReadClipboardText()
-	FileAppend, %A_Now%: Clipboard changed to %text%`n, %A_Temp%\7plus\Log.log
-	if(text && IsObject(ClipboardList))
-		ClipboardList.Push(text)
 	return
 }
 
@@ -282,9 +281,6 @@ EditClips:
 ShowSettings("Clipboard")
 return
 
-AddClip:
-AddClip()
-return
 AddClip(Text = "")
 {
 	iw := new CInputWindow("Enter name for clip:")

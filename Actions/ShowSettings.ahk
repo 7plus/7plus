@@ -9,7 +9,7 @@ Class CShowSettingsAction Extends CAction
 		if(WinExist("7plus Settings"))
 			WinActivate 7plus Settings
 		else
-			GoSub SettingsHandler ;ShowSettings shouldn't be called here directly because Settingshandler performs an additional check for FirstRun
+			ShowSettings()
 		return 1
 	}
 	DisplayString()

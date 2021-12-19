@@ -1,8 +1,4 @@
 ;Check screen borders/corners for Aero Flip 3D
-MouseMovePolling:
-MouseMovePolling()
-return
-
 MouseMovePolling()
 {
 	global SlideWindows

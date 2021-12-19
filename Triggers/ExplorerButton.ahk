@@ -60,9 +60,6 @@ Class CExplorerButtonTrigger Extends CTrigger
 			this.AddControl(GUI, "Text", "tmpText", "This trigger is only supported in Windows 7 and Vista", "", "")		
 	}
 }
-RemoveAllExplorerButtons:
-RemoveAllExplorerButtons()
-return
 IsExplorerButton(value, key, Event)
 {
 	if(!Event.Trigger.ShowSelected && InStr(key, "TasksItemsSelected"))

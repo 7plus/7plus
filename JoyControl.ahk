@@ -13,10 +13,6 @@ JoystickStop()
 }
 
 ;Called every second to enable/disable joystick remote control when fullscreen state changes
-FullscreenCheck:
-FullscreenCheck()
-return
-
 FullscreenCheck()
 {
 	static WasFullScreen := false
@@ -36,10 +32,6 @@ FullscreenCheck()
 }
 
 ;Main function which translates axes to mouse input
-CheckJoystick:
-CheckJoyStick()
-return
-
 CheckJoyStick()
 {
 	XAxis:=0
