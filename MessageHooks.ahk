@@ -8,10 +8,6 @@ HookProc(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEvent
 	ListLInes, On
 }
 
-ProcessMessageHookQueue:
-ProcessMessageHookQueue()
-Return
-
 ProcessMessageHookQueue()
 {
 	global ResizeWindow, SlideWindows, WindowList, MessageHookQueue
@@ -88,9 +84,6 @@ ProcessMessageHookQueue()
 	}
 	ListLines, On
 }
-ResizeWindowTooltip:
-ResizeWindowTooltip()
-return
 ResizeWindowTooltip(reset = false)
 {	
 	global ResizeWindow
@@ -121,10 +114,6 @@ ShellMessage( wParam, lParam, Msg)
 	if(!WasCritical)
 		Critical, Off
 }
-
-ProcessShellMessageQueue:
-ProcessShellMessageQueue()
-return
 
 ProcessShellMessageQueue()
 {
@@ -290,10 +279,6 @@ ProcessShellMessageQueue()
 ;Timer for clearing the list of recently received create/close events
 ClearRecentCreateCloseEvents:
 RecentCreateCloseEvents := Array()
-return
-
-UpdateWindowPosition:
-UpdateWindowPosition()
 return
 
 UpdateWindowPosition()
