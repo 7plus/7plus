@@ -105,6 +105,9 @@ FileAppend, %A_ScriptHwnd%, %A_Temp%\7plus\hwnd.txt
 
 ;Register a shell hook to get messages when windows get activated, closed etc
 outputdebug % "7plus window handle: " A_ScriptHwnd
+
+global ShellMessageQueue := new queue()
+global MessageHookQueue := new queue()
 DllCall("RegisterShellHookWindow", "Ptr", A_ScriptHwnd) 
 ApplicationState.ShellHookMessage := DllCall("RegisterWindowMessage", Str, "SHELLHOOK") 
 OnMessage(ApplicationState.ShellHookMessage, "ShellMessage") 
