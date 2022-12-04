@@ -1,3 +1,8 @@
+DPI(v)
+{
+	return v * A_ScreenDPI / 96
+}
+
 Class CAccessor
 {
 	;The GUI representing the Accessor
@@ -101,8 +106,8 @@ Class CAccessor
 	Class CButton
 	{
 		Text := ""
-		static ButtonSize := 35
-		static CornerRadius := 4
+		static ButtonSize := DPI(35)
+		static CornerRadius := DPI(4)
 		Load(json)
 		{
 		}
@@ -149,12 +154,12 @@ Class CAccessor
 		OnPathChange := new EventHandler()
 		Bitmap := 0
 
-		static ButtonSizeX := 35
-		static ButtonSizeY := 31
+		static ButtonSizeX := DPI(35)
+		static ButtonSizeY := DPI(31)
 
-		static ButtonIconSizeX := 18
-		static ButtonIconSizeY := 18
-		static ButtonIconOffset := 4
+		static ButtonIconSizeX := DPI(18)
+		static ButtonIconSizeY := DPI(18)
+		static ButtonIconOffset := DPI(4)
 
 		__new()
 		{
@@ -264,11 +269,11 @@ Class CAccessor
 
 		Bitmap := 0
 
-		static ButtonSizeX := 35
-		static ButtonSizeY := 35
-		static ButtonIconSizeX := 35
-		static ButtonIconSizeY := 23
-		static ButtonIconOffset := 2
+		static ButtonSizeX := DPI(35)
+		static ButtonSizeY := DPI(35)
+		static ButtonIconSizeX := DPI(35)
+		static ButtonIconSizeY := DPI(23)
+		static ButtonIconOffset := DPI(2)
 		__new()
 		{
 			if(!this.base.BackgroundInactive)
@@ -413,11 +418,11 @@ Class CAccessor
 		Draw(MouseOver = false)
 		{
 			global FastFolders
-			pButton := Gdip_CreateBitmap(this.ButtonSizeX, this.ButtonSizeY)
+			pButton := Gdip_CreateBitmap(DPI(this.ButtonSizeX), DPI(this.ButtonSizeY))
 			pGraphics := Gdip_GraphicsFromImage(pButton)
 
 			pBrush := Gdip_BrushCreateSolid(0xFF000000 | CAccessorGUI.BackgroundColor)
-			Gdip_FillRectangle(pGraphics, pBrush, 0, 0, this.ButtonSizeX, this.ButtonSizeY)
+			Gdip_FillRectangle(pGraphics, pBrush, 0, 0, DPI(this.ButtonSizeX), DPI(this.ButtonSizeY))
 			Gdip_DeleteBrush(pBrush)
 
 			Gdip_SetInterpolationMode(pGraphics, 7)
@@ -428,15 +433,15 @@ Class CAccessor
 			;Gdip_DeleteBrush(pBrush)
 
 			;this.DrawHeader(pGraphics, MouseOver)
-			Gdip_DrawImage(pGraphics, MouseOver && this.IsActive() ? this.BackgroundActive : this.BackgroundInactive, 0, 0, this.ButtonSizeX, this.ButtonSizeY)
+			Gdip_DrawImage(pGraphics, MouseOver && this.IsActive() ? this.BackgroundActive : this.BackgroundInactive, 0, 0, DPI(this.ButtonSizeX), DPI(this.ButtonSizeY))
 			if(FastFolders[this.Number].Path && this.Bitmap)
 				;Gdip_TextToGraphics(pGraphics, this.Number, "x8 y" this.ButtonIconOffset " Centre cFF000000 r4 s24 Regular", "Tahoma")
-				Gdip_DrawImage(pGraphics, this.Bitmap, this.ButtonSizeX / 2 - 8, this.ButtonSizeY / 2 - 12 + this.ButtonIconOffset, 16, 24)
+				Gdip_DrawImage(pGraphics, this.Bitmap, DPI(this.ButtonSizeX / 2 - 8), DPI(this.ButtonSizeY / 2 - 12 + this.ButtonIconOffset), DPI(16), DPI(24))
 			else
 			{
 				pPen := Gdip_CreatePen(0xFFC6C7C8, 2)
-				Gdip_DrawLine(pGraphics, pPen, Floor(this.ButtonSizeX / 2 - 5) - 0.5, Floor(this.ButtonSizeY / 2 + this.ButtonIconOffset) + 0.5, Floor(this.ButtonSizeX / 2 + 5) - 0.5, Floor(this.ButtonSizeY / 2 + this.ButtonIconOffset) + 0.5)
-				Gdip_DrawLine(pGraphics, pPen, Floor(this.ButtonSizeX / 2) - 0.5, Floor(this.ButtonSizeY / 2 - 5 + this.ButtonIconOffset) + 0.5, Floor(this.ButtonSizeX / 2) - 0.5, Floor(this.ButtonSizeY / 2 + 5 + this.ButtonIconOffset) + 0.5)
+				Gdip_DrawLine(pGraphics, pPen, DPI(Floor(this.ButtonSizeX / 2 - 5) - 0.5), DPI(Floor(this.ButtonSizeY / 2 + this.ButtonIconOffset) + 0.5), DPI(Floor(this.ButtonSizeX / 2 + 5) - 0.5), DPI(Floor(this.ButtonSizeY / 2 + this.ButtonIconOffset) + 0.5))
+				Gdip_DrawLine(pGraphics, pPen, DPI(Floor(this.ButtonSizeX / 2) - 0.5), DPI(Floor(this.ButtonSizeY / 2 - 5 + this.ButtonIconOffset) + 0.5), DPI(Floor(this.ButtonSizeX / 2) - 0.5), DPI(Floor(this.ButtonSizeY / 2 + 5 + this.ButtonIconOffset) + 0.5))
 				Gdip_DeletePen(pPen)
 			}
 
@@ -1485,9 +1490,10 @@ Class CAccessorGUI extends CGUI
 	ActionText := "Some Action"
 	__new(Accessor)
 	{
+		;DllCall("SetThreadDpiAwarenessContext", "ptr", -1, "ptr")
 		this.Color("CCCCCC", this.ControlBackgroundColor)
 		Gui, % this.GUINum ":Font", cBlack s11, Tahoma
-		this.Height := 600
+		this.Height := 600 ;* A_ScreenDPI / 96
 		this.EditControl := this.AddControl("Edit", "EditControl", "x54 -E0x200 w515 y20 h20 -Multi", "")
 		this.InputFieldEnd := this.AddControl("Picture", "InputFieldEnd", "x+0 yp+0 w111 h20 +0xE")
 		this.ExecuteButton := this.AddControl("Picture", "ExecuteButton", "x+5 yp+0 w35 h20 +0xE")
@@ -1496,7 +1502,7 @@ Class CAccessorGUI extends CGUI
 		this.DrawCloseButton()
 		Gui, % this.GUINum ":Font", cBlack s10, Tahoma
 		this.btnOK := this.AddControl("Button", "btnOK", "y10 x10 w75 Default hidden", "&OK")
-		this.ListView := this.AddControl("ListView", "ListView", "x39 y129 w683 h456 AltSubmit +LV0x100 +LV0x4000 -Multi NoSortHdr", "Title|Path| |")
+		this.ListView := this.AddControl("ListView", "ListView", "x39 y129 w682 h456 AltSubmit +LV0x100 +LV0x4000 -Multi NoSortHdr", "Title|Path| |")
 		this.lnkFooter := this.AddControl("Link", "lnkFooter", "x43 y+-1 w637 0x1 -TabStop", this.FooterText)
 		this.Footer := this.AddControl("Picture", "Footer", "x39 yp+0 w683 h20 +0xE")
 		;Use a 7plus image as background for the listview
@@ -1541,17 +1547,17 @@ Class CAccessorGUI extends CGUI
 			this.FastFolderButtons.Insert(ButtonControl)
 			ButtonX += this.ButtonOffsetX / 2
 		}
-		this.BackgroundFake := this.AddControl("Picture", "BackgroundFake", "x0 y0 w761 h131 +0xE +0x04000000")
+		this.BackgroundFake := this.AddControl("Picture", "BackgroundFake", "x0 y0 w" DPI(761) " h" DPI(131) " +0xE +0x04000000")
 		this.DrawBackground()
 		if(Accessor.Settings.OpenInMonitorOfMouseCursor)
 		{
 			Monitor := FindMonitorFromMouseCursor()
-			this.X := Monitor.Left + (Monitor.Right - Monitor.Left) / 2 - this.Width / 2
-			this.Y := Monitor.Top + (Monitor.Bottom - Monitor.Top) / 2 - this.Height / 2
+			this.X := Monitor.Left + (Monitor.Right - Monitor.Left) / 2 - DPI(this.Width / 2)
+			this.Y := Monitor.Top + (Monitor.Bottom - Monitor.Top) / 2 - DPI(this.Height / 2)
 		}
 		else
 		{
-			this.X := Round(A_ScreenWidth / 2 - this.Width / 2)
+			this.X := Round(A_ScreenWidth / 2 - DPI(this.Width / 2))
 			this.Y := 0
 		}
 		this.MinimizeBox := false
@@ -1568,13 +1574,16 @@ Class CAccessorGUI extends CGUI
 		this.ListView.ExStyle := "+0x00010000"
 		this.ListView.LargeIcons := Accessor.Settings.LargeIcons
 		;this.ListView.IndependentSorting := true
-		this.ListView.ModifyCol(1, Round(this.ListView.Width * 3 / 8)) ;Col_3_w) ; resize title column
-		this.ListView.ModifyCol(2, Round(this.ListView.Width * 3.3 / 8)) ; resize path column
-		this.ListView.ModifyCol(3, 100) ; resize detail1 column
+		lvw1 := Round(DPI(this.ListView.Width) * 3 / 8)
+		lvw2 := Round(DPI(this.ListView.Width) * 3.3 / 8)
+		lvw3 := DPI(this.ListView.Width) - lvw1 - lvw2
+		this.ListView.ModifyCol(1, lvw1) ;Col_3_w) ; resize title column
+		this.ListView.ModifyCol(2, lvw2) ; resize path column
+		this.ListView.ModifyCol(3, lvw3) ; resize detail1 column
 		;this.ListView.ModifyCol(4, 40) ; resize detail2 column
 		this.OnMessage(0x06, "WM_ACTIVATE")
 		;GuiControl, % this.GUINum ":+Redraw", % this.EditControl.hwnd
-		WinSet, Region, 0-0 762-0 762-130 723-130 723-625 40-625 40-130 0-130, % "ahk_id " this.hwnd
+		WinSet, Region, % "0-0 " DPI(762) "-0 " DPI(762) "-" DPI(130) " " DPI(722) "-" DPI(130) " " DPI(722) "-" DPI(625) " " DPI(40) "-" DPI(625) " " DPI(40) "-" DPI(130) " 0-" DPI(130), % "ahk_id " this.hwnd
 		SendMessage, 0x7, 0, 0,, % "ahk_id " this.ListView.hwnd ;Make the listview believe it has focus
 		;this.Redraw()
 		this.Width := 760
@@ -1632,10 +1641,10 @@ Class CAccessorGUI extends CGUI
 	SetListViewBackground()
 	{
 		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\128.png")
-		Width := Gdip_GetImageWidth(pBitmap)
-		Height := Gdip_GetImageHeight(pBitmap)
-		ListViewWidth := this.ListView.Width
-		ListViewHeight := this.ListView.Height
+		Width := DPI(Gdip_GetImageWidth(pBitmap))
+		Height := DPI(Gdip_GetImageHeight(pBitmap))
+		ListViewWidth := DPI(this.ListView.Width)
+		ListViewHeight := DPI(this.ListView.Height)
 		pLogo := Gdip_CreateBitmap(ListViewWidth, ListViewHeight)
 		pGraphics := Gdip_GraphicsFromImage(pLogo)
 		Gdip_SetInterpolationMode(pGraphics, 7)
@@ -1661,8 +1670,8 @@ Class CAccessorGUI extends CGUI
 			this.ExecuteButton.BitmapInactive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter.png")
 			this.ExecuteButton.BitmapActive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter_active.png")
 		}
-		Width := this.ExecuteButton.Width
-		Height := this.ExecuteButton.Height
+		Width := DPI(this.ExecuteButton.Width)
+		Height := DPI(this.ExecuteButton.Height)
 		pBitmap := Gdip_CreateBitmap(Width, Height)
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
 
@@ -1687,14 +1696,14 @@ Class CAccessorGUI extends CGUI
 		}
 		Width := this.CloseButton.Width
 		Height := this.CloseButton.Height
-		pBitmap := Gdip_CreateBitmap(Width, Height)
+		pBitmap := Gdip_CreateBitmap(DPI(Width), DPI(Height))
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
 
 		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, Width, Height)
+		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, DPI(Width), DPI(Height))
 		Gdip_DeleteBrush(pBrush)
 
-		Gdip_DrawImage(pGraphics, MouseOver ? this.CloseButton.BitmapActive : this.CloseButton.BitmapInactive, 0, 0, Width, Height)
+		Gdip_DrawImage(pGraphics, MouseOver ? this.CloseButton.BitmapActive : this.CloseButton.BitmapInactive, 0, 0, DPI(Width), DPI(Height))
 		
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pBitmap)
 		Gdip_DisposeImage(pBitmap)
@@ -1707,8 +1716,8 @@ Class CAccessorGUI extends CGUI
 		if(!this.InputFieldEnd.Bitmap)
 			this.InputFieldEnd.Bitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_end.png")
 
-		Width := this.InputFieldEnd.Width
-		Height := this.InputFieldEnd.Height
+		Width := DPI(this.InputFieldEnd.Width)
+		Height := DPI(this.InputFieldEnd.Height)
 		pBitmap := Gdip_CreateBitmap(Width, Height)
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
 
@@ -1717,7 +1726,7 @@ Class CAccessorGUI extends CGUI
 		Gdip_DeleteBrush(pBrush)
 
 		Gdip_DrawImage(pGraphics, this.InputFieldEnd.Bitmap, 0, 0, Width, Height)
-		Gdip_TextToGraphics(pGraphics, this.ActionText, "x" Width - 5 " Right y1 cFF999999 r4 s13 Regular", "Tahoma")
+		Gdip_TextToGraphics(pGraphics, this.ActionText, "x" Width - 5 " Right y1 cFF999999 r4 s" DPI(13) " Regular", "Tahoma")
 
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pBitmap)
 		Gdip_DisposeImage(pBitmap)
@@ -1727,15 +1736,15 @@ Class CAccessorGUI extends CGUI
 	}
 	DrawBackground()
 	{
-		pFake := Gdip_CreateBitmap(780, 130)
+		pFake := Gdip_CreateBitmap(DPI(780), DPI(130))
 		pGraphics := Gdip_GraphicsFromImage(pFake)
 
 		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, 780, 130)
+		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, DPI(780), DPI(130))
 		Gdip_DeleteBrush(pBrush)
 
 		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_start.png")
-		Gdip_DrawImage(pGraphics, pBitmap, 20, 8, 34, 39)
+		Gdip_DrawImage(pGraphics, pBitmap, DPI(20), DPI(8), DPI(35), DPI(39))
 
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pFake)
 		Gdip_DisposeImage(pBitmap)
@@ -1747,10 +1756,10 @@ Class CAccessorGUI extends CGUI
 	DrawFooter()
 	{
 		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\AccessorSettings.png")
-		Width := Gdip_GetImageWidth(pBitmap)
-		Height := Gdip_GetImageHeight(pBitmap)
-		FooterWidth := this.Footer.Width
-		FooterHeight := this.Footer.Height
+		Width := DPI(Gdip_GetImageWidth(pBitmap))
+		Height := DPI(Gdip_GetImageHeight(pBitmap))
+		FooterWidth := DPI(this.Footer.Width)
+		FooterHeight := DPI(this.Footer.Height)
 		pFooter := Gdip_CreateBitmap(FooterWidth, FooterHeight)
 		pGraphics := Gdip_GraphicsFromImage(pFooter)
 		Gdip_SetInterpolationMode(pGraphics, 7)
@@ -1805,12 +1814,12 @@ Class CAccessorGUI extends CGUI
 		if(CAccessor.Instance.Settings.OpenInMonitorOfMouseCursor)
 		{
 			Monitor := FindMonitorFromMouseCursor()
-			X := Round(Monitor.Left + (Monitor.Right - Monitor.Left) / 2 - this.Width / 2)
+			X := Round(Monitor.Left + (Monitor.Right - Monitor.Left) / 2 - DPI(this.Width / 2))
 			Y := Monitor.Top
 		}
 		else
 		{
-			X := Round(A_ScreenWidth / 2 - this.Width / 2)
+			X := Round(A_ScreenWidth / 2 - DPI(this.Width / 2))
 			Y := 0
 		}
 		Base.Show("w760 h604 x" x " y" y)
