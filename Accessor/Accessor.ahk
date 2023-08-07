@@ -1214,6 +1214,9 @@ Class CAccessor
 			Plugin := this.Plugins.GetItemWithValue("Type", ListEntry.Type)
 			if(Action && (IsFunc(Plugin[Action.Function]) || IsFunc(this[Action.Function])))
 			{
+				if(Action.Close && this.GUI)
+					this.GUI.Close()
+				
 				;Track the usage of this result for weighting
 				this.ResultUsageTracker.TrackResultUsage(ListEntry, Plugin.Instance)
 
@@ -1252,8 +1255,6 @@ Class CAccessor
 					else if(IsFunc(this[Action.Function]))
 						this[Action.Function](ListEntry, this.Plugins.GetItemWithValue("Type", ListEntry.Type), Action)
 				}
-				if(Action.Close && this.GUI)
-					this.GUI.Close()
 			}
 		}
 	}
