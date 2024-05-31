@@ -70,10 +70,12 @@ CreateFileFromClipboard()
 ;Read real text (=not filenames, when CF_HDROP is in clipboard) from clipboard
 ReadClipboardText()
 {
-	if((!A_IsUnicode && DllCall("IsClipboardFormatAvailable", "Uint", 1)) || (A_IsUnicode && DllCall("IsClipboardFormatAvailable", "Uint", 13))) ;CF_TEXT = 1 ;CF_UNICODETEXT = 13
+	static CF_TEXT := 1
+	static CF_UNICODETEXT := 13
+	if((!A_IsUnicode && DllCall("IsClipboardFormatAvailable", "Uint", CF_TEXT)) || (A_IsUnicode && DllCall("IsClipboardFormatAvailable", "Uint", CF_UNICODETEXT))) 
 	{
 		DllCall("OpenClipboard", "Ptr", 0)	
-		htext:=DllCall("GetClipboardData", "Uint", A_IsUnicode ? 13 : 1, "Ptr")
+		htext:=DllCall("GetClipboardData", "Uint", A_IsUnicode ? CF_UNICODETEXT : CF_TEXT, "Ptr")
 		ptext := DllCall("GlobalLock", "Ptr", htext)
 		text := StrGet(pText, A_IsUnicode ? "UTF-16" : "cp0")
 		DllCall("GlobalUnlock", "Ptr", htext)
