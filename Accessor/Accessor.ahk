@@ -1214,6 +1214,9 @@ Class CAccessor
 			Plugin := this.Plugins.GetItemWithValue("Type", ListEntry.Type)
 			if(Action && (IsFunc(Plugin[Action.Function]) || IsFunc(this[Action.Function])))
 			{
+				if(Action.Close && this.GUI)
+					this.GUI.Close()
+				
 				;Track the usage of this result for weighting
 				this.ResultUsageTracker.TrackResultUsage(ListEntry, Plugin.Instance)
 
@@ -1252,8 +1255,6 @@ Class CAccessor
 					else if(IsFunc(this[Action.Function]))
 						this[Action.Function](ListEntry, this.Plugins.GetItemWithValue("Type", ListEntry.Type), Action)
 				}
-				if(Action.Close && this.GUI)
-					this.GUI.Close()
 			}
 		}
 	}
@@ -1488,65 +1489,101 @@ Class CAccessorGUI extends CGUI
 	FooterPluginText := ""
 
 	ActionText := "Some Action"
+
 	__new(Accessor)
 	{
+		;Create brushes. These don't depend on anything else and can be cached
+		this.ListViewBitmapWidth := Gdip_GetImageWidth(this.pListViewBitmap)
+		this.ListViewBitmapHeight := Gdip_GetImageHeight(this.pListViewBitmap)
+		this.pWhiteBrush := Gdip_BrushCreateSolid(0xFFFFFFFF)
+		this.pExecuteButtonBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
+		this.pCloseButtonBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
+		this.pActionTextBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
+		this.pBackgroundBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
+		this.pFooterBrush1 := Gdip_BrushCreateSolid(0xFF828790)
+		this.pFooterBrush2 := Gdip_BrushCreateSolid(0xFFCCCCCC)
+		;Normally, they should be deleted. However, GUI is only instantiated once and not destroyed, so no repeated leak
+		;Gdip_DeleteBrush(this.pFooterBrush1)
+		;Gdip_DeleteBrush(this.pFooterBrush2)
+		;Gdip_DeleteBrush(this.pBackgroundBrush)
+		;Gdip_DeleteBrush(this.pActionTextBrush)
+		;Gdip_DeleteBrush(this.pCloseButtonBrush)
+		;Gdip_DeleteBrush(this.pExecuteButtonBrush)
+		;Gdip_DeleteBrush(this.pWhiteBrush)
+
+
 		;DllCall("SetThreadDpiAwarenessContext", "ptr", -1, "ptr")
 		this.Color("CCCCCC", this.ControlBackgroundColor)
 		Gui, % this.GUINum ":Font", cBlack s11, Tahoma
-		this.Height := 600 ;* A_ScreenDPI / 96
+		this.Height := 420 ;* A_ScreenDPI / 96
 		this.EditControl := this.AddControl("Edit", "EditControl", "x54 -E0x200 w515 y20 h20 -Multi", "")
 		this.InputFieldEnd := this.AddControl("Picture", "InputFieldEnd", "x+0 yp+0 w111 h20 +0xE")
 		this.ExecuteButton := this.AddControl("Picture", "ExecuteButton", "x+5 yp+0 w35 h20 +0xE")
-		this.DrawExecuteButton()
 		this.CloseButton := this.AddControl("Picture", "CloseButton", "x746 y5 w10 h9 +0xE")
-		this.DrawCloseButton()
 		Gui, % this.GUINum ":Font", cBlack s10, Tahoma
 		this.btnOK := this.AddControl("Button", "btnOK", "y10 x10 w75 Default hidden", "&OK")
-		this.ListView := this.AddControl("ListView", "ListView", "x39 y129 w682 h456 AltSubmit +LV0x100 +LV0x4000 -Multi NoSortHdr", "Title|Path| |")
+		this.ListView := this.AddControl("ListView", "ListView", "x39 y49 w682 h456 AltSubmit +LV0x100 +LV0x4000 -Multi NoSortHdr", "Title|Path| |")
 		this.lnkFooter := this.AddControl("Link", "lnkFooter", "x43 y+-1 w637 0x1 -TabStop", this.FooterText)
 		this.Footer := this.AddControl("Picture", "Footer", "x39 yp+0 w683 h20 +0xE")
+
+		this.pListViewBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\128.png")
+
+		this.ExecuteButton.BitmapInactive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter.png")
+		this.ExecuteButton.BitmapActive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter_active.png")
+
+		this.CloseButton.BitmapInactive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\close.png")
+		this.CloseButton.BitmapActive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\close_active.png")
+
+		this.InputFieldEnd.Bitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_end.png")
+		
+		this.pBackgroundBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_start.png")
+		
+		this.pFooterBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\AccessorSettings.png")
+
+		this.DrawCloseButton()
+		this.DrawExecuteButton()
 		;Use a 7plus image as background for the listview
 		this.SetListViewBackground()
 		
 		this.DrawFooter()
-		ButtonX := this.ButtonsX
-		ButtonY := this.ButtonsY
-		for index, Button in Accessor.QueryButtons
-		{
-			hBitmap := Button.Draw(false)
-			Button.OnBitmapChange.Handler := new Delegate(this, "OnQueryButtonBitmapChange")
-			ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" this.ButtonsY " w35 h35 +0xE", "")
-			ButtonControl.Click.Handler := new Delegate(this, "OnQueryButtonClick")
-			;ButtonControl.Tooltip := "F" index
-			ButtonControl.SetImageFromHBitmap(hBitmap)
-			this.QueryButtons.Insert(ButtonControl)
-			DeleteObject(hBitmap)
-			ButtonX += this.ButtonOffsetX
-		}
-		;Create buttons. They are drawn later in ResetGUI()
-		ButtonX := this.ButtonsX
-		ButtonY := this.ButtonsY + this.ButtonOffsetY
-		for index, Button in Accessor.ProgramButtons
-		{
-			Button.OnPathChange.Handler := new Delegate(this, "OnProgramButtonPathChange")
-			ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" ButtonY " w35 h31 +0xE", "")
-			ButtonControl.Click.Handler := new Delegate(this, "OnProgramButtonClick")
-			if(index <= 12)
-				ButtonControl.Tooltip := "Hotkey: WIN + F" index " (Everywhere)"
-			this.ProgramButtons.Insert(ButtonControl)
-			ButtonX += this.ButtonOffsetX
-		}
-		ButtonX := this.ButtonsX + 13 * this.ButtonOffsetX
-		ButtonY := this.ButtonsY
-		for index, Button in Accessor.FastFolderButtons
-		{
-			Button.OnFastFolderChange.Handler := new Delegate(this, "OnFastFolderChange")
-			ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" ButtonY " w16 h35 +0xE", "")
-			ButtonControl.Click.Handler := new Delegate(this, "OnFastFolderButtonClick")
-			ButtonControl.Tooltip := "Hotkey: Numpad" index - 1 " (In Accessor and navigatable windows like Explorer, File dialogs or CMD)"
-			this.FastFolderButtons.Insert(ButtonControl)
-			ButtonX += this.ButtonOffsetX / 2
-		}
+		;ButtonX := this.ButtonsX
+		;ButtonY := this.ButtonsY
+		;for index, Button in Accessor.QueryButtons
+		;{
+		;	hBitmap := Button.Draw(false)
+		;	Button.OnBitmapChange.Handler := new Delegate(this, "OnQueryButtonBitmapChange")
+		;	ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" this.ButtonsY " w35 h35 +0xE", "")
+		;	ButtonControl.Click.Handler := new Delegate(this, "OnQueryButtonClick")
+		;	;ButtonControl.Tooltip := "F" index
+		;	ButtonControl.SetImageFromHBitmap(hBitmap)
+		;	this.QueryButtons.Insert(ButtonControl)
+		;	DeleteObject(hBitmap)
+		;	ButtonX += this.ButtonOffsetX
+		;}
+		;;Create buttons. They are drawn later in ResetGUI()
+		;ButtonX := this.ButtonsX
+		;ButtonY := this.ButtonsY + this.ButtonOffsetY
+		;for index, Button in Accessor.ProgramButtons
+		;{
+		;	Button.OnPathChange.Handler := new Delegate(this, "OnProgramButtonPathChange")
+		;	ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" ButtonY " w35 h31 +0xE", "")
+		;	ButtonControl.Click.Handler := new Delegate(this, "OnProgramButtonClick")
+		;	if(index <= 12)
+		;		ButtonControl.Tooltip := "Hotkey: WIN + F" index " (Everywhere)"
+		;	this.ProgramButtons.Insert(ButtonControl)
+		;	ButtonX += this.ButtonOffsetX
+		;}
+		;ButtonX := this.ButtonsX + 13 * this.ButtonOffsetX
+		;ButtonY := this.ButtonsY
+		;for index, Button in Accessor.FastFolderButtons
+		;{
+		;	Button.OnFastFolderChange.Handler := new Delegate(this, "OnFastFolderChange")
+		;	ButtonControl := this.AddControl("Picture", "Button" A_Index, "x" ButtonX " y" ButtonY " w16 h35 +0xE", "")
+		;	ButtonControl.Click.Handler := new Delegate(this, "OnFastFolderButtonClick")
+		;	ButtonControl.Tooltip := "Hotkey: Numpad" index - 1 " (In Accessor and navigatable windows like Explorer, File dialogs or CMD)"
+		;	this.FastFolderButtons.Insert(ButtonControl)
+		;	ButtonX += this.ButtonOffsetX / 2
+		;}
 		this.BackgroundFake := this.AddControl("Picture", "BackgroundFake", "x0 y0 w" DPI(761) " h" DPI(131) " +0xE +0x04000000")
 		this.DrawBackground()
 		if(Accessor.Settings.OpenInMonitorOfMouseCursor)
@@ -1583,7 +1620,12 @@ Class CAccessorGUI extends CGUI
 		;this.ListView.ModifyCol(4, 40) ; resize detail2 column
 		this.OnMessage(0x06, "WM_ACTIVATE")
 		;GuiControl, % this.GUINum ":+Redraw", % this.EditControl.hwnd
-		WinSet, Region, % "0-0 " DPI(762) "-0 " DPI(762) "-" DPI(130) " " DPI(722) "-" DPI(130) " " DPI(722) "-" DPI(625) " " DPI(40) "-" DPI(625) " " DPI(40) "-" DPI(130) " 0-" DPI(130), % "ahk_id " this.hwnd
+		w1 := DPI(40)
+		w2 := DPI(722)
+		w3 := DPI(762)
+		h1 := DPI(130)
+		h2 := DPI(525)
+		WinSet, Region, % "0-0 " w3 "-0 " w3 "-" h1 " " w2 "-" h1 " " w2 "-" h2 " " w1 "-" h2 " " w1 "-" h1 " 0-" h1, % "ahk_id " this.hwnd
 		SendMessage, 0x7, 0, 0,, % "ahk_id " this.ListView.hwnd ;Make the listview believe it has focus
 		;this.Redraw()
 		this.Width := 760
@@ -1602,58 +1644,62 @@ Class CAccessorGUI extends CGUI
 		this.DrawCloseButton()
 		this.DrawExecuteButton()
 		this.ActiveControl := this.EditControl
-		for index, Button in this.QueryButtons
-		{
-			hBitmap := CAccessor.Instance.QueryButtons[index].Draw(false)
-			Button.SetImageFromHBitmap(hBitmap)
-			DeleteObject(hBitmap)
-		}
-
-		for index2, Button in this.ProgramButtons
-		{
-			hBitmap := CAccessor.Instance.ProgramButtons[index2].Draw(false)
-			Button.SetImageFromHBitmap(hBitmap)
-			DeleteObject(hBitmap)
-		}
-
-		for index3, Button in this.FastFolderButtons
-		{
-			hBitmap := CAccessor.Instance.FastFolderButtons[index3].Draw(false)
-			Button.SetImageFromHBitmap(hBitmap)
-			DeleteObject(hBitmap)
-		}
+		;for index, Button in this.QueryButtons
+		;{
+		;	hBitmap := CAccessor.Instance.QueryButtons[index].Draw(false)
+		;	Button.SetImageFromHBitmap(hBitmap)
+		;	DeleteObject(hBitmap)
+		;}
+;
+		;for index2, Button in this.ProgramButtons
+		;{
+		;	hBitmap := CAccessor.Instance.ProgramButtons[index2].Draw(false)
+		;	Button.SetImageFromHBitmap(hBitmap)
+		;	DeleteObject(hBitmap)
+		;}
+;
+		;for index3, Button in this.FastFolderButtons
+		;{
+		;	hBitmap := CAccessor.Instance.FastFolderButtons[index3].Draw(false)
+		;	Button.SetImageFromHBitmap(hBitmap)
+		;	DeleteObject(hBitmap)
+		;}
 	}
 	Cleanup()
 	{
-		if(this.ExecuteButton.BitmapInactive)
-			Gdip_DisposeImage(this.ExecuteButton.BitmapInactive)
-		if(this.ExecuteButton.BitmapActive)
-			Gdip_DisposeImage(this.ExecuteButton.BitmapActive)
+		;if(this.ExecuteButton.BitmapInactive)
+		;	Gdip_DisposeImage(this.ExecuteButton.BitmapInactive)
+		;if(this.ExecuteButton.BitmapActive)
+		;	Gdip_DisposeImage(this.ExecuteButton.BitmapActive)
 
-		if(this.CloseButton.BitmapInactive)
-			Gdip_DisposeImage(this.CloseButton.BitmapInactive)
-		if(this.CloseButton.BitmapActive)
-			Gdip_DisposeImage(this.CloseButton.BitmapActive)
+		;if(this.CloseButton.BitmapInactive)
+		;	Gdip_DisposeImage(this.CloseButton.BitmapInactive)
+		;if(this.CloseButton.BitmapActive)
+		;	Gdip_DisposeImage(this.CloseButton.BitmapActive)
 
-		if(this.InputFieldEnd.Bitmap)
-			Gdip_DisposeImage(this.InputFieldEnd.Bitmap)
+		;if(this.InputFieldEnd.Bitmap)
+		;	Gdip_DisposeImage(this.InputFieldEnd.Bitmap)
+
+		;if(this.pBackgroundBitmap)
+		;	Gdip_DisposeImage(this.pBackgroundBitmap)
+
+		;if(this.pFooterBitmap)
+		;	Gdip_DisposeImage(this.pFooterBitmap)
+		
+		;Gdip_DisposeImage(this.pListViewBitmap)
 	}
 	SetListViewBackground()
 	{
-		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\128.png")
-		Width := DPI(Gdip_GetImageWidth(pBitmap))
-		Height := DPI(Gdip_GetImageHeight(pBitmap))
+		Width := DPI(this.ListViewBitmapWidth)
+		Height := DPI(this.ListViewBitmapHeight)
 		ListViewWidth := DPI(this.ListView.Width)
 		ListViewHeight := DPI(this.ListView.Height)
 		pLogo := Gdip_CreateBitmap(ListViewWidth, ListViewHeight)
 		pGraphics := Gdip_GraphicsFromImage(pLogo)
 		Gdip_SetInterpolationMode(pGraphics, 7)
-		pBrush := Gdip_BrushCreateSolid(0xFFFFFFFF)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, ListViewWidth, ListViewHeight)
-		Gdip_DeleteBrush(pBrush)
-		Gdip_DrawImage(pGraphics, pBitmap, ListViewWidth / 2 - Width / 2, ListViewHeight / 2 - Height / 2, Width, Height, "", "", "", "", 0.25)
+		Gdip_FillRectangle(pGraphics, this.pWhiteBrush, 0, 0, ListViewWidth, ListViewHeight)
+		Gdip_DrawImage(pGraphics, this.pListViewBitmap, ListViewWidth / 2 - Width / 2, ListViewHeight / 2 - Height / 2, Width, Height, "", "", "", "", 0.25)
 		Gdip_DeleteGraphics(pGraphics)
-		Gdip_DisposeImage(pBitmap)
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pLogo)
 		Gdip_DisposeImage(pLogo)
 		VarSetCapacity(LVBKIMAGE, 12 + 3 * A_PtrSize, 0) ; <=== 32-bit
@@ -1665,19 +1711,12 @@ Class CAccessorGUI extends CGUI
 	}
 	DrawExecuteButton(MouseOver = false)
 	{
-		if(!this.ExecuteButton.BitmapInActive)
-		{
-			this.ExecuteButton.BitmapInactive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter.png")
-			this.ExecuteButton.BitmapActive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\enter_active.png")
-		}
 		Width := DPI(this.ExecuteButton.Width)
 		Height := DPI(this.ExecuteButton.Height)
 		pBitmap := Gdip_CreateBitmap(Width, Height)
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
 
-		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, Width, Height)
-		Gdip_DeleteBrush(pBrush)
+		Gdip_FillRectangle(pGraphics, this.pExecuteButtonBrush, 0, 0, Width, Height)
 
 		Gdip_DrawImage(pGraphics, MouseOver ? this.ExecuteButton.BitmapActive : this.ExecuteButton.BitmapInactive, 0, 0, Width, Height)
 		
@@ -1689,19 +1728,12 @@ Class CAccessorGUI extends CGUI
 	}
 	DrawCloseButton(MouseOver = false)
 	{
-		if(!this.CloseButton.BitmapInActive)
-		{
-			this.CloseButton.BitmapInactive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\close.png")
-			this.CloseButton.BitmapActive := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\close_active.png")
-		}
 		Width := this.CloseButton.Width
 		Height := this.CloseButton.Height
 		pBitmap := Gdip_CreateBitmap(DPI(Width), DPI(Height))
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
 
-		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, DPI(Width), DPI(Height))
-		Gdip_DeleteBrush(pBrush)
+		Gdip_FillRectangle(pGraphics, this.pCloseButtonBrush, 0, 0, DPI(Width), DPI(Height))
 
 		Gdip_DrawImage(pGraphics, MouseOver ? this.CloseButton.BitmapActive : this.CloseButton.BitmapInactive, 0, 0, DPI(Width), DPI(Height))
 		
@@ -1713,17 +1745,12 @@ Class CAccessorGUI extends CGUI
 	}
 	DrawActionText()
 	{
-		if(!this.InputFieldEnd.Bitmap)
-			this.InputFieldEnd.Bitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_end.png")
-
 		Width := DPI(this.InputFieldEnd.Width)
 		Height := DPI(this.InputFieldEnd.Height)
 		pBitmap := Gdip_CreateBitmap(Width, Height)
 		pGraphics := Gdip_GraphicsFromImage(pBitmap)
-
-		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, Width, Height)
-		Gdip_DeleteBrush(pBrush)
+		
+		Gdip_FillRectangle(pGraphics, this.pActionTextBrush, 0, 0, Width, Height)
 
 		Gdip_DrawImage(pGraphics, this.InputFieldEnd.Bitmap, 0, 0, Width, Height)
 		Gdip_TextToGraphics(pGraphics, this.ActionText, "x" Width - 5 " Right y1 cFF999999 r4 s" DPI(13) " Regular", "Tahoma")
@@ -1739,15 +1766,11 @@ Class CAccessorGUI extends CGUI
 		pFake := Gdip_CreateBitmap(DPI(780), DPI(130))
 		pGraphics := Gdip_GraphicsFromImage(pFake)
 
-		pBrush := Gdip_BrushCreateSolid(0xFF3E3D40)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, DPI(780), DPI(130))
-		Gdip_DeleteBrush(pBrush)
+		Gdip_FillRectangle(pGraphics, this.pBackgroundBrush, 0, 0, DPI(780), DPI(130))
 
-		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\inputfield_start.png")
-		Gdip_DrawImage(pGraphics, pBitmap, DPI(20), DPI(8), DPI(35), DPI(39))
+		Gdip_DrawImage(pGraphics, this.pBackgroundBitmap, DPI(20), DPI(8), DPI(35), DPI(39))
 
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pFake)
-		Gdip_DisposeImage(pBitmap)
 		Gdip_DisposeImage(pFake)
 		this.BackgroundFake.SetImageFromHBitmap(hBitmap)
 		DeleteObject(hBitmap)
@@ -1755,27 +1778,20 @@ Class CAccessorGUI extends CGUI
 	}
 	DrawFooter()
 	{
-		pBitmap := Gdip_CreateBitmapFromFile(A_ScriptDir "\Icons\AccessorSettings.png")
-		Width := DPI(Gdip_GetImageWidth(pBitmap))
-		Height := DPI(Gdip_GetImageHeight(pBitmap))
+		Width := DPI(Gdip_GetImageWidth(this.pFooterBitmap))
+		Height := DPI(Gdip_GetImageHeight(this.pFooterBitmap))
 		FooterWidth := DPI(this.Footer.Width)
 		FooterHeight := DPI(this.Footer.Height)
 		pFooter := Gdip_CreateBitmap(FooterWidth, FooterHeight)
 		pGraphics := Gdip_GraphicsFromImage(pFooter)
 		Gdip_SetInterpolationMode(pGraphics, 7)
 
-		pBrush := Gdip_BrushCreateSolid(0xFF828790)
-		Gdip_FillRectangle(pGraphics, pBrush, 0, 0, FooterWidth, FooterHeight)
-		Gdip_DeleteBrush(pBrush)
+		Gdip_FillRectangle(pGraphics, this.pFooterBrush1, 0, 0, FooterWidth, FooterHeight)
+		Gdip_FillRectangle(pGraphics, this.pFooterBrush2, 1, 0, FooterWidth - 2, FooterHeight)
 
-		pBrush := Gdip_BrushCreateSolid(0xFFCCCCCC)
-		Gdip_FillRectangle(pGraphics, pBrush, 1, 0, FooterWidth - 2, FooterHeight)
-		Gdip_DeleteBrush(pBrush)
-
-		Gdip_DrawImage(pGraphics, pBitmap, FooterWidth - Width, 0, Width, Height)
+		Gdip_DrawImage(pGraphics, this.pFooterBitmap, FooterWidth - Width, 0, Width, Height)
 		;Gdip_TextToGraphics(pGraphics, this.FooterText, "x4 y1 cFF000000 r4 s16 Regular", "Tahoma")
 		Gdip_DeleteGraphics(pGraphics)
-		Gdip_DisposeImage(pBitmap)
 		hBitmap := Gdip_CreateHBITMAPFromBitmap(pFooter)
 		this.Footer.SetImageFromHBitmap(hBitmap)
 		Gdip_DisposeImage(pFooter)
