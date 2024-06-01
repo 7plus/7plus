@@ -198,7 +198,7 @@ Run7plusAsAdmin()
 	If(uacrep = 42) ;UAC Prompt confirmed, application may run as admin
 		ExitApp
 	else
-		MsgBox 7plus is running in non-admin mode. Some features will not be working.
+		Notify("Missing permissions", "7plus is running in non-admin mode. Some features will not be working.", 10, NotifyIcons.Error)
 }
 
 ExitSub:
