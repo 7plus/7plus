@@ -1,3 +1,5 @@
+; THis is a registry for classes that represent navigateable windows,
+; such as explorer, console or file dialogs.
 Class Navigation
 {
 	static NavigationSources := Array()
@@ -118,8 +120,8 @@ Class CWinRarNavigationSource
 	static Type := Navigation.RegisterNavigationSource(CWinRarNavigationSource, "WinRar")
 	Processes(hwnd, class)
 	{
-		static WinRarTitle
-		if(class = "#32770" && WinRarTitle != "WinRar not found")
+		static WinRarTitle, skip := false
+		if(class = "#32770" && !skip)
 		{
 			if(WinRarTitle="")
 			{
@@ -135,9 +137,9 @@ Class CWinRarNavigationSource
 						}
 					}
 					if(!WinRarTitle)
-						WinRarTitle := "WinRar not found"
+						skip := true
 				}
-			}		
+			}
 			WinGetTitle, wintitle, ahk_id %hwnd%
 			if(WinRarTitle = wintitle)
 				return true
