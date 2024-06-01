@@ -35,7 +35,7 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	{
 		Path := ""
 		Extensions := "lnk,exe"
-		Actions := [{Action : "Run", Command : "${File}"}]
+		Actions := [{Action : "Run", cmd : "${File}"}]
 		UpdateOnStart := true
 		UpdateOnOpen := false
 		Exclude := "setup,install,unins,remove"
@@ -54,8 +54,8 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 						if(!json.Actions.MaxIndex())
 							json.Actions := [json.Actions]
 						for index, action in json.Actions
-							if(action.HasKey("Action") && action.HasKey("Command"))
-								this.Actions.Insert({Action : action.Action, Command : action.Command})
+							if(action.HasKey("Action") && action.HasKey("cmd"))
+								this.Actions.Insert({Action : action.Action, Command : action.cmd})
 					}
 				}
 			}
@@ -72,8 +72,8 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 				{
 					jsonPath.Actions := Array()
 					for index, action in value
-						if(action.HasKey("Action") && action.HasKey("Command"))
-							jsonPath.Actions.Insert({Action : action.Action, Command : action.Command})
+						if(action.HasKey("Action") && action.HasKey("cmd"))
+							jsonPath.Actions.Insert({Action : action.Action, cmd : action.Command})
 				}
 			}
 			json.Insert(jsonPath)
@@ -87,21 +87,22 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	{
 		args := ""
 		BasePath := ""
-		Command := ""
-		ResolvedName := ""
+		cmd := ""
+		Resolved := ""
 		Filename := ""
 
 		Load(json)
 		{
-			if(json.HasKey("Command"))
+			if(json.HasKey("cmd"))
 				for key, value in this
 					if(!IsFunc(value) && key != "Base" && json.HasKey(key))
 						this[key] := json[key]
-			if(!this.ResolvedName)
+			if(!this.Resolved)
 			{
-				Command := this.Command
-				SplitPath, command, ResolvedName
-				this.ResolvedName := Command
+				cmd := this.cmd
+				SplitPath, cmd, Resolved
+				;TODO: Shouldn't this set this.Resolved := Resolved maybe?
+				this.Resolved := cmd
 			}
 		}
 
@@ -366,10 +367,10 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 			MatchPos := 0
 			
 			;Match by name of the resolved filename
-			strippedResolvedName := this.Settings.IgnoreFileExtensions ? RegexReplace(ListEntry.ResolvedName, "\.\w+") : ListEntry.ResolvedName
+			strippedResolved := this.Settings.IgnoreFileExtensions ? RegexReplace(ListEntry.Resolved, "\.\w+") : ListEntry.Resolved
 			ResolvedMatch := 0
-			if(strippedResolvedName)
-				ResolvedMatch := FuzzySearch(strippedResolvedName, StrippedFilter, this.Settings.FuzzySearch)
+			if(strippedResolved)
+				ResolvedMatch := FuzzySearch(strippedResolved, StrippedFilter, this.Settings.FuzzySearch)
 			
 			;Match by filename
 			FilenameMatch := 0
@@ -380,9 +381,9 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 			if((Quality := max(ResolvedMatch - 0.1, FilenameMatch)) > Accessor.Settings.FuzzySearchThreshold)
 			{
 				if(!ListEntry.hIcon) ;Program launcher icons are cached lazy, only when needed
-					ListEntry.hIcon := ExtractAssociatedIcon(0, ListEntry.Command, iIndex)
+					ListEntry.hIcon := ExtractAssociatedIcon(0, ListEntry.cmd, iIndex)
 				
-				Name := ListEntry.Filename ? ListEntry.Filename : ListEntry.ResolvedName
+				Name := ListEntry.Filename ? ListEntry.Filename : ListEntry.Resolved
 				
 				;Create result
 				if(this.OpenWithActive)
@@ -390,7 +391,7 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 				else
 					result := new this.CResult(ListEntry.BasePath)
 				result.Title := Name
-				result.Path := ListEntry.Command
+				result.Path := ListEntry.cmd
 				result.args := ListEntry.args
 				result.icon := ListEntry.hIcon
 				result.MatchQuality := Quality
@@ -433,13 +434,13 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 	{
 		if(!ListEntry.Path)
 			return
-		if(!this.List.FindKeyWithValue("Command", ListEntry.Path))
+		if(!this.List.FindKeyWithValue("cmd", ListEntry.Path))
 		{
 			path := ListEntry.Path
 			SplitPath, path, Filename
 			IndexedFile := new this.CIndexedFile()
 			IndexedFile.Filename := Filename
-			IndexedFile.Command := path
+			IndexedFile.cmd := path
 			if(this.Settings.LoadIconsDirectly)
 				IndexedFile.hIcon := ExtractAssociatedIcon(0, path, iIndex)
 			this.List.Insert(IndexedFile)
@@ -497,10 +498,10 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 		{
 			jsonFile := new this.CIndexedFile()
 			jsonFile.Load(json)
-			if(!this.List.FindKeyWithValue("Command", jsonFile.Command))
+			if(!this.List.FindKeyWithValue("cmd", jsonFile.cmd))
 			{
 				if(this.Settings.LoadIconsDirectly)
-					jsonFile.hIcon := ExtractAssociatedIcon(0, jsonFile.Command, iIndex)
+					jsonFile.hIcon := ExtractAssociatedIcon(0, jsonFile.cmd, iIndex)
 				this.List.Insert(jsonFile)
 			}
 		}
@@ -576,7 +577,7 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 							if((!extList.Contains(ext) && !extList.Contains("*")))
 								continue
 							if(!args)
-								SplitPath, command, ResolvedName ;Filename
+								SplitPath, command, Resolved ;Filename
 						}
 					}
 					;Ignore empty commands and directories
@@ -589,17 +590,17 @@ Class CProgramLauncherPlugin extends CAccessorPlugin
 						if Filename not contains %exclude%
 						{
 							;Check for existing duplicates
-							if(!this.List.FindKeyWithValue("Command", command))
+							if(!this.List.FindKeyWithValue("cmd", command))
 							{
 								IndexedFile := new this.CIndexedFile()
-								IndexedFile.Command := Command
+								IndexedFile.cmd := Command
 								IndexedFile.args := args
 								IndexedFile.BasePath := BasePath
 								IndexedFile.Filename := Filename
 								if(this.Settings.LoadIconsDirectly)
 									IndexedFile.hIcon := ExtractAssociatedIcon(0, Command, iIndex)
-								if(ResolvedName)
-									IndexedFile.ResolvedName := ResolvedName
+								if(Resolved)
+									IndexedFile.Resolved := Resolved
 								this.List.Insert(IndexedFile)
 							}
 						}
@@ -620,7 +621,7 @@ UpdateLauncherPrograms()
 	{
 		if(Window.Path) ;Fails sometimes for some reason
 		{
-			if(!CProgramLauncherPlugin.Instance.List.GetItemWithValue("Command", Window.Path))
+			if(!CProgramLauncherPlugin.Instance.List.GetItemWithValue("cmd", Window.Path))
 			{
 				path := Window.Path
 				SplitPath, path, Filename
@@ -629,9 +630,9 @@ UpdateLauncherPrograms()
 				{
 					IndexedFile := new CProgramLauncherPlugin.CIndexedFile()
 					IndexedFile.Filename := Filename
-					IndexedFile.Command := Window.Path
+					IndexedFile.cmd := Window.Path
 					if(CProgramLauncherPlugin.Instance.Settings.LoadIconsDirectly)
-						IndexedFile.hIcon := ExtractAssociatedIcon(0, IndexedFile.Command, iIndex)
+						IndexedFile.hIcon := ExtractAssociatedIcon(0, IndexedFile.cmd, iIndex)
 					CProgramLauncherPlugin.Instance.List.Insert(IndexedFile)
 				}
 			}
@@ -676,7 +677,7 @@ Class CProgramLauncherPathEditorWindow extends CGUI
 		this.DestroyOnClose := true
 		this.CloseOnEscape := true
 		for index, item in IndexPathObject.Actions
-			this.listActions.Items.Add(index = 1 ? "Select" : "", item.Action, item.Command)
+			this.listActions.Items.Add(index = 1 ? "Select" : "", item.Action, item.cmd)
 		this.chkUpdateOnOpen.Checked := IndexPathObject.UpdateOnOpen
 		this.chkUpdateOnStart.Checked := IndexPathObject.UpdateOnStart
 		this.editExtensions.Text := IndexPathObject.Extensions
@@ -710,7 +711,7 @@ Class CProgramLauncherPathEditorWindow extends CGUI
 			}
 			if(!found)
 			{
-				IndexPathObject.Actions.Insert({Action : item.Text, Command : item[2]})
+				IndexPathObject.Actions.Insert({Action : item.Text, cmd : item[2]})
 				continue
 			}
 			Loop
@@ -729,7 +730,7 @@ Class CProgramLauncherPathEditorWindow extends CGUI
 					break
 			}
 			if(!found)
-				IndexPathObject.Actions.Insert({Action : item.Text "(" index3 ")", Command : item[2]})
+				IndexPathObject.Actions.Insert({Action : item.Text "(" index3 ")", cmd : item[2]})
 		}
 		this.Result := IndexPathObject
 		this.Close()

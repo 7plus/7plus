@@ -808,14 +808,9 @@ Class CAccessor
 		}
 
 		if(InitialQuery)
-		{
 			this.SetFilter(this.Filter)
-			this.RefreshList()
-		}
 
-		;Check if a plugin set a custom filter
-		if(!this.Filter)
-			this.RefreshList()
+		this.RefreshList()
 
 		return true
 	}
