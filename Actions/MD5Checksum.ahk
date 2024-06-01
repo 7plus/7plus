@@ -57,7 +57,6 @@ return
 MD5Dialog(Files) 
 {
 	static MD5ListView, l_GUI, sFiles
-	outputdebug files %files%
 	if(!IsObject(Files))
 		Files := ToArray(Files)
 	if(!(Files.MaxIndex() > 0))

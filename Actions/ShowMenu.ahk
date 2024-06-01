@@ -160,23 +160,28 @@ BuildMenu(Name)
 		{
 			for index, Entry in FastFolders
 			{
-				outputdebug % "path " Entry.Path
-				Menu, % "FastFolders_" Entry.Path, DeleteAll
-				Menu, % "FastFolders_" Entry.Path, Add, Paste, ClipboardMenu_DeepPasteHandler
-				Menu, % "FastFolders_" Entry.Path, Icon, Paste, % A_WinDir "\system32\shell32.dll", 2
-				Menu, % "FastFolders_" Entry.Path, Add, SetPath, ClipboardMenu_SetPathHandler
-				Menu, % "FastFolders_" Entry.Path, Icon, SetPath, % A_WinDir "\system32\shell32.dll", 4
+				if(Entry.Path)
+				{
+					Menu, % "FastFolders_" Entry.Path, DeleteAll
+					Menu, % "FastFolders_" Entry.Path, Add, Paste, ClipboardMenu_DeepPasteHandler
+					Menu, % "FastFolders_" Entry.Path, Icon, Paste, % A_WinDir "\system32\shell32.dll", 2
+					Menu, % "FastFolders_" Entry.Path, Add, SetPath, ClipboardMenu_SetPathHandler
+					Menu, % "FastFolders_" Entry.Path, Icon, SetPath, % A_WinDir "\system32\shell32.dll", 4
 
-				Menu, FastFoldersMenu, Add, % Entry.Path, % ":FastFolders_" Entry.Path
-				Menu, FastFoldersMenu, Icon, % Entry.Path, % A_WinDir "\system32\shell32.dll", 4
+					Menu, FastFoldersMenu, Add, % Entry.Path, % ":FastFolders_" Entry.Path
+					Menu, FastFoldersMenu, Icon, % Entry.Path, % A_WinDir "\system32\shell32.dll", 4
+				}
 			}
 		}
 		else
 		{
 			for index, Entry in FastFolders
 			{
-				Menu, FastFoldersMenu, add, % Entry.Path, ClipboardMenu_PasteHandler
-				Menu, FastFoldersMenu, Icon, % Entry.Path, % A_WinDir "\system32\shell32.dll", 4
+				if(Entry.Path)
+				{
+					Menu, FastFoldersMenu, add, % Entry.Path, ClipboardMenu_PasteHandler
+					Menu, FastFoldersMenu, Icon, % Entry.Path, % A_WinDir "\system32\shell32.dll", 4
+				}
 			}
 		}
 		Menu, ClipboardMenu, add, Fast Folders, :FastFoldersMenu
