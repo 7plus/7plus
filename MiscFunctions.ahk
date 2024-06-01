@@ -985,7 +985,7 @@ WriteAccess( F ) {
 }
 
 ;Generates MD5 value of a file
-FileMD5(sFile´= "", cSz = 4 )
+FileMD5(sFile= "", cSz = 4 )
 { ; www.autohotkey.com/forum/viewtopic.php?p=275910#275910 
 	cSz := (cSz < 0 || cSz > 8) ? 2 ** 22 : 2 ** (18 + cSz)
 	VarSetCapacity(Buffer, cSz, 0) 
