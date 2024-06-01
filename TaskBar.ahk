@@ -26,6 +26,8 @@ GetTaskbarDirection()
 
 IsMouseOverTaskList()
 {
+	if(!IsMouseOverTaskbar())
+		return false
 	CoordMode, Mouse, Screen
 	WinGetPos , X, Y, , , ahk_class Shell_TrayWnd
 	if(WinVer >= WIN_7)
@@ -37,31 +39,25 @@ IsMouseOverTaskList()
 	TaskListY += Y
 	MouseGetPos, x, y
 	z := GetTaskBarDirection()
-	if(z >= 1 && z <= 4)
-		return IsMouseOverTaskbar() && IsInArea(x, y, TaskListX, TaskListY, TaskListWidth, TaskListHeight)
-	return false
+	return z >= 1 && z <= 4 && IsInArea(x, y, TaskListX, TaskListY, TaskListWidth, TaskListHeight)
 }
 
 IsMouseOverTray()
 {
+	if(!IsMouseOverTaskbar())
+		return false
 	CoordMode, Mouse, Screen
 	MouseGetPos, x, y
 	ControlGetPos , TrayX, TrayX, TrayWidth, TrayHeight, ToolbarWindow321, ahk_class Shell_TrayWnd
 	z := GetTaskBarDirection()
-	if(z >= 1 && z <= 4)
-		return IsMouseOverTaskbar() && IsInArea(x, y, TrayX, TrayY, TrayWidth, TrayHeight)
-	return false
+	return z >= 1 && z <= 4 && IsInArea(x, y, TrayX, TrayY, TrayWidth, TrayHeight)
 }
 
 IsMouseOverClock()
 {
 	CoordMode, Mouse, Screen
 	MouseGetPos, , , , ControlUnderMouse
-	result := false
-	if(ControlUnderMouse = "TrayClockWClass1")
-		result := true
-	outputdebug IsMouseOverClock()? %result%
-	return result
+	return ControlUnderMouse = "TrayClockWClass1"
 }
 
 IsMouseOverShowDesktop()
@@ -129,35 +125,45 @@ IsMouseOverFreeTaskListSpace()
 }
 
 ;Middle click on taskbutton -> close task
+;returns true if not over a task button, false if successfully closed
 TaskButtonClose()
 {
 	if(IsMouseOverTaskList())
 	{
+		;Win10 shows a thumbnail we can look for to determine if mouse is over a task button
+		if(WinVer == WIN_10 && !WinExist("ahk_class TaskListThumbnailWnd"))
+			return true
 		click right
+
+		;Pre win7, can simply check for context menu
 		while(!IsContextMenuActive() && WinVer < WIN_7)
 			sleep 10
+		;Win7 and above, need to wait until window is slided out
 		if(WinVer >= WIN_7) ;wait until the menu has slided out
 		{
+			expected := WinVer < WIN_10 ? "DV2ControlHost" : "Windows.UI.Core.CoreWindow"
 			prevx := 0
 			prevy := 0
 			x := 1
 			y := 1
 			while(true)
 			{
-				if(IsContextMenuActive())
+				;This is probably a check for Win7, where right clicking on empty taskbar might produce a context menu
+				if(WinVer < WIN_10`&& IsContextMenuActive())
 				{
 					Send {Esc}
 					return true
 				}
-				if(WinActive("ahk_class DV2ControlHost"))
+				if(WinActive("ahk_class " expected))
 					break
 				Sleep 10
 			}
+			;Wait until slided out
 			while(prevx != x || prevy != y)
 			{
 				prevx := x
 				prevy := y
-				WinGetPos x, y, , , ahk_class DV2ControlHost
+				WinGetPos x, y, , , ahk_class %expected%
 				Sleep 10
 			}
 		}

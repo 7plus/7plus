@@ -6,6 +6,7 @@ Class CTaskButtonClose Extends CAction
 	
 	Execute(Event)
 	{
+		;This action prevents further actions from happening if a task is successfully closed.
 		return TaskButtonClose()
 	}
 	DisplayString()
