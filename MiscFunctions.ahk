@@ -2,6 +2,12 @@
 
 #include *i %A_ScriptDir%\lib\Array.ahk
 
+;Scale an unscaled coordinate according to DPI setting
+DPI(v)
+{
+	return v * A_ScreenDPI / 96
+}
+
 ;Gets a localized string from a resource file.
 ;usage example:
 ;x := TranslateMUI("shell32.dll",31236)

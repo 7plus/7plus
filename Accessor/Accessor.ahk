@@ -1,8 +1,3 @@
-DPI(v)
-{
-	return v * A_ScreenDPI / 96
-}
-
 Class CAccessor
 {
 	;The GUI representing the Accessor

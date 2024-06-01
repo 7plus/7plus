@@ -9,6 +9,8 @@ global WIN_XP64 := 5.2
 global WIN_VISTA := 6.0
 global WIN_7 := 6.1
 global WIN_8 := 6.2
+global WIN_10 := 10.0
+global WIN_11 := 11.0
 
 ;~ global Vista7 := IsVista7()
 ;~ global shell32MUIpath := "" ;Defined in Autoexecute.ahk
