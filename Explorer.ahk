@@ -366,7 +366,7 @@ InitExplorerWindows()
 	TabContainerList.InActiveHeightDifference := 2
 	TabContainerList.MinWidth := 40
 	ExplorerWindows.TabContainerList := TabContainerList
-	if(WinVer = WIN_7)
+	if(WinVer >= WIN_7)
 	{
 		ExplorerWindows.InfoGUI_FreeText := TranslateMUI(shell32MUIpath,12336) ;Aquire a translated version of "free"
 		ExplorerWindows.InfoGUI_FreeText := SubStr(ExplorerWindows.InfoGUI_FreeText, InStr(ExplorerWindows.InfoGUI_FreeText, " ", 0, 0) + 1)
@@ -442,7 +442,6 @@ Class CExplorerHistory extends CQueue
 	;Puts an item in the queue
 	Push(item)
 	{
-		outputdebug push
 		itemPosition := this.IndexOfEqual(item, 0, "Path")
 		if(!itemPosition)
 		{
@@ -712,7 +711,7 @@ ExplorerSelectionChanged(ExplorerCOMObject)
 	ExplorerWindows[index].Selection.History.Insert(Navigation.GetSelectedFilenames(ExplorerWindows[index].hwnd))
 	if(ExplorerWindows[index].Selection.History.MaxIndex() > 10)
 		ExplorerWindows[index].Selection.History.Delete(1)
-	if(WinVer = WIN_7)
+	if(WinVer >= WIN_7)
 		ExplorerWindows[index].InfoGUI.UpdateInfos(ExplorerWindows[index]) ;Update the info GUI to reflect selection change
 }
 
@@ -721,13 +720,13 @@ Class InfoGUI
 {
 	__New(hParent)
 	{
-		if(WinVer != WIN_7)
+		if(WinVer < WIN_7)
 			return 0
 		GuiNum := GetFreeGuiNum(1, this.__Class)
 		this.GuiNum := GuiNum
 		Gui, %GuiNum%: font, s9, Segoe UI 
-		Gui, %GuiNum%: Add, Text, x60 y0 w70 h12, %A_Space%
-		Gui, %GuiNum%: Add, Text, x0 y0 w60 h12, %A_Space%
+		Gui, %GuiNum%: Add, Text, x60 y0 w70 h24, %A_Space%
+		Gui, %GuiNum%: Add, Text, x0 y0 w60 h24, %A_Space%
 		Gui, %GuiNum%: -Caption  +LastFound +ToolWindow
 		Gui, %GuiNum%: Color, FFFFFF
 		Gui, %GuiNum%: +LastFound
@@ -743,7 +742,7 @@ Class InfoGUI
 	UpdateInfos(ExplorerWindow)
 	{
 		global ExplorerWindows
-		if(WinVer != WIN_7)
+		if(WinVer < WIN_7)
 			return
 		totalsize := 0
 		realfiles := false ;check if only folders are selected
@@ -769,13 +768,18 @@ Class InfoGUI
 	}
 	UpdateInfoPosition()
 	{
-		ControlGet, visible, visible, , msctls_statusbar321, % "ahk_id " this.hParent ;Check if status bar is visible
+		RegRead, visible, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced, ShowStatusBar
 		if(visible)
 		{
 			WinGetPos , X, Y, Width, Height, % "ahk_id " this.hParent
-			ControlGetPos , , cY, , cHeight, msctls_statusbar321, % "ahk_id " this.hParent
 			InfoX := X + Width - 370
-			InfoY := Round(Y + cY + cHeight / 2 - 6) ; +Height-26
+			if(WinVer <= WIN_7)
+			{
+				ControlGetPos , , cY, , cHeight, msctls_statusbar321, % "ahk_id " this.hParent
+				InfoY := Round(Y + cY + cHeight / 2 - 6) ; +Height-26
+			}
+			else
+				InfoY := Round(Y + Height - DPI(26))
 			if(Width > 540)
 				Gui, % this.GuiNum ":Show", AutoSize NA x%InfoX% y%InfoY%
 		}
@@ -795,7 +799,7 @@ Class CExplorerWindow
 		this.hWnd := hWnd
 		this.Path := Path ? Path : Navigation.GetPath(hWnd)
 		this.DisplayName := Navigation.GetDisplayName(hWnd)
-		if(WinVer = WIN_7)
+		if(WinVer >= WIN_7)
 			this.InfoGUI := new InfoGUI(hWnd)
 		this.Selection := Object()
 		this.RegisterSelectionChangedEvent()

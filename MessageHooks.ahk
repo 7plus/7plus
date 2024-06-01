@@ -17,8 +17,6 @@ ProcessMessageHookQueue()
 		message := MessageHookQueue.Pop()
 		event := message.event
 		hwnd := message.hwnd
-		idObject := message.idObject
-		idChild := message.idChild
 		hwnd += 0
 		;On dialog popup, check if its an explorer confirmation dialog
 		if(event = 0x00008002) ;EVENT_OBJECT_SHOW
@@ -27,11 +25,11 @@ ProcessMessageHookQueue()
 				FixExplorerConfirmationDialogs()
 			return
 		}
-		if idObject or idChild ;Doesn't each much time, skip for profiling
-			return
-		WinGet, style, Style, ahk_id %hwnd%
-		if (style & 0x40000000)	;return if hwnd is child window, for some reason idChild may be 0 for some children ?!?! ( I hate ms )
-			return
+		; if message.idObject or message.idChild ;Doesn't each much time, skip for profiling
+		; 	return
+		; WinGet, style, Style, ahk_id %hwnd%
+		; if (style & 0x40000000)	;return if hwnd is child window, for some reason idChild may be 0 for some children ?!?! ( I hate ms )
+		; 	return
 		if(event = 0x0016) ;EVENT_SYSTEM_MINIMIZEEND
 		{
 			Trigger := new CWindowStateChangeTrigger()
