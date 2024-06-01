@@ -1503,12 +1503,12 @@ GetSelectedText()
 	MuteClipboardList := true
 	clipboardbackup := clipboardall
 	clipboard := ""
-	WaitForEvent("ClipboardChange", 100)
+	WaitForEvent("ClipboardChange", 15)
 	Send ^c
-	WaitForEvent("ClipboardChange", 100)
+	WaitForEvent("ClipboardChange", 15)
 	result := clipboard
 	clipboard := clipboardbackup
-	WaitForEvent("ClipboardChange", 100)
+	WaitForEvent("ClipboardChange", 15)
 	MuteClipboardList := false
 	return result
 }
