@@ -118,6 +118,8 @@ ShellMessage( wParam, lParam, Msg)
 ProcessShellMessageQueue()
 {
 	global ShellMessageQueue, BlinkingWindows, WindowList, Accessor, RecentCreateCloseEvents, ToolWindows, ExplorerWindows, LastWindow, LastWindowClass, SlideWindows, CurrentWindow, PreviousWindow, ExplorerHistory
+	WasCritical := A_IsCritical
+	Critical
 	ListLines, Off
 	while(ShellMessageQueue.size() > 0)
 	{
@@ -274,6 +276,8 @@ ProcessShellMessageQueue()
 		}
 	}
 	ListLines, On
+	if(!WasCritical)
+		Critical, Off
 }
 
 ;Timer for clearing the list of recently received create/close events
