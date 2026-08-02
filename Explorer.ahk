@@ -643,7 +643,6 @@ ExplorerPathChanged(ExplorerWindow)
 		if(!ExplorerWindow)
 			return
 	}
-	outputdebug path change
 	OldPath := ExplorerWindow.Path
 	ExplorerWindow.RegisterSelectionChangedEvent() ;This will also refresh the path in ExplorerWindow
 	Path := ExplorerWindow.Path
@@ -651,7 +650,7 @@ ExplorerPathChanged(ExplorerWindow)
 		return
 	ExplorerWindow.DisplayName := Navigation.GetDisplayName(ExplorerWindow.hwnd)
 	
-	outputdebug change from %oldpath% to %path%
+	outputdebug change from %OldPath% to %Path%
 	Entry := RichObject()
 	Entry.Path := Path
 	Entry.Usage := 0

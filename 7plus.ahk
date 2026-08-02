@@ -57,6 +57,8 @@ StartupTime := A_TickCount
 #include <ObjectTools>
 #include <winclipapi>
 #include <winclip>
+#include <UIA_Interface>
+#include <ExplorerActiveTab>
 
 #include %A_ScriptDir%\CApplicationState.ahk
 #include %A_ScriptDir%\CSettings.ahk

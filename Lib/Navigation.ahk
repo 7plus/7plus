@@ -576,9 +576,9 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-					return Window.Document.Folder.Self.path
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+				return Window.Document.Folder.Self.path
 		}
 		catch e
 		{
@@ -590,9 +590,9 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-					return Window.Document.Folder.Self.Name
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+				return Window.Document.Folder.Self.Name
 		}
 		catch e
 		{
@@ -609,17 +609,17 @@ Class CExplorerNavigationSource
 			SetTimerF("ExplorerPathChanged", -100)
 		}
 		else
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				try
 				{
-					try
-					{
-						Window.Navigate2[Path]
-						SetTimerF("ExplorerPathChanged", -100)
-					}
-					catch e
-						outputdebug Error setting Explorer Path to %Path%!
+					Window.Navigate2[Path]
+					SetTimerF("ExplorerPathChanged", -100)
 				}
+				catch e
+					outputdebug Error setting Explorer Path to %Path%!
+			}
 	}
 
 	GetSelectedFilepaths(hwnd)
@@ -627,13 +627,13 @@ Class CExplorerNavigationSource
 		Files := Array()
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-				{
-					doc := Window.Document
-					Loop % doc.SelectedItems.Count
-						Files.Insert(doc.selectedItems.item(A_Index-1).Path)
-				}
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				doc := Window.Document
+				Loop % doc.SelectedItems.Count
+					Files.Insert(doc.selectedItems.item(A_Index-1).Path)
+			}
 		}
 		catch e
 			outputdebug Error getting selected filepaths in Explorer!
@@ -645,13 +645,13 @@ Class CExplorerNavigationSource
 		Files := Array()
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-				{
-					doc := Window.Document
-					Loop % doc.SelectedItems.Count
-						Files.Insert(doc.selectedItems.item(A_Index-1).Name)
-				}
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				doc := Window.Document
+				Loop % doc.SelectedItems.Count
+					Files.Insert(doc.selectedItems.item(A_Index-1).Name)
+			}
 		}
 		catch e
 			outputdebug Error getting selected filenames in Explorer!
@@ -662,9 +662,9 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-					return Window.Document.FocusedItem.Path
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+				return Window.Document.FocusedItem.Path
 		}
 		catch e
 			outputdebug Error getting focused filepath in Explorer!
@@ -674,9 +674,9 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-					return Window.Document.FocusedItem.Name
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+				return Window.Document.FocusedItem.Name
 		}
 		catch e
 			outputdebug Error getting focused filename in Explorer!
@@ -686,67 +686,65 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
 			{
-				if (Window.hwnd = hWnd)
+				doc := Window.Document
+				value := true
+				value1 := 25 
+				count := doc.Folder.Items.Count
+				if(count > 0)
 				{
-					doc := Window.Document
-					value := true
-					value1 := 25 
-					count := doc.Folder.Items.Count
-					if(count > 0)
-					{
-						item := doc.Folder.Items.Item(0)
-						doc.SelectItem(item,4)
-						doc.SelectItem(item,0)
-					}
-					items := Array()
-					itemnames := Array()
-					Loop % count
-					{
-						index := A_Index
-						;the commands in this loop fail sometimes so we try multiple times until it works
-						Loop 1000 ;Maximum wait: 10 seconds, should suffice even under heavy load
-						{
-							item := doc.Folder.Items.Item(index - 1)
-							itemname := item.Name
-							if(itemname)
-								break
-							Sleep 10
-						}
-						items.Insert(item)	
-						itemnames.Insert(itemname)
-					}
-					Loop % Files.MaxIndex()
-					{
-						index := A_Index
-						filter := Files[A_Index]
-						If(filter)
-						{
-							SplitPath, filter, filter ;Make sure only names are used
-							If(InStr(filter, "*"))
-							{
-								filter := "\Q" StringReplace(filter, "*", "\E.*\Q", 1) "\E"
-								filter := strTrim(filter,"\Q\E")
-								Loop % items.MaxIndex()
-									if(RegexMatch(itemnames[A_Index],"i)" filter))
-									{
-										doc.SelectItem(items[A_Index], index=1 ? 25 : 1) ;1 (Select) + 16 (Focus) + 8 (MakeVisible)
-										index++
-									}
-							}
-							else
-								Loop % items.MaxIndex()
-									if(itemnames[A_Index] = filter)
-									{
-										doc.SelectItem(items[A_Index], index=1 ? 25 : 1)
-										index++
-										break
-									}
-						}
-					}
-					return 1
+					item := doc.Folder.Items.Item(0)
+					doc.SelectItem(item,4)
+					doc.SelectItem(item,0)
 				}
+				items := Array()
+				itemnames := Array()
+				Loop % count
+				{
+					index := A_Index
+					;the commands in this loop fail sometimes so we try multiple times until it works
+					Loop 1000 ;Maximum wait: 10 seconds, should suffice even under heavy load
+					{
+						item := doc.Folder.Items.Item(index - 1)
+						itemname := item.Name
+						if(itemname)
+							break
+						Sleep 10
+					}
+					items.Insert(item)	
+					itemnames.Insert(itemname)
+				}
+				Loop % Files.MaxIndex()
+				{
+					index := A_Index
+					filter := Files[A_Index]
+					If(filter)
+					{
+						SplitPath, filter, filter ;Make sure only names are used
+						If(InStr(filter, "*"))
+						{
+							filter := "\Q" StringReplace(filter, "*", "\E.*\Q", 1) "\E"
+							filter := strTrim(filter,"\Q\E")
+							Loop % items.MaxIndex()
+								if(RegexMatch(itemnames[A_Index],"i)" filter))
+								{
+									doc.SelectItem(items[A_Index], index=1 ? 25 : 1) ;1 (Select) + 16 (Focus) + 8 (MakeVisible)
+									index++
+								}
+						}
+						else
+							Loop % items.MaxIndex()
+								if(itemnames[A_Index] = filter)
+								{
+									doc.SelectItem(items[A_Index], index=1 ? 25 : 1)
+									index++
+									break
+								}
+					}
+				}
+				return 1
 			}
 		}
 		catch e
@@ -758,13 +756,13 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-				{
-					Window.GoBack()
-					SetTimerF("ExplorerPathChanged", -100)
-					return
-				}
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				Window.GoBack()
+				SetTimerF("ExplorerPathChanged", -100)
+				return
+			}
 		}
 		catch e
 			outputdebug Error navigating backward in Explorer!
@@ -774,13 +772,13 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-				{
-					Window.GoForward()
-					SetTimerF("ExplorerPathChanged", -100)
-					return
-				}
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				Window.GoForward()
+				SetTimerF("ExplorerPathChanged", -100)
+				return
+			}
 		}
 		catch e
 			outputdebug Error navigating forward in Explorer!
@@ -800,12 +798,12 @@ Class CExplorerNavigationSource
 	{
 		try
 		{
-			for Window in ComObjCreate("Shell.Application").Windows
-				if(Window.hwnd = hwnd)
-				{
-					Window.Refresh()
-					return
-				}
+			Window := ResolveActiveExplorerWindow(hwnd)
+			if(Window != 0)
+			{
+				Window.Refresh()
+				return
+			}
 		}
 		catch e
 			outputdebug Error refreshing Explorer!
